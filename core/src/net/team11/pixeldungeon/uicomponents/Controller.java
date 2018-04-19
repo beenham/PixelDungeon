@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.components;
+package net.team11.pixeldungeon.uicomponents;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,18 +16,16 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.team11.pixeldungeon.PixelDungeon;
 
 public class Controller {
-    Viewport viewport;
-    Stage stage;
-    boolean upPressed, downPressed, leftPressed, rightPressed;
-    OrthographicCamera cam;
+    private Viewport viewport;
+    private Stage stage;
+    private boolean upPressed, downPressed, leftPressed, rightPressed;
 
     public Controller(SpriteBatch batch){
-        cam = new OrthographicCamera();
+        OrthographicCamera cam = new OrthographicCamera();
         viewport = new FitViewport(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT, cam);
         stage = new Stage(viewport, batch);
 
         stage.addListener(new InputListener(){
-
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 switch(keycode){
@@ -71,15 +69,14 @@ public class Controller {
 
         Table table = new Table();
         table.left().bottom();
-        Texture texture = new Texture("flatDark25.png");
+        Texture texture = new Texture("ui/up.png");
         int width = texture.getWidth()*3, height = texture.getHeight()*3;
-        Image upImg = new Image(new Texture("flatDark25.png"));
+        Image upImg = new Image(new Texture("ui/up.png"));
         upImg.setSize(width, height);
         upImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("UP PRESSED");
                 upPressed = true;
                 return true;
             }
@@ -90,13 +87,11 @@ public class Controller {
             }
         });
 
-        Image downImg = new Image(new Texture("flatDark26.png"));
+        Image downImg = new Image(new Texture("ui/down.png"));
         downImg.setSize(width, height);
         downImg.addListener(new InputListener() {
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("DOWN PRESSED");
                 downPressed = true;
                 return true;
             }
@@ -107,13 +102,11 @@ public class Controller {
             }
         });
 
-        Image rightImg = new Image(new Texture("flatDark24.png"));
+        Image rightImg = new Image(new Texture("ui/right.png"));
         rightImg.setSize(width, height);
         rightImg.addListener(new InputListener() {
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("RIGHT PRESSED");
                 rightPressed = true;
                 return true;
             }
@@ -124,13 +117,11 @@ public class Controller {
             }
         });
 
-        Image leftImg = new Image(new Texture("flatDark23.png"));
+        Image leftImg = new Image(new Texture("ui/left.png"));
         leftImg.setSize(width, height);
         leftImg.addListener(new InputListener() {
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("LEFT PRESSED");
                 leftPressed = true;
                 return true;
             }

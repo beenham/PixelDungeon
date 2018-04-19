@@ -20,8 +20,6 @@ public class AndroidLauncher extends AndroidApplication {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		//pixelDungeon.receiveTouch(event);
 		return true;
-		//return super.onTouchEvent(event);
 	}
 }
