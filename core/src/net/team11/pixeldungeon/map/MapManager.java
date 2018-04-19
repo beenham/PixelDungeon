@@ -3,33 +3,27 @@ package net.team11.pixeldungeon.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.team11.pixeldungeon.options.TiledMapLayers;
+import net.team11.pixeldungeon.options.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class MapManager {
-    private List<Map> maps = new ArrayList<Map>();
+    private HashMap<String, Map> maps = new HashMap<>();
     private Map currentMap = null;
     private OrthogonalTiledMapRenderer renderer;
 
     private MapManager() {
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
-            maps.add(new Map(entry.toString()));
+            Map map = new Map(entry.toString());
+            maps.put(map.getMapName(), map);
         }
 
-        loadMap(maps.get(0));
-
+        loadMap(TiledMapNames.LEVEL_0_0);
         renderer = new OrthogonalTiledMapRenderer(currentMap.getMap());
         renderer.setView(PlayScreen.gameCam);
     }
@@ -50,10 +44,14 @@ public class MapManager {
         renderer.render(new int[]{TiledMapLayers.DECOR_LAYER});
     }
 
-    private void loadMap(Map map) {
-        currentMap = map;
+    public void loadMap(String mapName) {
+        if (maps.containsKey(mapName)) {
+            currentMap = maps.get(mapName);
+            if (renderer != null) {
+                renderer.setMap(currentMap.getMap());
+            }
+        }
     }
-
 
     /////////////////////////////
     //   Getters and Setters   //

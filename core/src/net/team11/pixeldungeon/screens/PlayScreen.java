@@ -78,7 +78,7 @@ public class PlayScreen implements Screen {
     private void setupPlayer() {
         engine.addEntity(player = new Player());
         PositionComponent positionComponent = this.player.getComponent(PositionComponent.class);
-        TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject("entity", "playerSpawn");
+        TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject("points", "playerSpawn");
         positionComponent.setY(mapObject.getY());
         positionComponent.setX(mapObject.getX());
     }

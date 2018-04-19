@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.entity.system;
 
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -80,7 +81,6 @@ public class VelocitySystem extends EntitySystem {
         VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
         List<TiledMapTileLayer> layers = new ArrayList<>();
         layers.add((TiledMapTileLayer) mapManager.getCurrentMap().getMap().getLayers().get("walls"));
-
         for (TiledMapTileLayer layer : layers) {
             float rectangleMiddleX = entityRectangle.x + 16;
             float rectangleMiddleY = entityRectangle.y + 16;
@@ -110,6 +110,19 @@ public class VelocitySystem extends EntitySystem {
                     if (entityRectangle.overlaps(cellRec)) {
                         return true;
                     }
+                }
+
+
+                try {
+                    TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject("points", "layerExitPoint");
+                    Rectangle collison = new Rectangle(mapObject.getX(), mapObject.getY(), mapObject.getTextureRegion().getRegionWidth(), mapObject.getTextureRegion().getRegionHeight());
+                    if (entityRectangle.overlaps(collison)) {
+                        if (mapObject.getProperties().containsKey("map")) {
+                            mapManager.loadMap((String) mapObject.getProperties().get("map"));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
