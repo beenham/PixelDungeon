@@ -33,6 +33,7 @@ public class Player extends Entity {
         animationComponent.addAnimation(AnimationName.PLAYER_LEFT, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AnimationName.PLAYER_DOWN);
         int width = animationComponent.getAnimationList().get(AnimationName.PLAYER_LEFT).getKeyFrame(0).getRegionWidth();
-        this.addComponent(new BodyComponent(width, 8));
+        System.out.println("WIDTH : " + width);
+        this.addComponent(new BodyComponent(width-3, 8));
     }
 }

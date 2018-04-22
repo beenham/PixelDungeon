@@ -5,11 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
@@ -19,6 +23,9 @@ import net.team11.pixeldungeon.entity.system.PlayerMovementSystem;
 import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.options.TiledMapLayers;
+import net.team11.pixeldungeon.options.TiledMapObjectNames;
+import net.team11.pixeldungeon.options.TiledMapProperties;
 import net.team11.pixeldungeon.uicomponents.Controller;
 import net.team11.pixeldungeon.map.MapManager;
 
@@ -42,6 +49,7 @@ public class PlayScreen implements Screen {
         setupViewport();
         setupEngine();
         setupPlayer();
+        setupEntities();
         engine.resume();
     }
 
@@ -78,9 +86,26 @@ public class PlayScreen implements Screen {
     private void setupPlayer() {
         engine.addEntity(player = new Player());
         PositionComponent positionComponent = this.player.getComponent(PositionComponent.class);
-        TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject("points", "playerSpawn");
+        TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.SPAWN_POINT);
         positionComponent.setY(mapObject.getY());
         positionComponent.setX(mapObject.getX());
+    }
+
+    private void setupEntities() {
+        MapObjects mapObjects = mapManager.getCurrentMap().getObjects(TiledMapLayers.DOOR_LAYER);
+        for (MapObject mapObject : mapObjects) {
+            if (mapObject.getName().equals(TiledMapObjectNames.DOOR)) {
+                RectangleMapObject door = (RectangleMapObject) mapObject;
+                if (door.getProperties().containsKey(TiledMapProperties.DOOR_LOCKED)) {
+                    boolean locked = (boolean) door.getProperties().get(TiledMapProperties.DOOR_LOCKED);
+                    engine.addEntity(new Door(door.getRectangle(), locked, door.getName()));
+                }
+            }
+            if (mapObject.getName().equals(TiledMapObjectNames.DOOR_PILLAR)) {
+                RectangleMapObject door = (RectangleMapObject) mapObject;
+                engine.addEntity(new Door(door.getRectangle(), true, door.getName()));
+            }
+        }
     }
 
     private void handleInput(float deltaTime){

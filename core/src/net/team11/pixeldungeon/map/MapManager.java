@@ -30,18 +30,22 @@ public class MapManager {
 
     public void renderBackGround() {
         renderer.setView(PlayScreen.gameCam);
-        renderer.render(new int[]{TiledMapLayers.BACKGROUND_LAYER});
+        int[] layers = {currentMap.getMap().getLayers().getIndex(TiledMapLayers.BACKGROUND_LAYER)};
+        renderer.render(layers);
     }
 
     public void renderEnvironment() {
         renderer.setView(PlayScreen.gameCam);
-        renderer.render(new int[]{TiledMapLayers.FLOOR_LAYER});
-        renderer.render(new int[]{TiledMapLayers.WALL_LAYER});
+        int[] layers = {currentMap.getMap().getLayers().getIndex(TiledMapLayers.FLOOR_LAYER),
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALL_LAYER)};
+        renderer.render(layers);
     }
 
     public void renderDecor() {
         renderer.setView(PlayScreen.gameCam);
-        renderer.render(new int[]{TiledMapLayers.DECOR_LAYER});
+        int[] layers = {currentMap.getMap().getLayers().getIndex(TiledMapLayers.DECOR_LAYER)};
+
+        renderer.render(layers);
     }
 
     public void loadMap(String mapName) {

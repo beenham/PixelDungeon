@@ -4,13 +4,18 @@ import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
+import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.options.TiledMapLayers;
+import net.team11.pixeldungeon.options.TiledMapObjectNames;
+import net.team11.pixeldungeon.options.TiledMapProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,7 @@ import java.util.List;
 public class VelocitySystem extends EntitySystem {
 
     private List<Entity> entities = new ArrayList<>();
+    private List<Entity> doors = new ArrayList<>();
     private MapManager mapManager;
 
     private enum Axis {
@@ -28,6 +34,7 @@ public class VelocitySystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         entities = entityEngine.getEntities(PositionComponent.class, VelocityComponent.class);
+        doors = entityEngine.getEntities(DoorComponent.class);
         mapManager = MapManager.getInstance();
     }
 
@@ -112,17 +119,32 @@ public class VelocitySystem extends EntitySystem {
                     }
                 }
 
-
                 try {
-                    TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject("points", "layerExitPoint");
+                    TextureMapObject mapObject = mapManager.getCurrentMap().getTextureObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
                     Rectangle collison = new Rectangle(mapObject.getX(), mapObject.getY(), mapObject.getTextureRegion().getRegionWidth(), mapObject.getTextureRegion().getRegionHeight());
                     if (entityRectangle.overlaps(collison)) {
-                        if (mapObject.getProperties().containsKey("map")) {
-                            mapManager.loadMap((String) mapObject.getProperties().get("map"));
+                        if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
+
+                            for (Entity entity1 : doors) {
+                                Door door = (Door) entity1;
+                                if (door.isLocked() && door.getDoorType().equals(TiledMapObjectNames.DOOR)) {
+                                    door.setLocked(false);
+                                }
+                            }
+                            mapManager.loadMap((String) mapObject.getProperties().get(TiledMapProperties.MAP));
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+
+                for (Entity entity1 : doors) {
+                    Door door = (Door) entity1;
+                    if (door.isLocked()) {
+                        if (entityRectangle.overlaps(door.getBounds())) {
+                            return true;
+                        }
+                    }
                 }
             }
         }

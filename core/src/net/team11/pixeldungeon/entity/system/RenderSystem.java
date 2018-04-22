@@ -1,11 +1,14 @@
 package net.team11.pixeldungeon.entity.system;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
+import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
@@ -25,6 +28,8 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch spriteBatch;
     private List<Entity> entities = new ArrayList<>();
     private MapManager mapManager;
+
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public RenderSystem(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
@@ -46,6 +51,7 @@ public class RenderSystem extends EntitySystem {
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
             PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
             VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
+            BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
 
             animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
             Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
@@ -53,7 +59,7 @@ public class RenderSystem extends EntitySystem {
             int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
             spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                    positionComponent.getX() - width/2 - 2,
+                    positionComponent.getX() - width/2 - 4,
                     positionComponent.getY(),
                     width,
                     height);

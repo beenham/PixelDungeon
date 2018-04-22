@@ -23,7 +23,7 @@ public class AnimationComponent implements EntityComponent {
     }
 
     public void addAnimation(String animationName, TextureAtlas textureAtlas, float frameDuration, Animation.PlayMode playMode) {
-        animationList.put(animationName, new Animation<>(frameDuration, textureAtlas.findRegions(animationName),
+        animationList.put(animationName, new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions(animationName),
                 playMode));
     }
 
