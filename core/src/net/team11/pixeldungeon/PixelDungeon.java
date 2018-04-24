@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.team11.pixeldungeon.options.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
 
 public class PixelDungeon extends Game {
@@ -16,7 +17,7 @@ public class PixelDungeon extends Game {
 		batch = new SpriteBatch();
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();
-		setScreen(new PlayScreen(this));
+		setScreen(new PlayScreen(this, TiledMapNames.LEVEL_0_0));
 	}
 
 	@Override

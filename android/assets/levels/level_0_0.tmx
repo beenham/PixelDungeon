@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="2017.05.26" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" nextobjectid="24">
+<map version="2017.05.26" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" nextobjectid="28">
  <tileset firstgid="1" name="PixelDungeon" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tilesets/PixelDungeonTileset.png" width="256" height="256"/>
  </tileset>
@@ -127,20 +127,29 @@
 </data>
  </layer>
  <objectgroup name="doors">
-  <object id="17" name="door" x="531" y="96" width="26" height="16">
+  <object id="17" name="door_1" x="531" y="96" width="26" height="16">
    <properties>
+    <property name="doorType" value="door"/>
     <property name="locked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="21" name="doorPillar" x="528" y="96" width="3" height="16"/>
-  <object id="23" name="doorPillar" x="557" y="96" width="3" height="16"/>
+  <object id="21" name="doorPillar_1" x="528" y="96" width="3" height="16">
+   <properties>
+    <property name="doorType" value="doorPillar"/>
+   </properties>
+  </object>
+  <object id="23" name="doorPillar_1" x="557" y="96" width="3" height="16">
+   <properties>
+    <property name="doorType" value="doorPillar"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="points">
-  <object id="7" name="playerSpawn" gid="146" x="256" y="80" width="16" height="16"/>
-  <object id="9" name="layerExitPoint" gid="133" x="400.5" y="229.5" width="31" height="19.25">
+  <object id="25" name="layerExitPoint" x="400" y="216" width="32" height="16">
    <properties>
     <property name="map" value="level_0_B1"/>
    </properties>
   </object>
+  <object id="27" name="playerSpawn" x="256" y="96" width="16" height="16"/>
  </objectgroup>
 </map>

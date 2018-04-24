@@ -1,6 +1,5 @@
 package net.team11.pixeldungeon.map;
 
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
@@ -27,6 +26,11 @@ public class Map {
 
     public TextureMapObject getTextureObject(String layer, String objectName) {
         return (TextureMapObject) map.getLayers().get(layer).getObjects().get(objectName);
+    }
+
+
+    public RectangleMapObject getRectangleObject (String layer, String objectName) {
+        return (RectangleMapObject) map.getLayers().get(layer).getObjects().get(objectName);
     }
 
     public void setLoaded(boolean loaded) {
