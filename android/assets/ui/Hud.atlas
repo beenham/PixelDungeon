@@ -1,0 +1,48 @@
+
+Hud.png
+size: 128,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+downButton
+  rotate: false
+  xy: 59, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+interactButton
+  rotate: false
+  xy: 97, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+leftButton
+  rotate: false
+  xy: 2, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+pauseButton
+  rotate: false
+  xy: 78, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+rightButton
+  rotate: false
+  xy: 21, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+upButton
+  rotate: false
+  xy: 40, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1

@@ -30,11 +30,9 @@ public class HealthSystem extends EntitySystem {
             HealthComponent healthComponent = entity.getComponent(HealthComponent.class);
             //System.out.println(healthComponent.getPlayerHealth());
 
-            if (healthComponent.getHealth() <= 0) {
-                //todo: check if player. If so then do die sequence
-                //todo: else
-                //todo: remove entity
-            }
+            if (healthComponent.getHealth() <= 0)
+                continue;
+
         }
     }
 

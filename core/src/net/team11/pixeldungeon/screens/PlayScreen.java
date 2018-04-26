@@ -19,6 +19,7 @@ import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.system.AnimationSystem;
 import net.team11.pixeldungeon.entity.system.CameraSystem;
+import net.team11.pixeldungeon.entity.system.InteractionSystem;
 import net.team11.pixeldungeon.entity.system.PlayerMovementSystem;
 import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
@@ -80,6 +81,7 @@ public class PlayScreen implements Screen {
         engine.addSystem(new AnimationSystem());
         engine.addSystem(new VelocitySystem());
         engine.addSystem(new CameraSystem());
+        engine.addSystem(new InteractionSystem());
 
         mapManager.setEngine(engine);
         playerMovementSystem.setController(controller);

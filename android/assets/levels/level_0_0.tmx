@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="2017.05.26" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" nextobjectid="28">
+<map version="2017.05.26" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" nextobjectid="31">
  <tileset firstgid="1" name="PixelDungeon" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tilesets/PixelDungeonTileset.png" width="256" height="256"/>
  </tileset>
@@ -102,7 +102,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,192,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,270,271,272,273,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,281,282,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -126,6 +126,20 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="blocks">
+  <object id="29" name="chest_1" x="536" y="72" width="16" height="8">
+   <properties>
+    <property name="entity" value="chest"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="30" name="chest_2" x="243.333" y="96.3333" width="16" height="8">
+   <properties>
+    <property name="entity" value="chest"/>
+    <property name="opened" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="doors">
   <object id="17" name="door_1" x="531" y="96" width="26" height="16">
    <properties>
@@ -150,6 +164,6 @@
     <property name="map" value="level_0_B1"/>
    </properties>
   </object>
-  <object id="27" name="playerSpawn" x="256" y="96" width="16" height="16"/>
+  <object id="27" name="playerSpawn" x="304" y="112" width="16" height="16"/>
  </objectgroup>
 </map>

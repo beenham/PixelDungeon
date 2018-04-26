@@ -33,4 +33,8 @@ public class Entity {
         }
         return null;
     }
+
+    public void doInteraction() {
+
+    }
 }

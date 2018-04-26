@@ -5,11 +5,13 @@ import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
+import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorFrameComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
@@ -26,6 +28,7 @@ import java.util.List;
 public class VelocitySystem extends EntitySystem {
 
     private List<Entity> entities = new ArrayList<>();
+    private List<Entity> chests = new ArrayList<>();
     private List<Entity> doors = new ArrayList<>();
     private List<Entity> doorFrames = new ArrayList<>();
     private MapManager mapManager;
@@ -40,6 +43,7 @@ public class VelocitySystem extends EntitySystem {
         entities = entityEngine.getEntities(PositionComponent.class, VelocityComponent.class);
         doors = entityEngine.getEntities(DoorComponent.class);
         doorFrames = entityEngine.getEntities(DoorFrameComponent.class);
+        chests = entityEngine.getEntities(ChestComponent.class);
         mapManager = MapManager.getInstance();
     }
 
@@ -133,35 +137,6 @@ public class VelocitySystem extends EntitySystem {
                                 }
                             }
                             mapManager.loadMap((String) mapObject.getProperties().get(TiledMapProperties.MAP));
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
-                            System.out.println("COLLIDING");
                         }
                     }
                 } catch (Exception e) {
@@ -181,9 +156,15 @@ public class VelocitySystem extends EntitySystem {
                         return true;
                     }
                 }
+
+                for (Entity entity1 : chests) {
+                    Chest chest = (Chest) entity1;
+                    if (entityRectangle.overlaps(chest.getBounds())) {
+                        return true;
+                    }
+                }
             }
         }
-
         return false;
     }
 }

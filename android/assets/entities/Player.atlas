@@ -1,34 +1,230 @@
 
 Player.png
-size: 128,32
+size: 256,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-play_down
-  rotate: false
-  xy: 21, 2
-  size: 17, 23
-  orig: 17, 23
-  offset: 0, 0
-  index: 0
-play_left
-  rotate: false
-  xy: 59, 2
-  size: 17, 23
-  orig: 17, 23
-  offset: 0, 0
-  index: 0
-play_right
-  rotate: false
-  xy: 40, 2
-  size: 17, 23
-  orig: 17, 23
-  offset: 0, 0
-  index: 0
-play_up
+playerIdleDown
   rotate: false
   xy: 2, 2
-  size: 17, 23
-  orig: 17, 23
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+playerMoveDown
+  rotate: false
+  xy: 2, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerMoveDown
+  rotate: false
+  xy: 2, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 3
+playerIdleRight
+  rotate: false
+  xy: 21, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+playerMoveRight
+  rotate: false
+  xy: 21, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerMoveRight
+  rotate: false
+  xy: 21, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 3
+playerInteractDown
+  rotate: false
+  xy: 40, 2
+  size: 17, 25
+  orig: 17, 25
   offset: 0, 0
   index: 0
+playerInteractDown
+  rotate: false
+  xy: 59, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerInteractDown
+  rotate: false
+  xy: 78, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerInteractLeft
+  rotate: false
+  xy: 97, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerInteractLeft
+  rotate: false
+  xy: 116, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerInteractLeft
+  rotate: false
+  xy: 135, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerInteractRight
+  rotate: false
+  xy: 154, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerInteractRight
+  rotate: false
+  xy: 173, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerInteractRight
+  rotate: false
+  xy: 192, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerInteractUp
+  rotate: false
+  xy: 211, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerInteractUp
+  rotate: false
+  xy: 230, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerInteractUp
+  rotate: false
+  xy: 2, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerMoveDown
+  rotate: false
+  xy: 21, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerMoveDown
+  rotate: false
+  xy: 40, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerMoveLeft
+  rotate: false
+  xy: 59, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerMoveLeft
+  rotate: false
+  xy: 78, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1
+playerIdleLeft
+  rotate: false
+  xy: 78, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+playerMoveLeft
+  rotate: false
+  xy: 78, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 3
+playerMoveLeft
+  rotate: false
+  xy: 97, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerMoveRight
+  rotate: false
+  xy: 116, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerMoveRight
+  rotate: false
+  xy: 135, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerMoveUp
+  rotate: false
+  xy: 154, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 0
+playerMoveUp
+  rotate: false
+  xy: 173, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 2
+playerMoveUp
+  rotate: false
+  xy: 192, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 3
+playerIdleUp
+  rotate: false
+  xy: 192, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+playerMoveUp
+  rotate: false
+  xy: 192, 29
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: 1

@@ -3,22 +3,25 @@ package net.team11.pixeldungeon.uicomponents;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.entity.animation.AnimationName;
 
 public class Controller {
     private Viewport viewport;
     private Stage stage;
     private boolean upPressed, downPressed, leftPressed, rightPressed;
+    private boolean interactPressed, pausePressed;
 
     public Controller(SpriteBatch batch){
         OrthographicCamera cam = new OrthographicCamera();
@@ -67,18 +70,16 @@ public class Controller {
 
         Gdx.input.setInputProcessor(stage);
 
-        Table table = new Table();
-        table.left().bottom();
-        Texture texture = new Texture("ui/up.png");
-        int width = texture.getWidth()*3, height = texture.getHeight()*3;
-        Image upImg = new Image(new Texture("ui/up.png"));
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("ui/Hud.atlas"));
+        Image texture = new Image(textureAtlas.findRegion(AnimationName.UP_BUTTON));
+        float width = texture.getWidth()*14, height = texture.getHeight()*14;
+
+        Image upImg = new Image(textureAtlas.findRegion(AnimationName.UP_BUTTON));
         upImg.setSize(width, height);
         upImg.addListener(new InputListener() {
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                upPressed = true;
-                return true;
+                return upPressed = true;
             }
 
             @Override
@@ -87,13 +88,12 @@ public class Controller {
             }
         });
 
-        Image downImg = new Image(new Texture("ui/down.png"));
+        Image downImg = new Image(textureAtlas.findRegion(AnimationName.DOWN_BUTTON));
         downImg.setSize(width, height);
         downImg.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                downPressed = true;
-                return true;
+                return downPressed = true;
             }
 
             @Override
@@ -102,13 +102,12 @@ public class Controller {
             }
         });
 
-        Image rightImg = new Image(new Texture("ui/right.png"));
+        Image rightImg = new Image(textureAtlas.findRegion(AnimationName.RIGHT_BUTTON));
         rightImg.setSize(width, height);
         rightImg.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = true;
-                return true;
+                return rightPressed = true;
             }
 
             @Override
@@ -117,13 +116,12 @@ public class Controller {
             }
         });
 
-        Image leftImg = new Image(new Texture("ui/left.png"));
+        Image leftImg = new Image(textureAtlas.findRegion(AnimationName.LEFT_BUTTON));
         leftImg.setSize(width, height);
         leftImg.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = true;
-                return true;
+                return leftPressed = true;
             }
 
             @Override
@@ -132,20 +130,70 @@ public class Controller {
             }
         });
 
-        table.add();
-        table.add(upImg).size(upImg.getWidth(), upImg.getHeight());
-        table.add();
-        table.row().pad(5, 5, 5, 5);
-        table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
-        table.add();
-        table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-        table.row().padBottom(5);
-        table.add();
-        table.add(downImg).size(downImg.getWidth(), downImg.getHeight());
-        table.add();
-        table.setDebug(true);
+        Image interactImg = new Image(textureAtlas.findRegion(AnimationName.INTERACT_BUTTON));
+        interactImg.setSize(width,height);
+        interactImg.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return interactPressed = true;
+            }
 
-        stage.addActor(table);
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                interactPressed = false;
+            }
+        });
+
+        Image pauseImg = new Image(textureAtlas.findRegion(AnimationName.PAUSE_BUTTON));
+        pauseImg.setSize(width,height);
+        pauseImg.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return pausePressed = true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                pausePressed = false;
+            }
+        });
+
+        //
+        //  INTERACTION TABLE
+        //
+        Table interactionTable = new Table();
+        interactionTable.setPosition(PixelDungeon.V_WIDTH,0);
+        interactionTable.right().padRight(width/4).bottom().padBottom(height/4);
+        interactionTable.add(interactImg).size(width,height);
+        interactionTable.row();
+        interactionTable.setDebug(true);
+
+        Table pauseTable = new Table();
+        pauseTable.setPosition(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
+        pauseTable.right().padRight(width/4).top().padTop(height/4);
+        pauseTable.add(pauseImg).size(width,height);
+        pauseTable.setDebug(true);
+
+
+        Table controllerTable = new Table();
+        controllerTable.left().padLeft(width/4).bottom().padBottom(height/4);
+        controllerTable.add();
+        controllerTable.add(upImg).size(upImg.getWidth(), upImg.getHeight());
+        controllerTable.add();
+        controllerTable.row().pad(5, 5, 5, 5);
+        controllerTable.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        controllerTable.add();
+        controllerTable.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
+        controllerTable.row().padBottom(5);
+        controllerTable.add();
+        controllerTable.add(downImg).size(downImg.getWidth(), downImg.getHeight());
+        controllerTable.add();
+        controllerTable.setDebug(true);
+
+
+        stage.addActor(controllerTable);
+        stage.addActor(interactionTable);
+        stage.addActor(pauseTable);
     }
 
     public void draw(){
@@ -166,6 +214,14 @@ public class Controller {
 
     public boolean isRightPressed() {
         return rightPressed;
+    }
+
+    public boolean isInteractPressed() {
+        return interactPressed;
+    }
+
+    public boolean isPausePressed() {
+        return pausePressed;
     }
 
     public void resize(int width, int height){

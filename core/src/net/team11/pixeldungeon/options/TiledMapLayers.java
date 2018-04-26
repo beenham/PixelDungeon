@@ -1,6 +1,7 @@
 package net.team11.pixeldungeon.options;
 
 public class TiledMapLayers {
+    public static final String BLOCKS_LAYER = "blocks";
     public static final String DOOR_LAYER = "doors";
     public static final String POINTS_LAYER = "points";
 
