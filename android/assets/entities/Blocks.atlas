@@ -1,20 +1,48 @@
 
 Blocks.png
-size: 64,32
+size: 64,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+box
+  rotate: false
+  xy: 18, 30
+  size: 16, 21
+  orig: 16, 21
+  offset: 0, 0
+  index: 0
 chestClosed
   rotate: false
-  xy: 20, 2
+  xy: 2, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 chestOpened
   rotate: false
-  xy: 2, 2
+  xy: 36, 35
   size: 16, 16
   orig: 16, 16
+  offset: 0, 0
+  index: 0
+doorFrameLeft
+  rotate: false
+  xy: 59, 35
+  size: 3, 16
+  orig: 3, 16
+  offset: 0, 0
+  index: 0
+doorFrameRight
+  rotate: false
+  xy: 54, 35
+  size: 3, 16
+  orig: 3, 16
+  offset: 0, 0
+  index: 0
+pillar
+  rotate: false
+  xy: 2, 20
+  size: 14, 31
+  orig: 14, 31
   offset: 0, 0
   index: 0

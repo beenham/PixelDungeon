@@ -8,7 +8,9 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import net.team11.pixeldungeon.entities.blocks.Box;
 import net.team11.pixeldungeon.entities.blocks.Chest;
+import net.team11.pixeldungeon.entities.blocks.Pillar;
 import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
@@ -71,29 +73,27 @@ public class MapManager {
         }
     }
 
-    public void setupEntities() {
+    private void setupEntities() {
         currentMap.setLoaded(true);
 
-        MapObjects mapObjects = currentMap.getObjects(TiledMapLayers.DOOR_LAYER);
-        for (MapObject mapObject : mapObjects) {
-            RectangleMapObject object = (RectangleMapObject) mapObject;
-            String type = (String) object.getProperties().get(TiledMapProperties.DOOR_TYPE);
-            if (type.equals(TiledMapObjectNames.DOOR)) {
-                if (object.getProperties().containsKey(TiledMapProperties.DOOR_LOCKED)) {
-                    boolean locked = (boolean) object.getProperties().get(TiledMapProperties.DOOR_LOCKED);
-                    engine.addEntity(new Door(object.getRectangle(), locked, object.getName()));
-                } else {
-                    System.err.println("DOOR: " + object.getName() + " was not setup correctly!");
-                }
-            } else if (type.equals(TiledMapObjectNames.DOOR_PILLAR)) {
-                engine.addEntity(new DoorFrame(object.getRectangle(), object.getName()));
-            }
+        MapObjects mapObjects = currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER);
+        MapObjects doorObjects = currentMap.getObjects(TiledMapLayers.DOOR_LAYER);
+        for (MapObject object : doorObjects) {
+            mapObjects.add(object);
         }
-        mapObjects = currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER);
+
         for (MapObject mapObject : mapObjects) {
             RectangleMapObject object = (RectangleMapObject) mapObject;
             String type = (String) object.getProperties().get(TiledMapProperties.ENTITY_TYPE);
             switch (type) {
+                case TiledMapObjectNames.BOX:
+                    if (object.getProperties().containsKey(TiledMapProperties.BOX_PUSHABLE)) {
+                        boolean pushable = (boolean) object.getProperties().get(TiledMapProperties.BOX_PUSHABLE);
+                        engine.addEntity(new Box(object.getRectangle(), pushable, object.getName()));
+                    } else {
+                        System.err.println("BOX: " + object.getName() + " was not setup correctly!");
+                    }
+                    break;
                 case TiledMapObjectNames.CHEST:
                     if (object.getProperties().containsKey(TiledMapProperties.CHEST_OPENED)) {
                         boolean opened = (boolean) object.getProperties().get(TiledMapProperties.CHEST_OPENED);
@@ -101,6 +101,21 @@ public class MapManager {
                     } else {
                         System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
                     }
+                    break;
+                case TiledMapObjectNames.DOOR:
+                    if (object.getProperties().containsKey(TiledMapProperties.DOOR_LOCKED)) {
+                        boolean locked = (boolean) object.getProperties().get(TiledMapProperties.DOOR_LOCKED);
+                        engine.addEntity(new Door(object.getRectangle(), locked, object.getName()));
+                    } else {
+                        System.err.println("DOOR: " + object.getName() + " was not setup correctly!");
+                    }
+                    break;
+                case TiledMapObjectNames.DOOR_PILLAR:
+                    String texture = (String) object.getProperties().get(TiledMapProperties.TEXTURE);
+                    engine.addEntity(new DoorFrame(object.getRectangle(), object.getName(), texture));
+                    break;
+                case TiledMapObjectNames.PILLAR:
+                    engine.addEntity(new Pillar(object.getRectangle(), object.getName()));
                     break;
             }
         }

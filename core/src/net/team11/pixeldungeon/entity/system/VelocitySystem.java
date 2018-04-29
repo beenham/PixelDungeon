@@ -1,23 +1,27 @@
 package net.team11.pixeldungeon.entity.system;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.entities.blocks.Box;
 import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
+import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
+import net.team11.pixeldungeon.entity.component.entitycomponent.BoxComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorFrameComponent;
+import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.options.Direction;
 import net.team11.pixeldungeon.options.TiledMapLayers;
 import net.team11.pixeldungeon.options.TiledMapObjectNames;
 import net.team11.pixeldungeon.options.TiledMapProperties;
@@ -27,29 +31,20 @@ import java.util.List;
 
 public class VelocitySystem extends EntitySystem {
 
+    private List<Entity> players = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> chests = new ArrayList<>();
-    private List<Entity> doors = new ArrayList<>();
-    private List<Entity> doorFrames = new ArrayList<>();
     private MapManager mapManager;
-
-    private enum Axis {
-        X,
-        Y
-    }
 
     @Override
     public void init(EntityEngine entityEngine) {
-        entities = entityEngine.getEntities(PositionComponent.class, VelocityComponent.class);
-        doors = entityEngine.getEntities(DoorComponent.class);
-        doorFrames = entityEngine.getEntities(DoorFrameComponent.class);
-        chests = entityEngine.getEntities(ChestComponent.class);
+        players = entityEngine.getEntities(PositionComponent.class, VelocityComponent.class, PlayerComponent.class);
+        entities = entityEngine.getEntities(PositionComponent.class, BodyComponent.class);
         mapManager = MapManager.getInstance();
     }
 
     @Override
     public void update(float delta) {
-        for (Entity entity : entities) {
+        for (Entity entity : players) {
             PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
             VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
@@ -71,30 +66,26 @@ public class VelocitySystem extends EntitySystem {
 
             Rectangle entityRectangle = new Rectangle(startX - 10, startY, bodyComponent.getWidth(), bodyComponent.getHeight());
 
-            //Draw rectaangle
-            //drawRectangle(entityRectangle);
-
             //Collision
             if (startX != endX) {
                 entityRectangle.x = endX - 10;
-                if (!isOverlapping(entityRectangle, entity, Axis.X)) {
-                    positionComponent.setX(endX);
+                if (!isOverlapping(entityRectangle, entity, delta)) {
+                    positionComponent.setX(startX + (velocityComponent.getxDirection() * velocityComponent.getMovementSpeed() * delta));
                 }
                 entityRectangle.x = startX - 10;
             }
 
             if (startY != endY) {
                 entityRectangle.y = endY;
-                if (!isOverlapping(entityRectangle, entity, Axis.Y)) {
-                    positionComponent.setY(endY);
+                if (!isOverlapping(entityRectangle, entity, delta)) {
+                    positionComponent.setY(startY + (velocityComponent.getyDirection() * velocityComponent.getMovementSpeed() * delta));
                 }
                 entityRectangle.y = startY;
             }
         }
     }
 
-    private boolean isOverlapping(Rectangle entityRectangle, Entity entity, Axis axis) {
-        VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
+    private boolean isOverlapping(Rectangle entityRectangle, Entity entity, float delta) {
         List<TiledMapTileLayer> layers = new ArrayList<>();
         layers.add((TiledMapTileLayer) mapManager.getCurrentMap().getMap().getLayers().get("walls"));
         for (TiledMapTileLayer layer : layers) {
@@ -124,43 +115,109 @@ public class VelocitySystem extends EntitySystem {
                         return true;
                     }
                 }
-
-                try {
-                    RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
-                    Rectangle collison = new Rectangle(mapObject.getRectangle());
-                    if (entityRectangle.overlaps(collison)) {
-                        if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
-                            for (Entity entity1 : doors) {
+            }
+            try {
+                RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
+                Rectangle collison = new Rectangle(mapObject.getRectangle());
+                if (entityRectangle.overlaps(collison)) {
+                    if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
+                        for (Entity entity1 : entities) {
+                            if (entity1.hasComponent(DoorComponent.class)) {
                                 Door door = (Door) entity1;
-                                if (door.isLocked()) {
-                                    door.setLocked(false);
+                                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET)) {
+                                    if (door.getName().equals(mapObject.getProperties().get(TiledMapProperties.TARGET))) {
+                                        if (door.isLocked()) {
+                                            door.setLocked(false);
+                                        }
+                                    }
                                 }
                             }
-                            mapManager.loadMap((String) mapObject.getProperties().get(TiledMapProperties.MAP));
+                        }
+                        mapManager.loadMap((String) mapObject.getProperties().get(TiledMapProperties.MAP));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            for (Entity entity1 : entities) {
+                if (entity1.hasComponent(BoxComponent.class) && !entity1.equals(entity)) {
+                    BodyComponent body = entity1.getComponent(BodyComponent.class);
+                    PositionComponent position = entity1.getComponent(PositionComponent.class);
+                    Rectangle entityRect = new Rectangle(position.getX(), position.getY(), body.getWidth(), body.getHeight());
+                    if (entityRectangle.overlaps(entityRect) && ((Box)entity1).isPushable()) {
+                        if (entity.hasComponent(BoxComponent.class)) {
+                            return true;
+                        }
+
+                        VelocityComponent velocityComponent = entity1.getComponent(VelocityComponent.class);
+                        PositionComponent positionComponent = entity1.getComponent(PositionComponent.class);
+                        Direction direction = entity.getComponent(VelocityComponent.class).getDirection();
+
+                        entity.getComponent(VelocityComponent.class).setMovementSpeed(velocityComponent.getMovementSpeed());
+                        float startX = positionComponent.getX();
+                        float endX;
+                        float startY = positionComponent.getY();
+                        float endY;
+                        switch (direction) {
+                            case UP:
+                                velocityComponent.setyDirection(1);
+                                endY = startY + (velocityComponent.getyDirection() * velocityComponent.getMovementSpeed() * delta);
+                                entityRect.y = endY;
+                                if (!isOverlapping(entityRect, entity1, delta)) {
+                                    positionComponent.setY(endY);
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            case DOWN:
+                                velocityComponent.setyDirection(-1);
+                                endY = startY + (velocityComponent.getyDirection() * velocityComponent.getMovementSpeed() * delta);
+                                entityRect.y = endY;
+                                if (!isOverlapping(entityRect, entity1, delta)) {
+                                    positionComponent.setY(endY);
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            case RIGHT:
+                                velocityComponent.setxDirection(1);
+                                endX = startX + (velocityComponent.getxDirection() * velocityComponent.getMovementSpeed() * delta);
+                                entityRect.x = endX;
+                                if (!isOverlapping(entityRect, entity1, delta)) {
+                                    positionComponent.setX(endX);
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            case LEFT:
+                                velocityComponent.setxDirection(-1);
+                                endX = startX + (velocityComponent.getxDirection() * velocityComponent.getMovementSpeed() * delta);
+                                entityRect.x = endX;
+                                if (!isOverlapping(entityRect, entity1, delta)) {
+                                    positionComponent.setX(endX);
+                                    return false;
+                                } else {
+                                    return true;
+                                }
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                for (Entity entity1 : doorFrames) {
-                    DoorFrame door = (DoorFrame) entity1;
-                    if (entityRectangle.overlaps(door.getBounds())) {
-                        return true;
-                    }
-                }
-
-                for (Entity entity1 : doors) {
-                    Door door = (Door) entity1;
-                    if (entityRectangle.overlaps(door.getBounds()) && door.isLocked()) {
-                        return true;
-                    }
-                }
-
-                for (Entity entity1 : chests) {
-                    Chest chest = (Chest) entity1;
-                    if (entityRectangle.overlaps(chest.getBounds())) {
-                        return true;
+                } else if (!entity1.hasComponent(PlayerComponent.class) && !entity1.equals(entity)) {
+                    if (entity1.hasComponent(DoorComponent.class)) {
+                        Door door = (Door) entity1;
+                        BodyComponent body = entity1.getComponent(BodyComponent.class);
+                        PositionComponent position = entity1.getComponent(PositionComponent.class);
+                        Rectangle entityRect = new Rectangle(position.getX(), position.getY(), body.getWidth(), body.getHeight());
+                        if (door.isLocked() && entityRectangle.overlaps(entityRect)) {
+                            return true;
+                        }
+                    } else {
+                        BodyComponent body = entity1.getComponent(BodyComponent.class);
+                        PositionComponent position = entity1.getComponent(PositionComponent.class);
+                        Rectangle entityRect = new Rectangle(position.getX(), position.getY(), body.getWidth(), body.getHeight());
+                        if (entityRectangle.overlaps(entityRect)) {
+                            return true;
+                        }
                     }
                 }
             }

@@ -3,18 +3,17 @@ package net.team11.pixeldungeon.entity.system;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
-import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
 
+import java.net.StandardSocketOptions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +23,7 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch spriteBatch;
     private List<Entity> players = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> chests = new ArrayList<>();
     private MapManager mapManager;
-
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public RenderSystem(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
@@ -36,9 +32,8 @@ public class RenderSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         mapManager = MapManager.getInstance();
-        entities = entityEngine.getEntities(AnimationComponent.class, VelocityComponent.class, PositionComponent.class);
+        entities = entityEngine.getEntities(AnimationComponent.class, PositionComponent.class);
         players = entityEngine.getEntities(AnimationComponent.class, VelocityComponent.class, PositionComponent.class, PlayerComponent.class);
-        chests = entityEngine.getEntities(AnimationComponent.class, ChestComponent.class);
     }
 
     @Override
@@ -46,80 +41,50 @@ public class RenderSystem extends EntitySystem {
         mapManager.renderBackGround();
         mapManager.renderEnvironment();
 
-        List<Entity> abovePlayer = new ArrayList<>();
-        List<Entity> belowPlayer = new ArrayList<>();
+        ArrayList<Entity> entityList = new ArrayList<>();
 
         Entity player = players.get(0);
-        float playerY = player.getComponent(PositionComponent.class).getY();
-        for (Entity entity : chests) {
-            if (entity.getComponent(PositionComponent.class).getY() > playerY) {
-                abovePlayer.add(entity);
+        for (int i = 0 ; i < entities.size() ; i++) {
+            if (i == 0) {
+                entityList.add(entities.get(i));
             } else {
-                belowPlayer.add(entity);
-            }
-        }
-        for (Entity entity : entities) {
-            if (!entity.hasComponent(PlayerComponent.class)) {
-                if (entity.getComponent(PositionComponent.class).getY() > playerY) {
-                    abovePlayer.add(entity);
-                } else {
-                    belowPlayer.add(entity);
+                int size = entityList.size();
+                for (int j = 0 ; j < size ; j++) {
+                    if (entities.get(i).getComponent(PositionComponent.class).getY() > entityList.get(j).getComponent(PositionComponent.class).getY()) {
+                        entityList.add(j, entities.get(i));
+                        break;
+                    } else if (j == size - 1) {
+                        entityList.add(j+1, entities.get(i));
+                        break;
+                    }
                 }
             }
         }
 
-
         spriteBatch.begin();
-        for (Entity entity : abovePlayer) {
+        for (Entity entity : entityList) {
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
             PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
-
             animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
             Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
             int width = currentAnimation.getKeyFrame(0).getRegionWidth();
             int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
-            spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                    positionComponent.getX(),
-                    positionComponent.getY(),
-                    width,
-                    height);
-        }
-
-        for (Entity entity : players) {
-            AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
-            PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
-
-            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
-            Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
-            int width = currentAnimation.getKeyFrame(0).getRegionWidth();
-            int height = currentAnimation.getKeyFrame(0).getRegionHeight();
-
-            spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                    positionComponent.getX() - width/2 - 4,
-                    positionComponent.getY(),
-                    width,
-                    height);
-        }
-
-        for (Entity entity : belowPlayer) {
-            AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
-            PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
-
-            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
-            Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
-            int width = currentAnimation.getKeyFrame(0).getRegionWidth();
-            int height = currentAnimation.getKeyFrame(0).getRegionHeight();
-
-            spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                    positionComponent.getX(),
-                    positionComponent.getY(),
-                    width,
-                    height);
+            if (entity.equals(player)) {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        positionComponent.getX() - width/2 - 4,
+                        positionComponent.getY(),
+                        width,
+                        height);
+            } else {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        positionComponent.getX(),
+                        positionComponent.getY(),
+                        width,
+                        height);
+            }
         }
         spriteBatch.end();
-
         mapManager.renderDecor();
-
     }
 }

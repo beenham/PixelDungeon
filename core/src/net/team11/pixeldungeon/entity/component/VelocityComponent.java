@@ -14,20 +14,12 @@ public class VelocityComponent implements EntityComponent {
     private float paralyzedTime;
 
     private Direction direction;
-    private JUMP_STATUS jumpStatus;
-
-    public enum JUMP_STATUS {
-        GROUND,
-        ASCENDING,
-        DESCENDING
-    }
 
     public VelocityComponent(float movementSpeed) {
         this.xDirection = 0;
         this.yDirection = 0f;
         this.movementSpeed = movementSpeed;
         this.direction = Direction.RIGHT;
-        this.jumpStatus = JUMP_STATUS.GROUND;
         this.paralyzed = false;
     }
 

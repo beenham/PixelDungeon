@@ -51,7 +51,6 @@ public class PlayScreen implements Screen {
         setupEngine();
         setupPlayer();
         mapManager.loadMap(mapName);
-        mapManager.setupEntities();
         engine.resume();
     }
 

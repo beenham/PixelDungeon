@@ -16,12 +16,11 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 public class Chest extends Entity {
     private boolean opened;
     private Rectangle bounds;
-    private String name;
 
     public Chest(Rectangle rectangle, boolean opened, String name) {
+        super(name);
         this.opened = opened;
         this.bounds = new Rectangle(rectangle);
-        this.name = name;
         AnimationComponent animationComponent;
         PositionComponent positionComponent;
         this.addComponent(new ChestComponent(this));
@@ -52,10 +51,6 @@ public class Chest extends Entity {
 
     public void setOpened(boolean opened) {
         this.opened = opened;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public boolean isOpened() {

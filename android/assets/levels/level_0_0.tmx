@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="2017.05.26" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" nextobjectid="31">
+<map version="2017.05.26" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" nextobjectid="38">
  <tileset firstgid="1" name="PixelDungeon" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tilesets/PixelDungeonTileset.png" width="256" height="256"/>
  </tileset>
@@ -104,7 +104,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,270,271,272,273,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,281,282,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -127,7 +127,7 @@
 </data>
  </layer>
  <objectgroup name="blocks">
-  <object id="29" name="chest_1" x="536" y="72" width="16" height="8">
+  <object id="29" name="chest_1" x="536" y="64" width="16" height="8">
    <properties>
     <property name="entity" value="chest"/>
     <property name="opened" type="bool" value="false"/>
@@ -139,22 +139,46 @@
     <property name="opened" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="34" name="box_1" x="400" y="112" width="16" height="10">
+   <properties>
+    <property name="entity" value="box"/>
+    <property name="pushable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="35" name="box_2" x="285.25" y="69.75" width="16" height="10">
+   <properties>
+    <property name="entity" value="box"/>
+    <property name="pushable" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="doors">
   <object id="17" name="door_1" x="531" y="96" width="26" height="16">
    <properties>
-    <property name="doorType" value="door"/>
+    <property name="entity" value="door"/>
     <property name="locked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="21" name="doorPillar_1" x="528" y="96" width="3" height="16">
+  <object id="21" name="doorPillarLeft_1" x="528" y="96" width="3" height="16">
    <properties>
-    <property name="doorType" value="doorPillar"/>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="23" name="doorPillar_1" x="557" y="96" width="3" height="16">
+  <object id="23" name="doorPillarRight_1" x="557" y="96" width="3" height="16">
    <properties>
-    <property name="doorType" value="doorPillar"/>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameRight"/>
+   </properties>
+  </object>
+  <object id="36" name="pillar_1" x="201" y="64" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="37" name="pillar_2" x="201" y="144" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
    </properties>
   </object>
  </objectgroup>
@@ -162,6 +186,7 @@
   <object id="25" name="layerExitPoint" x="400" y="216" width="32" height="16">
    <properties>
     <property name="map" value="level_0_B1"/>
+    <property name="target" value="door_1"/>
    </properties>
   </object>
   <object id="27" name="playerSpawn" x="304" y="112" width="16" height="16"/>

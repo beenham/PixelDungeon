@@ -29,21 +29,24 @@ public class AnimationName {
     public static final String PLAYER_INTERACTING_LEFT = "playerInteractLeft";
 
     /////   ENTITY SPRITE NAMES     /////
-    public static final String BOX_IDLE = "boxIdle";
+    public static final String BOX_IDLE = "box";
 
-    public static final String TORCH_OFF = "torchOff";
-    public static final String TORCH_ON = "torchOff";
-    public static final String TORCH_ACTIVATING = "torchActivating";
+    public static final String CHEST_CLOSED = "chestClosed";
+    public static final String CHEST_OPENED = "chestOpened";
+    public static final String CHEST_OPENING = "chestOpening";
 
     public static final String DOOR_CLOSED = "doorClosed";
     public static final String DOOR_OPENED = "doorOpened";
     public static final String DOOR_OPENING = "doorOpening";
 
-    public static final String DOORPILLAR = "doorPillar";
+    public static final String DOORPILLAR_LEFT = "doorFrameLeft";
+    public static final String DOORPILLAR_RIGHT = "doorFrameRight";
 
-    public static final String CHEST_CLOSED = "chestClosed";
-    public static final String CHEST_OPENED = "chestOpened";
-    public static final String CHEST_OPENING = "chestOpening";
+    public static final String PILLAR = "pillar";
+
+    public static final String TORCH_OFF = "torchOff";
+    public static final String TORCH_ON = "torchOff";
+    public static final String TORCH_ACTIVATING = "torchActivating";
 
     /////   TRAP SPRITE NAMES       /////
 }

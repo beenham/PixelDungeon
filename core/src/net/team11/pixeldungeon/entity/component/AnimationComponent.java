@@ -49,7 +49,6 @@ public class AnimationComponent implements EntityComponent {
         this.previousAnimation = currentAnimation;
         this.currentAnimation = animation;
         setStateTime(0);
-
     }
 
     //Getters & Setters

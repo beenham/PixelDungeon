@@ -20,6 +20,7 @@ import net.team11.pixeldungeon.screens.PlayScreen;
 
 public class Player extends Entity {
     public Player() {
+        super("Player");
         VelocityComponent velocityComponent;
         AnimationComponent animationComponent;
         this.addComponent(new PlayerComponent(this));
