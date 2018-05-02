@@ -38,6 +38,18 @@ public class EntityEngine {
         return this.entityManager.getEntities(componentType);
     }
 
+    public void storeEntities(String name) {
+        entityManager.storeEntities(name);
+    }
+
+    public void loadEntities (String name) {
+        entityManager.loadEntities(name);
+    }
+
+    public boolean hasEntities() {
+        return !entityManager.isEmpty();
+    }
+
     public void hasSystem(Class<?> systemType) {
         for (EntitySystem entitySystem : systems) {
             systemType.isInstance(entitySystem);
@@ -58,7 +70,7 @@ public class EntityEngine {
         return null;
     }
 
-    public void updateSystems() {
+    private void updateSystems() {
         for (EntitySystem system : this.systems) {
             system.init(this);
         }

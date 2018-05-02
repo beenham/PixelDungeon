@@ -3,28 +3,27 @@ package net.team11.pixeldungeon.entities.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entity.animation.AnimationName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.CameraComponent;
 import net.team11.pixeldungeon.entity.component.HealthComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
-import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.options.Direction;
+import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.screens.PlayScreen;
 
 public class Player extends Entity {
-    public Player() {
+    public Player(float posX, float posY) {
         super("Player");
         VelocityComponent velocityComponent;
         AnimationComponent animationComponent;
         this.addComponent(new PlayerComponent(this));
-        this.addComponent(new PositionComponent(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2));
         this.addComponent(velocityComponent = new VelocityComponent(100));
         this.addComponent(animationComponent = new AnimationComponent(0));
         this.addComponent(new HealthComponent(1, 1));
@@ -49,7 +48,9 @@ public class Player extends Entity {
         velocityComponent.setDirection(Direction.DOWN);
 
         int width = animationComponent.getAnimationList().get(AnimationName.PLAYER_IDLE_LEFT).getKeyFrame(0).getRegionWidth();
-        System.out.println("WIDTH : " + width);
-        this.addComponent(new BodyComponent(width-3, 8));
+        this.addComponent(new BodyComponent(width, 8, posX, posY, 1.0f,
+                (byte)(CollisionCategory.ENTITY),
+                (byte)(CollisionCategory.ENTITY | CollisionCategory.BOUNDARY),
+                BodyDef.BodyType.DynamicBody));
     }
 }

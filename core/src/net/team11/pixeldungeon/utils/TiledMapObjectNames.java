@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.options;
+package net.team11.pixeldungeon.utils;
 
 public class TiledMapObjectNames {
     /////   ENTITY NAMES    /////
@@ -7,6 +7,7 @@ public class TiledMapObjectNames {
     public static final String DOOR = "door";
     public static final String DOOR_PILLAR = "doorPillar";
     public static final String PILLAR = "pillar";
+    public static final String TORCH = "torch";
 
     /////   POINT NAMES     /////
     public static final String SPAWN_POINT = "playerSpawn";

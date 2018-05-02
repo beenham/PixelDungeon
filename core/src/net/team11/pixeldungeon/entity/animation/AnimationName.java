@@ -44,8 +44,8 @@ public class AnimationName {
 
     public static final String PILLAR = "pillar";
 
-    public static final String TORCH_OFF = "torchOff";
-    public static final String TORCH_ON = "torchOff";
+    public static final String TORCH_OFF = "torchIdle";
+    public static final String TORCH_ON = "torchLit";
     public static final String TORCH_ACTIVATING = "torchActivating";
 
     /////   TRAP SPRITE NAMES       /////

@@ -2,7 +2,7 @@ package net.team11.pixeldungeon.entity.component;
 
 
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
-import net.team11.pixeldungeon.options.Direction;
+import net.team11.pixeldungeon.utils.Direction;
 
 public class VelocityComponent implements EntityComponent {
 

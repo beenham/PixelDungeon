@@ -4,33 +4,35 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entity.animation.AnimationName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
-import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.CollisionCategory;
 
 public class Chest extends Entity {
     private boolean opened;
-    private Rectangle bounds;
 
-    public Chest(Rectangle rectangle, boolean opened, String name) {
+    public Chest(Rectangle bounds, boolean opened, String name) {
         super(name);
         this.opened = opened;
-        this.bounds = new Rectangle(rectangle);
-        AnimationComponent animationComponent;
-        PositionComponent positionComponent;
-        this.addComponent(new ChestComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(),bounds.getHeight()));
-        this.addComponent(animationComponent = new AnimationComponent(0));
-        this.addComponent(positionComponent = new PositionComponent());
-        this.addComponent(new InteractionComponent(this));
 
+        float posX = bounds.getX() + bounds.getWidth()/2;
+        float posY = bounds.getY() + bounds.getHeight()/2;
+
+        AnimationComponent animationComponent;
+        this.addComponent(new ChestComponent(this));
+        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 1.0f,
+                (byte)(CollisionCategory.ENTITY),
+                (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                BodyDef.BodyType.StaticBody));
+        this.addComponent(animationComponent = new AnimationComponent(0));
+        this.addComponent(new InteractionComponent(this));
         setupAnimations(animationComponent);
-        setupPosition(positionComponent);
     }
 
     private void setupAnimations(AnimationComponent animationComponent) {
@@ -44,21 +46,12 @@ public class Chest extends Entity {
         }
     }
 
-    private void setupPosition(PositionComponent positionComponent) {
-        positionComponent.setX(bounds.getX());
-        positionComponent.setY(bounds.getY());
-    }
-
     public void setOpened(boolean opened) {
         this.opened = opened;
     }
 
     public boolean isOpened() {
         return opened;
-    }
-
-    public Rectangle getBounds() {
-        return bounds;
     }
 
     @Override

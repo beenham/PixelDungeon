@@ -3,13 +3,13 @@ package net.team11.pixeldungeon.entity.system;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.animation.AnimationName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
+import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
-import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
-import net.team11.pixeldungeon.options.Direction;
+import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.uicomponents.Controller;
 
 public class PlayerMovementSystem extends EntitySystem {
@@ -20,7 +20,7 @@ public class PlayerMovementSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         this.engine = entityEngine;
-        player = (Player) entityEngine.getEntities(PlayerComponent.class, PositionComponent.class,
+        player = (Player) entityEngine.getEntities(PlayerComponent.class,
                 VelocityComponent.class, AnimationComponent.class).get(0);
     }
 
@@ -29,10 +29,10 @@ public class PlayerMovementSystem extends EntitySystem {
         if (player == null) {
             return;
         }
+        BodyComponent bodyComponent = player.getComponent(BodyComponent.class);
         VelocityComponent velocityComponent = player.getComponent(VelocityComponent.class);
         AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
         InteractionComponent interactionComponent = player.getComponent(InteractionComponent.class);
-        PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
 
         if (controller.isInteractPressed() && !velocityComponent.isParalyzed()) {
             velocityComponent.setxDirection(0);
@@ -76,6 +76,9 @@ public class PlayerMovementSystem extends EntitySystem {
         } else {
             velocityComponent.setxDirection(0);
             velocityComponent.setyDirection(0);
+            bodyComponent.moveX(0);
+            bodyComponent.moveY(0);
+
             if (!velocityComponent.isParalyzed())
                 interactionComponent.setInteracting(false);
             switch (velocityComponent.getDirection()) {

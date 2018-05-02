@@ -1,24 +1,14 @@
 package net.team11.pixeldungeon.map;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-import net.team11.pixeldungeon.entities.blocks.Box;
-import net.team11.pixeldungeon.entities.blocks.Chest;
-import net.team11.pixeldungeon.entities.blocks.Pillar;
-import net.team11.pixeldungeon.entities.door.Door;
-import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
-import net.team11.pixeldungeon.options.TiledMapLayers;
-import net.team11.pixeldungeon.options.TiledMapNames;
-import net.team11.pixeldungeon.options.TiledMapObjectNames;
-import net.team11.pixeldungeon.options.TiledMapProperties;
+import net.team11.pixeldungeon.utils.TiledMapLayers;
+import net.team11.pixeldungeon.utils.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.TiledObjectUtil;
 
 import java.util.HashMap;
 
@@ -63,62 +53,29 @@ public class MapManager {
 
     public void loadMap(String mapName) {
         if (maps.containsKey(mapName)) {
+            if (engine != null && engine.hasEntities()) {
+                engine.storeEntities(currentMap.getMapName());
+            }
             currentMap = maps.get(mapName);
             if (renderer != null) {
                 renderer.setMap(currentMap.getMap());
             }
             if (!currentMap.isLoaded() && engine != null) {
-                setupEntities();
+                loadEntities();
+            } else if (engine != null) {
+                engine.loadEntities(currentMap.getMapName());
             }
         }
     }
 
-    private void setupEntities() {
+    private void loadEntities() {
         currentMap.setLoaded(true);
+        System.out.println("Loading new entities in : " + currentMap.getMapName());
 
-        MapObjects mapObjects = currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER);
-        MapObjects doorObjects = currentMap.getObjects(TiledMapLayers.DOOR_LAYER);
-        for (MapObject object : doorObjects) {
-            mapObjects.add(object);
-        }
-
-        for (MapObject mapObject : mapObjects) {
-            RectangleMapObject object = (RectangleMapObject) mapObject;
-            String type = (String) object.getProperties().get(TiledMapProperties.ENTITY_TYPE);
-            switch (type) {
-                case TiledMapObjectNames.BOX:
-                    if (object.getProperties().containsKey(TiledMapProperties.BOX_PUSHABLE)) {
-                        boolean pushable = (boolean) object.getProperties().get(TiledMapProperties.BOX_PUSHABLE);
-                        engine.addEntity(new Box(object.getRectangle(), pushable, object.getName()));
-                    } else {
-                        System.err.println("BOX: " + object.getName() + " was not setup correctly!");
-                    }
-                    break;
-                case TiledMapObjectNames.CHEST:
-                    if (object.getProperties().containsKey(TiledMapProperties.CHEST_OPENED)) {
-                        boolean opened = (boolean) object.getProperties().get(TiledMapProperties.CHEST_OPENED);
-                        engine.addEntity(new Chest(object.getRectangle(), opened, object.getName()));
-                    } else {
-                        System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
-                    }
-                    break;
-                case TiledMapObjectNames.DOOR:
-                    if (object.getProperties().containsKey(TiledMapProperties.DOOR_LOCKED)) {
-                        boolean locked = (boolean) object.getProperties().get(TiledMapProperties.DOOR_LOCKED);
-                        engine.addEntity(new Door(object.getRectangle(), locked, object.getName()));
-                    } else {
-                        System.err.println("DOOR: " + object.getName() + " was not setup correctly!");
-                    }
-                    break;
-                case TiledMapObjectNames.DOOR_PILLAR:
-                    String texture = (String) object.getProperties().get(TiledMapProperties.TEXTURE);
-                    engine.addEntity(new DoorFrame(object.getRectangle(), object.getName(), texture));
-                    break;
-                case TiledMapObjectNames.PILLAR:
-                    engine.addEntity(new Pillar(object.getRectangle(), object.getName()));
-                    break;
-            }
-        }
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
+        TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
+        TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
     }
 
     /////////////////////////////

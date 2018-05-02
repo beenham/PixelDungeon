@@ -5,17 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.player.Player;
-import net.team11.pixeldungeon.entity.component.PositionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.system.AnimationSystem;
 import net.team11.pixeldungeon.entity.system.CameraSystem;
@@ -24,16 +22,19 @@ import net.team11.pixeldungeon.entity.system.PlayerMovementSystem;
 import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
-import net.team11.pixeldungeon.options.TiledMapLayers;
-import net.team11.pixeldungeon.options.TiledMapObjectNames;
-import net.team11.pixeldungeon.options.TiledMapProperties;
+import net.team11.pixeldungeon.utils.TiledMapLayers;
+import net.team11.pixeldungeon.utils.TiledMapObjectNames;
 import net.team11.pixeldungeon.uicomponents.Controller;
 import net.team11.pixeldungeon.map.MapManager;
+
+import box2dLight.RayHandler;
+
 
 public class PlayScreen implements Screen {
     private PixelDungeon game;
 
     public static OrthographicCamera gameCam;
+    public static RayHandler rayHandler;
     private FitViewport gamePort;
     private Controller controller;
     private MapManager mapManager;
@@ -41,6 +42,8 @@ public class PlayScreen implements Screen {
     private EntityEngine engine;
     private PlayerMovementSystem playerMovementSystem;
 
+    public static World world;
+    private Box2DDebugRenderer b2dr;
     private Player player;
 
     public PlayScreen(PixelDungeon game, String mapName) {
@@ -49,6 +52,7 @@ public class PlayScreen implements Screen {
         setupCamera();
         setupViewport();
         setupEngine();
+        setupLight();
         setupPlayer();
         mapManager.loadMap(mapName);
         engine.resume();
@@ -87,11 +91,20 @@ public class PlayScreen implements Screen {
     }
 
     private void setupPlayer() {
-        engine.addEntity(player = new Player());
-        PositionComponent positionComponent = this.player.getComponent(PositionComponent.class);
         RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.SPAWN_POINT);
-        positionComponent.setY(mapObject.getRectangle().getY());
-        positionComponent.setX(mapObject.getRectangle().getX());
+        float posX = mapObject.getRectangle().getX();
+        float posY = mapObject.getRectangle().getY();
+        engine.addEntity(player = new Player(posX, posY));
+    }
+
+    private void setupLight() {
+        world = new World(new Vector2(0, 0), false);
+        b2dr = new Box2DDebugRenderer();
+        rayHandler = new RayHandler(world, PixelDungeon.V_WIDTH/32, PixelDungeon.V_HEIGHT/32);
+        rayHandler.setCombinedMatrix(gameCam);
+        rayHandler.setShadows(true);
+        rayHandler.setAmbientLight(0.75f);
+        rayHandler.getLightMapTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
     }
 
     private void handleInput(float deltaTime){
@@ -102,16 +115,20 @@ public class PlayScreen implements Screen {
     public void update(float deltaTime) {
         handleInput(deltaTime);
         gameCam.update();
+        rayHandler.update();
+        rayHandler.setCombinedMatrix(gameCam);
+        game.batch.setProjectionMatrix(gameCam.combined);
+        world.step(1 / 60f, 6, 2);
     }
 
     @Override
     public void render(float delta) {
         update(delta);
-        Gdx.gl.glClearColor(0,0,0,255);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        game.batch.setProjectionMatrix(gameCam.combined);
         engine.update(delta);
+
+        b2dr.render(world, gameCam.combined);
+        rayHandler.render();
 
         if(Gdx.app.getType() == Application.ApplicationType.Android) {
             controller.draw();
@@ -141,6 +158,8 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        b2dr.dispose();
+        world.dispose();
+        rayHandler.dispose();
     }
 }

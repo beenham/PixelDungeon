@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.options;
+package net.team11.pixeldungeon.utils;
 
 public class TiledMapProperties {
     public static final String BOX_PUSHABLE = "pushable";
@@ -6,6 +6,7 @@ public class TiledMapProperties {
     public static final String DOOR_LOCKED = "locked";
     public static final String ENTITY_TYPE = "entity";
     public static final String MAP = "map";
+    public static final String TORCH_ON = "on";
     public static final String TARGET = "target";
     public static final String TEXTURE = "texture";
 }

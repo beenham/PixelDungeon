@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BodySystem extends EntitySystem {
-
     private List<Entity> entities = new ArrayList<>();
 
     @Override

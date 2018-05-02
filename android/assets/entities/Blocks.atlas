@@ -1,48 +1,111 @@
 
 Blocks.png
-size: 64,64
+size: 32,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 box
   rotate: false
-  xy: 18, 30
+  xy: 2, 199
   size: 16, 21
   orig: 16, 21
   offset: 0, 0
   index: 0
 chestClosed
   rotate: false
-  xy: 2, 2
+  xy: 2, 163
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 chestOpened
   rotate: false
-  xy: 36, 35
+  xy: 2, 181
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 doorFrameLeft
   rotate: false
-  xy: 59, 35
+  xy: 12, 122
   size: 3, 16
   orig: 3, 16
   offset: 0, 0
   index: 0
 doorFrameRight
   rotate: false
-  xy: 54, 35
+  xy: 12, 104
   size: 3, 16
   orig: 3, 16
   offset: 0, 0
   index: 0
 pillar
   rotate: false
-  xy: 2, 20
+  xy: 2, 222
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
+torchIdle
+  rotate: false
+  xy: 12, 140
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 0
+torchLit
+  rotate: false
+  xy: 18, 232
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 7
+torchLit
+  rotate: false
+  xy: 2, 140
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 0
+torchLit
+  rotate: false
+  xy: 2, 117
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 1
+torchLit
+  rotate: false
+  xy: 2, 94
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 2
+torchLit
+  rotate: false
+  xy: 2, 71
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 3
+torchLit
+  rotate: false
+  xy: 2, 48
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 4
+torchLit
+  rotate: false
+  xy: 2, 25
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 5
+torchLit
+  rotate: false
+  xy: 2, 2
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 6
