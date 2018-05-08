@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.entity.animation.AnimationName;
+import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.TorchComponent;
@@ -31,7 +31,7 @@ public class Torch extends Entity {
 
         AnimationComponent animationComponent;
         this.addComponent(new TorchComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 1.0f,
+        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
                 (byte)(CollisionCategory.ENTITY),
                 (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
@@ -44,12 +44,12 @@ public class Torch extends Entity {
 
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
-        animationComponent.addAnimation(AnimationName.TORCH_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.addAnimation(AnimationName.TORCH_ON, textureAtlas, 1.9f, Animation.PlayMode.LOOP_PINGPONG);
+        animationComponent.addAnimation(AssetName.TORCH_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.TORCH_ON, textureAtlas, 1.9f, Animation.PlayMode.LOOP_PINGPONG);
         if (on) {
-            animationComponent.setAnimation(AnimationName.TORCH_ON);
+            animationComponent.setAnimation(AssetName.TORCH_ON);
         } else {
-            animationComponent.setAnimation(AnimationName.TORCH_OFF);
+            animationComponent.setAnimation(AssetName.TORCH_OFF);
         }
     }
 

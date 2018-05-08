@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.entity.animation.AnimationName;
+import net.team11.pixeldungeon.utils.AssetName;
 
 public class Controller {
     private Viewport viewport;
@@ -71,10 +71,10 @@ public class Controller {
         Gdx.input.setInputProcessor(stage);
 
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("ui/Hud.atlas"));
-        Image texture = new Image(textureAtlas.findRegion(AnimationName.UP_BUTTON));
+        Image texture = new Image(textureAtlas.findRegion(AssetName.UP_BUTTON));
         float width = texture.getWidth()*14, height = texture.getHeight()*14;
 
-        Image upImg = new Image(textureAtlas.findRegion(AnimationName.UP_BUTTON));
+        Image upImg = new Image(textureAtlas.findRegion(AssetName.UP_BUTTON));
         upImg.setSize(width, height);
         upImg.addListener(new InputListener() {
             @Override
@@ -88,7 +88,7 @@ public class Controller {
             }
         });
 
-        Image downImg = new Image(textureAtlas.findRegion(AnimationName.DOWN_BUTTON));
+        Image downImg = new Image(textureAtlas.findRegion(AssetName.DOWN_BUTTON));
         downImg.setSize(width, height);
         downImg.addListener(new InputListener() {
             @Override
@@ -102,7 +102,7 @@ public class Controller {
             }
         });
 
-        Image rightImg = new Image(textureAtlas.findRegion(AnimationName.RIGHT_BUTTON));
+        Image rightImg = new Image(textureAtlas.findRegion(AssetName.RIGHT_BUTTON));
         rightImg.setSize(width, height);
         rightImg.addListener(new InputListener() {
             @Override
@@ -116,7 +116,7 @@ public class Controller {
             }
         });
 
-        Image leftImg = new Image(textureAtlas.findRegion(AnimationName.LEFT_BUTTON));
+        Image leftImg = new Image(textureAtlas.findRegion(AssetName.LEFT_BUTTON));
         leftImg.setSize(width, height);
         leftImg.addListener(new InputListener() {
             @Override
@@ -130,7 +130,7 @@ public class Controller {
             }
         });
 
-        Image interactImg = new Image(textureAtlas.findRegion(AnimationName.INTERACT_BUTTON));
+        Image interactImg = new Image(textureAtlas.findRegion(AssetName.INTERACT_BUTTON));
         interactImg.setSize(width,height);
         interactImg.addListener(new InputListener() {
             @Override
@@ -144,7 +144,7 @@ public class Controller {
             }
         });
 
-        Image pauseImg = new Image(textureAtlas.findRegion(AnimationName.PAUSE_BUTTON));
+        Image pauseImg = new Image(textureAtlas.findRegion(AssetName.PAUSE_BUTTON));
         pauseImg.setSize(width,height);
         pauseImg.addListener(new ClickListener() {
             @Override

@@ -22,8 +22,8 @@ public class DoorFrame extends Entity {
 
         AnimationComponent animationComponent;
         this.addComponent(new DoorFrameComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 1.0f,
-                (byte)(CollisionCategory.ENTITY),
+        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
+                (CollisionCategory.ENTITY),
                 (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
@@ -35,6 +35,5 @@ public class DoorFrame extends Entity {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
         animationComponent.addAnimation(animation, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(animation);
-        System.err.println("Setup Animations " + animation + "for " + name);
     }
 }

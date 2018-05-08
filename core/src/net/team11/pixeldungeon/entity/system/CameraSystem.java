@@ -5,6 +5,7 @@ import net.team11.pixeldungeon.entity.component.CameraComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
+import net.team11.pixeldungeon.utils.RoundTo;
 
 public class CameraSystem extends EntitySystem {
     private Entity player;
@@ -18,8 +19,7 @@ public class CameraSystem extends EntitySystem {
     public void update(float delta) {
         BodyComponent bodyComponent = this.player.getComponent(BodyComponent.class);
         CameraComponent cameraComponent = this.player.getComponent(CameraComponent.class);
-
-        cameraComponent.getCamera().position.x = bodyComponent.getX();
-        cameraComponent.getCamera().position.y = bodyComponent.getY();
+        cameraComponent.setPosition(RoundTo.RoundToNearest(bodyComponent.getX(),0.5f),
+                RoundTo.RoundToNearest(bodyComponent.getY(),0.5f));
     }
 }

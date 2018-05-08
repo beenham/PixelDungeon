@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HealthSystem extends EntitySystem {
+    private final float timerReset = 25;
+    private float timer = timerReset;
 
     private List<Entity> entities = new ArrayList<>();
     private Player player;
@@ -28,11 +30,10 @@ public class HealthSystem extends EntitySystem {
     public void update(float delta) {
         for (Entity entity : entities) {
             HealthComponent healthComponent = entity.getComponent(HealthComponent.class);
-            //System.out.println(healthComponent.getPlayerHealth());
 
-            if (healthComponent.getHealth() <= 0)
-                continue;
-
+            if (healthComponent.getHealth() <= 0) {
+                entity.respawn();
+            }
         }
     }
 

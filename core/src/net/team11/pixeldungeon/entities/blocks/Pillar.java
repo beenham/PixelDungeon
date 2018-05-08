@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.entity.animation.AnimationName;
+import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.PillarComponent;
@@ -23,8 +23,8 @@ public class Pillar extends Entity {
 
         AnimationComponent animationComponent;
         this.addComponent(new PillarComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 1.0f,
-                (byte)(CollisionCategory.ENTITY),
+        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
+                (CollisionCategory.ENTITY),
                 (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
@@ -34,7 +34,7 @@ public class Pillar extends Entity {
 
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
-        animationComponent.addAnimation(AnimationName.PILLAR, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AnimationName.PILLAR);
+        animationComponent.addAnimation(AssetName.PILLAR, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.setAnimation(AssetName.PILLAR);
     }
 }

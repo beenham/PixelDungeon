@@ -51,11 +51,42 @@ public class AnimationComponent implements EntityComponent {
         setStateTime(0);
     }
 
+
+    public void setAnimation(String animationName, float stateTime) {
+        setAnimation(animationList.get(animationName));
+        setStateTime(stateTime);
+    }
+
+    public void setAnimation(Animation<TextureRegion> animation, Animation<TextureRegion> nextAnimation) {
+        //Checks if they are the same or if its a ongoing animation
+        if (this.getCurrentAnimation() != null) {
+            if (this.currentAnimation == animation) {
+                return;
+            }
+
+            if (this.getCurrentAnimation().getPlayMode() == Animation.PlayMode.NORMAL) {
+                if (!this.getCurrentAnimation().isAnimationFinished(stateTime)) {
+                    this.currentAnimation = previousAnimation;
+                }
+            }
+        }
+
+        //Set the animation
+        this.previousAnimation = nextAnimation;
+        this.currentAnimation = animation;
+        setStateTime(0);
+    }
+
     //Getters & Setters
     public Animation<TextureRegion> getCurrentAnimation() {
         return currentAnimation;
     }
 
+    public void setNextAnimation(String animation) {
+        if (animationList.containsKey(animation)) {
+            previousAnimation = animationList.get(animation);
+        }
+    }
     public Map<String, Animation<TextureRegion>> getAnimationList() {
         return animationList;
     }

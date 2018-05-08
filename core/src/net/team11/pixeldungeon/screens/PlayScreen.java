@@ -1,6 +1,7 @@
 package net.team11.pixeldungeon.screens;
 
 import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,9 +18,11 @@ import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.system.AnimationSystem;
 import net.team11.pixeldungeon.entity.system.CameraSystem;
+import net.team11.pixeldungeon.entity.system.HealthSystem;
 import net.team11.pixeldungeon.entity.system.InteractionSystem;
 import net.team11.pixeldungeon.entity.system.PlayerMovementSystem;
 import net.team11.pixeldungeon.entity.system.RenderSystem;
+import net.team11.pixeldungeon.entity.system.TrapSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.utils.TiledMapLayers;
@@ -31,8 +34,7 @@ import box2dLight.RayHandler;
 
 
 public class PlayScreen implements Screen {
-    private PixelDungeon game;
-
+    public static PixelDungeon game;
     public static OrthographicCamera gameCam;
     public static RayHandler rayHandler;
     private FitViewport gamePort;
@@ -53,7 +55,7 @@ public class PlayScreen implements Screen {
         setupViewport();
         setupEngine();
         setupLight();
-        setupPlayer();
+        setupPlayer(mapName);
         mapManager.loadMap(mapName);
         engine.resume();
     }
@@ -68,6 +70,7 @@ public class PlayScreen implements Screen {
         gameCam.setToOrtho(false, PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
         gameCam.zoom = 0.1f;
         this.mapManager = MapManager.getInstance();
+        this.mapManager.reset();
         gameCam.update();
     }
 
@@ -84,14 +87,16 @@ public class PlayScreen implements Screen {
         engine.addSystem(new AnimationSystem());
         engine.addSystem(new VelocitySystem());
         engine.addSystem(new CameraSystem());
+        engine.addSystem(new HealthSystem());
         engine.addSystem(new InteractionSystem());
+        engine.addSystem(new TrapSystem());
 
         mapManager.setEngine(engine);
         playerMovementSystem.setController(controller);
     }
 
-    private void setupPlayer() {
-        RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.SPAWN_POINT);
+    private void setupPlayer(String mapName) {
+        RectangleMapObject mapObject = mapManager.getMap(mapName).getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.SPAWN_POINT);
         float posX = mapObject.getRectangle().getX();
         float posY = mapObject.getRectangle().getY();
         engine.addEntity(player = new Player(posX, posY));
@@ -125,6 +130,7 @@ public class PlayScreen implements Screen {
     public void render(float delta) {
         update(delta);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(88,61,52,0);
         engine.update(delta);
 
         b2dr.render(world, gameCam.combined);

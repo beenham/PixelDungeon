@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Random;
 
 public class RenderSystem extends EntitySystem {
-    public static float FRAME_SPEED = 14f;
+    public static float FRAME_SPEED = 15;
 
     private SpriteBatch spriteBatch;
     private List<Entity> players = new ArrayList<>();
@@ -47,11 +47,12 @@ public class RenderSystem extends EntitySystem {
 
         ArrayList<Entity> entityList = new ArrayList<>();
 
+        float bleed = 128;
         Rectangle camera = new Rectangle(
-                PlayScreen.gameCam.position.x-(PlayScreen.gameCam.viewportWidth/2)*0.1f-32,
-                PlayScreen.gameCam.position.y-(PlayScreen.gameCam.viewportHeight/2)*0.1f-32,
-                PlayScreen.gameCam.viewportWidth*0.1f+64,
-                PlayScreen.gameCam.viewportHeight*0.1f+64);
+                PlayScreen.gameCam.position.x-(PlayScreen.gameCam.viewportWidth/2)*0.1f-bleed,
+                PlayScreen.gameCam.position.y-(PlayScreen.gameCam.viewportHeight/2)*0.1f-bleed,
+                PlayScreen.gameCam.viewportWidth*0.1f+bleed*2,
+                PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
 
         Entity player = players.get(0);
         for (int i = 0 ; i < entities.size() ; i++) {
@@ -84,12 +85,9 @@ public class RenderSystem extends EntitySystem {
             }
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
-            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
             Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
             int width = currentAnimation.getKeyFrame(0).getRegionWidth();
             int height = currentAnimation.getKeyFrame(0).getRegionHeight();
-
-            System.out.println(entity.toString());
 
             if (entity.equals(player)) {
                 spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
@@ -104,8 +102,10 @@ public class RenderSystem extends EntitySystem {
                         width,
                         height);
             }
+            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
         }
         spriteBatch.end();
         mapManager.renderDecor();
+
     }
 }

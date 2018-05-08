@@ -15,4 +15,9 @@ public class CameraComponent implements EntityComponent {
     public OrthographicCamera getCamera() {
         return camera;
     }
+
+    public void setPosition(float x, float y) {
+        camera.position.x = x;
+        camera.position.y = y;
+    }
 }

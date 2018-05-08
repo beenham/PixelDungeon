@@ -1,40 +1,125 @@
 package net.team11.pixeldungeon.entities.door;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 public class Door extends Entity {
-    private boolean locked;
+    public enum Type {
+        BUTTON, LOCKED, MECHANIC;
 
-    public Door(Rectangle bounds, boolean locked, String name) {
+        @Override
+        public final String toString() {
+            switch (this) {
+                case BUTTON:
+                    return "BUTTON";
+                case LOCKED:
+                    return "LOCKED";
+                case MECHANIC:
+                    return "MECHANIC";
+                default:
+                    throw new IllegalArgumentException();
+            }
+        }
+    }
+
+    protected Type type;
+    protected boolean open;
+
+    public Door(String name, Rectangle bounds, Type type, boolean open) {
         super(name);
-        this.locked = locked;
+        this.type = type;
+        this.open = open;
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
 
+        AnimationComponent animationComponent;
         this.addComponent(new DoorComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 1.0f,
-                (byte)(CollisionCategory.ENTITY),
+        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
+                (CollisionCategory.ENTITY),
                 (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
+        this.addComponent(animationComponent = new AnimationComponent(0));
+        setupAnimations(animationComponent);
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-        if (locked) {
-            getComponent(BodyComponent.class).createBody(BodyDef.BodyType.KinematicBody);
+    private void setupAnimations(AnimationComponent animationComponent) {
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
+        animationComponent.addAnimation(AssetName.DOOR_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.BUTTONDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKEDDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.MECHANICDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.BUTTONDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.LOCKEDDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.MECHANICDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
+        switch (type) {
+            case BUTTON:
+                if (open) {
+                    animationComponent.setAnimation(AssetName.DOOR_OPENED);
+                } else {
+                    animationComponent.setAnimation(AssetName.BUTTONDOOR_CLOSED);
+                }
+                break;
+            case LOCKED:
+                if (open) {
+                    animationComponent.setAnimation(AssetName.DOOR_OPENED);
+                } else {
+                    animationComponent.setAnimation(AssetName.LOCKEDDOOR_CLOSED);
+                }
+                break;
+            case MECHANIC:
+                if (open) {
+                    animationComponent.setAnimation(AssetName.DOOR_OPENED);
+                } else {
+                    animationComponent.setAnimation(AssetName.MECHANICDOOR_CLOSED);
+                }
+                break;
+        }
+    }
+
+    public void setOpened(boolean opened) {
+        this.open = opened;
+        if (!open) {
+            switch (type) {
+                case BUTTON:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.BUTTONDOOR_CLOSED);
+                    break;
+                case LOCKED:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.LOCKEDDOOR_CLOSED);
+                    break;
+                case MECHANIC:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.MECHANICDOOR_CLOSED);
+                    break;
+            }
+            getComponent(BodyComponent.class).createBody(BodyDef.BodyType.StaticBody);
         } else {
+            switch (type) {
+                case BUTTON:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.BUTTONDOOR_OPENING);
+                    break;
+                case LOCKED:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.LOCKEDDOOR_OPENING);
+                    break;
+                case MECHANIC:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.MECHANICDOOR_OPENING);
+                    break;
+            }
+            getComponent(AnimationComponent.class).setNextAnimation(AssetName.DOOR_OPENED);
             getComponent(BodyComponent.class).removeBody();
         }
     }
 
-    public boolean isLocked() {
-        return locked;
+    public boolean isOpen() {
+        return open;
     }
 }

@@ -6,6 +6,7 @@ public class TiledMapObjectNames {
     public static final String CHEST = "chest";
     public static final String DOOR = "door";
     public static final String DOOR_PILLAR = "doorPillar";
+    public static final String FLOOR_SPIKE = "floorSpike";
     public static final String PILLAR = "pillar";
     public static final String TORCH = "torch";
 

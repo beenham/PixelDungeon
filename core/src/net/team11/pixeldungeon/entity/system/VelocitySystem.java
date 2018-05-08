@@ -3,18 +3,23 @@ package net.team11.pixeldungeon.entity.system;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
+import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
+import net.team11.pixeldungeon.entity.component.entitycomponent.FloorSpikeComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.TiledMapLayers;
 import net.team11.pixeldungeon.utils.TiledMapObjectNames;
 import net.team11.pixeldungeon.utils.TiledMapProperties;
+import net.team11.pixeldungeon.utils.TiledObjectUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +28,14 @@ public class VelocitySystem extends EntitySystem {
 
     private List<Entity> players = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
+    private List<Entity> traps = new ArrayList<>();
     private MapManager mapManager;
 
     @Override
     public void init(EntityEngine entityEngine) {
         players = entityEngine.getEntities(VelocityComponent.class, PlayerComponent.class);
         entities = entityEngine.getEntities(BodyComponent.class);
+        traps = entityEngine.getEntities(FloorSpikeComponent.class, InteractionComponent.class);
         mapManager = MapManager.getInstance();
     }
 
@@ -48,8 +55,8 @@ public class VelocitySystem extends EntitySystem {
                 continue;
             }
 
-            float startX = bodyComponent.getX();
-            float startY = bodyComponent.getY();
+            float startX = bodyComponent.getX() - bodyComponent.getWidth()/2;
+            float startY = bodyComponent.getY() - bodyComponent.getHeight()/2;
 
             Rectangle entityRectangle = new Rectangle(startX,startY, bodyComponent.getWidth(), bodyComponent.getHeight());
 
@@ -66,19 +73,8 @@ public class VelocitySystem extends EntitySystem {
             Rectangle collison = new Rectangle(mapObject.getRectangle());
             if (entityRectangle.overlaps(collison)) {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
-                    for (Entity entity1 : entities) {
-                        if (entity1.hasComponent(DoorComponent.class)) {
-                            Door door = (Door) entity1;
-                            if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET)) {
-                                if (door.getName().equals(mapObject.getProperties().get(TiledMapProperties.TARGET))) {
-                                    if (door.isLocked()) {
-                                        door.setLocked(false);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    mapManager.loadMap((String) mapObject.getProperties().get(TiledMapProperties.MAP));
+                    PlayScreen.game.setScreen(new PlayScreen(PlayScreen.game,
+                            (String) mapObject.getProperties().get(TiledMapProperties.MAP)));
                 }
             }
         } catch (Exception e) {

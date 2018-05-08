@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.utils.TiledMapLayers;
 import net.team11.pixeldungeon.utils.TiledMapNames;
@@ -20,13 +21,17 @@ public class MapManager {
     private OrthogonalTiledMapRenderer renderer;
 
     private MapManager() {
+        System.err.println("LOADING MAPS");
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
-            Map map = new Map(entry.toString());
-            maps.put(map.getMapName(), map);
+            if (entry.toString().endsWith(".tmx")) {
+                System.err.println("LOADING FILE: " + entry.toString());
+                Map map = new Map(entry.toString());
+                maps.put(map.getMapName(), map);
+            }
         }
 
-        loadMap(TiledMapNames.LEVEL_0_0);
+        loadMap(TiledMapNames.TEST_LEVEL);
         renderer = new OrthogonalTiledMapRenderer(currentMap.getMap());
         renderer.setView(PlayScreen.gameCam);
     }
@@ -53,18 +58,20 @@ public class MapManager {
 
     public void loadMap(String mapName) {
         if (maps.containsKey(mapName)) {
+            /*
             if (engine != null && engine.hasEntities()) {
                 engine.storeEntities(currentMap.getMapName());
             }
+            */
             currentMap = maps.get(mapName);
             if (renderer != null) {
                 renderer.setMap(currentMap.getMap());
             }
             if (!currentMap.isLoaded() && engine != null) {
                 loadEntities();
-            } else if (engine != null) {
+            }/* else if (engine != null) {
                 engine.loadEntities(currentMap.getMapName());
-            }
+            }*/
         }
     }
 
@@ -74,8 +81,15 @@ public class MapManager {
 
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
         TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
         TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
+
+        for (Entity entity : engine.getEntities()) {
+            if (entity.hasTrigger()) {
+                TiledObjectUtil.parseTargets(engine, entity);
+            }
+        }
     }
 
     /////////////////////////////
@@ -84,6 +98,16 @@ public class MapManager {
 
     public Map getCurrentMap() {
         return currentMap;
+    }
+
+    public Map getMap(String map) {
+        return maps.get(map);
+    }
+
+    public void reset() {
+        for (String map : maps.keySet()) {
+            maps.get(map).setLoaded(false);
+        }
     }
 
     private static MapManager INSTANCE = new MapManager();

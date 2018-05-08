@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.entity.animation.AnimationName;
+import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
@@ -26,7 +26,7 @@ public class Box extends Entity {
 
         AnimationComponent animationComponent;
         this.addComponent(new BoxComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 5f,
+        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 7f,
                 (CollisionCategory.ENTITY),
                 (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
                 BodyDef.BodyType.DynamicBody));
@@ -38,8 +38,8 @@ public class Box extends Entity {
 
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
-        animationComponent.addAnimation(AnimationName.BOX_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AnimationName.BOX_IDLE);
+        animationComponent.addAnimation(AssetName.BOX_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.setAnimation(AssetName.BOX_IDLE);
     }
 
     public boolean isPushable() {

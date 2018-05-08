@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import box2dLight.Light;
-import box2dLight.PointLight;
-
 public class Entity {
     protected String name;
-    protected Light shadow;
     private UUID uuid;
     private List<EntityComponent> entityComponents = new ArrayList<EntityComponent>();
+
+    protected List<Entity> targetEntities = new ArrayList<>();
+    private List<String> targets = new ArrayList<>();
+    private boolean trigger = false;
 
     public Entity() {
         this.uuid = UUID.randomUUID();
@@ -49,8 +49,42 @@ public class Entity {
         return null;
     }
 
-    public void doInteraction() {
+    //  Void ; to be overridden by child if necessary
+    public void doInteraction() {}
 
+    //  Void ; to be overridden by child if necessary
+    public void respawn() {}
+
+    public boolean hasTrigger() {
+        return this.trigger;
+    }
+
+    public void setTrigger(boolean trigger) {
+        this.trigger = trigger;
+    }
+
+    public void setTargets(List<String> entities) {
+        while (!entities.isEmpty()) {
+            if (!targets.contains(entities.get(0))) {
+                targets.add(entities.remove(0));
+            } else {
+                entities.remove(0);
+            }
+        }
+    }
+
+    public List<String> getTargets() {
+        return targets;
+    }
+
+    public void setTargetEntities(List<Entity> entities) {
+        while (!entities.isEmpty()) {
+            if (!targetEntities.contains(entities.get(0))) {
+                targetEntities.add(entities.remove(0));
+            } else {
+                entities.remove(0);
+            }
+        }
     }
 
     public String getName() {

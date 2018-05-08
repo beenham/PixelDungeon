@@ -1,9 +1,12 @@
 package net.team11.pixeldungeon.entity.component;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.utils.Array;
 
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
 import net.team11.pixeldungeon.screens.PlayScreen;
@@ -16,11 +19,6 @@ public class BodyComponent implements EntityComponent {
     private float density;
     private byte category, collision;
     private Body body;
-
-    public BodyComponent(float width, float height) {
-        this.width = width;
-        this.height = height;
-    }
 
     public BodyComponent(float width, float height, float x, float y, float density, byte category, byte collision, BodyDef.BodyType bodyType) {
         this.width = width;
@@ -35,9 +33,14 @@ public class BodyComponent implements EntityComponent {
     }
 
     private void createBody(BodyDef.BodyType type, float density) {
-        if (body != null) {
-            removeBody();
+        Array<Body> bodies = new Array<>();
+        PlayScreen.world.getBodies(bodies);
+        for (Body body : bodies) {
+            if (body.equals(this.body)) {
+                removeBody();
+            }
         }
+
         BodyDef def = new BodyDef();
         switch (type) {
             case DynamicBody:
@@ -78,6 +81,10 @@ public class BodyComponent implements EntityComponent {
         createBody(bodyType,density);
     }
 
+    public Rectangle getRectangle () {
+        return new Rectangle(body.getPosition().x - width/2, body.getPosition().y - height/2, width, height);
+    }
+
     public float getWidth() {
         return width;
     }
@@ -102,12 +109,28 @@ public class BodyComponent implements EntityComponent {
         body.setLinearVelocity(body.getLinearVelocity().x,y);
     }
 
+    public void setCoords(float x, float y) {
+        body.setTransform(x,y,body.getAngle());
+    }
+
     public float getX() {
         return body.getPosition().x;
     }
 
     public float getY() {
         return body.getPosition().y;
+    }
+
+    public boolean isPushing() {
+        for (Contact contact : PlayScreen.world.getContactList()) {
+            if (contact.getFixtureA().getBody().equals(body)
+                    && contact.getFixtureB().getDensity() > 0
+                || contact.getFixtureB().getBody().equals(body)
+                    && contact.getFixtureA().getDensity() > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Body getBody() {
