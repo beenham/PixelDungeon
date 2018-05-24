@@ -16,7 +16,7 @@ public class VelocityComponent implements EntityComponent {
     private Direction direction;
 
     public VelocityComponent(float movementSpeed) {
-        this.xDirection = 0;
+        this.xDirection = 0f;
         this.yDirection = 0f;
         this.movementSpeed = movementSpeed;
         this.direction = Direction.RIGHT;

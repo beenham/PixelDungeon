@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.entity.component.HealthComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.FloorSpikeComponent;
 import net.team11.pixeldungeon.entity.component.TrapComponent;
+import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 import java.util.Timer;
@@ -33,7 +34,6 @@ public class FloorSpike extends Trap {
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
-
         AnimationComponent animationComponent;
         this.addComponent(new TrapComponent(this));
         this.addComponent(new FloorSpikeComponent(this));
@@ -47,7 +47,7 @@ public class FloorSpike extends Trap {
     }
 
     private void setupAnimations(AnimationComponent animationComponent) {
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Traps.atlas"));
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.TRAPS);
         animationComponent.addAnimation(AssetName.FLOORSPIKE_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.FLOORSPIKE_ACTIVATING, textureAtlas, 0.3f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.FLOORSPIKE_DEACTIVATING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
@@ -73,16 +73,16 @@ public class FloorSpike extends Trap {
         }
         if (enabled) {
             if (!triggered) {
-                getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_TRIGGERED);
                 getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_ACTIVATING);
+                getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_TRIGGERED);
                 triggered = true;
                 if (contactEntity != null) {
                     contactEntity.getComponent(HealthComponent.class)
                             .setHealth(contactEntity.getComponent(HealthComponent.class).getHealth() - damage);
                 }
             } else {
-                getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_IDLE);
                 getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_DEACTIVATING);
+                getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_IDLE);
                 triggered = false;
             }
         }

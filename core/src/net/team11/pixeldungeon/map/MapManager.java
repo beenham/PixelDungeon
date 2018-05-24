@@ -6,6 +6,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.items.Item;
+import net.team11.pixeldungeon.items.Key;
 import net.team11.pixeldungeon.utils.TiledMapLayers;
 import net.team11.pixeldungeon.utils.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
@@ -21,7 +23,6 @@ public class MapManager {
     private OrthogonalTiledMapRenderer renderer;
 
     private MapManager() {
-        System.err.println("LOADING MAPS");
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
             if (entry.toString().endsWith(".tmx")) {
@@ -58,20 +59,13 @@ public class MapManager {
 
     public void loadMap(String mapName) {
         if (maps.containsKey(mapName)) {
-            /*
-            if (engine != null && engine.hasEntities()) {
-                engine.storeEntities(currentMap.getMapName());
-            }
-            */
             currentMap = maps.get(mapName);
             if (renderer != null) {
                 renderer.setMap(currentMap.getMap());
             }
             if (!currentMap.isLoaded() && engine != null) {
                 loadEntities();
-            }/* else if (engine != null) {
-                engine.loadEntities(currentMap.getMapName());
-            }*/
+            }
         }
     }
 

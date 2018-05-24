@@ -11,6 +11,7 @@ import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
+import net.team11.pixeldungeon.screens.PlayScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,12 @@ public class TrapSystem extends EntitySystem {
     private final float timerReset = 50;
     private float timer = timerReset;
     private Player player;
-    private List<Entity> traps = new ArrayList<>();
+    private List<Entity> traps = null;
 
     @Override
     public void init(EntityEngine entityEngine) {
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
+        traps = new ArrayList<>(entityEngine.getEntities(TrapComponent.class).size());
         traps = entityEngine.getEntities(TrapComponent.class);
     }
 
@@ -33,8 +35,7 @@ public class TrapSystem extends EntitySystem {
     public void update(float delta) {
         timer = timer - delta * RenderSystem.FRAME_SPEED;
 
-        BodyComponent playerBody = player.getComponent(BodyComponent.class);
-        Rectangle playerRect = playerBody.getRectangle();
+        Rectangle playerRect = player.getComponent(BodyComponent.class).getRectangle();
         for (Entity entity : traps) {
             Trap trap = (Trap) entity;
             if (trap.isEnabled()) {
@@ -47,9 +48,7 @@ public class TrapSystem extends EntitySystem {
                     }
                     continue;
                 }
-
-                BodyComponent trapBody = trap.getComponent(BodyComponent.class);
-                Rectangle trapRect = trapBody.getRectangle();
+                Rectangle trapRect = trap.getComponent(BodyComponent.class).getRectangle();
                 if (trap.isTimed()) {
                     trap.setTimer(trap.getTimer() - delta * RenderSystem.FRAME_SPEED);
                     if (playerRect.overlaps(trapRect)) {

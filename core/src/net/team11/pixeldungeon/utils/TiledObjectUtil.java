@@ -25,6 +25,9 @@ import net.team11.pixeldungeon.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.items.Coin;
+import net.team11.pixeldungeon.items.Item;
+import net.team11.pixeldungeon.items.Key;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +73,19 @@ public class TiledObjectUtil {
                     case TiledMapObjectNames.CHEST: //  Chest entity
                         if (object.getProperties().containsKey(TiledMapProperties.OPENED)) {
                             boolean opened = (boolean) object.getProperties().get(TiledMapProperties.OPENED);
-                            engine.addEntity(new Chest(object.getRectangle(), opened, object.getName()));
+                            String itemName = (String) object.getProperties().get(TiledMapProperties.ITEM_NAME);
+                            int amount = (int) object.getProperties().get(TiledMapProperties.AMOUNT);
+                            Item item = null;
+                            switch ((String)object.getProperties().get(TiledMapProperties.ITEM)) {
+                                case TiledMapObjectNames.COIN:
+                                    item = new Coin(amount);
+                                    break;
+                                case TiledMapObjectNames.KEY:
+                                    item = new Key(itemName);
+                                    break;
+                            }
+
+                            engine.addEntity(new Chest(object.getRectangle(), opened, object.getName(), item));
                         } else {
                             System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
                         }

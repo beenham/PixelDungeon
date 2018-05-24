@@ -7,7 +7,15 @@ public class AssetName {
     public static final String RIGHT_BUTTON = "rightButton";
     public static final String LEFT_BUTTON = "leftButton";
     public static final String INTERACT_BUTTON = "interactButton";
+    public static final String INVENTORY_BUTTON = "inventoryButton";
     public static final String PAUSE_BUTTON = "pauseButton";
+
+    public static final String UI_BACK = "inventoryBack";
+    public static final String UI_SLOT = "itemSlot";
+
+    /////   ITEM SPRITE NAMES       /////
+    public static final String COIN = "coin";
+    public static final String SMALL_KEY = "smallKey";
 
 
     /////   PLAYER SPRITE NAMES     /////

@@ -1,6 +1,7 @@
 package net.team11.pixeldungeon.entity.system;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 
 import net.team11.pixeldungeon.PixelDungeon;
@@ -16,6 +17,12 @@ import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.PlayScreen;
+import net.team11.pixeldungeon.screens.ScreenEnum;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlice;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlide;
 import net.team11.pixeldungeon.utils.TiledMapLayers;
 import net.team11.pixeldungeon.utils.TiledMapObjectNames;
 import net.team11.pixeldungeon.utils.TiledMapProperties;
@@ -27,15 +34,11 @@ import java.util.List;
 public class VelocitySystem extends EntitySystem {
 
     private List<Entity> players = new ArrayList<>();
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> traps = new ArrayList<>();
     private MapManager mapManager;
 
     @Override
     public void init(EntityEngine entityEngine) {
         players = entityEngine.getEntities(VelocityComponent.class, PlayerComponent.class);
-        entities = entityEngine.getEntities(BodyComponent.class);
-        traps = entityEngine.getEntities(FloorSpikeComponent.class, InteractionComponent.class);
         mapManager = MapManager.getInstance();
     }
 
@@ -54,16 +57,10 @@ public class VelocitySystem extends EntitySystem {
                 }
                 continue;
             }
-
-            float startX = bodyComponent.getX() - bodyComponent.getWidth()/2;
-            float startY = bodyComponent.getY() - bodyComponent.getHeight()/2;
-
-            Rectangle entityRectangle = new Rectangle(startX,startY, bodyComponent.getWidth(), bodyComponent.getHeight());
-
             bodyComponent.moveX(1 * velocityComponent.getxDirection() * velocityComponent.getMovementSpeed());
             bodyComponent.moveY(1 * velocityComponent.getyDirection() * velocityComponent.getMovementSpeed());
 
-            isOverlapping(entityRectangle);
+            isOverlapping(bodyComponent.getRectangle());
         }
     }
 
@@ -73,8 +70,11 @@ public class VelocitySystem extends EntitySystem {
             Rectangle collison = new Rectangle(mapObject.getRectangle());
             if (entityRectangle.overlaps(collison)) {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
-                    PlayScreen.game.setScreen(new PlayScreen(PlayScreen.game,
-                            (String) mapObject.getProperties().get(TiledMapProperties.MAP)));
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
+                            //ScreenTransitionSlide.init(1.5f,ScreenTransitionSlide.RIGHT, true, Interpolation.fade),
+                            //ScreenTransitionSlice.init(0.5f,ScreenTransitionSlice.UP_DOWN,2,Interpolation.pow2),
+                            null,
+                            mapObject.getProperties().get(TiledMapProperties.MAP));
                 }
             }
         } catch (Exception e) {

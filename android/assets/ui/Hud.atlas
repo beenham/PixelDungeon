@@ -1,47 +1,84 @@
 
 Hud.png
-size: 128,32
+size: 512,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 downButton
-  rotate: false
-  xy: 59, 2
-  size: 17, 17
-  orig: 17, 17
-  offset: 0, 0
-  index: -1
-interactButton
-  rotate: false
-  xy: 97, 2
-  size: 17, 17
-  orig: 17, 17
-  offset: 0, 0
-  index: -1
-leftButton
-  rotate: false
-  xy: 2, 2
-  size: 17, 17
-  orig: 17, 17
-  offset: 0, 0
-  index: -1
-pauseButton
-  rotate: false
-  xy: 78, 2
-  size: 17, 17
-  orig: 17, 17
-  offset: 0, 0
-  index: -1
-rightButton
   rotate: false
   xy: 21, 2
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
+interactButton
+  rotate: false
+  xy: 260, 448
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+interactButton2
+  rotate: false
+  xy: 228, 228
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+inventoryBack
+  rotate: false
+  xy: 2, 2
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+inventoryButton
+  rotate: false
+  xy: 260, 467
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+itemBackground
+  rotate: false
+  xy: 2, 247
+  size: 256, 256
+  split: 64, 64, 64, 64
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+itemSlot
+  rotate: false
+  xy: 2, 21
+  size: 224, 224
+  split: 48, 48, 48, 48
+  orig: 224, 224
+  offset: 0, 0
+  index: -1
+leftButton
+  rotate: false
+  xy: 260, 486
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+pauseButton
+  rotate: false
+  xy: 228, 209
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+rightButton
+  rotate: false
+  xy: 279, 467
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
 upButton
   rotate: false
-  xy: 40, 2
+  xy: 279, 486
   size: 17, 17
   orig: 17, 17
   offset: 0, 0

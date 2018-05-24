@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.entity.system;
 
+import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.CameraComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;

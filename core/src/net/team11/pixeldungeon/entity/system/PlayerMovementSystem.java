@@ -1,6 +1,7 @@
 package net.team11.pixeldungeon.entity.system;
 
 import net.team11.pixeldungeon.entities.player.Player;
+import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -10,12 +11,13 @@ import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.utils.Direction;
-import net.team11.pixeldungeon.uicomponents.Controller;
+import net.team11.pixeldungeon.uicomponents.Hud;
 
 public class PlayerMovementSystem extends EntitySystem {
     private Player player;
     private EntityEngine engine;
-    private Controller controller;
+    private Hud hud;
+    private InventoryUI inventoryUI;
 
     @Override
     public void init(EntityEngine entityEngine) {
@@ -34,87 +36,98 @@ public class PlayerMovementSystem extends EntitySystem {
         AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
         InteractionComponent interactionComponent = player.getComponent(InteractionComponent.class);
 
-        if (controller.isInteractPressed() && !velocityComponent.isParalyzed()) {
-            velocityComponent.setxDirection(0);
-            velocityComponent.setyDirection(0);
-            interactionComponent.setInteracting(true);
-            switch (velocityComponent.getDirection()) {
-                case UP:
-                    animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_UP);
-                    break;
-                case DOWN:
-                    animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_DOWN);
-                    break;
-                case RIGHT:
-                    animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_RIGHT);
-                    break;
-                case LEFT:
-                    animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_LEFT);
-                    break;
-            }
-            velocityComponent.paralyze(5);
-        } else if (controller.isRightPressed() && !velocityComponent.isParalyzed()) {
-            velocityComponent.setDirection(Direction.RIGHT);
-            velocityComponent.setxDirection(1);
-            interactionComponent.setInteracting(false);
-            if (bodyComponent.isPushing()) {
-                animationComponent.setAnimation(AssetName.PLAYER_PUSHING_RIGHT);
-            } else {
-                animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT);
-            }
-        } else if (controller.isUpPressed() && !velocityComponent.isParalyzed()) {
-            velocityComponent.setDirection(Direction.UP);
-            velocityComponent.setyDirection(1);
-            interactionComponent.setInteracting(false);
-            if (bodyComponent.isPushing()) {
-                animationComponent.setAnimation(AssetName.PLAYER_PUSHING_UP);
-            } else {
-                animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP);
-            }
-        } else if (controller.isLeftPressed() && !velocityComponent.isParalyzed()) {
-            velocityComponent.setDirection(Direction.LEFT);
-            velocityComponent.setxDirection(-1);
-            interactionComponent.setInteracting(false);
-            if (bodyComponent.isPushing()) {
-                animationComponent.setAnimation(AssetName.PLAYER_PUSHING_LEFT);
-            } else {
-                animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT);
-            }
-        } else if (controller.isDownPressed() && !velocityComponent.isParalyzed()) {
-            velocityComponent.setDirection(Direction.DOWN);
-            velocityComponent.setyDirection(-1);
-            interactionComponent.setInteracting(false);
-            if (bodyComponent.isPushing()) {
-                animationComponent.setAnimation(AssetName.PLAYER_PUSHING_DOWN);
-            } else {
-                animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN);
-            }
-        } else {
-            velocityComponent.setxDirection(0);
-            velocityComponent.setyDirection(0);
-            bodyComponent.moveX(0);
-            bodyComponent.moveY(0);
-
-            if (!velocityComponent.isParalyzed())
+        if (hud.isVisible()) {
+            if (hud.isInteractPressed() && !velocityComponent.isParalyzed()) {
+                velocityComponent.setxDirection(0);
+                velocityComponent.setyDirection(0);
+                interactionComponent.setInteracting(true);
+                System.out.println("INTERACTING!");
+                switch (velocityComponent.getDirection()) {
+                    case UP:
+                        animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_UP);
+                        break;
+                    case DOWN:
+                        animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_DOWN);
+                        break;
+                    case RIGHT:
+                        animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_RIGHT);
+                        break;
+                    case LEFT:
+                        animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_LEFT);
+                        break;
+                }
+                velocityComponent.paralyze(5);
+            } else if (hud.isRightPressed() && !velocityComponent.isParalyzed()) {
+                velocityComponent.setDirection(Direction.RIGHT);
+                velocityComponent.setxDirection(1);
                 interactionComponent.setInteracting(false);
-            switch (velocityComponent.getDirection()) {
-                case UP:
-                    animationComponent.setAnimation(AssetName.PLAYER_IDLE_UP);
-                    break;
-                case DOWN:
-                    animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
-                    break;
-                case RIGHT:
-                    animationComponent.setAnimation(AssetName.PLAYER_IDLE_RIGHT);
-                    break;
-                case LEFT:
-                    animationComponent.setAnimation(AssetName.PLAYER_IDLE_LEFT);
-                    break;
+                if (bodyComponent.isPushing()) {
+                    animationComponent.setAnimation(AssetName.PLAYER_PUSHING_RIGHT);
+                } else {
+                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT);
+                }
+            } else if (hud.isUpPressed() && !velocityComponent.isParalyzed()) {
+                velocityComponent.setDirection(Direction.UP);
+                velocityComponent.setyDirection(1);
+                interactionComponent.setInteracting(false);
+                if (bodyComponent.isPushing()) {
+                    animationComponent.setAnimation(AssetName.PLAYER_PUSHING_UP);
+                } else {
+                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP);
+                }
+            } else if (hud.isLeftPressed() && !velocityComponent.isParalyzed()) {
+                velocityComponent.setDirection(Direction.LEFT);
+                velocityComponent.setxDirection(-1);
+                interactionComponent.setInteracting(false);
+                if (bodyComponent.isPushing()) {
+                    animationComponent.setAnimation(AssetName.PLAYER_PUSHING_LEFT);
+                } else {
+                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT);
+                }
+            } else if (hud.isDownPressed() && !velocityComponent.isParalyzed()) {
+                velocityComponent.setDirection(Direction.DOWN);
+                velocityComponent.setyDirection(-1);
+                interactionComponent.setInteracting(false);
+                if (bodyComponent.isPushing()) {
+                    animationComponent.setAnimation(AssetName.PLAYER_PUSHING_DOWN);
+                } else {
+                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN);
+                }
+            } else if (hud.isInventoryPressed()) {
+                hud.setPressed(false);
+                hud.setVisible(false);
+                inventoryUI.setVisible(true);
+            } else {
+                velocityComponent.setxDirection(0);
+                velocityComponent.setyDirection(0);
+                bodyComponent.moveX(0);
+                bodyComponent.moveY(0);
+
+                if (!velocityComponent.isParalyzed())
+                    interactionComponent.setInteracting(false);
+                switch (velocityComponent.getDirection()) {
+                    case UP:
+                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_UP);
+                        break;
+                    case DOWN:
+                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
+                        break;
+                    case RIGHT:
+                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_RIGHT);
+                        break;
+                    case LEFT:
+                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_LEFT);
+                        break;
+                }
             }
         }
     }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
+    public void setHud(Hud hud) {
+        this.hud = hud;
+    }
+
+    public void setInventoryUI(InventoryUI inventoryUI) {
+        this.inventoryUI = inventoryUI;
     }
 }

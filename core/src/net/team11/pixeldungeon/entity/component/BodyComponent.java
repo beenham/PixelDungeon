@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
 import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.CollisionCategory;
 
 public class BodyComponent implements EntityComponent {
     private float width;
@@ -82,7 +81,8 @@ public class BodyComponent implements EntityComponent {
     }
 
     public Rectangle getRectangle () {
-        return new Rectangle(body.getPosition().x - width/2, body.getPosition().y - height/2, width, height);
+        return new Rectangle(body.getPosition().x - width/2,
+                body.getPosition().y - height/2, width, height);
     }
 
     public float getWidth() {

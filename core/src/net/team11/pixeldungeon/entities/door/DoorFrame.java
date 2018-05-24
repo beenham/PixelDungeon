@@ -10,6 +10,7 @@ import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorFrameComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 public class DoorFrame extends Entity {
@@ -32,7 +33,7 @@ public class DoorFrame extends Entity {
     }
 
     private void setupAnimations(AnimationComponent animationComponent, String animation) {
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(animation, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(animation);
     }

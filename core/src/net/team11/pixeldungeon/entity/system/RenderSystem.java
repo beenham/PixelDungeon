@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.PlayScreen;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,8 @@ public class RenderSystem extends EntitySystem {
     public static float FRAME_SPEED = 15;
 
     private SpriteBatch spriteBatch;
-    private List<Entity> players = new ArrayList<>();
-    private List<Entity> entities = new ArrayList<>();
+    private List<Entity> players = null;
+    private List<Entity> entities = null;
     private MapManager mapManager;
 
     public RenderSystem(SpriteBatch spriteBatch) {
@@ -36,8 +37,10 @@ public class RenderSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         mapManager = MapManager.getInstance();
-        entities = entityEngine.getEntities(AnimationComponent.class);
+        players = new ArrayList<>(entityEngine.getEntities(PlayerComponent.class).size());
         players = entityEngine.getEntities(AnimationComponent.class, VelocityComponent.class, PlayerComponent.class);
+        entities = new ArrayList<>(entityEngine.getEntities(AnimationComponent.class).size());
+        entities = entityEngine.getEntities(AnimationComponent.class);
     }
 
     @Override
@@ -45,9 +48,9 @@ public class RenderSystem extends EntitySystem {
         mapManager.renderBackGround();
         mapManager.renderEnvironment();
 
-        ArrayList<Entity> entityList = new ArrayList<>();
+        ArrayList<Entity> entityList = new ArrayList<>(entities.size());
 
-        float bleed = 128;
+        float bleed = 64;
         Rectangle camera = new Rectangle(
                 PlayScreen.gameCam.position.x-(PlayScreen.gameCam.viewportWidth/2)*0.1f-bleed,
                 PlayScreen.gameCam.position.y-(PlayScreen.gameCam.viewportHeight/2)*0.1f-bleed,
@@ -56,12 +59,8 @@ public class RenderSystem extends EntitySystem {
 
         Entity player = players.get(0);
         for (int i = 0 ; i < entities.size() ; i++) {
-            Rectangle entity = new Rectangle(
-            entities.get(i).getComponent(BodyComponent.class).getX(),
-            entities.get(i).getComponent(BodyComponent.class).getY(),
-            entities.get(i).getComponent(BodyComponent.class).getWidth(),
-            entities.get(i).getComponent(BodyComponent.class).getHeight());
-            if (entity.overlaps(camera)) {
+            Rectangle rect = entities.get(i).getComponent(BodyComponent.class).getRectangle();
+            if (rect.overlaps(camera)) {
                 if (i == 0) {
                     entityList.add(entities.get(i));
                 } else {

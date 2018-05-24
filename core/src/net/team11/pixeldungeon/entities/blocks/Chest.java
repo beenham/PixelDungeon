@@ -6,21 +6,26 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 public class Chest extends Entity {
     private boolean opened;
-    private boolean locked;
+    private boolean locked = false;
+    private String key;
+    private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, String name) {
+    public Chest(Rectangle bounds, boolean opened, String name, Item item) {
         super(name);
         this.opened = opened;
+        this.item = item;
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
@@ -37,7 +42,7 @@ public class Chest extends Entity {
     }
 
     private void setupAnimations(AnimationComponent animationComponent) {
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         if (opened) {
@@ -47,11 +52,32 @@ public class Chest extends Entity {
         }
     }
 
+    public void setLocked(String key) {
+        this.key = key;
+        this.locked = true;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void removeItem(boolean shouldRemove) {
+        if (shouldRemove) {
+            item = null;
+        } else {
+            opened = false;
+        }
+    }
+
+    public boolean isEmpty() {
+        return item == null;
+    }
+
     @Override
     public void doInteraction() {
         if (opened) {
-            getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_CLOSED);
-            opened = false;
+            //getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_CLOSED);
+            //opened = false;
         } else {
             getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
             opened = true;

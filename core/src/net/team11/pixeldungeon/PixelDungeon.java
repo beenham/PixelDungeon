@@ -4,34 +4,36 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.team11.pixeldungeon.screens.ScreenEnum;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.game.DirectedGame;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
 
-public class PixelDungeon extends Game {
+public class PixelDungeon extends DirectedGame {
     public static int V_WIDTH;
     public static int V_HEIGHT;
+    public static float SCALAR;
 	public SpriteBatch batch;
 
-	/**
-	 * Creation of the game.
-	 * Creating SpriteBatch, setting the Width / Height of display.
-	 * Creating a new viewable screen
-	 */
+	private static PixelDungeon INSTANCE;
+
 	@Override
 	public void create () {
+		INSTANCE = this;
 		batch = new SpriteBatch();
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();
-		setScreen(new PlayScreen(this, TiledMapNames.TEST_LEVEL));
+		SCALAR = (V_HEIGHT / 1080f);
+
+		ScreenManager.getInstance().initialize(this);
+		ScreenManager.getInstance().showScreen(ScreenEnum.GAME,
+				//ScreenTransitionFade.init(0.5f),
+				TiledMapNames.TEST_LEVEL);
 	}
 
-	@Override
-	public void render () {
-		super.render();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
+	public static PixelDungeon getInstance() {
+		return INSTANCE;
 	}
 }

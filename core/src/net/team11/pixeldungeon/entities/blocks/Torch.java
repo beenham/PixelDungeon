@@ -13,6 +13,7 @@ import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.TorchComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 import box2dLight.Light;
@@ -32,7 +33,7 @@ public class Torch extends Entity {
         AnimationComponent animationComponent;
         this.addComponent(new TorchComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
-                (byte)(CollisionCategory.ENTITY),
+                CollisionCategory.ENTITY,
                 (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
@@ -43,9 +44,12 @@ public class Torch extends Entity {
     }
 
     private void setupAnimations(AnimationComponent animationComponent) {
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
-        animationComponent.addAnimation(AssetName.TORCH_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.addAnimation(AssetName.TORCH_ON, textureAtlas, 1.9f, Animation.PlayMode.LOOP_PINGPONG);
+        animationComponent.addAnimation(AssetName.TORCH_OFF,
+                Assets.getInstance().getTextureSet(Assets.BLOCKS),
+                1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.TORCH_ON,
+                Assets.getInstance().getTextureSet(Assets.BLOCKS),
+                1.9f, Animation.PlayMode.LOOP_PINGPONG);
         if (on) {
             animationComponent.setAnimation(AssetName.TORCH_ON);
         } else {
@@ -56,7 +60,7 @@ public class Torch extends Entity {
     private void setupLight(Rectangle bounds) {
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()*2;
-        light = new PointLight(PlayScreen.rayHandler,150,Color.ORANGE,150, posX, posY);
+        light = new PointLight(PlayScreen.rayHandler,100,Color.ORANGE,50, posX, posY);
         light.setSoftnessLength(0f);
     }
 

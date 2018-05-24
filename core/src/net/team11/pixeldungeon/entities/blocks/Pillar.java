@@ -11,6 +11,7 @@ import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.PillarComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 
@@ -33,7 +34,7 @@ public class Pillar extends Entity {
     }
 
     private void setupAnimations(AnimationComponent animationComponent) {
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.PILLAR, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AssetName.PILLAR);
     }
