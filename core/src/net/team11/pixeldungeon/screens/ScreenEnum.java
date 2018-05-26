@@ -1,12 +1,12 @@
 package net.team11.pixeldungeon.screens;
 
 public enum ScreenEnum {
-    /*MAIN_MENU {
+    MAIN_MENU {
         public AbstractScreen getScreen(Object... params) {
             return new MainMenuScreen();
         }
     },
-    LEVEL_SELECT {
+    /*LEVEL_SELECT {
         public AbstractScreen getScreen(Object... params) {
             return new MainMenuScreen();
         }

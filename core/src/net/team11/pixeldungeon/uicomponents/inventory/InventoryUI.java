@@ -12,26 +12,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 
 public class InventoryUI extends Stage {
-    public static final int NUM_SLOTS = InventoryComponent.MAX_SIZE;
-
     private ShapeRenderer shapeRenderer;
 
     private InventoryComponent inventory;
     private boolean visible = false;
     private boolean backPressed;
-    private Array<InventorySlot> slotArray = new Array<>(NUM_SLOTS);
+    private Array<InventorySlot> slotArray = new Array<>(InventoryComponent.MAX_SIZE);
 
     private Table inventoryTable;
 
@@ -46,12 +41,12 @@ public class InventoryUI extends Stage {
     private void setupTable() {
         inventoryTable = new Table();
 
-        Label titleLabel = new Label("INVENTORY", new Label.LabelStyle(Assets.getInstance().getFont(Assets.PIXEL_FONT), Color.WHITE));
+        Label titleLabel = new Label("INVENTORY", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
         inventoryTable.add(titleLabel).colspan(5).left().pad(40 * PixelDungeon.SCALAR);
         inventoryTable.row();
 
-        for (int i = 0 ; i < NUM_SLOTS ; i++) {
+        for (int i = 0 ; i < InventoryComponent.MAX_SIZE ; i++) {
             if (i == 5) {
                 inventoryTable.row();
             }
@@ -60,7 +55,7 @@ public class InventoryUI extends Stage {
         }
         inventoryTable.row().padTop(20 * PixelDungeon.SCALAR);
 
-        Label backLabel = new Label("BACK", new Label.LabelStyle(Assets.getInstance().getFont(Assets.PIXEL_FONT), Color.WHITE));
+        Label backLabel = new Label("BACK", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         backLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
         backLabel.addListener(new ClickListener() {
             @Override

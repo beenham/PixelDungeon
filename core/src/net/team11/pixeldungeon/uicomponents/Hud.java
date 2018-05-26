@@ -1,8 +1,6 @@
 package net.team11.pixeldungeon.uicomponents;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,14 +17,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Locale;
 
 public class Hud extends Stage {
@@ -38,7 +31,7 @@ public class Hud extends Stage {
     private Integer secondTimer;
     private float timer = 0;
     private Label timeLabel;
-    private BitmapFont font = Assets.getInstance().getFont(Assets.PIXEL_FONT);
+    private BitmapFont font = Assets.getInstance().getFont(Assets.P_FONT);
 
     public Hud(SpriteBatch batch){
         super(new FitViewport(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT, new OrthographicCamera()), batch);

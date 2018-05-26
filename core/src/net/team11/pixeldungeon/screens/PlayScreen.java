@@ -39,7 +39,6 @@ import box2dLight.RayHandler;
 
 public class PlayScreen extends AbstractScreen {
     public static RayHandler rayHandler;
-    private FitViewport gamePort;
     private Hud hud;
     private InventoryUI inventoryUI;
     private MapManager mapManager;
@@ -91,8 +90,7 @@ public class PlayScreen extends AbstractScreen {
     }
 
     private void setupViewport() {
-        gamePort = new FitViewport(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT, gameCam);
-        gamePort.setScreenPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
+        viewport.setScreenPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
     }
 
     private void setupEngine() {
@@ -178,7 +176,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void resize(int width, int height) {
-        gamePort.update(width, height);
+        viewport.update(width, height);
         hud.resize(width, height);
     }
 

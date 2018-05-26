@@ -41,7 +41,6 @@ public class PlayerMovementSystem extends EntitySystem {
                 velocityComponent.setxDirection(0);
                 velocityComponent.setyDirection(0);
                 interactionComponent.setInteracting(true);
-                System.out.println("INTERACTING!");
                 switch (velocityComponent.getDirection()) {
                     case UP:
                         animationComponent.setAnimation(AssetName.PLAYER_INTERACTING_UP);

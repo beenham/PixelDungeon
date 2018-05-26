@@ -461,7 +461,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffffff" name="points">
-  <object id="2" name="playerSpawn" x="320" y="224" width="16" height="16"/>
+  <object id="2" name="playerSpawn" x="328" y="224" width="16" height="16"/>
   <object id="41" name="layerExitPoint" x="320" y="40" width="32" height="16">
    <properties>
     <property name="map" value="level_0_0"/>

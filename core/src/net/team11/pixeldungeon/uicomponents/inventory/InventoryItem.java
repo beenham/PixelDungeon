@@ -2,15 +2,12 @@ package net.team11.pixeldungeon.uicomponents.inventory;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 
 import java.util.Locale;
@@ -37,7 +34,7 @@ public class InventoryItem extends Stack {
         Table numberTable = new Table();
         numberTable.bottom().right();
         Label numberLabel = new Label(String.format(Locale.UK,"%d",item.getAmount()),
-                new Label.LabelStyle(Assets.getInstance().getFont(Assets.PIXEL_FONT), Color.WHITE));
+                new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         numberLabel.setFontScale(0.75f * PixelDungeon.SCALAR);
         numberTable.add(numberLabel);
 

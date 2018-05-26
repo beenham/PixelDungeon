@@ -28,9 +28,7 @@ public class PixelDungeon extends DirectedGame {
 		SCALAR = (V_HEIGHT / 1080f);
 
 		ScreenManager.getInstance().initialize(this);
-		ScreenManager.getInstance().showScreen(ScreenEnum.GAME,
-				//ScreenTransitionFade.init(0.5f),
-				TiledMapNames.TEST_LEVEL);
+		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 	}
 
 	public static PixelDungeon getInstance() {
