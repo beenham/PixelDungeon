@@ -55,12 +55,10 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_SELECT,
-                        ScreenTransitionSplit.init(2f,ScreenTransitionSplit.HORIZONTAL,true,Interpolation.pow2));
+                        ScreenTransitionSplit.init(2f,true,Interpolation.pow2));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
-
 
         TextButton skinButton = new TextButton("SKIN SELECTION", Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);

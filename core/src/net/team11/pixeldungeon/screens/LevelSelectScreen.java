@@ -42,7 +42,7 @@ public class LevelSelectScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
-                        ScreenTransitionSplit.init(1f,ScreenTransitionSplit.HORIZONTAL, false,Interpolation.pow2));
+                        ScreenTransitionSplit.init(1f, false,Interpolation.pow2));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
