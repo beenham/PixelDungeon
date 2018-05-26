@@ -17,10 +17,11 @@ public class ScreenTransitionSplit implements ScreenTransition {
     private int direction;
     private Interpolation easing;
     private Array<Integer> sliceIndex = new Array<Integer>();
+    private boolean top;
 
     private float x;
 
-    public static ScreenTransitionSplit init(float duration, int direction, Interpolation easing) {
+    public static ScreenTransitionSplit init(float duration, int direction, boolean top,Interpolation easing) {
         instance.duration = duration;
         instance.direction = direction;
         instance.easing = easing;
@@ -29,6 +30,7 @@ public class ScreenTransitionSplit implements ScreenTransition {
         instance.sliceIndex.clear();
         instance.sliceIndex.add(0,1);
         instance.x = 0;
+        instance.top = top;
         return instance;
     }
 
@@ -54,23 +56,37 @@ public class ScreenTransitionSplit implements ScreenTransition {
 
                 break;
         }
-
-        int sliceWidth = (int) (w / sliceIndex.size);
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(nextScreen, 0, 0, 0, 0, w, h, 1, 1, 0, 0, 0, currScreen.getWidth(), currScreen.getHeight(), false, true);
+        if (top) {
+            batch.draw(nextScreen, 0, 0, 0, 0, w, h, 1, 1,
+                    0, 0, 0, currScreen.getWidth(), currScreen.getHeight(),
+                    false, true);
 
-        ///*
-        batch.draw(currScreen, w/2 + x, 0, 0,0, w/2, h,
-                1,1,0,currScreen.getWidth()/2,0,
-                currScreen.getWidth()/2, currScreen.getHeight(),false,true);
-        //*/
-        batch.draw(currScreen, 0 - x, 0, 0,0, w/2, h,
-                1,1,0,0,0,
-                currScreen.getWidth()/2, currScreen.getHeight(),false,true);
+            ///*
+            batch.draw(currScreen, w/2 + x, 0, 0,0, w/2, h,
+                    1,1,0,currScreen.getWidth()/2,0,
+                    currScreen.getWidth()/2, currScreen.getHeight(),false,true);
+            //*/
+            batch.draw(currScreen, 0 - x, 0, 0,0, w/2, h,
+                    1,1,0,0,0,
+                    currScreen.getWidth()/2, currScreen.getHeight(),false,true);
+        } else {
 
-        //batch.draw(currScreen, 0, 0, 0, 0, sliceWidth, h, 1, 1, 0, sliceWidth, 0, sliceWidth, nextScreen.getHeight(), false, true);
+            batch.draw(currScreen, 0, 0, 0, 0, w, h, 1, 1,
+                    0, 0, 0, currScreen.getWidth(), currScreen.getHeight(),
+                    false, true);
+
+            ///*
+            batch.draw(nextScreen, w - x, 0, 0,0, w/2, h,
+                    1,1,0,currScreen.getWidth()/2,0,
+                    currScreen.getWidth()/2, currScreen.getHeight(),false,true);
+            //*/
+            batch.draw(nextScreen, -w/2 + x, 0, 0,0, w/2, h,
+                    1,1,0,0,0,
+                    currScreen.getWidth()/2, currScreen.getHeight(),false,true);
+        }
         batch.end();
     }
 }

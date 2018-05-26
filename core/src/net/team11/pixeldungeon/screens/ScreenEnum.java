@@ -6,11 +6,11 @@ public enum ScreenEnum {
             return new MainMenuScreen();
         }
     },
-    /*LEVEL_SELECT {
+    LEVEL_SELECT {
         public AbstractScreen getScreen(Object... params) {
-            return new MainMenuScreen();
+            return new LevelSelectScreen();
         }
-    },*/
+    },
     GAME {
         public AbstractScreen getScreen(Object... params) {
             return new PlayScreen((String) params[0]);

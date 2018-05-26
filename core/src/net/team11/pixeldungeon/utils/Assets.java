@@ -11,6 +11,7 @@ public class Assets {
     public static final String BLOCKS = "blocks";
     public static final String HUD = "hud";
     public static final String ITEMS = "items";
+    public static final String LEVELS = "levels";
     public static final String PLAYER = "player";
     public static final String TRAPS = "traps";
     public static final String UI_SKIN = "uiskin";
@@ -33,6 +34,7 @@ public class Assets {
         textures.put(BLOCKS, new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas")));
         textures.put(HUD, new TextureAtlas(Gdx.files.internal("ui/Hud.atlas")));
         textures.put(ITEMS, new TextureAtlas(Gdx.files.internal("ui/Items.atlas")));
+        textures.put(LEVELS, new TextureAtlas(Gdx.files.internal("ui/Levels.atlas")));
         textures.put(PLAYER, new TextureAtlas(Gdx.files.internal("entities/Player.atlas")));
         textures.put(TRAPS, new TextureAtlas(Gdx.files.internal("entities/Traps.atlas")));
 

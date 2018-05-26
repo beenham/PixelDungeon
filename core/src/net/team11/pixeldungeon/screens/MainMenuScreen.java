@@ -26,7 +26,7 @@ import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.TiledMapNames;
 
 public class MainMenuScreen extends AbstractScreen {
-    private Image image;
+    private Image backgroundImage;
     private float panH = .2f * PixelDungeon.SCALAR;
     private float panV = .15f * PixelDungeon.SCALAR;
 
@@ -38,10 +38,10 @@ public class MainMenuScreen extends AbstractScreen {
 
         addActor(setupMainTable(padding));
         addActor(setupTitleTable(padding));
-        addActor(setupTopRightTable(padding));
-        addActor(setupBottomRightTable(padding));
-        addActor(setupBottomLeftTable(padding));
-        addActor(setupTopLeftTable(padding));
+        //addActor(setupTopRightTable(padding));
+        //addActor(setupBottomRightTable(padding));
+        //addActor(setupBottomLeftTable(padding));
+        //addActor(setupTopLeftTable(padding));
     }
 
     private Table setupMainTable(float padding) {
@@ -54,9 +54,8 @@ public class MainMenuScreen extends AbstractScreen {
         playButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
-                        ScreenTransitionSplit.init(2f,ScreenTransitionSplit.HORIZONTAL,Interpolation.pow2),
-                        TiledMapNames.TEST_LEVEL);
+                ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_SELECT,
+                        ScreenTransitionSplit.init(2f,ScreenTransitionSplit.HORIZONTAL,true,Interpolation.pow2));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -65,17 +64,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         TextButton skinButton = new TextButton("SKIN SELECTION", Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-
-
-        skinButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
-                        null,//ScreenTransitionSplit.init(2f,ScreenTransitionSplit.HORIZONTAL,Interpolation.pow2),
-                        TiledMapNames.TEST_LEVEL);
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
+        skinButton.setDisabled(true);
 
         TextButton helpButton = new TextButton("HOW TO PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
         helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
@@ -160,22 +149,22 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     private Image setupBackground() {
-        image = new Image(
+        backgroundImage = new Image(
                 new Texture(Gdx.files.internal("Background2.png"))
         );
-        image.setSize(PixelDungeon.V_WIDTH * 1.f, PixelDungeon.V_HEIGHT * 1.f);
+        backgroundImage.setSize(PixelDungeon.V_WIDTH * 1.f, PixelDungeon.V_HEIGHT * 1.f);
         //image.setPosition(0 - image.getWidth()/3, 0 - image.getHeight() / 3);
-        return image;
+        return backgroundImage;
     }
 
     private void update() {
-        if (image.getX() > 0 || image.getX() + image.getWidth() < PixelDungeon.V_WIDTH) {
+        if (backgroundImage.getX() > 0 || backgroundImage.getX() + backgroundImage.getWidth() < PixelDungeon.V_WIDTH) {
             panH *= -1;
         }
-        if (image.getY() > 0 || image.getY() + image.getHeight() < PixelDungeon.V_HEIGHT) {
+        if (backgroundImage.getY() > 0 || backgroundImage.getY() + backgroundImage.getHeight() < PixelDungeon.V_HEIGHT) {
             panV *= -1;
         }
-        image.setPosition(image.getX() + panH, image.getY() + panV);
+        backgroundImage.setPosition(backgroundImage.getX() + panH, backgroundImage.getY() + panV);
     }
 
     @Override
