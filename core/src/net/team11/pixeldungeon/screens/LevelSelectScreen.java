@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,9 +20,11 @@ import net.team11.pixeldungeon.utils.Assets;
 public class LevelSelectScreen extends AbstractScreen {
     private LevelSelector selector;
     private LevelInfo info;
+    private Image backgroundImage;
 
     @Override
     public void buildStage() {
+        addActor(setupBackground());
         addActor(setupLayout());
     }
 
@@ -32,6 +35,14 @@ public class LevelSelectScreen extends AbstractScreen {
         layout.add(setupLeft());
         layout.add(setupRight());
         return layout;
+    }
+
+    private Image setupBackground() {
+        backgroundImage = new Image(
+                Assets.getInstance().getTextureSet(Assets.BACKGROUND).findRegion(ScreenEnum.LEVEL_SELECT.toString())
+        );
+        backgroundImage.setSize(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
+        return backgroundImage;
     }
 
     private Table setupLeft() {
@@ -49,12 +60,15 @@ public class LevelSelectScreen extends AbstractScreen {
         table.add(backButton).left().pad(20 * PixelDungeon.SCALAR);
         table.row().pad(20 * PixelDungeon.SCALAR);
         table.add(selector = new LevelSelector(PixelDungeon.V_WIDTH / 5 * 3)).pad(20 * PixelDungeon.SCALAR);
+
+        table.setHeight(PixelDungeon.V_HEIGHT);
         return table;
     }
 
     private Table setupRight() {
         Table table = new Table();
         table.add(info = new LevelInfo(selector));
+        table.setHeight(PixelDungeon.V_HEIGHT);
         return table;
     }
 

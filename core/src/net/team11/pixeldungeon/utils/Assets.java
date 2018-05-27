@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import java.util.HashMap;
 
 public class Assets {
+    public static final String BACKGROUND = "backgrounds";
     public static final String BLOCKS = "blocks";
     public static final String HUD = "hud";
     public static final String ITEMS = "items";
@@ -31,6 +32,7 @@ public class Assets {
     }
 
     private void loadAssets() {
+        textures.put(BACKGROUND, new TextureAtlas(Gdx.files.internal("ui/Backgrounds.atlas")));
         textures.put(BLOCKS, new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas")));
         textures.put(HUD, new TextureAtlas(Gdx.files.internal("ui/Hud.atlas")));
         textures.put(ITEMS, new TextureAtlas(Gdx.files.internal("ui/Items.atlas")));

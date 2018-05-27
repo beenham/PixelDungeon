@@ -1,5 +1,8 @@
 package net.team11.pixeldungeon.screens.components;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -39,8 +42,6 @@ public class LevelInfo extends Table {
         chests = new Label("Chests : 0 / 2", Assets.getInstance().getSkin(Assets.UI_SKIN));
         keys = new Label("Keys : 0 / 2", Assets.getInstance().getSkin(Assets.UI_SKIN));
         items = new Label("Items : 0 / 0", Assets.getInstance().getSkin(Assets.UI_SKIN));
-
-
 
         Button playButton = new TextButton("PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
         ((TextButton)playButton).getLabel().setFontScale(1f * PixelDungeon.SCALAR);

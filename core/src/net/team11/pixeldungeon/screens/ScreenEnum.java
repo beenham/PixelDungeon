@@ -1,19 +1,48 @@
 package net.team11.pixeldungeon.screens;
 
 public enum ScreenEnum {
-    MAIN_MENU {
+    GAME {
         public AbstractScreen getScreen(Object... params) {
-            return new MainMenuScreen();
+            return new PlayScreen((String) params[0]);
+        }
+    },
+    HOW_TO {
+        @Override
+        public String toString() {
+            return "howtoScreen";
+        }
+        @Override
+        public AbstractScreen getScreen(Object... params) {
+            return new HowToScreen();
         }
     },
     LEVEL_SELECT {
+        @Override
+        public String toString() {
+            return "levelselectScreen";
+        }
+
         public AbstractScreen getScreen(Object... params) {
             return new LevelSelectScreen();
         }
     },
-    GAME {
+    MAIN_MENU {
+        @Override
+        public String toString() {
+            return "mainScreen";
+        }
         public AbstractScreen getScreen(Object... params) {
-            return new PlayScreen((String) params[0]);
+            return new MainMenuScreen();
+        }
+    },
+    SKIN_SELECT {
+        @Override
+        public String toString() {
+            return "skinSelect";
+        }
+        @Override
+        public AbstractScreen getScreen(Object... params) {
+            return new SkinSelectScreen();
         }
     };
 

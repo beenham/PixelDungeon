@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlice;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlide;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
@@ -62,11 +63,27 @@ public class MainMenuScreen extends AbstractScreen {
 
         TextButton skinButton = new TextButton("SKIN SELECTION", Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-        skinButton.setDisabled(true);
+
+        skinButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ScreenManager.getInstance().changeScreen(ScreenEnum.SKIN_SELECT,
+                        ScreenTransitionPush.init(1.5f,ScreenTransitionPush.LEFT,Interpolation.pow2));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
 
         TextButton helpButton = new TextButton("HOW TO PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
         helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-        helpButton.setDisabled(true);
+
+        helpButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ScreenManager.getInstance().changeScreen(ScreenEnum.HOW_TO,
+                        ScreenTransitionPush.init(1.5f,ScreenTransitionPush.RIGHT,Interpolation.pow2));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
 
         mainTable.add(playButton).pad(padding);
         mainTable.row();
@@ -148,7 +165,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     private Image setupBackground() {
         backgroundImage = new Image(
-                new Texture(Gdx.files.internal("Background2.png"))
+                Assets.getInstance().getTextureSet(Assets.BACKGROUND).findRegion(ScreenEnum.MAIN_MENU.toString())
         );
         backgroundImage.setSize(PixelDungeon.V_WIDTH * 1.f, PixelDungeon.V_HEIGHT * 1.f);
         //image.setPosition(0 - image.getWidth()/3, 0 - image.getHeight() / 3);
