@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="121">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="66" height="26" tilewidth="16" tileheight="16" infinite="0" nextobjectid="121">
  <tileset firstgid="1" name="PixelDungeon" tilewidth="16" tileheight="16" tilecount="100" columns="10">
   <image source="../tilesets/PixelDungeonTileset.png" width="160" height="160"/>
  </tileset>
- <layer id="1" name="background" width="66" height="26">
+ <layer name="background" width="66" height="26">
   <data encoding="csv">
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
@@ -33,7 +33,7 @@
 61,43,61,43,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61
 </data>
  </layer>
- <layer id="2" name="floor" width="66" height="26">
+ <layer name="floor" width="66" height="26">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -63,7 +63,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="walls" width="66" height="26">
+ <layer name="walls" width="66" height="26">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,1610612741,2,2,2,2,2,2,2,2,2,2,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1610612741,4,4,4,4,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1610612738,12,22,12,21,12,22,12,12,23,12,2684354562,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1610612740,12,12,12,12,2684354564,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -93,7 +93,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="decoration" width="66" height="26">
+ <layer name="decoration" width="66" height="26">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -123,7 +123,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff7300" id="5" name="blocks">
+ <objectgroup color="#ff7300" name="blocks">
   <object id="29" name="chest_1" x="536" y="64" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
@@ -234,7 +234,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff0000" id="6" name="traps">
+ <objectgroup color="#ff0000" name="traps">
   <object id="53" name="floorSpike_1" x="624" y="176" width="16" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
@@ -536,7 +536,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#0000ff" id="7" name="doors">
+ <objectgroup color="#0000ff" name="doors">
   <object id="17" name="door_1" x="531" y="96" width="26" height="16">
    <properties>
     <property name="doorType" value="BUTTON"/>
@@ -570,10 +570,9 @@
   </object>
   <object id="78" name="door_2" x="579" y="112" width="26" height="16">
    <properties>
-    <property name="doorKey" value="doorKey"/>
     <property name="doorType" value="LOCKED"/>
     <property name="entity" value="door"/>
-    <property name="keyName" value="Small Door Key"/>
+    <property name="keyName" value="Small Key"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
@@ -616,7 +615,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="points">
+ <objectgroup name="points">
   <object id="25" name="layerExitPoint" x="400" y="216" width="32" height="16">
    <properties>
     <property name="map" value="test_level"/>
@@ -625,12 +624,12 @@
   </object>
   <object id="27" name="playerSpawn" x="400" y="112" width="16" height="16"/>
  </objectgroup>
- <objectgroup color="#000000" id="9" name="collision" visible="0">
+ <objectgroup color="#000000" name="collision" visible="0">
   <object id="109" name="wallCollision" x="176" y="32">
    <polyline points="0,0 160,0 160,64 208,64 208,48 272,48 272,80 352,80 352,64 336,64 336,32 400,32 400,64 384,64 384,80 448,80 448,128 432,128 432,144 512,144 512,240 544,240 544,32 528,32 528,0 592,0 592,32 576,32 576,272 352,272 352,144 400,144 400,128 352,128 352,112 272,112 272,176 256,176 256,192 288,192 288,256 144,256 144,192 224,192 224,176 208,176 208,112 160,112 160,144 0,144 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#1ec800" id="10" name="puzzle" visible="0">
+ <objectgroup color="#1ec800" name="puzzle" visible="0">
   <object id="50" name="puzzleSpace_1" x="192" y="48">
    <polyline points="0,0 128,0 128,112 0,112 0,0"/>
   </object>

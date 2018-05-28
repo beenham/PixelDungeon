@@ -5,20 +5,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import java.util.UUID;
 
 public class Item {
-    public static enum Type {
+    public enum Type {
         COIN,
-        SMALL_KEY,
+        DOOR_KEY,
+        CHEST_KEY,
         END_KEY
     }
 
     protected String name;
+    private Type type;
     protected int amount = 0;
-    protected boolean dungeonOnly;
+    private boolean dungeonOnly;
     protected Image image;
     private UUID uuid;
 
-    public Item(String name, boolean dungeonOnly){
+    public Item(String name, Type type, boolean dungeonOnly){
         this.name = name;
+        this.type = type;
         this.dungeonOnly = dungeonOnly;
         this.uuid = UUID.randomUUID();
     }
@@ -31,8 +34,8 @@ public class Item {
         return this.name;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public Type getType() {
+        return this.type;
     }
 
     public boolean isDungeonOnly() {

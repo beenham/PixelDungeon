@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.items.Key;
+import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -21,15 +21,14 @@ import net.team11.pixeldungeon.utils.CollisionCategory;
 public class Chest extends Entity {
     private boolean opened;
     private boolean locked;
-    private Key chestKey;
+    private ChestKey chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item, Key chestKey) {
+    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item) {
         super(name);
         this.opened = opened;
         this.locked = locked;
         this.item = item;
-        this.chestKey = chestKey;
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
 
@@ -55,16 +54,12 @@ public class Chest extends Entity {
         }
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
+    public void setChestKey(ChestKey chestKey) {
+        this.chestKey = chestKey;
     }
 
     public boolean isLocked(){
         return locked;
-    }
-
-    public Item getItem() {
-        return item;
     }
 
     public void removeItem(boolean shouldRemove) {
@@ -82,32 +77,29 @@ public class Chest extends Entity {
     public void doInteraction(Player player) {
 
         //Check to see if it's locked or not
-        System.out.println("Key is :  " + chestKey.getName());
 
         if (locked && !opened){
+            System.out.println("Key is :  " + chestKey.getName());
             //Do nothing we don't have the chestKey
             System.out.println("IS LOCKED");
             //Check to see if we have the chestKey
-            if (player.getComponent(InventoryComponent.class).hasItem(chestKey.getName(), Key.class)){
-                setLocked(false);
-                System.out.println(player.getComponent(InventoryComponent.class).removeItem(chestKey));
-                if (!this.isEmpty()) {
-                    this.removeItem(player.getComponent(InventoryComponent.class).addItem(this.getItem()));
+            if (player.getComponent(InventoryComponent.class).hasItem(chestKey)){
+                locked = false;
+                opened = true;
+                player.getComponent(InventoryComponent.class).removeItem(chestKey);
+                if (!isEmpty()) {
+                    removeItem(player.getComponent(InventoryComponent.class).addItem(item));
                 }
                 getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
-                opened = true;
-
             } else {
                 System.out.println("You do not have the chestKey");
             }
-        }
-        else if (!locked && !opened) {
-            System.out.println("Is empty: " + this.isEmpty());
-            if (!this.isEmpty()) {
-                this.removeItem(player.getComponent(InventoryComponent.class).addItem(this.getItem()));
+        } else if (!locked && !opened) {
+            opened = true;
+            if (!isEmpty()) {
+                removeItem(player.getComponent(InventoryComponent.class).addItem(item));
             }
             getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
-            opened = true;
         }
     }
 }

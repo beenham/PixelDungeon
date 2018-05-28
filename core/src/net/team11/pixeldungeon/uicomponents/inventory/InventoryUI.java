@@ -12,16 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.items.GhostItem;
-import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 
 public class InventoryUI extends Stage {
@@ -101,13 +97,12 @@ public class InventoryUI extends Stage {
     }
 
     public void update() {
-        for (int i = 0 ; i < inventory.getItems().size() ; i++) {
+        for (int i = 0 ; i < InventoryComponent.MAX_SIZE ; i++) {
             if (i < inventory.getItems().size()){
                 slotArray.get(i).setItem(inventory.getItems().get(i));
             } else {
                 slotArray.get(i).setItem(null);
             }
-
         }
     }
 
