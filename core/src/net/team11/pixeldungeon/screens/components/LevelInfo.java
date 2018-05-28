@@ -39,7 +39,8 @@ public class LevelInfo extends Table {
         this.selector = levelSelector;
 
         setupLayout();
-        setBackground(new NinePatchDrawable(new NinePatch(new Texture(Gdx.files.internal("darken.png")))));
+        setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
+                Assets.HUD).createPatch(AssetName.DARKEN_60)));
     }
 
     private void setupLayout() {

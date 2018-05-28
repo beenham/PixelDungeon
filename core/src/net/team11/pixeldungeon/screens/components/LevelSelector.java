@@ -23,13 +23,17 @@ public class LevelSelector extends Table {
     private Map currentMap;
 
     private Image mapPreview;
-    private Button leftButton, rightButton;
 
     public LevelSelector(float size) {
-        //setDebug(true);
+        mapManager = MapManager.getInstance();
+        currentMap = mapManager.getFirstMap();
 
-        Button backButton = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        ((TextButton)backButton).getLabel().setFontScale(1f * PixelDungeon.SCALAR);
+        setupTable(size/2);
+    }
+
+    private void setupTable(float size) {
+        TextButton backButton = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        backButton.getLabel().setFontScale(1f * PixelDungeon.SCALAR);
         backButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -38,16 +42,12 @@ public class LevelSelector extends Table {
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
-        add(backButton).left().pad(20 * PixelDungeon.SCALAR).colspan(3).row();
-
-
-        mapManager = MapManager.getInstance();
-        currentMap = mapManager.getFirstMap();
         mapPreview = new Image(Assets.getInstance().getTextureSet(
                 Assets.LEVELS).findRegion(currentMap.getMapName()));
 
-        leftButton = new TextButton("<",Assets.getInstance().getSkin(Assets.UI_SKIN));
+
+        TextButton leftButton = new TextButton("<", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        leftButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         leftButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -55,7 +55,8 @@ public class LevelSelector extends Table {
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-        rightButton = new TextButton(">",Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton rightButton = new TextButton(">", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        rightButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         rightButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -64,14 +65,10 @@ public class LevelSelector extends Table {
             }
         });
 
-        setupTable(size/2);
-    }
-
-    private void setupTable(float size) {
-        add(leftButton).size(size/4);
-        add(mapPreview).size(size).pad(20 * PixelDungeon.SCALAR);
-        add(rightButton).size(size/4);
-        pack();
+        add(backButton).left().pad(50 * PixelDungeon.SCALAR,50 * PixelDungeon.SCALAR,0,0).colspan(3).expandX().row();
+        add(leftButton).size(size/4).expandY();
+        add(mapPreview).size(size).pad(20 * PixelDungeon.SCALAR).expandY();
+        add(rightButton).size(size/4).expandY();
     }
 
     private void nextMap() {

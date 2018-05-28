@@ -33,7 +33,7 @@ public class LevelSelectScreen extends AbstractScreen {
         return backgroundImage;
     }
 
-    private Table setupLeft() {
+    private WidgetGroup setupLeft() {
         selector = new LevelSelector(PixelDungeon.V_WIDTH / 5 * 3);
         selector.setBounds(0,0,PixelDungeon.V_WIDTH/3*2, PixelDungeon.V_HEIGHT);
         return selector;

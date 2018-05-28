@@ -121,7 +121,6 @@ public class MapManager {
         if (index == mapList.size()) {
             index = 0;
         }
-        System.out.println(mapList.get(index));
         return maps.get(mapList.get(index));
     }
 

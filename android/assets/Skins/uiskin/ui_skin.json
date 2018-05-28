@@ -51,10 +51,10 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: PixelFont
 		fontColor: white
-		downFontColor: light_grey
-		overFontColor: light_grey
-		checkedFontColor: light_grey
-		checkedOverFontColor: light_grey
+		downFontColor: white
+		overFontColor: white
+		checkedFontColor: white
+		checkedOverFontColor: white
 		disabledFontColor: light_grey
 		up: Button
 		down: Button
