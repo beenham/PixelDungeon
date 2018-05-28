@@ -92,7 +92,6 @@ public class MainMenuScreen extends AbstractScreen {
         mainTable.add(helpButton).pad(padding);
 
         mainTable.setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
-        mainTable.setDebug(true);
         return mainTable;
     }
 
@@ -107,7 +106,6 @@ public class MainMenuScreen extends AbstractScreen {
         titleTable.setPosition(PixelDungeon.V_WIDTH/2,
                 PixelDungeon.V_HEIGHT);
 
-        titleTable.setDebug(true);
         return titleTable;
     }
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import net.team11.pixeldungeon.PixelDungeon;
@@ -16,6 +17,7 @@ import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
+import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 
 public class LevelSelector extends Table {
@@ -29,6 +31,8 @@ public class LevelSelector extends Table {
         currentMap = mapManager.getFirstMap();
 
         setupTable(size/2);
+        setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
+                Assets.HUD).createPatch(AssetName.DARKEN_20)));
     }
 
     private void setupTable(float size) {

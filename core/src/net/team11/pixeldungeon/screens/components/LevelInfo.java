@@ -29,6 +29,7 @@ public class LevelInfo extends Table {
     private LevelSelector selector;
 
     private Label levelName;
+    private Label attemptsVal;
     private Label completedVal;
     private Label bestTimeVal;
     private Label chestsVal;
@@ -56,38 +57,47 @@ public class LevelInfo extends Table {
         levelName.setFontScale(1.25f * PixelDungeon.SCALAR);
 
         Table table = new Table();
-        table.add(levelName).center().padTop(getHeight()/10);
+        table.add(levelName).bottom().padTop(getHeight()/5);
 
-        add(levelName).padTop(getHeight()/10).padBottom(getHeight()/20).expand();
+        add(levelName).expand();
     }
 
     private void setupInfo() {
         float padding = 30f * PixelDungeon.SCALAR;
+        float fontScale = PixelDungeon.SCALAR;
 
+        Label attempts = new Label("Attempts", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        attemptsVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
         Label completed = new Label("Completed", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        completed.setFontScale(PixelDungeon.SCALAR);
         completedVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        completedVal.setFontScale(PixelDungeon.SCALAR);
         Label bestTime = new Label("Best Time", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        bestTime.setFontScale(PixelDungeon.SCALAR);
         bestTimeVal = new Label(String.format(Locale.UK,"%02d:%02d",5,43), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        bestTimeVal.setFontScale(PixelDungeon.SCALAR);
         Label chests = new Label("Chests", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        chests.setFontScale(PixelDungeon.SCALAR);
         chestsVal = new Label(String.format(Locale.UK,"%d/%d",2,3), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        chestsVal.setFontScale(PixelDungeon.SCALAR);
         Label keys = new Label("Keys", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        keys.setFontScale(PixelDungeon.SCALAR);
         keysVal = new Label(String.format(Locale.UK,"%d/%d",1,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        keysVal.setFontScale(PixelDungeon.SCALAR);
         Label items = new Label("Items", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        items.setFontScale(PixelDungeon.SCALAR);
         itemsVal = new Label(String.format(Locale.UK,"%d/%d",0,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        itemsVal.setFontScale(PixelDungeon.SCALAR);
+
+        attempts.setFontScale(fontScale);
+        attemptsVal.setFontScale(fontScale);
+        completed.setFontScale(fontScale);
+        completedVal.setFontScale(fontScale);
+        bestTime.setFontScale(fontScale);
+        bestTimeVal.setFontScale(fontScale);
+        chests.setFontScale(fontScale);
+        chestsVal.setFontScale(fontScale);
+        keys.setFontScale(fontScale);
+        keysVal.setFontScale(fontScale);
+        items.setFontScale(fontScale);
+        itemsVal.setFontScale(fontScale);
 
         Table table = new Table();
 
-        table.add(completed).left().expandX();
+        table.add(attempts).left().expandX();
+        table.add(attemptsVal).right();
+        table.row().padTop(padding);
+        table.add(completed).left();
         table.add(completedVal).right();
         table.row().padTop(padding);
         table.add(bestTime).left();
@@ -102,8 +112,7 @@ public class LevelInfo extends Table {
         table.add(items).left();
         table.add(itemsVal).right();
 
-        add(table).pad(PixelDungeon.V_HEIGHT/5,50f * PixelDungeon.SCALAR,
-                0f,50f * PixelDungeon.SCALAR).expand();
+        add(table).pad(PixelDungeon.V_HEIGHT/10,padding,padding,padding).expand();
     }
 
     private void setupPlay() {
@@ -127,6 +136,7 @@ public class LevelInfo extends Table {
 
     public void update() {
         levelName.setText(selector.getMap().getMapName());
+        attemptsVal.setText(String.format(Locale.UK,"%d",0));
         completedVal.setText(String.format(Locale.UK,"%d",0));
         bestTimeVal.setText(String.format(Locale.UK,"%02d:%02d",5,43));
         chestsVal.setText(String.format(Locale.UK,"%d/%d",2,3));
