@@ -9,6 +9,12 @@ public class TiledMapProperties {
     public static final String ITEM = "item";
     public static final String ITEM_NAME = "itemName";
     public static final String KEY = "key";
+
+    public static final String DOOR_KEY = "doorKey";
+    public static final String CHEST_KEY = "chestKey";
+    public static final String BOSS_KEY = "bossKey";
+
+    public static final String KEY_NAME = "keyName";
     public static final String LOCKED = "locked";
     public static final String MAP = "map";
     public static final String OPENED = "opened";

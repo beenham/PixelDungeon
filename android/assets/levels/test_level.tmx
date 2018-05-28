@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextobjectid="42">
+<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="45">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
- <layer name="background" width="50" height="50">
+ <layer id="1" name="background" width="50" height="50">
   <data encoding="csv">
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
@@ -55,7 +55,7 @@
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61
 </data>
  </layer>
- <layer name="floor" width="50" height="50">
+ <layer id="2" name="floor" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -109,7 +109,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="walls" width="50" height="50">
+ <layer id="3" name="walls" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -163,7 +163,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="decoration" width="50" height="50">
+ <layer id="4" name="decoration" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -217,7 +217,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" name="traps">
+ <objectgroup color="#ff0000" id="5" name="traps">
   <object id="28" name="floorSpike" x="448" y="240" width="16" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
@@ -349,7 +349,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" name="blocks">
+ <objectgroup color="#ff9500" id="6" name="blocks">
   <object id="21" name="pillar_2" x="209" y="196" width="14" height="8">
    <properties>
     <property name="entity" value="pillar"/>
@@ -363,10 +363,11 @@
   <object id="23" name="chest_1" x="208" y="208" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="50"/>
+    <property name="chestKey" value="chestKey"/>
     <property name="entity" value="chest"/>
     <property name="item" value="coin"/>
     <property name="itemName" value="Coins"/>
-    <property name="key" value=""/>
+    <property name="keyName" value="Small Chest Key"/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -389,8 +390,44 @@
     <property name="on" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="42" name="chest_2" x="368.5" y="180.75" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="1"/>
+    <property name="chestKey" value=""/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="doorKey"/>
+    <property name="itemName" value="Small Key"/>
+    <property name="keyName" value=""/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="43" name="chest_3" x="368.25" y="199.25" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="1"/>
+    <property name="chestKey" value=""/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="chestKey"/>
+    <property name="itemName" value="Small Chest Key"/>
+    <property name="keyName" value=""/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="44" name="chest_4" x="368.5" y="216.25" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="1"/>
+    <property name="chestKey" value=""/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="bossKey"/>
+    <property name="itemName" value="Boss Key"/>
+    <property name="keyName" value=""/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#002eff" name="doors">
+ <objectgroup color="#002eff" id="7" name="doors">
   <object id="3" name="doorPillarLeft" x="400" y="160" width="3" height="16">
    <properties>
     <property name="entity" value="doorPillar"/>
@@ -437,8 +474,10 @@
   </object>
   <object id="15" name="lockedDoor_1" x="403" y="160" width="26" height="16">
    <properties>
+    <property name="doorKey" value="doorKey"/>
     <property name="doorType" value="LOCKED"/>
     <property name="entity" value="door"/>
+    <property name="keyName" value="Small Door Key"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
@@ -449,7 +488,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#000000" name="collision">
+ <objectgroup color="#000000" id="8" name="collision">
   <object id="17" x="320" y="64">
    <polyline points="0,-16 0,32 -48,32 -48,64 -112,64 -112,96 -80,96 -80,112 -144,112 -144,288 176,288 176,112 112,112 112,96 144,96 144,64 80,64 80,32 32,32 32,-16 0,-16"/>
   </object>
@@ -460,7 +499,7 @@
    <polyline points="0,0 0,16 48,16 48,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points">
+ <objectgroup color="#ffffff" id="9" name="points">
   <object id="2" name="playerSpawn" x="320" y="224" width="16" height="16"/>
   <object id="41" name="layerExitPoint" x="320" y="40" width="32" height="16">
    <properties>
@@ -469,7 +508,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#04ff00" name="puzzle">
+ <objectgroup color="#04ff00" id="10" name="puzzle">
   <object id="20" x="192" y="288">
    <polyline points="0,0 48,0 48,48 0,48 0,0"/>
   </object>

@@ -234,7 +234,7 @@
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
     <property name="itemName" value=""/>
-    <property name="key" value=""/>
+    <property name="chestKey" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>

@@ -1,12 +1,14 @@
 package net.team11.pixeldungeon.entities.blocks;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.entities.player.Player;
+import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Item;
+import net.team11.pixeldungeon.items.Key;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -18,15 +20,16 @@ import net.team11.pixeldungeon.utils.CollisionCategory;
 
 public class Chest extends Entity {
     private boolean opened;
-    private boolean locked = false;
-    private String key;
+    private boolean locked;
+    private Key chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, String name, Item item) {
+    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item, Key chestKey) {
         super(name);
         this.opened = opened;
+        this.locked = locked;
         this.item = item;
-
+        this.chestKey = chestKey;
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
 
@@ -52,9 +55,12 @@ public class Chest extends Entity {
         }
     }
 
-    public void setLocked(String key) {
-        this.key = key;
-        this.locked = true;
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean isLocked(){
+        return locked;
     }
 
     public Item getItem() {
@@ -73,12 +79,33 @@ public class Chest extends Entity {
         return item == null;
     }
 
-    @Override
-    public void doInteraction() {
-        if (opened) {
-            //getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_CLOSED);
-            //opened = false;
-        } else {
+    public void doInteraction(Player player) {
+
+        //Check to see if it's locked or not
+        System.out.println("Key is :  " + chestKey.getName());
+
+        if (locked && !opened){
+            //Do nothing we don't have the chestKey
+            System.out.println("IS LOCKED");
+            //Check to see if we have the chestKey
+            if (player.getComponent(InventoryComponent.class).hasItem(chestKey.getName(), Key.class)){
+                setLocked(false);
+                System.out.println(player.getComponent(InventoryComponent.class).removeItem(chestKey));
+                if (!this.isEmpty()) {
+                    this.removeItem(player.getComponent(InventoryComponent.class).addItem(this.getItem()));
+                }
+                getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
+                opened = true;
+
+            } else {
+                System.out.println("You do not have the chestKey");
+            }
+        }
+        else if (!locked && !opened) {
+            System.out.println("Is empty: " + this.isEmpty());
+            if (!this.isEmpty()) {
+                this.removeItem(player.getComponent(InventoryComponent.class).addItem(this.getItem()));
+            }
             getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
             opened = true;
         }

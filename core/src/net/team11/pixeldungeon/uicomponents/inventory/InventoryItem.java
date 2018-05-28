@@ -25,6 +25,8 @@ public class InventoryItem extends Stack {
 
         if (item != null) {
             setupItemSlot();
+        } else {
+            setupNullItem();
         }
     }
 
@@ -39,9 +41,18 @@ public class InventoryItem extends Stack {
         Label numberLabel = new Label(String.format(Locale.UK,"%d",item.getAmount()),
                 new Label.LabelStyle(Assets.getInstance().getFont(Assets.PIXEL_FONT), Color.WHITE));
         numberLabel.setFontScale(0.75f * PixelDungeon.SCALAR);
-        numberTable.add(numberLabel);
+
+        if (item.getAmount() > 0){
+            numberTable.add(numberLabel);
+        }
 
         add(iconTable);
         add(numberTable);
+    }
+
+    private void setupNullItem(){
+        Table nullTable = new Table();
+        nullTable.add().size(size);
+        add(nullTable);
     }
 }

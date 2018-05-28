@@ -73,19 +73,34 @@ public class TiledObjectUtil {
                     case TiledMapObjectNames.CHEST: //  Chest entity
                         if (object.getProperties().containsKey(TiledMapProperties.OPENED)) {
                             boolean opened = (boolean) object.getProperties().get(TiledMapProperties.OPENED);
+                            boolean locked = (boolean) object.getProperties().get(TiledMapProperties.LOCKED);
                             String itemName = (String) object.getProperties().get(TiledMapProperties.ITEM_NAME);
+                            String itemID = (String) object.getProperties().get(TiledMapProperties.ITEM);
                             int amount = (int) object.getProperties().get(TiledMapProperties.AMOUNT);
                             Item item = null;
+                            Key key = new Key("", "");
+                            System.out.println((String)object.getProperties().get(TiledMapProperties.ITEM));
                             switch ((String)object.getProperties().get(TiledMapProperties.ITEM)) {
                                 case TiledMapObjectNames.COIN:
                                     item = new Coin(amount);
                                     break;
-                                case TiledMapObjectNames.KEY:
-                                    item = new Key(itemName);
+                                case TiledMapObjectNames.DOOR_KEY:
+                                    item = new Key(itemID, itemName);
                                     break;
+                                case TiledMapObjectNames.CHEST_KEY:
+                                    item = new Key(itemID, itemName);
+                                    break;
+                                case TiledMapObjectNames.BOSS_KEY:
+                                    item = new Key(itemID, itemName);
+                                    break;
+
                             }
 
-                            engine.addEntity(new Chest(object.getRectangle(), opened, object.getName(), item));
+                            if ((Boolean) object.getProperties().get(TiledMapProperties.LOCKED)){
+                                    key = new Key((String) object.getProperties().get(TiledMapProperties.CHEST_KEY), (String) object.getProperties().get(TiledMapProperties.KEY_NAME));
+                            }
+
+                            engine.addEntity(new Chest(object.getRectangle(), opened,locked, object.getName(), item, key));
                         } else {
                             System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
                         }
@@ -100,8 +115,10 @@ public class TiledObjectUtil {
                                     engine.addEntity(new ButtonDoor(object.getName(), object.getRectangle(), open));
                                     break;
                                 case "LOCKED":
-                                    String key = (String) object.getProperties().get(TiledMapProperties.KEY);
-                                    engine.addEntity(new LockedDoor(object.getName(), object.getRectangle(), open, key));
+                                    String keyID = (String) object.getProperties().get(TiledMapProperties.DOOR_KEY);
+                                    String keyName = (String) object.getProperties().get(TiledMapProperties.KEY_NAME);
+                                    engine.addEntity(new LockedDoor(object.getName(), object.getRectangle(), open, keyID, keyName));
+                                    //System.out.println("//\n"+keyID+"\n"+keyName+"\\");
                                     break;
                                 case "MECHANIC":
                                     engine.addEntity(new MechanicDoor(object.getName(), object.getRectangle(), open));

@@ -2,11 +2,41 @@ package net.team11.pixeldungeon.entities.door;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class LockedDoor extends Door {
-    private String key;
+import net.team11.pixeldungeon.entities.player.Player;
+import net.team11.pixeldungeon.entity.component.InteractionComponent;
+import net.team11.pixeldungeon.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.items.GhostItem;
+import net.team11.pixeldungeon.items.Key;
 
-    public LockedDoor (String name, Rectangle bounds, boolean open, String keyName) {
+public class LockedDoor extends Door {
+    private Key doorKey;
+
+    public LockedDoor (String name, Rectangle bounds, boolean open, String keyID, String keyName) {
         super(name, bounds, Type.LOCKED, open);
-        this.key = keyName;
+        this.doorKey = new Key(keyID, keyName);
+        this.addComponent(new InteractionComponent(this));
+    }
+
+    public void doInteraction(Player player){
+        //System.out.println("ATTEMPTING UNLOCK");
+        if (!player.getComponent(InventoryComponent.class).getItems().isEmpty()){
+//            System.out.println("--KeyID--> " + doorKey.getName()+" --");
+//            System.out.println(player.getComponent(InventoryComponent.class).hasItem(doorKey.getName(), Key.class));
+            if (player.getComponent(InventoryComponent.class).hasItem(doorKey.getName(), Key.class)){
+                setOpened(true);
+//                System.out.println("Attempting Remove");
+                System.out.println(player.getComponent(InventoryComponent.class).removeItem(doorKey));
+//                GhostItem ghostItem = new GhostItem("");
+//                System.out.println("Ghost add: " + player.getComponent(InventoryComponent.class).addItem(ghostItem));
+                //System.out.println("Ghost remove: " + player.getComponent(InventoryComponent.class).removeItem(ghostItem));
+
+            }
+        }
+
+    }
+
+    @Override
+    public String toString(){
+        return "Name: " + getName() + "\nKey Name: " + doorKey.getName() + "\nKey ID: " + doorKey.getKeyName();
     }
 }

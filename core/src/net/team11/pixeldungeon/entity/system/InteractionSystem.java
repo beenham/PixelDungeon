@@ -3,18 +3,15 @@ package net.team11.pixeldungeon.entity.system;
 import com.badlogic.gdx.math.Rectangle;
 
 import net.team11.pixeldungeon.entities.blocks.Chest;
+import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.player.Player;
-import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
-import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
-import net.team11.pixeldungeon.entity.component.TrapComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
-import net.team11.pixeldungeon.utils.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +70,13 @@ public class InteractionSystem extends EntitySystem {
                         interactionComponent.doInteraction();
                         if (entity.getClass().equals(Chest.class)) {
                             Chest chest = (Chest) entity;
-                            if (!chest.isEmpty()) {
-                                chest.removeItem(player.getComponent(InventoryComponent.class).addItem(chest.getItem()));
-                            }
+                            chest.doInteraction(player);
                         }
+                        if (entity.getClass().equals(LockedDoor.class)){
+                            System.out.println("IS DOOR");
+                            LockedDoor lockedDoor = (LockedDoor)entity;
+                            lockedDoor.doInteraction(player);
+                       }
                     }
                 }
             }
