@@ -1,7 +1,7 @@
 package net.team11.pixeldungeon.screens.components;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -13,6 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.screens.ScreenEnum;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
 import net.team11.pixeldungeon.utils.Assets;
 
 public class LevelSelector extends Table {
@@ -23,7 +26,21 @@ public class LevelSelector extends Table {
     private Button leftButton, rightButton;
 
     public LevelSelector(float size) {
-        setDebug(true);
+        //setDebug(true);
+
+        Button backButton = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        ((TextButton)backButton).getLabel().setFontScale(1f * PixelDungeon.SCALAR);
+        backButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
+                        ScreenTransitionSplit.init(1f, false, Interpolation.pow2));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        add(backButton).left().pad(20 * PixelDungeon.SCALAR).colspan(3).row();
+
 
         mapManager = MapManager.getInstance();
         currentMap = mapManager.getFirstMap();
@@ -57,13 +74,13 @@ public class LevelSelector extends Table {
         pack();
     }
 
-    public void nextMap() {
+    private void nextMap() {
         currentMap = mapManager.getNext(currentMap.getMapName());
         mapPreview.setDrawable(new SpriteDrawable(new Sprite(Assets.getInstance().getTextureSet(
                 Assets.LEVELS).findRegion(currentMap.getMapName()))));
     }
 
-    public void prevMap() {
+    private void prevMap() {
         currentMap = mapManager.getPrevious(currentMap.getMapName());
         mapPreview.setDrawable(new SpriteDrawable(new Sprite(Assets.getInstance().getTextureSet(
                         Assets.LEVELS).findRegion(currentMap.getMapName()))));
