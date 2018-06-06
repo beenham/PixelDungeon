@@ -23,6 +23,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.TiledObjectUtil;
 
 import java.util.Locale;
 public class LevelInfo extends Table {
@@ -38,7 +39,6 @@ public class LevelInfo extends Table {
 
     public LevelInfo(LevelSelector levelSelector) {
         this.selector = levelSelector;
-
         setupLayout();
         setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
                 Assets.HUD).createPatch(AssetName.DARKEN_60)));
@@ -67,17 +67,34 @@ public class LevelInfo extends Table {
         float fontScale = PixelDungeon.SCALAR;
 
         Label attempts = new Label("Attempts", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        attemptsVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        //attemptsVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        attemptsVal = new Label(String.format(Locale.UK, "%d", selector.getMap().getLevelStatistics().getAttempts()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
+
         Label completed = new Label("Completed", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        completedVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        //completedVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        completedVal = new Label(String.format(Locale.UK, "%s", selector.getMap().getLevelStatistics().isCompleted()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
+
         Label bestTime = new Label("Best Time", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        bestTimeVal = new Label(String.format(Locale.UK,"%02d:%02d",5,43), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        //bestTimeVal = new Label(String.format(Locale.UK,"%02d:%02d",5,43), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        bestTimeVal = new Label(String.format(Locale.UK,"%s",selector.getMap().getLevelStatistics().getBestTime()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
+
         Label chests = new Label("Chests", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        chestsVal = new Label(String.format(Locale.UK,"%d/%d",2,3), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        //chestsVal = new Label(String.format(Locale.UK,"%d/%d",2,3), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        chestsVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumChests(),selector.getMap().getLevelStatistics().getTotalChests()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
+
         Label keys = new Label("Keys", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        keysVal = new Label(String.format(Locale.UK,"%d/%d",1,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        //keysVal = new Label(String.format(Locale.UK,"%d/%d",1,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        keysVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumKeys(),selector.getMap().getLevelStatistics().getTotalKeys()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
+
         Label items = new Label("Items", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        itemsVal = new Label(String.format(Locale.UK,"%d/%d",0,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        //itemsVal = new Label(String.format(Locale.UK,"%d/%d",0,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        itemsVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumItems(),selector.getMap().getLevelStatistics().getTotalItems()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         attempts.setFontScale(fontScale);
         attemptsVal.setFontScale(fontScale);
@@ -136,11 +153,11 @@ public class LevelInfo extends Table {
 
     public void update() {
         levelName.setText(selector.getMap().getMapName());
-        attemptsVal.setText(String.format(Locale.UK,"%d",0));
-        completedVal.setText(String.format(Locale.UK,"%d",0));
-        bestTimeVal.setText(String.format(Locale.UK,"%02d:%02d",5,43));
-        chestsVal.setText(String.format(Locale.UK,"%d/%d",2,3));
-        keysVal.setText(String.format(Locale.UK,"%d/%d",1,1));
-        itemsVal.setText(String.format(Locale.UK,"%d/%d",0,1));
+        attemptsVal.setText(String.format(Locale.UK,"%d",selector.getMap().getLevelStatistics().getAttempts()));
+        completedVal.setText(String.format(Locale.UK,"%s",selector.getMap().getLevelStatistics().isCompleted()));
+        bestTimeVal.setText(String.format(Locale.UK,"%02d:%02d",selector.getMap().getLevelStatistics().getNumChests(),selector.getMap().getLevelStatistics().getTotalChests()));
+        chestsVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumChests(),selector.getMap().getLevelStatistics().getTotalChests()));
+        keysVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumKeys(),selector.getMap().getLevelStatistics().getTotalKeys()));
+        itemsVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumItems(),selector.getMap().getLevelStatistics().getTotalItems()));
     }
 }

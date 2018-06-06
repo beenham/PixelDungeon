@@ -28,6 +28,7 @@ import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.Key;
+import net.team11.pixeldungeon.map.Map;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,9 +40,11 @@ public class TiledObjectUtil {
      * @param engine Game engine that holds systems, and entities
      * @param mapObjects The Objects taken from the Tiled Map file
      */
-    public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects) {
+    public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects, Map currentMap) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
+
+                System.out.println("--PARENT MAP IS " + currentMap.getMapName() + "--");
 
                 //  What is used to get the information from the entity objects on the map
                 RectangleMapObject object = (RectangleMapObject) mapObject;
@@ -64,7 +67,7 @@ public class TiledObjectUtil {
                     case TiledMapObjectNames.BOX:   //  Box entity
                         if (object.getProperties().containsKey(TiledMapProperties.BOX_PUSHABLE)) {
                             boolean pushable = (boolean) object.getProperties().get(TiledMapProperties.BOX_PUSHABLE);
-                            engine.addEntity(new Box(object.getRectangle(), pushable, object.getName()));
+                            engine.addEntity(new Box(object.getRectangle(), pushable, object.getName(),currentMap));
                         } else {
                             System.err.println("BOX: " + object.getName() + " was not setup correctly!");
                         }
@@ -82,10 +85,12 @@ public class TiledObjectUtil {
                                     break;
                                 case TiledMapObjectNames.KEY:
                                     item = new Key(itemName);
+                                    currentMap.getLevelStatistics().updateTotalKeys();
                                     break;
                             }
 
-                            engine.addEntity(new Chest(object.getRectangle(), opened, object.getName(), item));
+                            engine.addEntity(new Chest(object.getRectangle(), opened, object.getName(), item, currentMap));
+                            currentMap.getLevelStatistics().updateTotalChests();
                         } else {
                             System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
                         }

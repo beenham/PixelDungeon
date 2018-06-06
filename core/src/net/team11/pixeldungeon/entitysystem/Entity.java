@@ -3,6 +3,8 @@ package net.team11.pixeldungeon.entitysystem;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.map.Map;
+import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.PlayScreen;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class Entity {
     protected String name;
     private UUID uuid;
     private List<EntityComponent> entityComponents = new ArrayList<EntityComponent>();
+    private Map parentMap;
 
     protected List<Entity> targetEntities = new ArrayList<>();
     private List<String> targets = new ArrayList<>();
@@ -22,7 +25,13 @@ public class Entity {
         this.uuid = UUID.randomUUID();
     }
 
-    public Entity(String name) {
+    public Entity(String name, Map parentMap) {
+        this.parentMap = parentMap;
+        this.name = name;
+        this.uuid = UUID.randomUUID();
+    }
+
+    public Entity(String name){
         this.name = name;
         this.uuid = UUID.randomUUID();
     }
@@ -85,6 +94,10 @@ public class Entity {
                 entities.remove(0);
             }
         }
+    }
+
+    public Map getParentMap(){
+        return this.parentMap;
     }
 
     public String getName() {

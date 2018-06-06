@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -17,8 +18,8 @@ import net.team11.pixeldungeon.utils.CollisionCategory;
 public class Box extends Entity {
     private boolean pushable;
 
-    public Box(Rectangle bounds, boolean pushable, String name) {
-        super(name);
+    public Box(Rectangle bounds, boolean pushable, String name, Map parentMap) {
+        super(name, parentMap);
         this.pushable = pushable;
 
         float posX = bounds.getX() + bounds.getWidth()/2;
