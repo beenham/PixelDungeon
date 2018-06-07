@@ -52,6 +52,9 @@ public class Entity {
     //  Void ; to be overridden by child if necessary
     public void doInteraction() {}
 
+    //  Void ; to be overridden by child if needs to know if player is the entity interacting
+    public void doInteraction(boolean isPlayer){}
+
     //  Void ; to be overridden by child if necessary
     public void respawn() {}
 

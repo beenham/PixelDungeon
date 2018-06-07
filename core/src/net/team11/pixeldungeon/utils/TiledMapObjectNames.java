@@ -9,6 +9,7 @@ public class TiledMapObjectNames {
     public static final String FLOOR_SPIKE = "floorSpike";
     public static final String PILLAR = "pillar";
     public static final String TORCH = "torch";
+    public static final String LEVER = "lever";
 
     /////   ITEM NAMES      /////
     public static final String COIN = "coin";
