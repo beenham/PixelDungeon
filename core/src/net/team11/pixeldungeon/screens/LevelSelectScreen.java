@@ -11,7 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.components.LevelInfo;
 import net.team11.pixeldungeon.screens.components.LevelSelector;
+import net.team11.pixeldungeon.statistics.GlobalStatistics;
+import net.team11.pixeldungeon.statistics.Statistics;
 import net.team11.pixeldungeon.utils.Assets;
+
+import java.io.File;
+import java.io.IOException;
 
 public class LevelSelectScreen extends AbstractScreen {
     private LevelSelector selector;
@@ -19,6 +24,8 @@ public class LevelSelectScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        Statistics.parseGlobalStatistics();
+
         addActor(setupBackground());
         addActor(setupLeft());
         addActor(setupRight());

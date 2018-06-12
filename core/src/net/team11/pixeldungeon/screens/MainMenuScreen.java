@@ -22,6 +22,7 @@ import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlice;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlide;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
+import net.team11.pixeldungeon.statistics.GlobalStatistics;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.TiledMapNames;

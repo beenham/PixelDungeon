@@ -33,7 +33,6 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url "https://maven.google.com/" }
     }
 }
 
@@ -74,7 +73,6 @@ project(":android") {
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.google.code.gson:gson:2.8.5"
-        compile 'com.google.android.gms:play-services-games:15.0.1'
     }
 }
 

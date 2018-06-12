@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.Key;
 import net.team11.pixeldungeon.map.Map;
+import net.team11.pixeldungeon.statistics.GlobalStatistics;
+import net.team11.pixeldungeon.statistics.Statistics;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -69,8 +71,14 @@ public class Chest extends Entity {
 
             //Update the statistics for the level
             getParentMap().getLevelStatistics().updateChests();
+
+            //Update the global statistics
+            GlobalStatistics.updateChests();
+            Statistics.writeToJson(Statistics.getGlobalStatistics(), Statistics.globalLocation);
+            System.out.println(Statistics.getGlobalStatistics());
             if (item.getClass().equals(Key.class)){
                 getParentMap().getLevelStatistics().updateKeys();
+                //Statistics.createNewJson(Statistics.getGlobalStatistics(), Statistics.globalLocation);
             }
 
             item = null;
@@ -86,6 +94,9 @@ public class Chest extends Entity {
 
     @Override
     public void doInteraction() {
+
+
+
         if (opened) {
             //getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_CLOSED);
             //opened = false;
