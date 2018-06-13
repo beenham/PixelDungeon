@@ -40,7 +40,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         addActor(setupMainTable(padding));
         addActor(setupTitleTable(padding));
-        //addActor(setupTopRightTable(padding));
+        addActor(setupTopRightTable(padding));
         //addActor(setupBottomRightTable(padding));
         //addActor(setupBottomLeftTable(padding));
         //addActor(setupTopLeftTable(padding));
@@ -110,14 +110,27 @@ public class MainMenuScreen extends AbstractScreen {
         return titleTable;
     }
 
+
     private Table setupTopRightTable(float padding) {
         Table trTable = new Table();
         trTable.top().padTop(padding).right().padRight(padding);
 
+        TextButton helpButton = new TextButton("G-PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
 
-        Label label = new Label("TR", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
-        label.setFontScale(1.2f * PixelDungeon.SCALAR);
-        trTable.add(label);
+        helpButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (game.getAndroidInterface().isSignedIn()) {
+                    game.getAndroidInterface().signOut();
+                } else {
+                    game.getAndroidInterface().signInSilently();
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        trTable.add(helpButton);
 
         trTable.setPosition(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
         trTable.setDebug(true);

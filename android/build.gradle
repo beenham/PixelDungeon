@@ -19,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "net.team11.pixeldungeon"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -130,5 +130,8 @@ idea {
         }
     }
 }
+
 dependencies {
+    compile 'com.google.android.gms:play-services-games:11.6.0'
+    compile 'com.google.android.gms:play-services-auth:11.6.0'
 }
