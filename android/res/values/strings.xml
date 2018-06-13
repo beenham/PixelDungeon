@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
 <resources>
-
     <string name="app_name">Pixel Dungeon</string>
-
+    <!-- app_id -->
+    <string name="app_id" translatable="false">1022168830802</string>
+    <!-- package_name -->
+    <string name="package_name" translatable="false">net.team11.pixeldungeon</string>
+    <!-- achievement New Adventurer! -->
+    <string name="achievement_new_adventurer" translatable="false">CgkI0qaK8N8dEAIQAQ</string>
+    <!-- leaderboard Best Times -->
+    <string name="leaderboard_best_times" translatable="false">CgkI0qaK8N8dEAIQAg</string>
 </resources>

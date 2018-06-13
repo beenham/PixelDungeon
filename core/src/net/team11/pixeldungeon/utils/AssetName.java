@@ -10,8 +10,13 @@ public class AssetName {
     public static final String INVENTORY_BUTTON = "inventoryButton";
     public static final String PAUSE_BUTTON = "pauseButton";
 
-    public static final String UI_BACK = "inventoryBack";
     public static final String UI_SLOT = "itemSlot";
+    public static final String DARKEN_0 = "darken0";
+    public static final String DARKEN_20 = "darken20";
+    public static final String DARKEN_40 = "darken40";
+    public static final String DARKEN_60 = "darken60";
+    public static final String DARKEN_80 = "darken80";
+    public static final String DARKEN_100 = "darken100";
 
     /////   ITEM SPRITE NAMES       /////
     public static final String COIN = "coin";

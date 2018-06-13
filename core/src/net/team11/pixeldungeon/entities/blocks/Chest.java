@@ -9,6 +9,10 @@ import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
+import net.team11.pixeldungeon.items.Key;
+import net.team11.pixeldungeon.map.Map;
+import net.team11.pixeldungeon.statistics.GlobalStatistics;
+import net.team11.pixeldungeon.statistics.StatisticsUtil;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -24,8 +28,8 @@ public class Chest extends Entity {
     private ChestKey chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item) {
-        super(name);
+    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item, Map parentMap) {
+        super(name, parentMap);
         this.opened = opened;
         this.locked = locked;
         this.item = item;
@@ -64,7 +68,20 @@ public class Chest extends Entity {
 
     public void removeItem(boolean shouldRemove) {
         if (shouldRemove) {
+
+            //Update the statistics for the level
+            getParentMap().getLevelStatistics().updateChests();
+
+            //Update the global statistics
+            GlobalStatistics.updateChests();
+            StatisticsUtil.writeToJson(StatisticsUtil.getGlobalStatistics(), StatisticsUtil.globalLocation);
+            if (item.getClass().equals(Key.class)){
+                getParentMap().getLevelStatistics().updateKeys();
+                GlobalStatistics.updateKeys();
+            }
+
             item = null;
+
         } else {
             opened = false;
         }

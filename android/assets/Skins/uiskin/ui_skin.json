@@ -1,0 +1,72 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	BulkyPixels: {
+		file: BulkyPixels.fnt
+	}
+	PixelFont: {
+		file: PixelFont.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	light_grey: {
+		r: 0.72333336
+		g: 0.72333336
+		b: 0.72333336
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: Button
+		down: Button
+		over: Button
+		checked: Button
+		checkedOver: Button
+		disabled: buttonDisabled
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: PixelFont
+		fontColor: white
+	}
+	title: {
+		font: BulkyPixels
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: PixelFont
+		fontColor: white
+		downFontColor: white
+		overFontColor: white
+		checkedFontColor: white
+		checkedOverFontColor: white
+		disabledFontColor: light_grey
+		up: Button
+		down: Button
+		over: Button
+		checked: Button
+		checkedOver: Button
+		disabled: buttonDisabled
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+}

@@ -11,6 +11,7 @@ public class ScreenTransitionSlice implements ScreenTransition {
 	public static final int UP = 1;
 	public static final int DOWN = 2;
 	public static final int UP_DOWN = 3;
+	public static final int OUT = 4;
 	private static final ScreenTransitionSlice instance = new ScreenTransitionSlice();
 	private float duration;
 	private int direction;
@@ -55,19 +56,19 @@ public class ScreenTransitionSlice implements ScreenTransition {
 			// list of slice indices
 			float offsetY = h * (1 + sliceIndex.get(i) / (float) sliceIndex.size);
 			switch (direction) {
-			case UP:
-				y = -offsetY + offsetY * alpha;
-				break;
-			case DOWN:
-				y = offsetY - offsetY * alpha;
-				break;
-			case UP_DOWN:
-				if (i % 2 == 0) {
+				case UP:
 					y = -offsetY + offsetY * alpha;
-				} else {
+					break;
+				case DOWN:
 					y = offsetY - offsetY * alpha;
-				}
-				break;
+					break;
+				case UP_DOWN:
+					if (i % 2 == 0) {
+						y = -offsetY + offsetY * alpha;
+					} else {
+						y = offsetY - offsetY * alpha;
+					}
+					break;
 			}
 			batch.draw(nextScreen, x, y, 0, 0, sliceWidth, h, 1, 1, 0, i * sliceWidth, 0, sliceWidth, nextScreen.getHeight(), false, true);
 		}

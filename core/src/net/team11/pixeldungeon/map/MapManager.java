@@ -11,14 +11,17 @@ import net.team11.pixeldungeon.utils.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.TiledObjectUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapManager {
+    private static MapManager INSTANCE = new MapManager();
     private EntityEngine engine;
 
     private HashMap<String, Map> maps = new HashMap<>();
     private Map currentMap = null;
     private OrthogonalTiledMapRenderer renderer;
+    private ArrayList<String> mapList = new ArrayList<>();
 
     private MapManager() {
         FileHandle mapFolder = Gdx.files.internal("levels");
@@ -27,6 +30,7 @@ public class MapManager {
                 System.err.println("LOADING FILE: " + entry.toString());
                 Map map = new Map(entry.toString());
                 maps.put(map.getMapName(), map);
+                mapList.add(map.getMapName());
             }
         }
 
@@ -71,9 +75,9 @@ public class MapManager {
         currentMap.setLoaded(true);
         System.out.println("Loading new entities in : " + currentMap.getMapName());
 
-        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
-        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
-        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER), currentMap);
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER), currentMap);
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER), currentMap);
         TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
         TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
 
@@ -96,13 +100,33 @@ public class MapManager {
         return maps.get(map);
     }
 
+    public Map getFirstMap() {
+        return maps.get(mapList.get(0));
+    }
+
+    public Map getPrevious(String map) {
+        int index = mapList.indexOf(map);
+        index--;
+        if (index < 0) {
+            index = mapList.size() - 1;
+        }
+        return maps.get(mapList.get(index));
+    }
+
+    public Map getNext(String map) {
+        int index = mapList.indexOf(map);
+        index++;
+        if (index == mapList.size()) {
+            index = 0;
+        }
+        return maps.get(mapList.get(index));
+    }
+
     public void reset() {
         for (String map : maps.keySet()) {
             maps.get(map).setLoaded(false);
         }
     }
-
-    private static MapManager INSTANCE = new MapManager();
 
     public static MapManager getInstance() {
         return INSTANCE;

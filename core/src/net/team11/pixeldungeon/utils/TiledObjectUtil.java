@@ -31,6 +31,8 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
+import net.team11.pixeldungeon.map.Map;
+import net.team11.pixeldungeon.map.MapManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,9 +44,11 @@ public class TiledObjectUtil {
      * @param engine Game engine that holds systems, and entities
      * @param mapObjects The Objects taken from the Tiled Map file
      */
-    public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects) {
+    public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects, Map currentMap) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
+
+                System.out.println("--PARENT MAP IS " + currentMap.getMapName() + "--");
 
                 //  What is used to get the information from the entity objects on the map
                 RectangleMapObject object = (RectangleMapObject) mapObject;
@@ -67,7 +71,7 @@ public class TiledObjectUtil {
                     case TiledMapObjectNames.BOX:   //  Box entity
                         if (object.getProperties().containsKey(TiledMapProperties.BOX_PUSHABLE)) {
                             boolean pushable = (boolean) object.getProperties().get(TiledMapProperties.BOX_PUSHABLE);
-                            engine.addEntity(new Box(object.getRectangle(), pushable, object.getName()));
+                            engine.addEntity(new Box(object.getRectangle(), pushable, object.getName(),currentMap));
                         } else {
                             System.err.println("BOX: " + object.getName() + " was not setup correctly!");
                         }
@@ -97,11 +101,10 @@ public class TiledObjectUtil {
 
                             }
 
-                            Chest chest = new Chest(object.getRectangle(), opened,locked, object.getName(), item);
+                            Chest chest = new Chest(object.getRectangle(), opened,locked, object.getName(), item, MapManager.getInstance().getCurrentMap());
                             if (chest.isLocked()){
                                     chest.setChestKey(new ChestKey((String) object.getProperties().get(TiledMapProperties.KEY_NAME)));
                             }
-
                             engine.addEntity(chest);
                         } else {
                             System.err.println("CHEST: " + object.getName() + " was not setup correctly!");

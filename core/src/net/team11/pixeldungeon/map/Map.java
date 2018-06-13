@@ -1,14 +1,21 @@
 package net.team11.pixeldungeon.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+import net.team11.pixeldungeon.statistics.*;
+
+import java.io.File;
+
 public class Map {
     private TiledMap map;
     private String mapName;
     private boolean loaded;
+
+    private LevelStatistics levelStatistics;
 
     public Map(String mapString) {
         this.map = new TmxMapLoader().load(mapString);
@@ -17,6 +24,26 @@ public class Map {
         //  Taking the map name from after the directory, to the extension
         //  eg: levels/level_0_0.tmx -> level_0_0
         mapName = mapString.substring(7, mapString.length()-4);
+
+        //setup statistics for the level
+        setupStatistics();
+    }
+
+    private void setupStatistics(){
+        String locRoot = Gdx.files.getLocalStoragePath();
+        System.out.println("Local Root is: " + locRoot);
+
+        String statsFileString = locRoot + mapName + ".json";
+        System.out.println("Stats File String is: " + statsFileString);
+        File statsFile = new File(statsFileString);
+        if (statsFile.exists()){
+            System.out.println(statsFileString + " already exists, PARSING");
+            levelStatistics = StatisticsUtil.parseStatsFromFile(statsFileString);
+        } else{
+            System.out.println("Creating new JSON");
+            levelStatistics = new LevelStatistics(mapName);
+            StatisticsUtil.createNewJson(levelStatistics, statsFileString);
+        }
     }
 
     public MapObjects getObjects(String layer) {
@@ -41,5 +68,9 @@ public class Map {
 
     public String getMapName() {
         return mapName;
+    }
+
+    public LevelStatistics getLevelStatistics() {
+        return levelStatistics;
     }
 }
