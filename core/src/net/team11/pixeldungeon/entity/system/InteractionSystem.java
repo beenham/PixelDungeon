@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.entity.system;
 import com.badlogic.gdx.math.Rectangle;
 
 import net.team11.pixeldungeon.entities.blocks.Chest;
+import net.team11.pixeldungeon.entities.blocks.Lever;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -76,7 +77,11 @@ public class InteractionSystem extends EntitySystem {
                             System.out.println("IS DOOR");
                             LockedDoor lockedDoor = (LockedDoor)entity;
                             lockedDoor.doInteraction(player);
-                       }
+                        }
+                        if (entity.getClass().equals(Lever.class)){
+                            Lever lever = (Lever)entity;
+                            lever.doInteraction(false);
+                        }
                     }
                 }
             }

@@ -180,8 +180,10 @@ public class TiledObjectUtil {
                         if (object.getProperties().containsKey(TiledMapProperties.TARGET)){
                             Lever lever = new Lever(object.getRectangle(), object.getName());
                             engine.addEntity(lever);
+                            lever.setTrigger(trigger);
                             lever.setTargets(targets);
                         }
+                        break;
 
                     default:
                         throw new IllegalArgumentException("This isn't a valid entity! " + type);

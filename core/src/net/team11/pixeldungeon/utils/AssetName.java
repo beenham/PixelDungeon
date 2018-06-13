@@ -62,4 +62,7 @@ public class AssetName {
     public static final String FLOORSPIKE_ACTIVATING = "floorSpikeActivating";
     public static final String FLOORSPIKE_DEACTIVATING = "floorSpikeDeactivating";
     public static final String FLOORSPIKE_TRIGGERED = "floorSpikeTriggered";
+
+    public static final String TMP_ON = "Tmp_Asset_On_16x16";
+    public static final String TMP_OFF = "Tmp_Asset_Off_16x16";
 }

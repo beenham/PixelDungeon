@@ -1,5 +1,7 @@
 package net.team11.pixeldungeon.entities.blocks;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
@@ -8,6 +10,8 @@ import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 
 /**
@@ -16,6 +20,8 @@ import net.team11.pixeldungeon.utils.CollisionCategory;
  * Still needs the assets to be done and added
  */
 public class Lever extends Entity {
+
+    private boolean activated = false;
 
     public Lever(Rectangle bounds,String name){
         super(name);
@@ -35,13 +41,30 @@ public class Lever extends Entity {
     }
 
     public void setupAnimations(AnimationComponent animationComponent){
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
+        animationComponent.addAnimation(AssetName.TMP_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.TMP_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        if (activated) {
+            animationComponent.setAnimation(AssetName.TMP_OFF);
+        } else {
+            animationComponent.setAnimation(AssetName.TMP_ON);
+        }
+    }
 
+    public void setActivated(boolean activated){
+        this.activated = activated;
+        if (!activated){
+            getComponent(AnimationComponent.class).setAnimation(AssetName.TMP_ON);
+        } else {
+            getComponent(AnimationComponent.class).setAnimation(AssetName.TMP_OFF);
+        }
     }
 
     @Override
     public void doInteraction(boolean isPlayer){
         if (!isPlayer){
-            for (final Entity entity : targetEntities){
+            setActivated(!activated);
+            for (Entity entity : targetEntities){
                 entity.doInteraction(isPlayer);
             }
         }

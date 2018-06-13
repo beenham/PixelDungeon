@@ -4,352 +4,373 @@ size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-box
+Tmp_Asset_Off_16x16
   rotate: false
   xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+Tmp_Asset_On_16x16
+  rotate: false
+  xy: 30, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+box
+  rotate: false
+  xy: 58, 2
   size: 16, 21
   orig: 16, 21
   offset: 0, 0
   index: 0
 buttonDoorClosed
   rotate: false
-  xy: 30, 2
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-buttonDoorOpening
-  rotate: false
-  xy: 58, 2
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-buttonDoorOpening
-  rotate: false
   xy: 86, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 1
+  index: 0
 buttonDoorOpening
   rotate: false
   xy: 114, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 2
+  index: 0
 buttonDoorOpening
   rotate: false
   xy: 142, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 3
+  index: 1
 buttonDoorOpening
   rotate: false
   xy: 170, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 4
+  index: 2
 buttonDoorOpening
   rotate: false
   xy: 198, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 5
+  index: 3
 buttonDoorOpening
   rotate: false
   xy: 226, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 6
+  index: 4
 buttonDoorOpening
   rotate: false
   xy: 254, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 7
+  index: 5
 buttonDoorOpening
   rotate: false
   xy: 282, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 8
-chestClosed
+  index: 6
+buttonDoorOpening
   rotate: false
   xy: 310, 2
-  size: 16, 16
-  orig: 16, 16
+  size: 26, 20
+  orig: 26, 20
   offset: 0, 0
-  index: 0
-chestOpened
+  index: 7
+buttonDoorOpening
   rotate: false
   xy: 338, 2
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-doorFrameLeft
-  rotate: false
-  xy: 366, 2
-  size: 3, 16
-  orig: 3, 16
-  offset: 0, 0
-  index: 0
-doorFrameRight
-  rotate: false
-  xy: 394, 2
-  size: 3, 16
-  orig: 3, 16
-  offset: 0, 0
-  index: 0
-doorOpened
-  rotate: false
-  xy: 422, 2
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-lockedDoorClosed
-  rotate: false
-  xy: 450, 2
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-lockedDoorOpening
-  rotate: false
-  xy: 450, 2
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-lockedDoorOpening
-  rotate: false
-  xy: 478, 2
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 1
-lockedDoorOpening
-  rotate: false
-  xy: 2, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 2
-lockedDoorOpening
-  rotate: false
-  xy: 30, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 3
-lockedDoorOpening
-  rotate: false
-  xy: 58, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 4
-lockedDoorOpening
-  rotate: false
-  xy: 86, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 5
-lockedDoorOpening
-  rotate: false
-  xy: 114, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 6
-lockedDoorOpening
-  rotate: false
-  xy: 142, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 7
-lockedDoorOpening
-  rotate: false
-  xy: 170, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 8
-lockedDoorOpening
-  rotate: false
-  xy: 198, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 9
-lockedDoorOpening
-  rotate: false
-  xy: 226, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 10
-mechanicDoorClosed
-  rotate: false
-  xy: 254, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-mechanicDoorOpening
-  rotate: false
-  xy: 282, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 0
-mechanicDoorOpening
-  rotate: false
-  xy: 310, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 1
-mechanicDoorOpening
-  rotate: false
-  xy: 338, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 2
-mechanicDoorOpening
-  rotate: false
-  xy: 366, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 3
-mechanicDoorOpening
-  rotate: false
-  xy: 394, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 4
-mechanicDoorOpening
-  rotate: false
-  xy: 422, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 5
-mechanicDoorOpening
-  rotate: false
-  xy: 450, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 6
-mechanicDoorOpening
-  rotate: false
-  xy: 478, 35
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 7
-mechanicDoorOpening
-  rotate: false
-  xy: 2, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 8
 buttonDoorOpening
   rotate: false
-  xy: 2, 68
+  xy: 366, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 9
 lockedDoorOpening
   rotate: false
-  xy: 2, 68
+  xy: 366, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 11
-pillar
+mechanicDoorOpening
+  rotate: false
+  xy: 366, 2
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 8
+chestClosed
+  rotate: false
+  xy: 394, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+chestOpened
+  rotate: false
+  xy: 422, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+doorFrameLeft
+  rotate: false
+  xy: 450, 2
+  size: 3, 16
+  orig: 3, 16
+  offset: 0, 0
+  index: 0
+doorFrameRight
+  rotate: false
+  xy: 478, 2
+  size: 3, 16
+  orig: 3, 16
+  offset: 0, 0
+  index: 0
+doorOpened
+  rotate: false
+  xy: 2, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 0
+lockedDoorOpening
+  rotate: false
+  xy: 30, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 0
+lockedDoorClosed
+  rotate: false
+  xy: 30, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 0
+lockedDoorOpening
+  rotate: false
+  xy: 58, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 1
+lockedDoorOpening
+  rotate: false
+  xy: 86, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 2
+lockedDoorOpening
+  rotate: false
+  xy: 114, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 3
+lockedDoorOpening
+  rotate: false
+  xy: 142, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 4
+lockedDoorOpening
+  rotate: false
+  xy: 170, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 5
+lockedDoorOpening
+  rotate: false
+  xy: 198, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 6
+lockedDoorOpening
+  rotate: false
+  xy: 226, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 7
+lockedDoorOpening
+  rotate: false
+  xy: 254, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 8
+lockedDoorOpening
+  rotate: false
+  xy: 282, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 9
+lockedDoorOpening
+  rotate: false
+  xy: 310, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 10
+mechanicDoorClosed
+  rotate: false
+  xy: 338, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 0
+mechanicDoorOpening
+  rotate: false
+  xy: 366, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 0
+mechanicDoorOpening
+  rotate: false
+  xy: 394, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 1
+mechanicDoorOpening
+  rotate: false
+  xy: 422, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 2
+mechanicDoorOpening
+  rotate: false
+  xy: 450, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 3
+mechanicDoorOpening
+  rotate: false
+  xy: 478, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 4
+mechanicDoorOpening
+  rotate: false
+  xy: 2, 68
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 5
+mechanicDoorOpening
   rotate: false
   xy: 30, 68
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 6
+mechanicDoorOpening
+  rotate: false
+  xy: 58, 68
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 7
+pillar
+  rotate: false
+  xy: 86, 68
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
-torchIdle
-  rotate: false
-  xy: 58, 68
-  size: 8, 21
-  orig: 8, 21
-  offset: 0, 0
-  index: 0
-torchLit
-  rotate: false
-  xy: 86, 68
-  size: 8, 21
-  orig: 8, 21
-  offset: 0, 0
-  index: 0
-torchLit
+puzzleController
   rotate: false
   xy: 114, 68
-  size: 8, 21
-  orig: 8, 21
+  size: 15, 20
+  orig: 15, 20
   offset: 0, 0
-  index: 1
-torchLit
+  index: 0
+torchIdle
   rotate: false
   xy: 142, 68
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 2
+  index: 0
 torchLit
   rotate: false
   xy: 170, 68
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 3
+  index: 0
 torchLit
   rotate: false
   xy: 198, 68
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 4
+  index: 1
 torchLit
   rotate: false
   xy: 226, 68
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 5
+  index: 2
 torchLit
   rotate: false
   xy: 254, 68
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 6
+  index: 3
 torchLit
   rotate: false
   xy: 282, 68
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 4
+torchLit
+  rotate: false
+  xy: 310, 68
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 5
+torchLit
+  rotate: false
+  xy: 338, 68
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 6
+torchLit
+  rotate: false
+  xy: 366, 68
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
