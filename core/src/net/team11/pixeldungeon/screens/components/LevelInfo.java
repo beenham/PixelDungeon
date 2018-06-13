@@ -1,20 +1,11 @@
 package net.team11.pixeldungeon.screens.components;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
@@ -23,9 +14,9 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.TiledObjectUtil;
 
 import java.util.Locale;
+
 public class LevelInfo extends Table {
     private LevelSelector selector;
 
@@ -66,6 +57,8 @@ public class LevelInfo extends Table {
         float padding = 30f * PixelDungeon.SCALAR;
         float fontScale = PixelDungeon.SCALAR;
 
+
+
         Label attempts = new Label("Attempts", Assets.getInstance().getSkin(Assets.UI_SKIN));
         //attemptsVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
         attemptsVal = new Label(String.format(Locale.UK, "%d", selector.getMap().getLevelStatistics().getAttempts()),
@@ -83,17 +76,18 @@ public class LevelInfo extends Table {
 
         Label chests = new Label("Chests", Assets.getInstance().getSkin(Assets.UI_SKIN));
         //chestsVal = new Label(String.format(Locale.UK,"%d/%d",2,3), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        chestsVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumChests(),selector.getMap().getLevelStatistics().getTotalChests()),
+
+        chestsVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumChests(),selector.getCurrentTotals().getTotalChests()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         Label keys = new Label("Keys", Assets.getInstance().getSkin(Assets.UI_SKIN));
         //keysVal = new Label(String.format(Locale.UK,"%d/%d",1,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        keysVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumKeys(),selector.getMap().getLevelStatistics().getTotalKeys()),
+        keysVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumKeys(),selector.getCurrentTotals().getTotalKeys()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         Label items = new Label("Items", Assets.getInstance().getSkin(Assets.UI_SKIN));
         //itemsVal = new Label(String.format(Locale.UK,"%d/%d",0,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
-        itemsVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumItems(),selector.getMap().getLevelStatistics().getTotalItems()),
+        itemsVal = new Label(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumItems(),selector.getCurrentTotals().getTotalItems()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         attempts.setFontScale(fontScale);
@@ -155,9 +149,9 @@ public class LevelInfo extends Table {
         levelName.setText(selector.getMap().getMapName());
         attemptsVal.setText(String.format(Locale.UK,"%d",selector.getMap().getLevelStatistics().getAttempts()));
         completedVal.setText(String.format(Locale.UK,"%s",selector.getMap().getLevelStatistics().isCompleted()));
-        bestTimeVal.setText(String.format(Locale.UK,"%02d:%02d",selector.getMap().getLevelStatistics().getNumChests(),selector.getMap().getLevelStatistics().getTotalChests()));
-        chestsVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumChests(),selector.getMap().getLevelStatistics().getTotalChests()));
-        keysVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumKeys(),selector.getMap().getLevelStatistics().getTotalKeys()));
-        itemsVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumItems(),selector.getMap().getLevelStatistics().getTotalItems()));
+        bestTimeVal.setText(String.format(Locale.UK,"%02d:%02d",selector.getMap().getLevelStatistics().getNumChests(),selector.getCurrentTotals().getTotalKeys()));
+        chestsVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumChests(),selector.getCurrentTotals().getTotalChests()));
+        keysVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumKeys(),selector.getCurrentTotals().getTotalKeys()));
+        itemsVal.setText(String.format(Locale.UK,"%d/%d",selector.getMap().getLevelStatistics().getNumItems(),selector.getCurrentTotals().getTotalItems()));
     }
 }

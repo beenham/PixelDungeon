@@ -1,6 +1,5 @@
 package net.team11.pixeldungeon.entities.blocks;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,7 +9,7 @@ import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.Key;
 import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.statistics.GlobalStatistics;
-import net.team11.pixeldungeon.statistics.Statistics;
+import net.team11.pixeldungeon.statistics.StatisticsUtil;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -74,11 +73,10 @@ public class Chest extends Entity {
 
             //Update the global statistics
             GlobalStatistics.updateChests();
-            Statistics.writeToJson(Statistics.getGlobalStatistics(), Statistics.globalLocation);
-            System.out.println(Statistics.getGlobalStatistics());
+            StatisticsUtil.writeToJson(StatisticsUtil.getGlobalStatistics(), StatisticsUtil.globalLocation);
             if (item.getClass().equals(Key.class)){
                 getParentMap().getLevelStatistics().updateKeys();
-                //Statistics.createNewJson(Statistics.getGlobalStatistics(), Statistics.globalLocation);
+                GlobalStatistics.updateKeys();
             }
 
             item = null;

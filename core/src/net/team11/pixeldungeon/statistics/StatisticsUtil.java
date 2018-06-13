@@ -1,25 +1,29 @@
 package net.team11.pixeldungeon.statistics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Writer;
+import java.util.HashMap;
 
 /**
  * Class to handle the reading and writing of the different statistics to/from files in internal storage
- * Current statistics directory is pixeldungeon/files/
  */
-public class Statistics {
+public class StatisticsUtil {
 
     private static GlobalStatistics globalStatistics;
     public static  String globalLocation = Gdx.files.getLocalStoragePath() + "Global.json";
+
+    private static HashMap<String, TotalLevelStatistics> loadedTotals = new HashMap<>();
 
     /**
      * Static method to parse a .json file from local storage specified by the in parameter
@@ -32,7 +36,7 @@ public class Statistics {
         try{
             LevelStatistics levelStatistics = gson.fromJson(new FileReader(in), LevelStatistics.class);
             System.out.println("Read " + in + "successfully");
-            System.out.println(levelStatistics.getLevel() + " Statistics: \n" + levelStatistics.toString());
+            System.out.println(levelStatistics.getLevel() + " StatisticsUtil: \n" + levelStatistics.toString());
             return levelStatistics;
 
         } catch (IOException ex){
@@ -102,6 +106,45 @@ public class Statistics {
             System.out.println("Global file does not exist creating");
             globalStatistics = new GlobalStatistics();
             createNewJson(globalStatistics, globalLocation);
+        }
+    }
+
+    /**
+     * Method used to parse the total statistics of a level from the levelStats folder in assets.
+     * Each total file should have the CSV extension and be named levelNameTotals.csv
+     *
+     * Method checks to see if the totals have already been loaded in and if not then they are read in
+     * otherwise the value is just returned from a hashMap
+     *
+     *      IMPORTANT : The totals files need to be in the format
+     *      LevelName,TotalChests,TotalKeys,TotalItems
+     *
+     * @param totalsFile : the name of the file to load including .csv extension
+     * @return : TotalLevelStatistics object for the specified level
+     */
+    public static TotalLevelStatistics parseTotalStatistics(String totalsFile){
+
+        if (!loadedTotals.containsKey(totalsFile)){
+            TotalLevelStatistics totalLevelStatistics;
+
+            System.out.println("Haven't already loaded " + totalsFile);
+
+            FileHandle fileHandle = Gdx.files.internal("levelStats/"+totalsFile);
+
+            String csvSplitBy = ",";
+            String line = fileHandle.readString();
+            String[] values = line.split(csvSplitBy);
+
+            totalLevelStatistics = new TotalLevelStatistics(values[0], Integer.parseInt(values[1]),
+                    Integer.parseInt(values[2]),Integer.parseInt(values[3]));
+
+            //Update the loadedTotals hash map with the new value loaded
+            loadedTotals.put(totalsFile, totalLevelStatistics);
+
+            return totalLevelStatistics;
+        } else {
+            System.out.println(totalsFile + " has already been loaded");
+            return loadedTotals.get(totalsFile);
         }
     }
 

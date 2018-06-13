@@ -9,7 +9,6 @@ public class LevelStatistics{
     private int attempts;
 
     private int numChests, numKeys, numItems;
-    private int totalChests = 0, totalKeys = 0, totalItems = 0;
 
     private String bestTime;
     private String level;
@@ -30,64 +29,24 @@ public class LevelStatistics{
     //      Update Methods     //
     /////////////////////////////
     public void updateChests(){
-        System.out.println("Updating chests statistics\n\t-Old Value: " + numChests);
         numChests++;
         System.out.println("Updating chests statistics\n\t-New Value: " + numChests);
     }
 
     public void updateKeys(){
-        System.out.println("Updating keys statistics\n\t-Old Value: " + numKeys);
         numKeys++;
         System.out.println("Updating keys statistics\n\t-New Value: " + numKeys);
     }
 
     public void updateItems(){
-        System.out.println("Updating items statistics\n\t-Old Value: " + numItems);
         numItems++;
         System.out.println("Updating items statistics\n\t-New Value: " + numItems);
     }
-
-    public void updateTotalChests(){
-        System.out.println("Updating total chest statistics\n\t-Old Value: " + totalChests);
-        this.totalChests++;
-        System.out.println("Updating total chest statistics\n\t-New Value: " + totalChests);
-    }
-
-    public void updateTotalKeys(){
-        System.out.println("Updating total keys statistics\n\t-Old Value: " + totalKeys);
-        this.totalKeys++;
-        System.out.println("Updating total keys statistics\n\t-New Value: " + totalKeys);
-    }
-
-    public void updateTotalItems(){this.totalItems++;}
 
     /////////////////////////////
     //   Getters and Setters   //
     /////////////////////////////
 
-    public int getTotalChests() {
-        return totalChests;
-    }
-
-    public void setTotalChests(int totalChests) {
-        this.totalChests = totalChests;
-    }
-
-    public int getTotalKeys() {
-        return totalKeys;
-    }
-
-    public void setTotalKeys(int totalKeys) {
-        this.totalKeys = totalKeys;
-    }
-
-    public int getTotalItems() {
-        return totalItems;
-    }
-
-    public void setTotalItems(int totalItems) {
-        this.totalItems = totalItems;
-    }
 
     public int getAttempts(){
         return this.attempts;

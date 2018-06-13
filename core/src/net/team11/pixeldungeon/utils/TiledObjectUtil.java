@@ -85,12 +85,12 @@ public class TiledObjectUtil {
                                     break;
                                 case TiledMapObjectNames.KEY:
                                     item = new Key(itemName);
-                                    currentMap.getLevelStatistics().updateTotalKeys();
+
                                     break;
                             }
 
                             engine.addEntity(new Chest(object.getRectangle(), opened, object.getName(), item, currentMap));
-                            currentMap.getLevelStatistics().updateTotalChests();
+
                         } else {
                             System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
                         }

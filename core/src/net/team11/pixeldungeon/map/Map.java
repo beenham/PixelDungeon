@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.statistics.*;
-import net.team11.pixeldungeon.utils.TiledMapLayers;
 
 import java.io.File;
 
@@ -41,11 +38,11 @@ public class Map {
         File statsFile = new File(statsFileString);
         if (statsFile.exists()){
             System.out.println(statsFileString + " already exists, PARSING");
-            levelStatistics = Statistics.parseStatsFromFile(statsFileString);
+            levelStatistics = StatisticsUtil.parseStatsFromFile(statsFileString);
         } else{
             System.out.println("Creating new JSON");
             levelStatistics = new LevelStatistics(mapName);
-            Statistics.createNewJson(levelStatistics, statsFileString);
+            StatisticsUtil.createNewJson(levelStatistics, statsFileString);
         }
     }
 
