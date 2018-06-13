@@ -9,7 +9,7 @@ import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
-import net.team11.pixeldungeon.items.Key;
+import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.statistics.GlobalStatistics;
 import net.team11.pixeldungeon.statistics.StatisticsUtil;
