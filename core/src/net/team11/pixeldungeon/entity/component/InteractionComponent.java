@@ -19,7 +19,7 @@ public class InteractionComponent implements EntityComponent {
     public void doInteraction() {
         entity.doInteraction();
         this.interacting = true;
-        this.interactTime = 5;
+        this.interactTime = 8;
     }
 
     /////////////////////////////////

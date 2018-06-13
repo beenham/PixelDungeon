@@ -55,6 +55,12 @@ public class AssetName {
     public static final String LOCKEDDOOR_OPENING = "lockedDoorOpening";
     public static final String MECHANICDOOR_CLOSED = "mechanicDoorClosed";
     public static final String MECHANICDOOR_OPENING = "mechanicDoorOpening";
+    public static final String MECHANICDOOR_CLOSING = "mechanicDoorClosing";
+
+    public static final String LEVER_LEFT = "leverLeft";
+    public static final String LEVER_SWITCHING_LEFT = "leverDeactivating";
+    public static final String LEVER_RIGHT = "leverRight";
+    public static final String LEVER_SWITCHING_RIGHT = "leverActivating";
 
     public static final String PILLAR = "pillar";
 

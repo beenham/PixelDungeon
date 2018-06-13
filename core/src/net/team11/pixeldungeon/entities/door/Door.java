@@ -63,6 +63,7 @@ public class Door extends Entity {
         animationComponent.addAnimation(AssetName.BUTTONDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.LOCKEDDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.MECHANICDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.MECHANICDOOR_CLOSING, textureAtlas, .75f, Animation.PlayMode.NORMAL);
         switch (type) {
             case BUTTON:
                 if (open) {
@@ -99,7 +100,8 @@ public class Door extends Entity {
                     getComponent(AnimationComponent.class).setAnimation(AssetName.LOCKEDDOOR_CLOSED);
                     break;
                 case MECHANIC:
-                    getComponent(AnimationComponent.class).setAnimation(AssetName.MECHANICDOOR_CLOSED);
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.MECHANICDOOR_CLOSING);
+                    getComponent(AnimationComponent.class).setNextAnimation(AssetName.MECHANICDOOR_CLOSED);
                     break;
             }
             getComponent(BodyComponent.class).createBody(BodyDef.BodyType.StaticBody);

@@ -42,21 +42,25 @@ public class Lever extends Entity {
 
     public void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
-        animationComponent.addAnimation(AssetName.TMP_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.addAnimation(AssetName.TMP_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LEVER_LEFT, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LEVER_SWITCHING_LEFT, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.LEVER_RIGHT, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LEVER_SWITCHING_RIGHT, textureAtlas, .75f, Animation.PlayMode.NORMAL);
         if (activated) {
-            animationComponent.setAnimation(AssetName.TMP_OFF);
+            animationComponent.setAnimation(AssetName.LEVER_LEFT);
         } else {
-            animationComponent.setAnimation(AssetName.TMP_ON);
+            animationComponent.setAnimation(AssetName.LEVER_RIGHT);
         }
     }
 
     public void setActivated(boolean activated){
         this.activated = activated;
         if (!activated){
-            getComponent(AnimationComponent.class).setAnimation(AssetName.TMP_ON);
+            getComponent(AnimationComponent.class).setAnimation(AssetName.LEVER_SWITCHING_RIGHT);
+            getComponent(AnimationComponent.class).setNextAnimation(AssetName.LEVER_RIGHT);
         } else {
-            getComponent(AnimationComponent.class).setAnimation(AssetName.TMP_OFF);
+            getComponent(AnimationComponent.class).setAnimation(AssetName.LEVER_SWITCHING_LEFT);
+            getComponent(AnimationComponent.class).setNextAnimation(AssetName.LEVER_LEFT);
         }
     }
 

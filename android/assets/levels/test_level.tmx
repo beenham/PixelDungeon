@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="51">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextobjectid="51">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
- <layer id="1" name="background" width="50" height="50">
+ <layer name="background" width="50" height="50">
   <data encoding="csv">
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
@@ -55,7 +55,7 @@
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61
 </data>
  </layer>
- <layer id="2" name="floor" width="50" height="50">
+ <layer name="floor" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -109,7 +109,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="walls" width="50" height="50">
+ <layer name="walls" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -163,7 +163,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="decoration" width="50" height="50">
+ <layer name="decoration" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -217,7 +217,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" id="5" name="traps">
+ <objectgroup color="#ff0000" name="traps">
   <object id="28" name="floorSpike" x="448" y="240" width="16" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
@@ -349,7 +349,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" id="6" name="blocks">
+ <objectgroup color="#ff9500" name="blocks">
   <object id="21" name="pillar_2" x="209" y="196" width="14" height="8">
    <properties>
     <property name="entity" value="pillar"/>
@@ -426,7 +426,7 @@
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="49" name="lever_01" x="288.364" y="175.818" width="16" height="16">
+  <object id="49" name="lever_01" x="291.364" y="183.818" width="10" height="8">
    <properties>
     <property name="entity" value="lever"/>
     <property name="target" value="mechanicDoor_1"/>
@@ -434,7 +434,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#002eff" id="7" name="doors">
+ <objectgroup color="#002eff" name="doors">
   <object id="3" name="doorPillarLeft" x="400" y="160" width="3" height="16">
    <properties>
     <property name="entity" value="doorPillar"/>
@@ -494,7 +494,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#000000" id="8" name="collision">
+ <objectgroup color="#000000" name="collision">
   <object id="17" x="320" y="64">
    <polyline points="0,-16 0,32 -48,32 -48,64 -112,64 -112,96 -80,96 -80,112 -144,112 -144,288 176,288 176,112 112,112 112,96 144,96 144,64 80,64 80,32 32,32 32,-16 0,-16"/>
   </object>
@@ -505,7 +505,7 @@
    <polyline points="0,0 0,16 48,16 48,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" id="9" name="points">
+ <objectgroup color="#ffffff" name="points">
   <object id="2" name="playerSpawn" x="320" y="224" width="16" height="16"/>
   <object id="41" name="layerExitPoint" x="320" y="40" width="32" height="16">
    <properties>
@@ -514,7 +514,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#04ff00" id="10" name="puzzle">
+ <objectgroup color="#04ff00" name="puzzle">
   <object id="20" x="192" y="288">
    <polyline points="0,0 48,0 48,48 0,48 0,0"/>
   </object>
