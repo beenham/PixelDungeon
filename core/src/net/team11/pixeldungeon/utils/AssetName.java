@@ -10,6 +10,8 @@ public class AssetName {
     public static final String INVENTORY_BUTTON = "inventoryButton";
     public static final String PAUSE_BUTTON = "pauseButton";
 
+    public static final String PLAYER_ICON = "playerButton";
+
     public static final String UI_SLOT = "itemSlot";
     public static final String DARKEN_0 = "darken0";
     public static final String DARKEN_20 = "darken20";
@@ -23,7 +25,7 @@ public class AssetName {
     public static final String SMALL_KEY = "smallKey";
 
 
-    /////   PLAYER SPRITE NAMES     /////
+    /////   PLAYER_INFO SPRITE NAMES     /////
     public static final String PLAYER_IDLE_UP = "playerIdleUp";
     public static final String PLAYER_IDLE_DOWN = "playerIdleDown";
     public static final String PLAYER_IDLE_LEFT = "playerIdleLeft";

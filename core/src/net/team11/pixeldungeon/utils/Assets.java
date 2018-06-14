@@ -40,7 +40,7 @@ public class Assets {
         textures.put(PLAYER, new TextureAtlas(Gdx.files.internal("entities/Player.atlas")));
         textures.put(TRAPS, new TextureAtlas(Gdx.files.internal("entities/Traps.atlas")));
 
-        skins.put(UI_SKIN, new Skin(Gdx.files.internal("Skins/uiskin/ui_skin.json")));
+        skins.put(UI_SKIN, new Skin(Gdx.files.internal("skin/uiskin/ui_skin.json")));
 
         fonts.put(P_FONT, new BitmapFont(Gdx.files.internal("fonts/PixelFont.fnt"),
                 Gdx.files.internal("fonts/PixelFont.png"), false));

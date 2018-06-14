@@ -19,7 +19,6 @@ import java.util.HashMap;
  * Class to handle the reading and writing of the different statistics to/from files in internal storage
  */
 public class StatisticsUtil {
-
     private static GlobalStatistics globalStatistics;
     public static  String globalLocation = Gdx.files.getLocalStoragePath() + "Global.json";
 

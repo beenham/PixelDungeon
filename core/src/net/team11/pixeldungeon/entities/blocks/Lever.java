@@ -40,7 +40,7 @@ public class Lever extends Entity {
         setupAnimations(animationComponent);
     }
 
-    public void setupAnimations(AnimationComponent animationComponent){
+    private void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.TMP_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.TMP_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);

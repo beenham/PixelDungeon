@@ -36,6 +36,7 @@ public class PixelDungeon extends DirectedGame {
 		V_WIDTH = Gdx.graphics.getWidth();
 		SCALAR = (V_HEIGHT / 1080f);
 		StatisticsUtil.parseTotalStatistics();
+		StatisticsUtil.parseGlobalStatistics();
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 	}

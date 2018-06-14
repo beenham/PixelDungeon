@@ -22,10 +22,6 @@ public class GlobalStatistics {
     private static int levelsCompleted = 0;
     private final int TOTAL_LEVELS = 2;
 
-
-
-    public GlobalStatistics(){}
-
     public static void updateChests(){
         System.out.println("Updating chests");
         chests++;
@@ -51,25 +47,29 @@ public class GlobalStatistics {
         levelsCompleted++;
     }
 
-    public static int getChests() {
+    public int getChests() {
         return chests;
     }
 
-    public static int getKeys() {
+    public int getKeys() {
         return keys;
     }
 
-    public static int getCoins() {
+    public int getCoins() {
         return coins;
     }
 
-    public static int getItems() {
+    public int getItems() {
         return items;
     }
 
-    public static int getLevelsCompleted() {
+    public int getLevelsCompleted() {
         return levelsCompleted;
     }
+
+    public int getTime() {return 0;}
+
+    public int getAttempts() {return 0;}
 
     @Override
     public String toString(){

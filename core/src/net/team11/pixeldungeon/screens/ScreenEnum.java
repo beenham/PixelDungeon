@@ -35,6 +35,16 @@ public enum ScreenEnum {
             return new MainMenuScreen();
         }
     },
+    PLAYER_INFO {
+        @Override
+        public String toString() {
+            return "playerInfoScreen";
+        }
+        @Override
+        public AbstractScreen getScreen(Object... params) {
+            return new PlayerScreen();
+        }
+    },
     SKIN_SELECT {
         @Override
         public String toString() {
