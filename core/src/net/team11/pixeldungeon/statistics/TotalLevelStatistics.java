@@ -30,4 +30,8 @@ public class TotalLevelStatistics {
         return this.totalItems;
     }
 
+    @Override
+    public String toString(){
+        return "Level: " + level + "\nChests: " + totalChests + "\nKeys: " + totalKeys + "\nItems: " + totalItems + "\n";
+    }
 }

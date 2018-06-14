@@ -32,7 +32,7 @@ public class LevelSelector extends Table {
     public LevelSelector(float size) {
         mapManager = MapManager.getInstance();
         currentMap = mapManager.getFirstMap();
-        currentTotals = StatisticsUtil.parseTotalStatistics(currentMap.getMapName()+"Totals.csv");
+        currentTotals = StatisticsUtil.getLoadedTotals().get(mapManager.getFirstMap().getMapName());
         setupTable(size/2);
         setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
                 Assets.HUD).createPatch(AssetName.DARKEN_20)));
@@ -80,14 +80,14 @@ public class LevelSelector extends Table {
 
     private void nextMap() {
         currentMap = mapManager.getNext(currentMap.getMapName());
-        currentTotals = StatisticsUtil.parseTotalStatistics(currentMap.getMapName()+"Totals.csv");
+        currentTotals = StatisticsUtil.getLoadedTotals().get(mapManager.getCurrentMap().getMapName());
         mapPreview.setDrawable(new SpriteDrawable(new Sprite(Assets.getInstance().getTextureSet(
                 Assets.LEVELS).findRegion(currentMap.getMapName()))));
     }
 
     private void prevMap() {
         currentMap = mapManager.getPrevious(currentMap.getMapName());
-        currentTotals = StatisticsUtil.parseTotalStatistics(currentMap.getMapName()+"Totals.csv");
+        currentTotals = StatisticsUtil.getLoadedTotals().get(mapManager.getCurrentMap().getMapName());
         mapPreview.setDrawable(new SpriteDrawable(new Sprite(Assets.getInstance().getTextureSet(
                         Assets.LEVELS).findRegion(currentMap.getMapName()))));
     }

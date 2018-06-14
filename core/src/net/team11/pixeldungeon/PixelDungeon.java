@@ -9,6 +9,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.game.DirectedGame;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.statistics.StatisticsUtil;
 import net.team11.pixeldungeon.utils.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.crossplatform.AlertDialogCallback;
@@ -34,7 +35,7 @@ public class PixelDungeon extends DirectedGame {
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();
 		SCALAR = (V_HEIGHT / 1080f);
-
+		StatisticsUtil.parseTotalStatistics();
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 	}

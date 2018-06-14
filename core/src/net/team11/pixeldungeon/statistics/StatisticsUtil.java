@@ -118,37 +118,29 @@ public class StatisticsUtil {
      *
      *      IMPORTANT : The totals files need to be in the format
      *      LevelName,TotalChests,TotalKeys,TotalItems
-     *
-     * @param totalsFile : the name of the file to load including .csv extension
-     * @return : TotalLevelStatistics object for the specified level
+     *      No spaces and a newline character at the end of each line to separate each level
      */
-    public static TotalLevelStatistics parseTotalStatistics(String totalsFile){
+    public static void parseTotalStatistics(){
+        FileHandle filehandle = Gdx.files.internal("levelStats/Totals.csv");
+        String csvSplit = ",";
+        String lineSplit = "\n";
 
-        if (!loadedTotals.containsKey(totalsFile)){
-            TotalLevelStatistics totalLevelStatistics;
+        String text = filehandle.readString();
+        String[] lines = text.split(lineSplit);
 
-            System.out.println("Haven't already loaded " + totalsFile);
-
-            FileHandle fileHandle = Gdx.files.internal("levelStats/"+totalsFile);
-
-            String csvSplitBy = ",";
-            String line = fileHandle.readString();
-            String[] values = line.split(csvSplitBy);
-
-            totalLevelStatistics = new TotalLevelStatistics(values[0], Integer.parseInt(values[1]),
-                    Integer.parseInt(values[2]),Integer.parseInt(values[3]));
-
-            //Update the loadedTotals hash map with the new value loaded
-            loadedTotals.put(totalsFile, totalLevelStatistics);
-
-            return totalLevelStatistics;
-        } else {
-            System.out.println(totalsFile + " has already been loaded");
-            return loadedTotals.get(totalsFile);
+        for (String line : lines){
+            System.out.println("\t"+line);
+            String[] values = line.split(csvSplit);
+            loadedTotals.put(values[0].trim(), new TotalLevelStatistics(values[0].trim(), Integer.parseInt(values[1].trim()),
+                  Integer.parseInt(values[2].trim()),Integer.parseInt(values[3].trim())));
         }
     }
 
     public static GlobalStatistics getGlobalStatistics() {
         return globalStatistics;
+    }
+
+    public static HashMap<String, TotalLevelStatistics> getLoadedTotals(){
+        return loadedTotals;
     }
 }
