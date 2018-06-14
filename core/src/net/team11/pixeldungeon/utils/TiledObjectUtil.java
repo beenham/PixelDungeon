@@ -47,9 +47,7 @@ public class TiledObjectUtil {
     public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects, Map currentMap) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
-
-                System.out.println("--PARENT MAP IS " + currentMap.getMapName() + "--");
-
+                
                 //  What is used to get the information from the entity objects on the map
                 RectangleMapObject object = (RectangleMapObject) mapObject;
 

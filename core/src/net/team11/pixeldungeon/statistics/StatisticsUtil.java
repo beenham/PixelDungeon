@@ -36,7 +36,7 @@ public class StatisticsUtil {
         try{
             LevelStatistics levelStatistics = gson.fromJson(new FileReader(in), LevelStatistics.class);
             System.out.println("Read " + in + "successfully");
-            System.out.println(levelStatistics.getLevel() + " StatisticsUtil: \n" + levelStatistics.toString());
+//            System.out.println(levelStatistics.getLevel() + " StatisticsUtil: \n" + levelStatistics.toString());
             return levelStatistics;
 
         } catch (IOException ex){
@@ -78,7 +78,7 @@ public class StatisticsUtil {
             writer.close();
             System.out.println("Finished writing to " + in);
             parseGlobalStatistics();
-            System.out.println(globalStatistics);
+//            System.out.println(globalStatistics);
         } catch (IOException ex){
             ex.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class StatisticsUtil {
             try{
                 globalStatistics = gson.fromJson(new FileReader(globalLocation), GlobalStatistics.class);
                 System.out.println("Read " + globalLocation + " successfully");
-                System.out.println("\t" + globalStatistics.toString());
+//                System.out.println("\t" + globalStatistics.toString());
             } catch (IOException ex){
                 ex.printStackTrace();
             }

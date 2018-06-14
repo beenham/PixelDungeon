@@ -31,16 +31,16 @@ public class Map {
 
     private void setupStatistics(){
         String locRoot = Gdx.files.getLocalStoragePath();
-        System.out.println("Local Root is: " + locRoot);
+//        System.out.println("Local Root is: " + locRoot);
 
         String statsFileString = locRoot + mapName + ".json";
-        System.out.println("Stats File String is: " + statsFileString);
+//        System.out.println("Stats File String is: " + statsFileString);
         File statsFile = new File(statsFileString);
         if (statsFile.exists()){
-            System.out.println(statsFileString + " already exists, PARSING");
+//            System.out.println(statsFileString + " already exists, PARSING");
             levelStatistics = StatisticsUtil.parseStatsFromFile(statsFileString);
         } else{
-            System.out.println("Creating new JSON");
+//            System.out.println("Creating new JSON");
             levelStatistics = new LevelStatistics(mapName);
             StatisticsUtil.createNewJson(levelStatistics, statsFileString);
         }
