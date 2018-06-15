@@ -20,14 +20,6 @@ public class StatsUtil {
     private int flaggedTimer = 0;
 
     private StatsUtil() {
-        clearLocal();
-        for (FileHandle file : Gdx.files.local("stats").list()) {
-            System.out.println(TAG + " file : " + file.name() + " dir:" + file.isDirectory());
-        }
-        for (FileHandle file : Gdx.files.local("stats/levels").list()) {
-            System.out.println(TAG + " file : " + file.name() + " dir:" + file.isDirectory());
-        }
-
         if (!Gdx.files.local("stats/").exists()) {
             readInternalLevelFiles();
         } else {
@@ -35,7 +27,6 @@ public class StatsUtil {
                 if (file.toString().endsWith(".json")) {
                     Json json = new Json();
                     LevelStats stats = json.fromJson(LevelStats.class,file);
-                    System.out.println(TAG + "LOCAL " + file.name() + "\n" + stats.toString());
                     levelStats.put(stats.getLevelName(), stats);
                 }
             }
@@ -48,7 +39,6 @@ public class StatsUtil {
         for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
             if (file.toString().endsWith(".json") && !levelStats.containsKey(file.nameWithoutExtension())) {
                 LevelStats stats = json.fromJson(LevelStats.class,file);
-                System.out.println(TAG + "INTERNAL " + file.name() + "\n" + stats.toString());
                 levelStats.put(stats.getLevelName(), stats);
                 String filePath = "stats/levels/" + stats.getLevelName() + ".json";
                 Gdx.files.local(filePath).writeString(json.toJson(stats),false);
@@ -79,7 +69,7 @@ public class StatsUtil {
     }
 
     public void startTimer() {
-        timer = 20;
+        timer = 0;
         flaggedTimer = 0;
     }
 
