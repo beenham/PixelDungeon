@@ -7,12 +7,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.map.Map;
-import net.team11.pixeldungeon.statistics.GlobalStatistics;
-import net.team11.pixeldungeon.statistics.StatisticsUtil;
+import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.utils.stats.LevelStats;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -28,8 +30,8 @@ public class Chest extends Entity {
     private ChestKey chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item, Map parentMap) {
-        super(name, parentMap);
+    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item) {
+        super(name);
         this.opened = opened;
         this.locked = locked;
         this.item = item;
@@ -66,28 +68,16 @@ public class Chest extends Entity {
         return locked;
     }
 
-    public void removeItem(boolean shouldRemove) {
+    private void removeItem(boolean shouldRemove) {
         if (shouldRemove) {
-
-            //Update the statistics for the level
-            getParentMap().getLevelStatistics().updateChests();
-
-            //Update the global statistics
-            GlobalStatistics.updateChests();
-            StatisticsUtil.writeToJson(StatisticsUtil.getGlobalStatistics(), StatisticsUtil.globalLocation);
-            if (item.getClass().equals(Key.class)){
-                getParentMap().getLevelStatistics().updateKeys();
-                GlobalStatistics.updateKeys();
-            }
-
+            updateStats();
             item = null;
-
         } else {
             opened = false;
         }
     }
 
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return item == null;
     }
 
@@ -107,16 +97,32 @@ public class Chest extends Entity {
                 if (!isEmpty()) {
                     removeItem(player.getComponent(InventoryComponent.class).addItem(item));
                 }
-                getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
             } else {
                 System.out.println("You do not have the chestKey");
             }
         } else if (!locked && !opened) {
-            opened = true;
             if (!isEmpty()) {
                 removeItem(player.getComponent(InventoryComponent.class).addItem(item));
             }
+        }
+
+        if (opened) {
             getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
         }
+    }
+
+    private void updateStats() {
+        LevelStats stats = StatsUtil.getInstance().getLevelStats(
+                MapManager.getInstance().getCurrentMap().getMapName());
+        stats.setChestFound(getName());
+        if (item.getClass().equals(Key.class)) {
+            StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
+            stats.setKeyFound(item.getName());
+        } else if (!item.getClass().equals(Coin.class)){
+            StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
+            stats.setItemFound(item.getName());
+        }
+        StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
+        StatsUtil.getInstance().writeGlobalStats();
     }
 }

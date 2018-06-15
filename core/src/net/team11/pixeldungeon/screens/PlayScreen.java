@@ -1,24 +1,16 @@
 package net.team11.pixeldungeon.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.player.Player;
-import net.team11.pixeldungeon.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.system.AnimationSystem;
 import net.team11.pixeldungeon.entity.system.CameraSystem;
 import net.team11.pixeldungeon.entity.system.HealthSystem;
@@ -30,8 +22,8 @@ import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.uicomponents.PauseMenu;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
-import net.team11.pixeldungeon.utils.TiledMapLayers;
-import net.team11.pixeldungeon.utils.TiledMapObjectNames;
+import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
+import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 import net.team11.pixeldungeon.uicomponents.Hud;
 import net.team11.pixeldungeon.map.MapManager;
 

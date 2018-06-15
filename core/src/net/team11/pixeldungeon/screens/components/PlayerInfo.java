@@ -1,37 +1,29 @@
 package net.team11.pixeldungeon.screens.components;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.statistics.GlobalStatistics;
-import net.team11.pixeldungeon.statistics.StatisticsUtil;
-import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
 
 public class PlayerInfo extends Table {
     private float padding;
     private AndroidInterface androidInterface;
-    private GlobalStatistics globalStatistics;
 
     public PlayerInfo() {
         super();
         androidInterface = PixelDungeon.getInstance().getAndroidInterface();
-        globalStatistics = StatisticsUtil.getGlobalStatistics();
 
         padding = 25 * PixelDungeon.SCALAR;
         setSize(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
@@ -61,24 +53,28 @@ public class PlayerInfo extends Table {
         Table playerStats = new Table();
 
         Label attempts = new Label("Attempts", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        Label attemptsVal = new Label(String.format(Locale.UK, "%d", globalStatistics.getAttempts()),
+        Label attemptsVal = new Label(String.format(Locale.UK, "%d",
+                StatsUtil.getInstance().getGlobalStats().getTotalAttempts()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         Label completed = new Label("Levels Completed", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        Label completedVal = new Label(String.format(Locale.UK, "%d", globalStatistics.getLevelsCompleted()),
+        Label completedVal = new Label(String.format(Locale.UK, "%d",
+                StatsUtil.getInstance().getGlobalStats().getTotalCompleted()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         Label bestTime = new Label("Total Time", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        Label bestTimeVal = new Label(String.format(Locale.UK,"%02d:%02d",
-                globalStatistics.getTime()/60,globalStatistics.getTime()%60),
+        Label bestTimeVal = new Label(String.format(Locale.UK,"%s",
+                StatsUtil.getInstance().getGlobalStats().getTime()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         Label chests = new Label("Chests Opened", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        Label chestsVal = new Label(String.format(Locale.UK,"%d",globalStatistics.getChests()),
+        Label chestsVal = new Label(String.format(Locale.UK,"%d",
+                StatsUtil.getInstance().getGlobalStats().getTotalChestsFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
         Label keys = new Label("Keys Found", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        Label keysVal = new Label(String.format(Locale.UK,"%d",globalStatistics.getKeys()),
+        Label keysVal = new Label(String.format(Locale.UK,"%d",
+                StatsUtil.getInstance().getGlobalStats().getTotalKeysFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
 

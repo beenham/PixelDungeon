@@ -6,10 +6,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
-import net.team11.pixeldungeon.utils.TiledMapLayers;
-import net.team11.pixeldungeon.utils.TiledMapNames;
+import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
+import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.TiledObjectUtil;
+import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,9 +75,9 @@ public class MapManager {
         currentMap.setLoaded(true);
         System.out.println("Loading new entities in : " + currentMap.getMapName());
 
-        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER), currentMap);
-        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER), currentMap);
-        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER), currentMap);
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
+        TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
         TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
         TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
 

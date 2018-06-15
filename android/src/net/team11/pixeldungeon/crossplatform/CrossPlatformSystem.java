@@ -1,18 +1,11 @@
 package net.team11.pixeldungeon.crossplatform;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 
-
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.games.AchievementsClient;
 import com.google.android.gms.games.Games;
 
 import net.team11.pixeldungeon.AndroidLauncher;
 import net.team11.pixeldungeon.R;
-import net.team11.pixeldungeon.utils.crossplatform.AlertDialogCallback;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class CrossPlatformSystem implements AndroidInterface {

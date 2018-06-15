@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.utils;
+package net.team11.pixeldungeon.utils.tiled;
 
 public class TiledMapObjectNames {
     /////   ENTITY NAMES    /////
@@ -21,4 +21,5 @@ public class TiledMapObjectNames {
     /////   POINT NAMES     /////
     public static final String SPAWN_POINT = "playerSpawn";
     public static final String LAYER_EXIT = "layerExitPoint";
+    public static final String MAP_EXIT = "mapExitPoint";
 }

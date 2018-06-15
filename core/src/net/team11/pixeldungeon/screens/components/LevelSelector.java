@@ -3,7 +3,6 @@ package net.team11.pixeldungeon.screens.components;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,22 +16,18 @@ import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
-import net.team11.pixeldungeon.statistics.StatisticsUtil;
-import net.team11.pixeldungeon.statistics.TotalLevelStatistics;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 
 public class LevelSelector extends Table {
     private MapManager mapManager;
     private Map currentMap;
-    private TotalLevelStatistics currentTotals;
 
     private Image mapPreview;
 
     public LevelSelector(float size) {
         mapManager = MapManager.getInstance();
         currentMap = mapManager.getFirstMap();
-        currentTotals = StatisticsUtil.getLoadedTotals().get(mapManager.getFirstMap().getMapName());
         setupTable(size/2);
         setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
                 Assets.HUD).createPatch(AssetName.DARKEN_20)));
@@ -80,20 +75,14 @@ public class LevelSelector extends Table {
 
     private void nextMap() {
         currentMap = mapManager.getNext(currentMap.getMapName());
-        currentTotals = StatisticsUtil.getLoadedTotals().get(mapManager.getCurrentMap().getMapName());
         mapPreview.setDrawable(new SpriteDrawable(new Sprite(Assets.getInstance().getTextureSet(
                 Assets.LEVELS).findRegion(currentMap.getMapName()))));
     }
 
     private void prevMap() {
         currentMap = mapManager.getPrevious(currentMap.getMapName());
-        currentTotals = StatisticsUtil.getLoadedTotals().get(mapManager.getCurrentMap().getMapName());
         mapPreview.setDrawable(new SpriteDrawable(new Sprite(Assets.getInstance().getTextureSet(
                         Assets.LEVELS).findRegion(currentMap.getMapName()))));
-    }
-
-    public TotalLevelStatistics getCurrentTotals() {
-        return currentTotals;
     }
 
     public Map getMap() {

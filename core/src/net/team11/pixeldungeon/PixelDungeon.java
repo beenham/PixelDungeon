@@ -1,18 +1,12 @@
 package net.team11.pixeldungeon;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.org.apache.xpath.internal.operations.And;
 
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.game.DirectedGame;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.statistics.StatisticsUtil;
-import net.team11.pixeldungeon.utils.TiledMapNames;
-import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.crossplatform.AlertDialogCallback;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class PixelDungeon extends DirectedGame {
@@ -35,10 +29,9 @@ public class PixelDungeon extends DirectedGame {
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();
 		SCALAR = (V_HEIGHT / 1080f);
-		StatisticsUtil.parseTotalStatistics();
-		StatisticsUtil.parseGlobalStatistics();
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+		StatsUtil.getInstance();
 	}
 
 	public AndroidInterface getAndroidInterface() {

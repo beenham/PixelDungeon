@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.utils;
+package net.team11.pixeldungeon.utils.tiled;
 
 public class TiledMapNames {
     public static final String TEST_LEVEL = "test_level";
