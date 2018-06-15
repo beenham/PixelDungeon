@@ -5,14 +5,20 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
+import net.team11.pixeldungeon.items.keys.DoorKey;
+import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.map.Map;
-import net.team11.pixeldungeon.statistics.GlobalStatistics;
-import net.team11.pixeldungeon.statistics.StatisticsUtil;
+import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.utils.stats.CurrentStats;
+import net.team11.pixeldungeon.utils.stats.LevelStats;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -28,8 +34,8 @@ public class Chest extends Entity {
     private ChestKey chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item, Map parentMap) {
-        super(name, parentMap);
+    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item) {
+        super(name);
         this.opened = opened;
         this.locked = locked;
         this.item = item;
@@ -66,28 +72,16 @@ public class Chest extends Entity {
         return locked;
     }
 
-    public void removeItem(boolean shouldRemove) {
+    private void removeItem(boolean shouldRemove) {
         if (shouldRemove) {
-
-            //Update the statistics for the level
-            getParentMap().getLevelStatistics().updateChests();
-
-            //Update the global statistics
-            GlobalStatistics.updateChests();
-            StatisticsUtil.writeToJson(StatisticsUtil.getGlobalStatistics(), StatisticsUtil.globalLocation);
-            if (item.getClass().equals(Key.class)){
-                getParentMap().getLevelStatistics().updateKeys();
-                GlobalStatistics.updateKeys();
-            }
-
+            updateStats();
             item = null;
-
         } else {
             opened = false;
         }
     }
 
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return item == null;
     }
 
@@ -107,7 +101,6 @@ public class Chest extends Entity {
                 if (!isEmpty()) {
                     removeItem(player.getComponent(InventoryComponent.class).addItem(item));
                 }
-                getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
             } else {
                 System.out.println("You do not have the chestKey");
             }
@@ -116,7 +109,29 @@ public class Chest extends Entity {
             if (!isEmpty()) {
                 removeItem(player.getComponent(InventoryComponent.class).addItem(item));
             }
+        }
+
+        if (opened) {
             getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
         }
+    }
+
+    private void updateStats() {
+        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
+        stats.addChest(getName());
+        if (item.getClass().equals(Key.class) || item.getClass().equals(DoorKey.class) ||
+                item.getClass().equals(ChestKey.class) || item.getClass().equals(EndKey.class)) {
+            StatsUtil.getInstance().getCurrentStats().incrementKeys();
+            StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
+            stats.addKey(item.getName());
+        } else if (!item.getClass().equals(Coin.class)){
+            StatsUtil.getInstance().getCurrentStats().incrementItems();
+            StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
+            stats.addItem(item.getName());
+        }
+        StatsUtil.getInstance().getCurrentStats().incrementChests();
+        StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 }

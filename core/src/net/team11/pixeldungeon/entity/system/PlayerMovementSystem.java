@@ -1,6 +1,8 @@
 package net.team11.pixeldungeon.entity.system;
 
 import net.team11.pixeldungeon.entities.player.Player;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.uicomponents.PauseMenu;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
@@ -18,6 +20,7 @@ public class PlayerMovementSystem extends EntitySystem {
     private EntityEngine engine;
     private Hud hud;
     private InventoryUI inventoryUI;
+    private PauseMenu pauseMenu;
 
     @Override
     public void init(EntityEngine entityEngine) {
@@ -93,9 +96,18 @@ public class PlayerMovementSystem extends EntitySystem {
                     animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN);
                 }
             } else if (hud.isInventoryPressed()) {
+                velocityComponent.setxDirection(0);
+                velocityComponent.setyDirection(0);
                 hud.setPressed(false);
                 hud.setVisible(false);
                 inventoryUI.setVisible(true);
+            } else if (hud.isPausePressed()) {
+                velocityComponent.setxDirection(0);
+                velocityComponent.setyDirection(0);
+                hud.setPressed(false);
+                hud.setVisible(false);
+                pauseMenu.setVisible(true);
+                ScreenManager.getInstance().getScreen().pause();
             } else {
                 velocityComponent.setxDirection(0);
                 velocityComponent.setyDirection(0);
@@ -128,5 +140,9 @@ public class PlayerMovementSystem extends EntitySystem {
 
     public void setInventoryUI(InventoryUI inventoryUI) {
         this.inventoryUI = inventoryUI;
+    }
+
+    public void setPauseMenu(PauseMenu pauseMenu) {
+        this.pauseMenu = pauseMenu;
     }
 }

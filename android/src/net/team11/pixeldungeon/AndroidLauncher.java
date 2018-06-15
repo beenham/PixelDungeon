@@ -1,39 +1,32 @@
 package net.team11.pixeldungeon;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.View;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.api.GoogleApi;
-import com.google.android.gms.common.api.GoogleApiActivity;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.GamesClient;
+import com.google.android.gms.games.Player;
+import com.google.android.gms.games.PlayersClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import net.team11.pixeldungeon.crossplatform.CrossPlatformSystem;
-import net.team11.pixeldungeon.utils.crossplatform.AlertDialogCallback;
-import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class AndroidLauncher extends AndroidApplication {
+	private static String TAG = "PixelDungeon";
 	private static int RC_SIGN_IN = 9001;
-	GoogleSignInClient mGoogleSignInClient = null;
-	GoogleApiClient mGoogleApiClient = null;
+	private GoogleSignInClient mGoogleSignInClient = null;
+	private GoogleSignInAccount mSignedInAccount = null;
+	private Player mGooglePlayer = null;
 
 
 	@Override
@@ -46,17 +39,15 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(new PixelDungeon(new CrossPlatformSystem(this)), config);
 	}
 
-	private void setupGoogleClient() {
-		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
-				.requestEmail()
-				.build();
-		mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		signInSilently();
+	}
 
-		initialSignIn();
-		mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-				.addApi(Games.API)
-				.setViewForPopups(new View(this))
-				.build();
+	private void setupGoogleClient() {
+		mGoogleSignInClient = GoogleSignIn.getClient(this,GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+		signInSilently();
 	}
 
 	@Override
@@ -69,39 +60,19 @@ public class AndroidLauncher extends AndroidApplication {
 		return GoogleSignIn.getLastSignedInAccount(this) != null;
 	}
 
-	public void initialSignIn() {
-		mGoogleSignInClient.silentSignIn().addOnCompleteListener(this,
-				new OnCompleteListener<GoogleSignInAccount>() {
-					@Override
-					public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
-						if (task.isSuccessful()) {
-							System.out.println("SIGNED IN ON LAUNCH");
-							Games.getGamesClient(AndroidLauncher.this, task.getResult())
-									.setViewForPopups(new View(AndroidLauncher.this));
-						} else {
-							System.out.println("COULDNT SIGN IN ON LAUNCH");
-						}
-					}
-				});
-	}
-
 	public void signInSilently() {
-		System.out.println("SIGNING IN");
 		mGoogleSignInClient.silentSignIn().addOnCompleteListener(this,
 				new OnCompleteListener<GoogleSignInAccount>() {
 					@Override
 					public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
 						if (task.isSuccessful()) {
-                            Games.getGamesClient(AndroidLauncher.this, task.getResult())
-									.setViewForPopups(new View(AndroidLauncher.this));
-						} else {
-							startSignInIntent();
+							onConnected(task.getResult());
 						}
 					}
 				});
 	}
 
-	private void startSignInIntent() {
+	public void startSignInIntent() {
 		Intent intent = mGoogleSignInClient.getSignInIntent();
 		startActivityForResult(intent, RC_SIGN_IN);
 	}
@@ -111,8 +82,39 @@ public class AndroidLauncher extends AndroidApplication {
 				new OnCompleteListener<Void>() {
 					@Override
 					public void onComplete(@NonNull Task<Void> task) {
-						// at this point, the user is signed out.
+						mSignedInAccount = null;
+						mGooglePlayer = null;
 					}
 				});
+	}
+
+	public String getUserName() {
+	    if (mGooglePlayer != null) {
+	        return mGooglePlayer.getDisplayName();
+        }
+        return null;
+	}
+
+	private void onConnected(GoogleSignInAccount googleSignInAccount) {
+		Log.d(TAG, "onConnected(): connected to Google APIs");
+		if (mSignedInAccount != googleSignInAccount) {
+			mSignedInAccount = googleSignInAccount;
+
+			// get the playerId from the PlayersClient
+			PlayersClient playersClient = Games.getPlayersClient(this, googleSignInAccount);
+			playersClient.getCurrentPlayer()
+					.addOnSuccessListener(new OnSuccessListener<Player>() {
+						@Override
+						public void onSuccess(Player player) {
+							mGooglePlayer = player;
+						}
+					});
+			Games.getGamesClient(this, googleSignInAccount).setViewForPopups(findViewById(android.R.id.content));
+			Games.getGamesClient(this, googleSignInAccount).setGravityForPopups(Gravity.TOP|Gravity.CENTER_HORIZONTAL);
+		}
+	}
+
+	public GoogleSignInAccount getmSignedInAccount() {
+		return mSignedInAccount;
 	}
 }

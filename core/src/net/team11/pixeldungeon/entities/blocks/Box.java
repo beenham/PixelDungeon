@@ -18,8 +18,8 @@ import net.team11.pixeldungeon.utils.CollisionCategory;
 public class Box extends Entity {
     private boolean pushable;
 
-    public Box(Rectangle bounds, boolean pushable, String name, Map parentMap) {
-        super(name, parentMap);
+    public Box(Rectangle bounds, boolean pushable, String name) {
+        super(name);
         this.pushable = pushable;
 
         float posX = bounds.getX() + bounds.getWidth()/2;

@@ -17,7 +17,6 @@ import net.team11.pixeldungeon.entitysystem.EntitySystem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 public class TrapSystem extends EntitySystem {
     private final float timerReset = 50;

@@ -1,0 +1,22 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "chest_3":false,
+    "chest_4":false
+  },
+  "foundItems": {
+  },
+  "foundKeys": {
+    "Small Key":false,
+    "Small Chest Key":false,
+    "Boss Key":false
+  },
+  "levelName":"test_level",
+  "totalChests":4,
+  "totalItems":0,
+  "totalKeys":3
+}

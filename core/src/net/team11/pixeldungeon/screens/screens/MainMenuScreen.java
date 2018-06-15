@@ -1,31 +1,31 @@
-package net.team11.pixeldungeon.screens;
+package net.team11.pixeldungeon.screens.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.screens.AbstractScreen;
+import net.team11.pixeldungeon.screens.ScreenEnum;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlice;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlide;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
-import net.team11.pixeldungeon.statistics.GlobalStatistics;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.TiledMapNames;
+
+import javax.annotation.processing.SupportedSourceVersion;
 
 public class MainMenuScreen extends AbstractScreen {
     private Image backgroundImage;
@@ -57,14 +57,16 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_SELECT,
-                        ScreenTransitionSplit.init(2f,true,Interpolation.pow2));
+                        ScreenTransitionSplit.init(1.5f,true,Interpolation.pow2));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
         TextButton skinButton = new TextButton("SKIN SELECTION", Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
+        skinButton.setDisabled(true);
 
+        /*
         skinButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -73,10 +75,13 @@ public class MainMenuScreen extends AbstractScreen {
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
+        //*/
 
         TextButton helpButton = new TextButton("HOW TO PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
         helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
+        helpButton.setDisabled(true);
 
+        /*
         helpButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -85,13 +90,13 @@ public class MainMenuScreen extends AbstractScreen {
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
+        //*/
 
         mainTable.add(playButton).pad(padding);
         mainTable.row();
         mainTable.add(skinButton).pad(padding);
         mainTable.row();
         mainTable.add(helpButton).pad(padding);
-
         mainTable.setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
         return mainTable;
     }
@@ -106,34 +111,29 @@ public class MainMenuScreen extends AbstractScreen {
 
         titleTable.setPosition(PixelDungeon.V_WIDTH/2,
                 PixelDungeon.V_HEIGHT);
-
         return titleTable;
     }
 
 
     private Table setupTopRightTable(float padding) {
         Table trTable = new Table();
-        trTable.top().padTop(padding).right().padRight(padding);
+        trTable.top().padTop(padding*3).right().padRight(padding*3);
 
-        TextButton helpButton = new TextButton("G-PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-
-        helpButton.addListener(new ClickListener() {
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.HUD);
+        Image playerButton = new Image(textureAtlas.findRegion(AssetName.PLAYER_ICON));
+        playerButton.setSize(playerButton.getWidth()*10*PixelDungeon.SCALAR,
+                playerButton.getHeight()*10*PixelDungeon.SCALAR);
+        playerButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (game.getAndroidInterface().isSignedIn()) {
-                    game.getAndroidInterface().signOut();
-                } else {
-                    game.getAndroidInterface().signInSilently();
-                }
+                ScreenManager.getInstance().changeScreen(ScreenEnum.PLAYER_INFO,
+                        ScreenTransitionFade.init(0.25f));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        trTable.add(helpButton);
-
+        trTable.add(playerButton).size(playerButton.getWidth(),playerButton.getHeight());
         trTable.setPosition(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
-        trTable.setDebug(true);
         return trTable;
     }
 
@@ -179,8 +179,7 @@ public class MainMenuScreen extends AbstractScreen {
         backgroundImage = new Image(
                 Assets.getInstance().getTextureSet(Assets.BACKGROUND).findRegion(ScreenEnum.MAIN_MENU.toString())
         );
-        backgroundImage.setSize(PixelDungeon.V_WIDTH * 1.f, PixelDungeon.V_HEIGHT * 1.f);
-        //image.setPosition(0 - image.getWidth()/3, 0 - image.getHeight() / 3);
+        backgroundImage.setSize(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
         return backgroundImage;
     }
 

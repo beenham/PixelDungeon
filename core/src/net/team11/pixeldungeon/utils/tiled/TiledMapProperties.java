@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.utils;
+package net.team11.pixeldungeon.utils.tiled;
 
 public class TiledMapProperties {
     public static final String AMOUNT = "amount";

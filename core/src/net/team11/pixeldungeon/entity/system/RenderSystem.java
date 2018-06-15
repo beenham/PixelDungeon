@@ -15,8 +15,7 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
-import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +104,64 @@ public class RenderSystem extends EntitySystem {
         }
         spriteBatch.end();
         mapManager.renderDecor();
+    }
 
+    public void updatePaused() {
+        mapManager.renderBackGround();
+        mapManager.renderEnvironment();
+
+        ArrayList<Entity> entityList = new ArrayList<>(entities.size());
+
+        float bleed = 64;
+        Rectangle camera = new Rectangle(
+                PlayScreen.gameCam.position.x-(PlayScreen.gameCam.viewportWidth/2)*0.1f-bleed,
+                PlayScreen.gameCam.position.y-(PlayScreen.gameCam.viewportHeight/2)*0.1f-bleed,
+                PlayScreen.gameCam.viewportWidth*0.1f+bleed*2,
+                PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
+
+        Entity player = players.get(0);
+        for (int i = 0 ; i < entities.size() ; i++) {
+            Rectangle rect = entities.get(i).getComponent(BodyComponent.class).getRectangle();
+            if (rect.overlaps(camera)) {
+                if (i == 0) {
+                    entityList.add(entities.get(i));
+                } else {
+                    int size = entityList.size();
+                    for (int j = 0; j < size; j++) {
+                        if (entities.get(i).getComponent(BodyComponent.class).getY() > entityList.get(j).getComponent(BodyComponent.class).getY()) {
+                            entityList.add(j, entities.get(i));
+                            break;
+                        } else if (j == size - 1) {
+                            entityList.add(j + 1, entities.get(i));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        spriteBatch.begin();
+        for (Entity entity : entityList) {
+            AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
+            BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
+            Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
+            int width = currentAnimation.getKeyFrame(0).getRegionWidth();
+            int height = currentAnimation.getKeyFrame(0).getRegionHeight();
+
+            if (entity.equals(player)) {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            } else {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            }
+        }
+        spriteBatch.end();
+        mapManager.renderDecor();
     }
 }
