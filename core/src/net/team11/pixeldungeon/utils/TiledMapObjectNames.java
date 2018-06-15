@@ -11,6 +11,7 @@ public class TiledMapObjectNames {
     public static final String TORCH = "torch";
     public static final String LEVER = "lever";
     public static final String QUICKSAND = "quicksand";
+    public static final String PRESSURE = "pressurePlate";
 
     /////   ITEM NAMES      /////
     public static final String COIN = "coin";

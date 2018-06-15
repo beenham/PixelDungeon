@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.entities.blocks.Box;
 import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.entities.blocks.Lever;
 import net.team11.pixeldungeon.entities.blocks.Pillar;
+import net.team11.pixeldungeon.entities.blocks.PressurePlate;
 import net.team11.pixeldungeon.entities.blocks.Torch;
 import net.team11.pixeldungeon.entities.door.ButtonDoor;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
@@ -195,6 +196,20 @@ public class TiledObjectUtil {
                             engine.addEntity(quicksand);
                         } else {
                             System.err.println("QUICKSAND: " + object.getName() + " was not setup correctly!");
+                        }
+                        break;
+
+                    case TiledMapObjectNames.PRESSURE:
+                        if (object.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
+                                object.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
+                            PressurePlate pressurePlate = new PressurePlate(object.getRectangle(), object.getName(),
+                                    (int)object.getProperties().get(TiledMapProperties.ACTIVETIME),
+                                    (boolean)object.getProperties().get(TiledMapProperties.AUTOCLOSE));
+                            engine.addEntity(pressurePlate);
+                            pressurePlate.setTrigger(trigger);
+                            pressurePlate.setTargets(targets);
+                        } else {
+                            System.err.println("PRESSURE PLATE: " + object.getName() + " was not setup correctly!");
                         }
                         break;
                     default:

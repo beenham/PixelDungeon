@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.entity.system;
 
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.entities.blocks.PressurePlate;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entities.traps.Quicksand;
 import net.team11.pixeldungeon.entities.traps.Trap;
@@ -61,20 +62,6 @@ public class TrapSystem extends EntitySystem {
                         trap.setContactingEntity(null);
                     }
 
-                    //Quicksand Stuff
-                    if (trap.getClass().equals(Quicksand.class)){
-                        Quicksand quicksand = (Quicksand)trap;
-                        if (!playerRect.overlaps(trapRect)){
-                            if (quicksand.isActive()){
-                                quicksand.leave();
-                                player.getComponent(VelocityComponent.class).setMovementSpeed(100);
-                                trap.setContactingEntity(null);
-                            }
-                        } else{
-                            quicksand.enter();
-                        }
-                    }
-
                     if (trap.getTimer() <= 0f) {
                         trap.trigger();
                         trap.resetTimer();
@@ -98,6 +85,36 @@ public class TrapSystem extends EntitySystem {
                     } else if (trap.isTriggered() && timer <= 0) {
                         trap.setContactingEntity(null);
                         trap.trigger();
+                    }
+                }
+
+                //Quicksand Stuff
+                if (trap.getClass().equals(Quicksand.class)){
+                    Quicksand quicksand = (Quicksand)trap;
+                    if (!playerRect.overlaps(trapRect)){
+                        if (quicksand.isActive()){
+                            quicksand.leave();
+                            player.getComponent(VelocityComponent.class).setMovementSpeed(100);
+                            trap.setContactingEntity(null);
+                        }
+                    } else{
+                        quicksand.enter();
+                    }
+                }
+
+                //Pressure Plate class
+                if (trap.getClass().equals(PressurePlate.class)){
+                    PressurePlate pressurePlate = (PressurePlate) trap;
+                    if (playerRect.overlaps(trapRect)){
+                        trap.setContactingEntity(player);
+                        if (!pressurePlate.isActive()){
+                            pressurePlate.stepOn();
+                        }
+                    } else {
+                        if (pressurePlate.isActive()){
+                            pressurePlate.stepOff();
+                        }
+                        trap.setContactingEntity(null);
                     }
                 }
             }

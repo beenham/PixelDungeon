@@ -26,7 +26,7 @@ public class Quicksand extends Trap {
     private float speedMod; //The speed which to set the players speed to. Make it less then 100 to slow down
     private float timeBeforeDeath;  //The time that the player can spend in the quicksand before they die
 
-    Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     private boolean active = false;
 
