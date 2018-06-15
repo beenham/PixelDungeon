@@ -11,12 +11,9 @@ import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
-import net.team11.pixeldungeon.screens.PlayScreen;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.SingleSelectionModel;
 
 public class TrapSystem extends EntitySystem {
     private final float timerReset = 50;

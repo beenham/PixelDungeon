@@ -15,8 +15,7 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
-import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
 
 import java.util.ArrayList;
 import java.util.List;

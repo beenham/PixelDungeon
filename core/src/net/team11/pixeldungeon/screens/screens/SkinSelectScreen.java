@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.screens;
+package net.team11.pixeldungeon.screens.screens;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Interpolation;
@@ -9,6 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.screens.AbstractScreen;
+import net.team11.pixeldungeon.screens.ScreenEnum;
+import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
 import net.team11.pixeldungeon.utils.Assets;

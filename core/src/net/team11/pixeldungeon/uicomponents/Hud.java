@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
 
@@ -28,7 +29,6 @@ public class Hud extends Stage {
     private boolean interactPressed, inventoryPressed, pausePressed;
     private boolean visible;
 
-    private Integer secondTimer;
     private float timer = 0;
     private Label timeLabel;
     private BitmapFont font = Assets.getInstance().getFont(Assets.P_FONT);
@@ -37,7 +37,6 @@ public class Hud extends Stage {
         super(new FitViewport(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT, new OrthographicCamera()), batch);
         viewport = super.getViewport();
         visible = true;
-        secondTimer = 0;
 
         setupHud();
         Gdx.input.setInputProcessor(this);
@@ -198,8 +197,10 @@ public class Hud extends Stage {
         addActor(pauseTable);}
 
     private void setupTimer(float width, float height) {
+        StatsUtil.getInstance().startTimer();
         timeLabel = new Label(String.format(Locale.ENGLISH,"%02d : %02d",
-                secondTimer/60, secondTimer%60),
+                StatsUtil.getInstance().getTimer() / 60,
+                StatsUtil.getInstance().getTimer() % 60),
                 new Label.LabelStyle(font, Color.WHITE));
         timeLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
 
@@ -213,10 +214,11 @@ public class Hud extends Stage {
     public void update (float delta) {
         timer += delta;
         if (timer >= 1) {
-            secondTimer++;
+            StatsUtil.getInstance().incrementTimer();
             timer = 0;
             timeLabel.setText(String.format(Locale.ENGLISH, "%02d : %02d",
-                    secondTimer / 60, secondTimer % 60));
+                    StatsUtil.getInstance().getTimer() / 60,
+                    StatsUtil.getInstance().getTimer() % 60));
         }
     }
 

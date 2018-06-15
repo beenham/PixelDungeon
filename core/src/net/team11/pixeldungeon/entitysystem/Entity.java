@@ -1,12 +1,5 @@
 package net.team11.pixeldungeon.entitysystem;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
-
-import net.team11.pixeldungeon.map.Map;
-import net.team11.pixeldungeon.map.MapManager;
-import net.team11.pixeldungeon.screens.PlayScreen;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

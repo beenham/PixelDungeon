@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.screens;
+package net.team11.pixeldungeon.screens.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -20,8 +20,10 @@ import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.entity.system.TrapSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.uicomponents.PauseMenu;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 import net.team11.pixeldungeon.uicomponents.Hud;
@@ -56,6 +58,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        StatsUtil.getInstance().initialiseCurrStats();
         this.hud = new Hud(game.batch);
         setupCamera();
         setupViewport();

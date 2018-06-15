@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
-import net.team11.pixeldungeon.screens.PlayScreen;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
 
 public class BodyComponent implements EntityComponent {
     private float width;

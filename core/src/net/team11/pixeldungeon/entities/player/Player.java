@@ -1,6 +1,5 @@
 package net.team11.pixeldungeon.entities.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -18,7 +17,7 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionCategory;
 import net.team11.pixeldungeon.utils.Direction;
-import net.team11.pixeldungeon.screens.PlayScreen;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
 
 public class Player extends Entity {
     private float spawnX, spawnY;

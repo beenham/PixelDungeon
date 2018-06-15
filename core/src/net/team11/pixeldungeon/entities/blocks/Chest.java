@@ -5,14 +5,18 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
+import net.team11.pixeldungeon.items.keys.DoorKey;
+import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.utils.stats.CurrentStats;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.AssetName;
@@ -101,6 +105,7 @@ public class Chest extends Entity {
                 System.out.println("You do not have the chestKey");
             }
         } else if (!locked && !opened) {
+            opened = true;
             if (!isEmpty()) {
                 removeItem(player.getComponent(InventoryComponent.class).addItem(item));
             }
@@ -112,17 +117,21 @@ public class Chest extends Entity {
     }
 
     private void updateStats() {
-        LevelStats stats = StatsUtil.getInstance().getLevelStats(
-                MapManager.getInstance().getCurrentMap().getMapName());
-        stats.setChestFound(getName());
-        if (item.getClass().equals(Key.class)) {
+        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
+        stats.addChest(getName());
+        if (item.getClass().equals(Key.class) || item.getClass().equals(DoorKey.class) ||
+                item.getClass().equals(ChestKey.class) || item.getClass().equals(EndKey.class)) {
+            StatsUtil.getInstance().getCurrentStats().incrementKeys();
             StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
-            stats.setKeyFound(item.getName());
+            stats.addKey(item.getName());
         } else if (!item.getClass().equals(Coin.class)){
+            StatsUtil.getInstance().getCurrentStats().incrementItems();
             StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
-            stats.setItemFound(item.getName());
+            stats.addItem(item.getName());
         }
+        StatsUtil.getInstance().getCurrentStats().incrementChests();
         StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
         StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 }

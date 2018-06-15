@@ -31,7 +31,7 @@ public class PlayerInfo extends Table {
         create();
     }
 
-    public void create() {
+    private void create() {
         // T, L, B, R
         add(playerLabel()).left().pad(padding*4,padding*4,padding,padding).colspan(2).expandX();
         add(exitButton()).right().pad(padding*4,padding,padding,padding*4);
@@ -77,6 +77,11 @@ public class PlayerInfo extends Table {
                 StatsUtil.getInstance().getGlobalStats().getTotalKeysFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
+        Label deaths = new Label("Total Deaths", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label deathVal = new Label(String.format(Locale.UK,"%d",
+                StatsUtil.getInstance().getGlobalStats().getTotalDeaths()),
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
+
 
         playerStats.add(bestTime).left();
         playerStats.add(bestTimeVal).right().padLeft(padding);
@@ -92,6 +97,9 @@ public class PlayerInfo extends Table {
         playerStats.row().padTop(padding);
         playerStats.add(keys).left();
         playerStats.add(keysVal).right().padLeft(padding);
+        playerStats.row().padTop(padding);
+        playerStats.add(deaths).left();
+        playerStats.add(deathVal).right().padLeft(padding);
         playerStats.row().padTop(padding);
         return playerStats;
     }

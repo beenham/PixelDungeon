@@ -9,6 +9,7 @@ public class GlobalStats {
     private int totalChestsFound;
     private int totalKeysFound;
     private int totalItemsFound;
+    private int totalDeaths;
 
     public String getTime() {
         return String.format(Locale.UK,"%02d:%02d", totalTime/60,totalTime%60);
@@ -24,6 +25,10 @@ public class GlobalStats {
 
     public int getTotalChestsFound() {
         return totalChestsFound;
+    }
+
+    public int getTotalDeaths() {
+        return totalDeaths;
     }
 
     public int getTotalKeysFound() {
@@ -48,6 +53,10 @@ public class GlobalStats {
 
     public void incrementChestsFound() {
         totalChestsFound++;
+    }
+
+    public void incrementDeaths() {
+        totalDeaths++;
     }
 
     public void addChestsFound(int chests) {totalChestsFound+=chests;}

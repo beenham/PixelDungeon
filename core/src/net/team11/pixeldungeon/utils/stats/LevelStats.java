@@ -37,6 +37,10 @@ public class LevelStats {
         return String.format(Locale.UK,"%02d:%02d",bestTime/60,bestTime%60);
     }
 
+    public int getBestTimeVal() {
+        return bestTime;
+    }
+
     public int getAttempts() {
         return attempts;
     }
@@ -97,16 +101,16 @@ public class LevelStats {
     }
 
     public void setKeyFound(String name) {
-        if (foundChests.containsKey(name)) {
-            foundChests.remove(name);
-            foundChests.put(name,true);
+        if (foundKeys.containsKey(name)) {
+            foundKeys.remove(name);
+            foundKeys.put(name,true);
         }
     }
 
     public void setItemFound(String name) {
-        if (foundChests.containsKey(name)) {
-            foundChests.remove(name);
-            foundChests.put(name,true);
+        if (foundItems.containsKey(name)) {
+            foundItems.remove(name);
+            foundItems.put(name,true);
         }
     }
 

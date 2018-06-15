@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.screens;
+package net.team11.pixeldungeon.screens.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.screens.AbstractScreen;
+import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.components.LevelInfo;
 import net.team11.pixeldungeon.screens.components.LevelSelector;
 import net.team11.pixeldungeon.utils.Assets;

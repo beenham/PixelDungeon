@@ -5,16 +5,22 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class StatsUtil {
+    private static StatsUtil INSTANCE = new StatsUtil();
+
     private String TAG = "FILESTORAGE : ";
     private final String globalFile = "stats/globalStats.json";
 
-    private static StatsUtil INSTANCE = new StatsUtil();
     private HashMap<String, LevelStats> levelStats = new HashMap<>();
     private GlobalStats globalStats;
+    private CurrentStats currentStats;
+    private int timer = 0;
+    private int flaggedTimer = 0;
 
     private StatsUtil() {
+        clearLocal();
         for (FileHandle file : Gdx.files.local("stats").list()) {
             System.out.println(TAG + " file : " + file.name() + " dir:" + file.isDirectory());
         }
@@ -62,6 +68,37 @@ public class StatsUtil {
     public void writeGlobalStats() {
         Json json = new Json();
         Gdx.files.local(globalFile).writeString(json.toJson(globalStats),false);
+    }
+
+    public void initialiseCurrStats() {
+        currentStats = new CurrentStats();
+    }
+
+    public CurrentStats getCurrentStats() {
+        return currentStats;
+    }
+
+    public void startTimer() {
+        timer = 20;
+        flaggedTimer = 0;
+    }
+
+    public void incrementTimer() {
+        timer++;
+    }
+
+    public void saveTimer() {
+        globalStats.addTime(timer-flaggedTimer);
+        flaggedTimer = timer;
+        writeGlobalStats();
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public String getTimerString() {
+        return String.format(Locale.UK,"%02d:%02d",timer/60,timer%60);
     }
 
     public void clearLocal() {
