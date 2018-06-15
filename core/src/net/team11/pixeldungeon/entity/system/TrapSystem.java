@@ -3,20 +3,20 @@ package net.team11.pixeldungeon.entity.system;
 import com.badlogic.gdx.math.Rectangle;
 
 import net.team11.pixeldungeon.entities.player.Player;
+import net.team11.pixeldungeon.entities.traps.Quicksand;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.HealthComponent;
 import net.team11.pixeldungeon.entity.component.TrapComponent;
+import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
-import net.team11.pixeldungeon.screens.PlayScreen;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.SingleSelectionModel;
+import java.util.Timer;
 
 public class TrapSystem extends EntitySystem {
     private final float timerReset = 50;
@@ -60,6 +60,21 @@ public class TrapSystem extends EntitySystem {
                     } else {
                         trap.setContactingEntity(null);
                     }
+
+                    //Quicksand Stuff
+                    if (trap.getClass().equals(Quicksand.class)){
+                        Quicksand quicksand = (Quicksand)trap;
+                        if (!playerRect.overlaps(trapRect)){
+                            if (quicksand.isActive()){
+                                quicksand.leave();
+                                player.getComponent(VelocityComponent.class).setMovementSpeed(100);
+                                trap.setContactingEntity(null);
+                            }
+                        } else{
+                            quicksand.enter();
+                        }
+                    }
+
                     if (trap.getTimer() <= 0f) {
                         trap.trigger();
                         trap.resetTimer();

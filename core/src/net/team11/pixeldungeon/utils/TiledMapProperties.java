@@ -24,4 +24,5 @@ public class TiledMapProperties {
     public static final String TIMED = "timed";
     public static final String TIMER = "timer";
     public static final String TRIGGER = "trigger";
+    public static final String SMOD = "speedMod";
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -23,6 +22,7 @@ import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
+import net.team11.pixeldungeon.entities.traps.Quicksand;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.items.Coin;
@@ -30,7 +30,6 @@ import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
-import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.map.MapManager;
 
@@ -47,8 +46,6 @@ public class TiledObjectUtil {
     public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects, Map currentMap) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
-
-                System.out.println("--PARENT MAP IS " + currentMap.getMapName() + "--");
 
                 //  What is used to get the information from the entity objects on the map
                 RectangleMapObject object = (RectangleMapObject) mapObject;
@@ -185,9 +182,21 @@ public class TiledObjectUtil {
                             engine.addEntity(lever);
                             lever.setTrigger(trigger);
                             lever.setTargets(targets);
+                        } else {
+                            System.err.println("LEVER: " + object.getName() + " was not setup correctly!");
                         }
                         break;
 
+                    case TiledMapObjectNames.QUICKSAND:
+                        if (object.getProperties().containsKey(TiledMapProperties.SMOD)){
+                            Quicksand quicksand = new Quicksand(object.getRectangle(), object.getName(),
+                                    true, (float)object.getProperties().get(TiledMapProperties.SMOD),
+                                    (float) object.getProperties().get(TiledMapProperties.TIMER));
+                            engine.addEntity(quicksand);
+                        } else {
+                            System.err.println("QUICKSAND: " + object.getName() + " was not setup correctly!");
+                        }
+                        break;
                     default:
                         throw new IllegalArgumentException("This isn't a valid entity! " + type);
                 }
