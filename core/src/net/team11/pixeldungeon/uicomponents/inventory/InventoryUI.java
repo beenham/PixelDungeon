@@ -80,8 +80,8 @@ public class InventoryUI extends Stage {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+        backPressed = false;
         if (visible) {
-            backPressed = false;
             Gdx.input.setInputProcessor(this);
         }
     }

@@ -130,7 +130,6 @@ public class Hud extends Stage {
         controllerTable.add();
         controllerTable.add(downImg).size(downImg.getWidth(), downImg.getHeight());
         controllerTable.add();
-        controllerTable.setDebug(true);
 
         addActor(controllerTable);
     }
@@ -174,7 +173,6 @@ public class Hud extends Stage {
         interactionTable.add(interactImg).size(width,height);
         interactionTable.add();
         interactionTable.row();
-        interactionTable.setDebug(true);
         addActor(interactionTable);
     }
 
@@ -197,7 +195,6 @@ public class Hud extends Stage {
         pauseTable.setPosition(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
         pauseTable.right().padRight(width/4).top().padTop(height/4);
         pauseTable.add(pauseImg).size(width,height);
-        pauseTable.setDebug(true);
         addActor(pauseTable);}
 
     private void setupTimer(float width, float height) {

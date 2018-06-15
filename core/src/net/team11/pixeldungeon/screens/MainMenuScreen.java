@@ -28,7 +28,6 @@ public class MainMenuScreen extends AbstractScreen {
     private Image backgroundImage;
     private float panH = .2f * PixelDungeon.SCALAR;
     private float panV = .15f * PixelDungeon.SCALAR;
-    private Table titleTable;
 
     @Override
     public void buildStage() {
@@ -95,14 +94,12 @@ public class MainMenuScreen extends AbstractScreen {
         mainTable.add(skinButton).pad(padding);
         mainTable.row();
         mainTable.add(helpButton).pad(padding);
-
-        mainTable.setDebug(true);
         mainTable.setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
         return mainTable;
     }
 
     private Table setupTitleTable(float padding) {
-        titleTable = new Table();
+        Table titleTable = new Table();
         titleTable.top().padTop(padding);
 
         Label label = new Label("PIXEL DUNGEON",Assets.getInstance().getSkin(Assets.UI_SKIN), "title");
@@ -111,7 +108,6 @@ public class MainMenuScreen extends AbstractScreen {
 
         titleTable.setPosition(PixelDungeon.V_WIDTH/2,
                 PixelDungeon.V_HEIGHT);
-        titleTable.setDebug(true);
         return titleTable;
     }
 
@@ -135,7 +131,6 @@ public class MainMenuScreen extends AbstractScreen {
 
         trTable.add(playerButton).size(playerButton.getWidth(),playerButton.getHeight());
         trTable.setPosition(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
-        trTable.setDebug(true);
         return trTable;
     }
 

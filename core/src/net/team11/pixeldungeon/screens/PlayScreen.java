@@ -28,6 +28,7 @@ import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.entity.system.TrapSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.uicomponents.PauseMenu;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
 import net.team11.pixeldungeon.utils.TiledMapLayers;
 import net.team11.pixeldungeon.utils.TiledMapObjectNames;
@@ -41,6 +42,7 @@ public class PlayScreen extends AbstractScreen {
     public static RayHandler rayHandler;
     private Hud hud;
     private InventoryUI inventoryUI;
+    private PauseMenu pauseMenu;
     private MapManager mapManager;
     private String levelName;
 
@@ -68,10 +70,9 @@ public class PlayScreen extends AbstractScreen {
         setupEngine();
         setupLight();
         setupPlayer(levelName);
-        this.inventoryUI = new InventoryUI(player, game.batch);
-
         playerMovementSystem.setHud(hud);
-        playerMovementSystem.setInventoryUI(inventoryUI);
+        playerMovementSystem.setInventoryUI(inventoryUI = new InventoryUI(player, game.batch));
+        playerMovementSystem.setPauseMenu(pauseMenu = new PauseMenu(game.batch, engine));
         mapManager.loadMap(levelName);
         engine.resume();
     }
@@ -136,6 +137,10 @@ public class PlayScreen extends AbstractScreen {
             if (inventoryUI.isBackPressed()) {
                 inventoryUI.setVisible(false);
                 hud.setVisible(true);
+            } else if (pauseMenu.isResumePressed()) {
+                resume();
+                pauseMenu.setVisible(false);
+                hud.setVisible(true);
             }
         }
     }
@@ -147,8 +152,10 @@ public class PlayScreen extends AbstractScreen {
         rayHandler.setCombinedMatrix(gameCam);
         game.batch.setProjectionMatrix(gameCam.combined);
         world.step(1 / 60f, 6, 2);
-        hud.update(deltaTime);
-        inventoryUI.update();
+        if (!paused) {
+            hud.update(deltaTime);
+            inventoryUI.update();
+        }
     }
 
     @Override
@@ -172,6 +179,9 @@ public class PlayScreen extends AbstractScreen {
         if (inventoryUI.isVisible()) {
             inventoryUI.draw();
         }
+        if (pauseMenu.isVisible()) {
+            pauseMenu.draw();
+        }
     }
 
     @Override
@@ -182,11 +192,13 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void pause() {
+        paused = true;
         engine.pause();
     }
 
     @Override
     public void resume() {
+        paused = false;
         engine.resume();
     }
 

@@ -1,5 +1,7 @@
 package net.team11.pixeldungeon.entitysystem;
 
+import net.team11.pixeldungeon.entity.system.RenderSystem;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class EntityEngine {
     private EntityManager entityManager;
     private LinkedList<EntitySystem> systems;
 
+    private boolean finished;
     private boolean paused;
 
     public EntityEngine() {
@@ -15,8 +18,16 @@ public class EntityEngine {
     }
 
     public void update(float delta) {
-        if (paused) {
+        if (finished) {
             return;
+        }
+        if (paused) {
+            for (EntitySystem entitySystem : systems) {
+                if (entitySystem.getClass().equals(RenderSystem.class)) {
+                    ((RenderSystem)entitySystem).updatePaused();
+                    return;
+                }
+            }
         }
 
         for (EntitySystem entitySystem : systems) {
@@ -84,4 +95,7 @@ public class EntityEngine {
         this.paused = false;
     }
 
+    public void finish() {
+        this.finished = true;
+    }
 }

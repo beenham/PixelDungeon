@@ -37,7 +37,6 @@ public class PlayerInfo extends Table {
         setSize(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
         //setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
         create();
-        setDebug(true);
     }
 
     public void create() {
@@ -98,7 +97,6 @@ public class PlayerInfo extends Table {
         playerStats.add(keys).left();
         playerStats.add(keysVal).right().padLeft(padding);
         playerStats.row().padTop(padding);
-        playerStats.setDebug(true);
         return playerStats;
     }
 
@@ -129,7 +127,6 @@ public class PlayerInfo extends Table {
         gplayServices.add(achievements).top().pad(padding).fillX();
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
-        gplayServices.setDebug(true);
         return gplayServices;
     }
 
