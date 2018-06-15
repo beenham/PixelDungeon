@@ -57,6 +57,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         timeVal = 0;
 
         levelStats.incrementCompleted();
+        statsUtil.getGlobalStats().incrementCompleted();
         for (String chest : statsUtil.getCurrentStats().getChests()) {
             levelStats.setChestFound(chest);
         }
@@ -68,6 +69,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         }
         levelStats.submitBestTime(StatsUtil.getInstance().getTimer());
         statsUtil.writeLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
+        statsUtil.writeGlobalStats();
     }
 
     @Override

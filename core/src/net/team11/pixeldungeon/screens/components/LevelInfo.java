@@ -139,6 +139,8 @@ public class LevelInfo extends Table {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 statsUtil.getLevelStats(selector.getMap().getMapName()).incrementAttempts();
                 statsUtil.writeLevelStats(selector.getMap().getMapName());
+                statsUtil.getGlobalStats().incrementAttempts();
+                statsUtil.writeGlobalStats();
                 ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                         null,
                         selector.getMap().getMapName());
