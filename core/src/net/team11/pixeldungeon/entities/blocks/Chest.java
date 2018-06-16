@@ -81,6 +81,7 @@ public class Chest extends Entity {
         return item == null;
     }
 
+
     public void doInteraction(Player player) {
         //Check to see if it's locked or not
 

@@ -18,6 +18,7 @@ public class TiledMapProperties {
     public static final String LOCKED = "locked";
     public static final String MAP = "map";
     public static final String OPENED = "opened";
+    public static final String PUZZLE_TYPE = "puzzle";
     public static final String TORCH_ON = "on";
     public static final String TARGET = "target";
     public static final String TEXTURE = "texture";
@@ -27,4 +28,8 @@ public class TiledMapProperties {
     public static final String SMOD = "speedMod";
     public static final String ACTIVETIME = "activeTime";
     public static final String AUTOCLOSE = "autoClose";
+    public static final String MAX_ATTEMPTS = "maxAttempts";
+    public static final String DIFFICULTY = "difficulty";
+    public static final String STAGES = "stages";
+
 }

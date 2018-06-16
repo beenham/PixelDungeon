@@ -1,13 +1,17 @@
 package net.team11.pixeldungeon.entitysystem;
 
 import net.team11.pixeldungeon.entity.system.RenderSystem;
+import net.team11.pixeldungeon.puzzles.Puzzle;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class EntityEngine {
     private EntityManager entityManager;
     private LinkedList<EntitySystem> systems;
+    private ArrayList<Puzzle> puzzles;
 
     private boolean finished;
     private boolean paused;
@@ -15,6 +19,7 @@ public class EntityEngine {
     public EntityEngine() {
         this.entityManager = new EntityManager();
         systems = new LinkedList<>();
+        puzzles = new ArrayList<>();
     }
 
     public void update(float delta) {
@@ -38,6 +43,20 @@ public class EntityEngine {
     public void addEntity(Entity entity) {
         entityManager.addEntity(entity);
         updateSystems();
+    }
+
+    public void addPuzzle(Puzzle puzzle) {
+        puzzles.add(puzzle);
+        updateSystems();
+    }
+
+    public final Puzzle getPuzzles(String name, Class<? extends Puzzle> puzzleType) {
+        for (Puzzle puzzle : puzzles) {
+            if (puzzle.getClass().equals(puzzleType) && puzzle.getName().equals(name)) {
+                return puzzle;
+            }
+        }
+        return null;
     }
 
     public List<Entity> getEntities(Class<? extends EntityComponent> componentType) {

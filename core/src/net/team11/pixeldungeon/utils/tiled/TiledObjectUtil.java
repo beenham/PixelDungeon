@@ -31,6 +31,7 @@ import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
+import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
@@ -294,11 +295,41 @@ public class TiledObjectUtil {
              */
             fixtureDef.filter.categoryBits = CollisionUtil.PUZZLE_AREA;
             fixtureDef.filter.maskBits = (byte) (CollisionUtil.ENTITY | CollisionUtil.BOUNDARY);
-
             body.createFixture(fixtureDef);
             shape.dispose();
         }
     }
+
+
+    public static void parseTiledPuzzleLayer (EntityEngine engine, MapObjects mapObjects) {
+        if (mapObjects != null) {
+            for (MapObject mapObject : mapObjects) {
+                //  What is used to get the information from the entity objects on the map
+                PolylineMapObject polyObject = new PolylineMapObject();
+                if (mapObject instanceof PolylineMapObject) {
+                    polyObject = (PolylineMapObject) mapObject;
+                }
+
+                //  Retrieves the type of entity specified in the tiled map
+                String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
+                switch (type) {
+                    case TiledMapPuzzleNames.SIMON_SAYS:
+                        String name = mapObject.getName();
+                        float difficulty = (float) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
+                        float maxAttempts = (float) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                        float numStages = (float) mapObject.getProperties().get(TiledMapProperties.STAGES);
+
+
+
+                        SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
+                        break;
+                }
+            }
+        }
+    }
+
+
+
 
     /**
      * Used to create a body shape for the collision boundary

@@ -424,65 +424,86 @@ pressurePlateUp
   orig: 16, 12
   offset: 0, 0
   index: 0
-torchIdle
+puzzleControllerActivated
   rotate: false
   xy: 2, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 15, 20
+  orig: 15, 20
   offset: 0, 0
   index: 0
-torchLit
+puzzleControllerCompleted
   rotate: false
   xy: 30, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 15, 20
+  orig: 15, 20
   offset: 0, 0
   index: 0
-torchLit
+puzzleControllerDeactivaed
   rotate: false
   xy: 58, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 15, 20
+  orig: 15, 20
   offset: 0, 0
-  index: 1
-torchLit
+  index: 0
+torchIdle
   rotate: false
   xy: 86, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 2
+  index: 0
 torchLit
   rotate: false
   xy: 114, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 3
+  index: 0
 torchLit
   rotate: false
   xy: 142, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 4
+  index: 1
 torchLit
   rotate: false
   xy: 170, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 5
+  index: 2
 torchLit
   rotate: false
   xy: 198, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 6
+  index: 3
 torchLit
   rotate: false
   xy: 226, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 4
+torchLit
+  rotate: false
+  xy: 254, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 5
+torchLit
+  rotate: false
+  xy: 282, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 6
+torchLit
+  rotate: false
+  xy: 310, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0

@@ -7,17 +7,17 @@ import java.util.UUID;
 public class Entity {
     protected String name;
     private UUID uuid;
-    private List<EntityComponent> entityComponents = new ArrayList<EntityComponent>();
+    private List<EntityComponent> entityComponents = new ArrayList<>();
 
     protected List<Entity> targetEntities = new ArrayList<>();
     private List<String> targets = new ArrayList<>();
     private boolean trigger = false;
 
-    public Entity() {
+    protected Entity() {
         this.uuid = UUID.randomUUID();
     }
 
-    public Entity(String name){
+    protected Entity(String name){
         this.name = name;
         this.uuid = UUID.randomUUID();
     }

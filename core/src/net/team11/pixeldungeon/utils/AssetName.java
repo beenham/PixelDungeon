@@ -43,25 +43,16 @@ public class AssetName {
     public static final String PLAYER_INTERACTING_LEFT = "playerInteractLeft";
     public static final String PLAYER_INTERACTING_RIGHT = "playerInteractRight";
     /////   1/4
-    public static final String PLAYER_IDLE_DOWN_1Q = "playerIdleDown_1Quart";
-    public static final String PLAYER_IDLE_LEFT_1Q = "playerIdleLeft_1Quart";
-    public static final String PLAYER_IDLE_RIGHT_1Q = "playerIdleRight_1Quart";
     public static final String PLAYER_MOVING_UP_1Q = "playerMoveUp_1Quart";
     public static final String PLAYER_MOVING_DOWN_1Q = "playerMoveDown_1Quart";
     public static final String PLAYER_MOVING_LEFT_1Q = "playerMoveLeft_1Quart";
     public static final String PLAYER_MOVING_RIGHT_1Q = "playerMoveRight_1Quart";
     /////   2/4
-    public static final String PLAYER_IDLE_DOWN_2Q = "playerIdleDown_2Quart";
-    public static final String PLAYER_IDLE_LEFT_2Q = "playerIdleLeft_2Quart";
-    public static final String PLAYER_IDLE_RIGHT_2Q = "playerIdleRight_2Quart";
     public static final String PLAYER_MOVING_UP_2Q = "playerMoveUp_2Quart";
     public static final String PLAYER_MOVING_DOWN_2Q = "playerMoveDown_2Quart";
     public static final String PLAYER_MOVING_LEFT_2Q = "playerMoveLeft_2Quart";
     public static final String PLAYER_MOVING_RIGHT_2Q = "playerMoveRight_2Quart";
     /////   3/4
-    public static final String PLAYER_IDLE_DOWN_3Q = "playerIdleDown_3Quart";
-    public static final String PLAYER_IDLE_LEFT_3Q = "playerIdleLeft_3Quart";
-    public static final String PLAYER_IDLE_RIGHT_3Q = "playerIdleRight_3Quart";
     public static final String PLAYER_MOVING_UP_3Q = "playerMoveUp_3Quart";
     public static final String PLAYER_MOVING_DOWN_3Q = "playerMoveDown_3Quart";
     public static final String PLAYER_MOVING_LEFT_3Q = "playerMoveLeft_3Quart";
@@ -89,6 +80,10 @@ public class AssetName {
     public static final String LEVER_SWITCHING_RIGHT = "leverActivating";
 
     public static final String PILLAR = "pillar";
+
+    public static final String PUZZLECONTROLLER_DEACTIVATED = "puzzleControllerDectivated";
+    public static final String PUZZLECONTROLLER_ACTIVATED = "puzzleControllerActivated";
+    public static final String PUZZLECONTROLLER_COMPLETED = "puzzleControllerCompleted";
 
     public static final String PRESSUREPLATE_UP = "pressurePlateUp";
     public static final String PRESSUREPLATE_DOWN = "pressurePlateDown";
