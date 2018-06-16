@@ -1,5 +1,7 @@
 package net.team11.pixeldungeon.entities.blocks;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
@@ -8,7 +10,9 @@ import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.TrapComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,18 +41,23 @@ public class PressurePlate extends Trap {
         this.addComponent(new TrapComponent(this));
         this.active = false;
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
-                (CollisionCategory.TRAP),
-                (byte)(CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                (CollisionUtil.TRAP),
+                (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
-//        AnimationComponent animationComponent;
-//        this.addComponent(animationComponent = new AnimationComponent(0));
-//        this.addComponent(new InteractionComponent(this));
-
-        //setupAnimations(animationComponent);
+        AnimationComponent animationComponent;
+        this.addComponent(animationComponent = new AnimationComponent(0));
+        setupAnimations(animationComponent);
     }
 
     private void setupAnimations(AnimationComponent animationComponent) {
-
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
+        animationComponent.addAnimation(AssetName.PRESSUREPLATE_DOWN,textureAtlas,1, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PRESSUREPLATE_UP,textureAtlas,1, Animation.PlayMode.LOOP);
+        if (active) {
+            animationComponent.setAnimation(AssetName.PRESSUREPLATE_DOWN);
+        } else {
+            animationComponent.setAnimation(AssetName.PRESSUREPLATE_UP);
+        }
     }
 
     public boolean isActive(){
@@ -61,6 +70,7 @@ public class PressurePlate extends Trap {
 
     public void stepOn(){
         active = true;
+        getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_DOWN);
         for (Entity entity : targetEntities){
             System.out.println("\t\t" + entity.getName());
             entity.doInteraction(false);
@@ -79,10 +89,12 @@ public class PressurePlate extends Trap {
                     timer.cancel();
                     timer.purge();
                     timer = new Timer();
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_UP);
 
                 }
             }, activeTime * 1000);
         } else {
+            getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_UP);
             active = false;
         }
     }

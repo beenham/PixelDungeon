@@ -9,7 +9,6 @@ import java.util.Locale;
 
 public class StatsUtil {
     private static StatsUtil INSTANCE = new StatsUtil();
-
     private String TAG = "FILESTORAGE : ";
     private final String globalFile = "stats/globalStats.json";
 
@@ -44,8 +43,17 @@ public class StatsUtil {
                 Gdx.files.local(filePath).writeString(json.toJson(stats),false);
             }
         }
-        globalStats = json.fromJson(GlobalStats.class,Gdx.files.internal(globalFile));
+        readGlobalStats();
         writeGlobalStats();
+    }
+
+    private void readGlobalStats() {
+        try {
+            globalStats = new Json().fromJson(GlobalStats.class,Gdx.files.local(globalFile));
+        } catch (Exception e) {
+            System.out.println(TAG + " generating new global");
+            globalStats = new Json().fromJson(GlobalStats.class,Gdx.files.internal(globalFile));
+        }
     }
 
     public void writeLevelStats(String file) {

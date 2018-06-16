@@ -92,6 +92,7 @@ public class EntityEngine {
     }
 
     public void resume() {
+        System.out.println("RESUME: resumed called in engine.");
         this.paused = false;
     }
 

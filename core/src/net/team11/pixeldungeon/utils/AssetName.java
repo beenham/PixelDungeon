@@ -66,6 +66,9 @@ public class AssetName {
 
     public static final String PILLAR = "pillar";
 
+    public static final String PRESSUREPLATE_UP = "pressurePlateUp";
+    public static final String PRESSUREPLATE_DOWN = "pressurePlateDown";
+
     public static final String TORCH_OFF = "torchIdle";
     public static final String TORCH_ON = "torchLit";
     public static final String TORCH_ACTIVATING = "torchActivating";

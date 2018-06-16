@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Coin;
@@ -14,10 +13,7 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
-import net.team11.pixeldungeon.map.Map;
-import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.utils.stats.CurrentStats;
-import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
@@ -26,7 +22,7 @@ import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 public class Chest extends Entity {
     private boolean opened;
@@ -45,8 +41,8 @@ public class Chest extends Entity {
         AnimationComponent animationComponent;
         this.addComponent(new ChestComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0,
-                (CollisionCategory.ENTITY),
-                (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                (CollisionUtil.ENTITY),
+                (byte)(CollisionUtil.ENTITY | CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
         this.addComponent(new InteractionComponent(this));
@@ -86,7 +82,6 @@ public class Chest extends Entity {
     }
 
     public void doInteraction(Player player) {
-
         //Check to see if it's locked or not
 
         if (locked && !opened){

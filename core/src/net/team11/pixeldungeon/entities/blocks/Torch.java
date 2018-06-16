@@ -12,7 +12,7 @@ import net.team11.pixeldungeon.entity.component.entitycomponent.TorchComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import box2dLight.Light;
 import box2dLight.PointLight;
@@ -31,8 +31,8 @@ public class Torch extends Entity {
         AnimationComponent animationComponent;
         this.addComponent(new TorchComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
-                CollisionCategory.ENTITY,
-                (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                CollisionUtil.ENTITY,
+                (byte)(CollisionUtil.ENTITY | CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
         setupAnimations(animationComponent);

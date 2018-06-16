@@ -2,7 +2,6 @@ package net.team11.pixeldungeon.entity.system;
 
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.screens.ScreenManager;
-import net.team11.pixeldungeon.uicomponents.PauseMenu;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
@@ -17,14 +16,11 @@ import net.team11.pixeldungeon.uicomponents.Hud;
 
 public class PlayerMovementSystem extends EntitySystem {
     private Player player;
-    private EntityEngine engine;
     private Hud hud;
     private InventoryUI inventoryUI;
-    private PauseMenu pauseMenu;
 
     @Override
     public void init(EntityEngine entityEngine) {
-        this.engine = entityEngine;
         player = (Player) entityEngine.getEntities(PlayerComponent.class,
                 VelocityComponent.class, AnimationComponent.class).get(0);
     }
@@ -99,14 +95,13 @@ public class PlayerMovementSystem extends EntitySystem {
                 velocityComponent.setxDirection(0);
                 velocityComponent.setyDirection(0);
                 hud.setPressed(false);
-                hud.setVisible(false);
                 inventoryUI.setVisible(true);
             } else if (hud.isPausePressed()) {
                 velocityComponent.setxDirection(0);
                 velocityComponent.setyDirection(0);
+                bodyComponent.moveX(0);
+                bodyComponent.moveY(0);
                 hud.setPressed(false);
-                hud.setVisible(false);
-                pauseMenu.setVisible(true);
                 ScreenManager.getInstance().getScreen().pause();
             } else {
                 velocityComponent.setxDirection(0);
@@ -140,9 +135,5 @@ public class PlayerMovementSystem extends EntitySystem {
 
     public void setInventoryUI(InventoryUI inventoryUI) {
         this.inventoryUI = inventoryUI;
-    }
-
-    public void setPauseMenu(PauseMenu pauseMenu) {
-        this.pauseMenu = pauseMenu;
     }
 }

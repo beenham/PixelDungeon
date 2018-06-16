@@ -15,7 +15,7 @@ import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 
@@ -57,10 +57,9 @@ public class Player extends Entity {
         animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
         velocityComponent.setDirection(Direction.DOWN);
 
-        int width = animationComponent.getAnimationList().get(AssetName.PLAYER_IDLE_LEFT).getKeyFrame(0).getRegionWidth();
-        this.addComponent(new BodyComponent(width, 8, posX, posY, 1.0f,
-                (CollisionCategory.ENTITY),
-                (byte)(CollisionCategory.ENTITY | CollisionCategory.BOUNDARY),
+        this.addComponent(new BodyComponent(14, 8, posX, posY, 1.0f,
+                (CollisionUtil.ENTITY),
+                (byte)(CollisionUtil.ENTITY | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.DynamicBody));
     }
 

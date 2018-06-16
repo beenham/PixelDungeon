@@ -31,7 +31,7 @@ import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,10 +47,15 @@ public class TiledObjectUtil {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
                 //  What is used to get the information from the entity objects on the map
-                RectangleMapObject object = (RectangleMapObject) mapObject;
+                RectangleMapObject rectObject = new RectangleMapObject();
+                try {
+                    rectObject = (RectangleMapObject)mapObject;
+                } catch (ClassCastException e) {
+                    //e.printStackTrace();
+                }
 
                 //  Retrieves the type of entity specified in the tiled map
-                String type = (String) object.getProperties().get(TiledMapProperties.ENTITY_TYPE);
+                String type = (String) mapObject.getProperties().get(TiledMapProperties.ENTITY_TYPE);
 
                 //  If the entity has any targets to 'trigger'
                 List<String> targets = new ArrayList<>();
@@ -65,23 +70,23 @@ public class TiledObjectUtil {
 
                 switch (type) {
                     case TiledMapObjectNames.BOX:   //  Box entity
-                        if (object.getProperties().containsKey(TiledMapProperties.BOX_PUSHABLE)) {
-                            boolean pushable = (boolean) object.getProperties().get(TiledMapProperties.BOX_PUSHABLE);
-                            engine.addEntity(new Box(object.getRectangle(), pushable, object.getName()));
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.BOX_PUSHABLE)) {
+                            boolean pushable = (boolean) rectObject.getProperties().get(TiledMapProperties.BOX_PUSHABLE);
+                            engine.addEntity(new Box(rectObject.getRectangle(), pushable, rectObject.getName()));
                         } else {
-                            System.err.println("BOX: " + object.getName() + " was not setup correctly!");
+                            System.err.println("BOX: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.CHEST: //  Chest entity
-                        if (object.getProperties().containsKey(TiledMapProperties.OPENED)) {
-                            boolean opened = (boolean) object.getProperties().get(TiledMapProperties.OPENED);
-                            boolean locked = (boolean) object.getProperties().get(TiledMapProperties.LOCKED);
-                            String itemName = (String) object.getProperties().get(TiledMapProperties.ITEM_NAME);
-                            int amount = (int) object.getProperties().get(TiledMapProperties.AMOUNT);
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.OPENED)) {
+                            boolean opened = (boolean) rectObject.getProperties().get(TiledMapProperties.OPENED);
+                            boolean locked = (boolean) rectObject.getProperties().get(TiledMapProperties.LOCKED);
+                            String itemName = (String) rectObject.getProperties().get(TiledMapProperties.ITEM_NAME);
+                            int amount = (int) rectObject.getProperties().get(TiledMapProperties.AMOUNT);
                             Item item = null;
-                            System.out.println((String)object.getProperties().get(TiledMapProperties.ITEM));
-                            switch ((String)object.getProperties().get(TiledMapProperties.ITEM)) {
+                            System.out.println((String)rectObject.getProperties().get(TiledMapProperties.ITEM));
+                            switch ((String)rectObject.getProperties().get(TiledMapProperties.ITEM)) {
                                 case TiledMapObjectNames.COIN:
                                     item = new Coin(amount);
                                     break;
@@ -97,59 +102,59 @@ public class TiledObjectUtil {
 
                             }
 
-                            Chest chest = new Chest(object.getRectangle(), opened,locked, object.getName(), item);
+                            Chest chest = new Chest(rectObject.getRectangle(), opened,locked, rectObject.getName(), item);
                             if (chest.isLocked()){
-                                    chest.setChestKey(new ChestKey((String) object.getProperties().get(TiledMapProperties.KEY_NAME)));
+                                    chest.setChestKey(new ChestKey((String) rectObject.getProperties().get(TiledMapProperties.KEY_NAME)));
                             }
                             engine.addEntity(chest);
                         } else {
-                            System.err.println("CHEST: " + object.getName() + " was not setup correctly!");
+                            System.err.println("CHEST: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.DOOR:  //  Door entity
-                        if (object.getProperties().containsKey(TiledMapProperties.OPENED)) {
-                            String doorType = (String) object.getProperties().get(TiledMapProperties.DOOR_TYPE);
-                            boolean open = (boolean) object.getProperties().get(TiledMapProperties.OPENED);
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.OPENED)) {
+                            String doorType = (String) rectObject.getProperties().get(TiledMapProperties.DOOR_TYPE);
+                            boolean open = (boolean) rectObject.getProperties().get(TiledMapProperties.OPENED);
                             switch (doorType) {
                                 case "BUTTON":
-                                    engine.addEntity(new ButtonDoor(object.getName(), object.getRectangle(), open));
+                                    engine.addEntity(new ButtonDoor(rectObject.getName(), rectObject.getRectangle(), open));
                                     break;
                                 case "LOCKED":
-                                    String keyName = (String) object.getProperties().get(TiledMapProperties.KEY_NAME);
-                                    engine.addEntity(new LockedDoor(object.getName(), object.getRectangle(), open, keyName));
+                                    String keyName = (String) rectObject.getProperties().get(TiledMapProperties.KEY_NAME);
+                                    engine.addEntity(new LockedDoor(rectObject.getName(), rectObject.getRectangle(), open, keyName));
                                     //System.out.println("//\n"+keyID+"\n"+keyName+"\\");
                                     break;
                                 case "MECHANIC":
-                                    engine.addEntity(new MechanicDoor(object.getName(), object.getRectangle(), open));
+                                    engine.addEntity(new MechanicDoor(rectObject.getName(), rectObject.getRectangle(), open));
                                     break;
                                 default:
-                                    System.err.println("DOOR: " + object.getName() + " was not setup correctly!");
+                                    System.err.println("DOOR: " + rectObject.getName() + " was not setup correctly!");
                             }
                         } else {
-                            System.err.println("DOOR: " + object.getName() + " was not setup correctly!");
+                            System.err.println("DOOR: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.DOOR_PILLAR:   //  Door Pillar entity (For edge of doors)
-                        String texture = (String) object.getProperties().get(TiledMapProperties.TEXTURE);
-                        engine.addEntity(new DoorFrame(object.getRectangle(), object.getName(), texture));
+                        String texture = (String) rectObject.getProperties().get(TiledMapProperties.TEXTURE);
+                        engine.addEntity(new DoorFrame(rectObject.getRectangle(), rectObject.getName(), texture));
                         break;
 
                     case TiledMapObjectNames.FLOOR_SPIKE:   //  Floor spike entity
                         //  Mandatory keys / properties
-                        if (object.getProperties().containsKey(TiledMapProperties.ENABLED)
-                                && object.getProperties().containsKey(TiledMapProperties.TIMED)
-                                && object.getProperties().containsKey(TiledMapProperties.TIMER)) {
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.ENABLED)
+                                && rectObject.getProperties().containsKey(TiledMapProperties.TIMED)
+                                && rectObject.getProperties().containsKey(TiledMapProperties.TIMER)) {
                             FloorSpike floorSpike;
-                            boolean enabled = (boolean) object.getProperties().get(TiledMapProperties.ENABLED);
-                            boolean timed = (boolean) object.getProperties().get(TiledMapProperties.TIMED);
+                            boolean enabled = (boolean) rectObject.getProperties().get(TiledMapProperties.ENABLED);
+                            boolean timed = (boolean) rectObject.getProperties().get(TiledMapProperties.TIMED);
                             if (timed) {
-                                float timer = (float) object.getProperties().get(TiledMapProperties.TIMER);
-                                engine.addEntity(floorSpike = new FloorSpike(object.getRectangle(), enabled,
-                                        object.getName(), timer));
+                                float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
+                                engine.addEntity(floorSpike = new FloorSpike(rectObject.getRectangle(), enabled,
+                                        rectObject.getName(), timer));
                             } else {
-                                engine.addEntity(floorSpike = new FloorSpike(object.getRectangle(), enabled, object.getName()));
+                                engine.addEntity(floorSpike = new FloorSpike(rectObject.getRectangle(), enabled, rectObject.getName()));
                             }
 
                             if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET)) {
@@ -157,57 +162,58 @@ public class TiledObjectUtil {
                                 floorSpike.setTrigger(trigger);
                             }
                         } else {
-                            System.out.println("FLOORSPIKE: " + object.getName() + " was not setup correctly!");
+                            System.out.println("FLOORSPIKE: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.TORCH: //  Torch entity
-                        if (object.getProperties().containsKey(TiledMapProperties.TORCH_ON)) {
-                            boolean on = (boolean) object.getProperties().get(TiledMapProperties.TORCH_ON);
-                            Torch torch = new Torch(object.getRectangle(), on, object.getName());
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.TORCH_ON)) {
+                            boolean on = (boolean) rectObject.getProperties().get(TiledMapProperties.TORCH_ON);
+                            Torch torch = new Torch(rectObject.getRectangle(), on, rectObject.getName());
                             engine.addEntity(torch);
                         } else {
-                            System.err.println("TORCH: " + object.getName() + " was not setup correctly!");
+                            System.err.println("TORCH: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.PILLAR:    //  Pillar entity
-                        engine.addEntity(new Pillar(object.getRectangle(), object.getName()));
+                        engine.addEntity(new Pillar(rectObject.getRectangle(), rectObject.getName()));
                         break;
 
                     case TiledMapObjectNames.LEVER:
-                        if (object.getProperties().containsKey(TiledMapProperties.TARGET)){
-                            Lever lever = new Lever(object.getRectangle(), object.getName());
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.TARGET)){
+                            Lever lever = new Lever(rectObject.getRectangle(), rectObject.getName());
                             engine.addEntity(lever);
                             lever.setTrigger(trigger);
                             lever.setTargets(targets);
                         } else {
-                            System.err.println("LEVER: " + object.getName() + " was not setup correctly!");
+                            System.err.println("LEVER: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.QUICKSAND:
-                        if (object.getProperties().containsKey(TiledMapProperties.SMOD)){
-                            Quicksand quicksand = new Quicksand(object.getRectangle(), object.getName(),
-                                    true, (float)object.getProperties().get(TiledMapProperties.SMOD),
-                                    (float) object.getProperties().get(TiledMapProperties.TIMER));
+                        if (mapObject.getProperties().containsKey(TiledMapProperties.SMOD)){
+                            ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
+                            Quicksand quicksand = new Quicksand(shape, mapObject.getName(),
+                                    true, (float)mapObject.getProperties().get(TiledMapProperties.SMOD),
+                                    (float) mapObject.getProperties().get(TiledMapProperties.TIMER));
                             engine.addEntity(quicksand);
                         } else {
-                            System.err.println("QUICKSAND: " + object.getName() + " was not setup correctly!");
+                            System.err.println("QUICKSAND: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
                     case TiledMapObjectNames.PRESSURE:
-                        if (object.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
-                                object.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
-                            PressurePlate pressurePlate = new PressurePlate(object.getRectangle(), object.getName(),
-                                    (int)object.getProperties().get(TiledMapProperties.ACTIVETIME),
-                                    (boolean)object.getProperties().get(TiledMapProperties.AUTOCLOSE));
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
+                                rectObject.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
+                            PressurePlate pressurePlate = new PressurePlate(rectObject.getRectangle(), rectObject.getName(),
+                                    (int)rectObject.getProperties().get(TiledMapProperties.ACTIVETIME),
+                                    (boolean)rectObject.getProperties().get(TiledMapProperties.AUTOCLOSE));
                             engine.addEntity(pressurePlate);
                             pressurePlate.setTrigger(trigger);
                             pressurePlate.setTargets(targets);
                         } else {
-                            System.err.println("PRESSURE PLATE: " + object.getName() + " was not setup correctly!");
+                            System.err.println("PRESSURE PLATE: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
                     default:
@@ -250,8 +256,8 @@ public class TiledObjectUtil {
              *  This body is of the BOUNDARY TYPE
              *  This body will collide with ENTITY and PUZZLE AREA types
              */
-            fixtureDef.filter.categoryBits = CollisionCategory.BOUNDARY;
-            fixtureDef.filter.maskBits = (byte) (CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA);
+            fixtureDef.filter.categoryBits = CollisionUtil.BOUNDARY;
+            fixtureDef.filter.maskBits = (byte) (CollisionUtil.ENTITY | CollisionUtil.PUZZLE_AREA);
 
             body.createFixture(fixtureDef);
             shape.dispose();
@@ -288,8 +294,8 @@ public class TiledObjectUtil {
              *  This body is of the PUZZLE AREA TYPE
              *  This body will collide with ENTITY and BOUNDARY types
              */
-            fixtureDef.filter.categoryBits = CollisionCategory.PUZZLE_AREA;
-            fixtureDef.filter.maskBits = (byte) (CollisionCategory.ENTITY | CollisionCategory.BOUNDARY);
+            fixtureDef.filter.categoryBits = CollisionUtil.PUZZLE_AREA;
+            fixtureDef.filter.maskBits = (byte) (CollisionUtil.ENTITY | CollisionUtil.BOUNDARY);
 
             body.createFixture(fixtureDef);
             shape.dispose();

@@ -2,8 +2,8 @@ package net.team11.pixeldungeon.entities.traps;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ChainShape;
 
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -13,14 +13,11 @@ import net.team11.pixeldungeon.entity.component.TrapComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Class to handle the quicksand trap mechanics
- */
 public class Quicksand extends Trap {
 
     private float speedMod; //The speed which to set the players speed to. Make it less then 100 to slow down
@@ -30,7 +27,7 @@ public class Quicksand extends Trap {
 
     private boolean active = false;
 
-    public Quicksand(Rectangle bounds, String name, boolean enabled, float speedMod, float timeBeforeDeath){
+    public Quicksand(ChainShape bounds, String name, boolean enabled, float speedMod, float timeBeforeDeath){
         super(name, enabled);
 
         this.speedMod = speedMod;
@@ -38,12 +35,10 @@ public class Quicksand extends Trap {
 
         this.damage = 100;
         this.timed = true;
-        float posX = bounds.getX() + bounds.getWidth()/2;
-        float posY = bounds.getY() + bounds.getHeight()/2;
         this.addComponent(new TrapComponent(this));
-        this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
-                (CollisionCategory.TRAP),
-                (byte)(CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+        this.addComponent(new BodyComponent(bounds,0f,
+                (CollisionUtil.TRAP),
+                (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
 
 //        AnimationComponent animationComponent;

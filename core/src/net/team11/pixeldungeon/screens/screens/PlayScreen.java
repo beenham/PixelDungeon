@@ -67,14 +67,16 @@ public class PlayScreen extends AbstractScreen {
         setupPlayer(levelName);
         playerMovementSystem.setHud(hud);
         playerMovementSystem.setInventoryUI(inventoryUI = new InventoryUI(player, game.batch));
-        playerMovementSystem.setPauseMenu(pauseMenu = new PauseMenu(game.batch, engine));
+        pauseMenu = new PauseMenu(game.batch, engine);
         mapManager.loadMap(levelName);
         engine.resume();
     }
 
     @Override
     public void show() {
-        engine.resume();
+        if (!paused) {
+            engine.resume();
+        }
     }
 
     private void setupCamera() {
@@ -126,17 +128,16 @@ public class PlayScreen extends AbstractScreen {
     }
 
     private void handleInput(float deltaTime){
-        if (hud.isVisible()) {
+        if (!paused) {
             playerMovementSystem.update(deltaTime);
-        } else {
-            if (inventoryUI.isBackPressed()) {
-                inventoryUI.setVisible(false);
-                hud.setVisible(true);
-            } else if (pauseMenu.isResumePressed()) {
-                resume();
-                pauseMenu.setVisible(false);
-                hud.setVisible(true);
-            }
+        }
+        if (inventoryUI.isBackPressed()) {
+            inventoryUI.setVisible(false);
+            hud.setVisible(true);
+        } else if (pauseMenu.isResumePressed()) {
+            resume();
+            pauseMenu.setVisible(false);
+            hud.setVisible(true);
         }
     }
 
@@ -161,10 +162,9 @@ public class PlayScreen extends AbstractScreen {
         engine.update(delta);
 
         b2dr.render(world, gameCam.combined);
-        if (ambientLight < 0.75f) {
+        if (ambientLight < 0.75f && !paused) {
             ambientLight += 0.01f;
             rayHandler.setAmbientLight(ambientLight);
-
         }
         rayHandler.render();
 
@@ -188,13 +188,16 @@ public class PlayScreen extends AbstractScreen {
     @Override
     public void pause() {
         paused = true;
+        pauseMenu.setVisible(true);
         engine.pause();
     }
 
     @Override
     public void resume() {
-        paused = false;
-        engine.resume();
+        if (paused && pauseMenu.isResumePressed()) {
+            paused = false;
+            engine.resume();
+        }
     }
 
     @Override

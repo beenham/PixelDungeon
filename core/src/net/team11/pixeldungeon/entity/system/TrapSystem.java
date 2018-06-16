@@ -1,6 +1,8 @@
 package net.team11.pixeldungeon.entity.system;
 
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import net.team11.pixeldungeon.entities.blocks.PressurePlate;
 import net.team11.pixeldungeon.entities.player.Player;
@@ -14,6 +16,8 @@ import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +39,12 @@ public class TrapSystem extends EntitySystem {
     public void update(float delta) {
         timer = timer - delta * RenderSystem.FRAME_SPEED;
 
-        Rectangle playerRect = player.getComponent(BodyComponent.class).getRectangle();
+        Polygon playerBox = player.getComponent(BodyComponent.class).getPolygon();
         for (Entity entity : traps) {
             Trap trap = (Trap) entity;
+            Polygon trapBox = trap.getComponent(BodyComponent.class).getPolygon();
+            boolean overLapping = CollisionUtil.isOverlapping(trapBox,playerBox);
+
             if (trap.isEnabled()) {
                 TrapComponent trapComponent = trap.getComponent(TrapComponent.class);
                 if (trapComponent.isInteracting()) {
@@ -48,10 +55,9 @@ public class TrapSystem extends EntitySystem {
                     }
                     continue;
                 }
-                Rectangle trapRect = trap.getComponent(BodyComponent.class).getRectangle();
                 if (trap.isTimed()) {
                     trap.setTimer(trap.getTimer() - delta * RenderSystem.FRAME_SPEED);
-                    if (playerRect.overlaps(trapRect)) {
+                    if (overLapping) {
                         trap.setContactingEntity(player);
                         if (trap.isTriggered()) {
                             HealthComponent health = player.getComponent(HealthComponent.class);
@@ -66,7 +72,7 @@ public class TrapSystem extends EntitySystem {
                         trap.resetTimer();
                     }
                 } else if (trap.hasTrigger()) {
-                    if (playerRect.overlaps(trapRect)) {
+                    if (overLapping) {
                         trap.setContactingEntity(player);
                         if (trap.isTriggered()) {
                             HealthComponent health = player.getComponent(HealthComponent.class);
@@ -76,7 +82,7 @@ public class TrapSystem extends EntitySystem {
                         trap.setContactingEntity(null);
                     }
                 } else {
-                    if (playerRect.overlaps(trapRect)){
+                    if (overLapping){
                         trap.setContactingEntity(player);
                         if (!trap.isTriggered() && !trapComponent.isInteracting()) {
                             trap.trigger();
@@ -90,21 +96,23 @@ public class TrapSystem extends EntitySystem {
                 //Quicksand Stuff
                 if (trap.getClass().equals(Quicksand.class)){
                     Quicksand quicksand = (Quicksand)trap;
-                    if (!playerRect.overlaps(trapRect)){
+                    if (!overLapping){
                         if (quicksand.isActive()){
                             quicksand.leave();
                             player.getComponent(VelocityComponent.class).setMovementSpeed(100);
                             trap.setContactingEntity(null);
                         }
-                    } else{
+                    } else {
+                        trap.setContactingEntity(player);
                         quicksand.enter();
                     }
+                    continue;
                 }
 
                 //Pressure Plate class
                 if (trap.getClass().equals(PressurePlate.class)){
                     PressurePlate pressurePlate = (PressurePlate) trap;
-                    if (playerRect.overlaps(trapRect)){
+                    if (overLapping){
                         trap.setContactingEntity(player);
                         if (!pressurePlate.isActive()){
                             pressurePlate.stepOn();

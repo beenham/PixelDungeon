@@ -1,6 +1,7 @@
 package net.team11.pixeldungeon.entity.system;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -14,6 +15,7 @@ import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
@@ -52,15 +54,17 @@ public class VelocitySystem extends EntitySystem {
             bodyComponent.moveX(1 * velocityComponent.getxDirection() * velocityComponent.getMovementSpeed());
             bodyComponent.moveY(1 * velocityComponent.getyDirection() * velocityComponent.getMovementSpeed());
 
-            isOverlapping(bodyComponent.getRectangle());
+            isOverlapping(bodyComponent.getPolygon());
         }
     }
 
-    private void isOverlapping(Rectangle entityRectangle) {
+    private void isOverlapping(Polygon entityBox) {
         try {
             RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
             Rectangle collision = new Rectangle(mapObject.getRectangle());
-            if (entityRectangle.overlaps(collision)) {
+            Polygon collisionBox = CollisionUtil.createRectangle(
+                    collision.x,collision.y,collision.width,collision.height);
+            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                             null,
@@ -73,7 +77,9 @@ public class VelocitySystem extends EntitySystem {
         try {
             RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.MAP_EXIT);
             Rectangle collision = new Rectangle(mapObject.getRectangle());
-            if (entityRectangle.overlaps(collision)) {
+            Polygon collisionBox = CollisionUtil.createRectangle(
+                    collision.x,collision.y,collision.width,collision.height);
+            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 engine.finish();
                 ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,
                         ScreenTransitionFade.init(1f),
