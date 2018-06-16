@@ -48,10 +48,8 @@ public class TiledObjectUtil {
             for (MapObject mapObject : mapObjects) {
                 //  What is used to get the information from the entity objects on the map
                 RectangleMapObject rectObject = new RectangleMapObject();
-                try {
+                if (mapObject instanceof RectangleMapObject) {
                     rectObject = (RectangleMapObject)mapObject;
-                } catch (ClassCastException e) {
-                    //e.printStackTrace();
                 }
 
                 //  Retrieves the type of entity specified in the tiled map
@@ -195,7 +193,7 @@ public class TiledObjectUtil {
                         if (mapObject.getProperties().containsKey(TiledMapProperties.SMOD)){
                             ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
                             Quicksand quicksand = new Quicksand(shape, mapObject.getName(),
-                                    true, (float)mapObject.getProperties().get(TiledMapProperties.SMOD),
+                                    (float)mapObject.getProperties().get(TiledMapProperties.SMOD),
                                     (float) mapObject.getProperties().get(TiledMapProperties.TIMER));
                             engine.addEntity(quicksand);
                         } else {
@@ -207,7 +205,7 @@ public class TiledObjectUtil {
                         if (rectObject.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
                                 rectObject.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
                             PressurePlate pressurePlate = new PressurePlate(rectObject.getRectangle(), rectObject.getName(),
-                                    (int)rectObject.getProperties().get(TiledMapProperties.ACTIVETIME),
+                                    (float)rectObject.getProperties().get(TiledMapProperties.ACTIVETIME),
                                     (boolean)rectObject.getProperties().get(TiledMapProperties.AUTOCLOSE));
                             engine.addEntity(pressurePlate);
                             pressurePlate.setTrigger(trigger);

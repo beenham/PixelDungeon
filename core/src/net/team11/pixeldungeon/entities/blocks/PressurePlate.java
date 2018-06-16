@@ -23,23 +23,21 @@ import java.util.TimerTask;
  * specified amount of time, activeTime.
  */
 public class PressurePlate extends Trap {
-
-    private long activeTime;
-    private boolean active;
-    private Timer timer = new Timer();
+    private boolean activated;
     private boolean autoClose;
 
-    public PressurePlate(Rectangle bounds, String name, long activeTime, boolean autoClose) {
+    public PressurePlate(Rectangle bounds, String name, float activeTime, boolean autoClose) {
         super(name, true);
-        this.timed = true;
-        this.activeTime = activeTime;
+        this.activated = false;
         this.autoClose = autoClose;
+        timed = true;
+        timerReset = activeTime;
+        timer = 0;
+        triggered = false;
 
         float posX = bounds.getX() + bounds.getWidth() / 2;
         float posY = bounds.getY() + bounds.getHeight() / 2;
-
         this.addComponent(new TrapComponent(this));
-        this.active = false;
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
                 (CollisionUtil.TRAP),
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
@@ -53,49 +51,52 @@ public class PressurePlate extends Trap {
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.PRESSUREPLATE_DOWN,textureAtlas,1, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PRESSUREPLATE_UP,textureAtlas,1, Animation.PlayMode.LOOP);
-        if (active) {
+        if (triggered) {
             animationComponent.setAnimation(AssetName.PRESSUREPLATE_DOWN);
         } else {
             animationComponent.setAnimation(AssetName.PRESSUREPLATE_UP);
         }
     }
 
-    public boolean isActive(){
-        return this.active;
-    }
-
-    public boolean doesAutoClose(){
-        return this.autoClose;
-    }
-
-    public void stepOn(){
-        active = true;
-        getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_DOWN);
-        for (Entity entity : targetEntities){
-            System.out.println("\t\t" + entity.getName());
-            entity.doInteraction(false);
+    @Override
+    public void setTimer(float timer) {
+        if (contactEntity == null && !activated) {
+            if (triggered) {
+                super.setTimer(timer);
+                if (timer <= 0) {
+                    callTargets();
+                    triggered = false;
+                }
+            }
+        } else if (!triggered && activated) {
+            super.setTimer(timer);
+            if (timer <= 0) {
+                callTargets();
+                triggered = true;
+            }
         }
     }
 
-    public void stepOff(){
-        if (autoClose){
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    for (Entity entity : targetEntities) {
-                        entity.doInteraction(false);
-                    }
-                    active = false;
-                    timer.cancel();
-                    timer.purge();
-                    timer = new Timer();
-                    getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_UP);
+    @Override
+    public void trigger() {
+        if (contactEntity == null && activated) {
+            if (autoClose) {
+                activated = false;
+                resetTimer();
+                getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_UP);
+            } else {
+                getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_UP);
+            }
+        } else if (contactEntity != null && !activated) {
+            activated = true;
+            resetTimer();
+            getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_DOWN);
+        }
+    }
 
-                }
-            }, activeTime * 1000);
-        } else {
-            getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_UP);
-            active = false;
+    private void callTargets() {
+        for (Entity entity : targetEntities) {
+            entity.doInteraction(false);
         }
     }
 }

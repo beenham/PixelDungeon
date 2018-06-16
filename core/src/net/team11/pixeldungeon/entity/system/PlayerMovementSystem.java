@@ -30,13 +30,14 @@ public class PlayerMovementSystem extends EntitySystem {
         if (player == null) {
             return;
         }
+        Player.PlayerDepth depth = player.getDepth();
         BodyComponent bodyComponent = player.getComponent(BodyComponent.class);
         VelocityComponent velocityComponent = player.getComponent(VelocityComponent.class);
         AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
         InteractionComponent interactionComponent = player.getComponent(InteractionComponent.class);
 
         if (hud.isVisible()) {
-            if (hud.isInteractPressed() && !velocityComponent.isParalyzed()) {
+            if (hud.isInteractPressed() && !velocityComponent.isParalyzed() && depth == Player.PlayerDepth.FOUR_QUART) {
                 velocityComponent.setxDirection(0);
                 velocityComponent.setyDirection(0);
                 interactionComponent.setInteracting(true);
@@ -62,7 +63,20 @@ public class PlayerMovementSystem extends EntitySystem {
                 if (bodyComponent.isPushing()) {
                     animationComponent.setAnimation(AssetName.PLAYER_PUSHING_RIGHT);
                 } else {
-                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT);
+                    switch (depth) {
+                        case ONE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT_1Q);
+                            break;
+                        case TWO_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT_2Q);
+                            break;
+                        case THREE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT_3Q);
+                            break;
+                        case FOUR_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT);
+                            break;
+                    }
                 }
             } else if (hud.isUpPressed() && !velocityComponent.isParalyzed()) {
                 velocityComponent.setDirection(Direction.UP);
@@ -71,7 +85,20 @@ public class PlayerMovementSystem extends EntitySystem {
                 if (bodyComponent.isPushing()) {
                     animationComponent.setAnimation(AssetName.PLAYER_PUSHING_UP);
                 } else {
-                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP);
+                    switch (depth) {
+                        case ONE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP_1Q);
+                            break;
+                        case TWO_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP_2Q);
+                            break;
+                        case THREE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP_3Q);
+                            break;
+                        case FOUR_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP);
+                            break;
+                    }
                 }
             } else if (hud.isLeftPressed() && !velocityComponent.isParalyzed()) {
                 velocityComponent.setDirection(Direction.LEFT);
@@ -80,7 +107,20 @@ public class PlayerMovementSystem extends EntitySystem {
                 if (bodyComponent.isPushing()) {
                     animationComponent.setAnimation(AssetName.PLAYER_PUSHING_LEFT);
                 } else {
-                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT);
+                    switch (depth) {
+                        case ONE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT_1Q);
+                            break;
+                        case TWO_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT_2Q);
+                            break;
+                        case THREE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT_3Q);
+                            break;
+                        case FOUR_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT);
+                            break;
+                    }
                 }
             } else if (hud.isDownPressed() && !velocityComponent.isParalyzed()) {
                 velocityComponent.setDirection(Direction.DOWN);
@@ -89,7 +129,20 @@ public class PlayerMovementSystem extends EntitySystem {
                 if (bodyComponent.isPushing()) {
                     animationComponent.setAnimation(AssetName.PLAYER_PUSHING_DOWN);
                 } else {
-                    animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN);
+                    switch (depth) {
+                        case ONE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN_1Q);
+                            break;
+                        case TWO_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN_2Q);
+                            break;
+                        case THREE_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN_3Q);
+                            break;
+                        case FOUR_QUART:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN);
+                            break;
+                    }
                 }
             } else if (hud.isInventoryPressed()) {
                 velocityComponent.setxDirection(0);
@@ -109,21 +162,24 @@ public class PlayerMovementSystem extends EntitySystem {
                 bodyComponent.moveX(0);
                 bodyComponent.moveY(0);
 
-                if (!velocityComponent.isParalyzed())
+                if (!velocityComponent.isParalyzed()) {
                     interactionComponent.setInteracting(false);
-                switch (velocityComponent.getDirection()) {
-                    case UP:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_UP);
-                        break;
-                    case DOWN:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
-                        break;
-                    case RIGHT:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_RIGHT);
-                        break;
-                    case LEFT:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_LEFT);
-                        break;
+                }
+                if (depth == Player.PlayerDepth.FOUR_QUART) {
+                    switch (velocityComponent.getDirection()) {
+                        case UP:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_UP);
+                            break;
+                        case DOWN:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
+                            break;
+                        case RIGHT:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_RIGHT);
+                            break;
+                        case LEFT:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_LEFT);
+                            break;
+                    }
                 }
             }
         }

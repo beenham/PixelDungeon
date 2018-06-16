@@ -84,7 +84,9 @@ public class FloorSpike extends Trap {
                 getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_IDLE);
                 triggered = false;
             }
+            if (timed) {
+                resetTimer();
+            }
         }
-
     }
 }

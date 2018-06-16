@@ -20,7 +20,6 @@ public class MechanicDoor extends Door {
     @Override
     public void doInteraction(boolean isPlayer){
         if (!isPlayer){
-            System.out.println("Activating");
             setOpened(!isOpen());
         }
     }

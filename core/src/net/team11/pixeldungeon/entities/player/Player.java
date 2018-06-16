@@ -19,12 +19,39 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 
+import static net.team11.pixeldungeon.entities.player.Player.PlayerDepth.FOUR_QUART;
+
 public class Player extends Entity {
+    public enum PlayerDepth {
+        ONE_QUART {
+            @Override
+            public String toString() {
+                return "ONE QUART";
+            }
+        }, TWO_QUART{
+            @Override
+            public String toString() {
+                return "TWO QUART";
+            }
+        },  THREE_QUART{
+            @Override
+            public String toString() {
+                return "THREE QUART";
+            }
+        },  FOUR_QUART{
+            @Override
+            public String toString() {
+                return "FOUR QUART";
+            }
+        }
+    }
     private float spawnX, spawnY;
+    private PlayerDepth depth;
 
     public Player(float posX, float posY) {
         super("Player");
         spawnX = posX; spawnY = posY;
+        depth = FOUR_QUART;
 
         VelocityComponent velocityComponent;
         AnimationComponent animationComponent;
@@ -54,6 +81,19 @@ public class Player extends Entity {
         animationComponent.addAnimation(AssetName.PLAYER_PUSHING_LEFT, textureAtlas, 2.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PLAYER_PUSHING_RIGHT, textureAtlas, 2.75f, Animation.PlayMode.LOOP);
 
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_UP_1Q, textureAtlas, 4f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_DOWN_1Q, textureAtlas, 4f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_LEFT_1Q, textureAtlas, 4f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_RIGHT_1Q, textureAtlas, 4f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_UP_2Q, textureAtlas, 3f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_DOWN_2Q, textureAtlas, 3f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_LEFT_2Q, textureAtlas, 3f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_RIGHT_2Q, textureAtlas, 3f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_UP_3Q, textureAtlas, 2f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_DOWN_3Q, textureAtlas, 2f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_LEFT_3Q, textureAtlas, 2f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PLAYER_MOVING_RIGHT_3Q, textureAtlas, 2f, Animation.PlayMode.LOOP);
+
         animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
         velocityComponent.setDirection(Direction.DOWN);
 
@@ -61,6 +101,14 @@ public class Player extends Entity {
                 (CollisionUtil.ENTITY),
                 (byte)(CollisionUtil.ENTITY | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.DynamicBody));
+    }
+
+    public PlayerDepth getDepth() {
+        return depth;
+    }
+
+    public void setDepth(PlayerDepth depth) {
+        this.depth = depth;
     }
 
     @Override

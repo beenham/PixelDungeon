@@ -42,6 +42,10 @@ public class Trap extends Entity {
         return timer;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public void setTimer(float timer) {
         this.timer = timer;
     }
