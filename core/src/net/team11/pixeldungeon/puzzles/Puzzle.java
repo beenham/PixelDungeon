@@ -22,8 +22,10 @@ public class Puzzle {
 
     protected PuzzleController puzzleController;
     protected HashMap<Integer, PuzzleComponent> puzzleComponents = new HashMap<>();
-    protected List<Entity> targetEntities = new ArrayList<>();
-    private List<String> targets = new ArrayList<>();
+    protected List<Entity> onCompleteEntities = new ArrayList<>();
+    protected List<Entity> onFailEntities = new ArrayList<>();
+    private List<String> completeTargets = new ArrayList<>();
+    private List<String> failTargets = new ArrayList<>();
 
     protected Puzzle(String name) {
         this.name = name;
@@ -53,32 +55,52 @@ public class Puzzle {
         this.puzzleController = controller;
     }
 
-    public void setTargets() {
-        targetEntities.addAll(puzzleController.getTargetEntities());
-    }
-
-    public void setTargets(List<String> entities) {
+    public void setCompleteTargets(List<String> entities) {
         while (!entities.isEmpty()) {
-            if (!targets.contains(entities.get(0))) {
-                targets.add(entities.remove(0));
+            if (!completeTargets.contains(entities.get(0))) {
+                completeTargets.add(entities.remove(0));
             } else {
                 entities.remove(0);
             }
         }
     }
 
-    public List<String> getTargets() {
-        return targets;
-    }
-
-    public void setTargetEntities(List<Entity> entities) {
+    public void setOnCompleteEntities(List<Entity> entities) {
         while (!entities.isEmpty()) {
-            if (!targetEntities.contains(entities.get(0))) {
-                targetEntities.add(entities.remove(0));
+            if (!onCompleteEntities.contains(entities.get(0))) {
+                onCompleteEntities.add(entities.remove(0));
             } else {
                 entities.remove(0);
             }
         }
+    }
+
+    public void setFailTargets(List<String> entities) {
+        while (!entities.isEmpty()) {
+            if (!failTargets.contains(entities.get(0))) {
+                failTargets.add(entities.remove(0));
+            } else {
+                entities.remove(0);
+            }
+        }
+    }
+
+    public void setOnFailEntities(List<Entity> entities) {
+        while (!entities.isEmpty()) {
+            if (!onFailEntities.contains(entities.get(0))) {
+                onFailEntities.add(entities.remove(0));
+            } else {
+                entities.remove(0);
+            }
+        }
+    }
+
+    public List<String> getCompleteTargets() {
+        return completeTargets;
+    }
+
+    public List<String> getFailTargets() {
+        return failTargets;
     }
 
     public String getName() {
@@ -91,6 +113,11 @@ public class Puzzle {
 
     public void setTimer(float timer) {
         this.timer = timer;
+        //System.out.println("Time: " + timer);
+    }
+
+    protected void resetTimer() {
+        timer = timerReset;
     }
 
     public void deactivate() {
@@ -98,6 +125,10 @@ public class Puzzle {
     }
 
     public void update(float delta) {
+
+    }
+
+    public void notifyPressed(PuzzleComponent puzzleComponent) {
 
     }
 

@@ -37,6 +37,7 @@ public class PuzzleController extends PuzzleComponent {
         animationComponent.addAnimation(AssetName.PUZZLECONTROLLER_ACTIVATED, atlas,1f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PUZZLECONTROLLER_COMPLETED, atlas,1f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PUZZLECONTROLLER_DEACTIVATED, atlas,1f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.PUZZLECONTROLLER_WAITING, atlas,1f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AssetName.PUZZLECONTROLLER_DEACTIVATED);
     }
 

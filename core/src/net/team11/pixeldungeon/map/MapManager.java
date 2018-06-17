@@ -90,7 +90,7 @@ public class MapManager {
             }
         }
         for (Puzzle puzzle : engine.getPuzzles()) {
-            puzzle.setTargets();
+            TiledObjectUtil.parseTargets(engine,puzzle);
         }
     }
 

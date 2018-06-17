@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PuzzleSystem extends EntitySystem {
-    List<Puzzle> puzzles = new ArrayList<>();
+    private List<Puzzle> puzzles = new ArrayList<>();
 
     @Override
     public void init(EntityEngine entityEngine) {
@@ -20,9 +20,7 @@ public class PuzzleSystem extends EntitySystem {
         for (Puzzle puzzle : puzzles) {
             if (puzzle.isActivated()) {
                 puzzle.setTimer(puzzle.getTimer() - delta);
-
                 puzzle.update(delta);
-
                 if (puzzle.getTimer() <= 0) {
                     puzzle.deactivate();
                 }

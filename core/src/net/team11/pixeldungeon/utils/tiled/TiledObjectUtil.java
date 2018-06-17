@@ -33,6 +33,7 @@ import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
+import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
@@ -61,8 +62,9 @@ public class TiledObjectUtil {
                 //  If the entity has any targets to 'trigger'
                 List<String> targets = new ArrayList<>();
                 if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET)) {
-                    targets = parseTargets(mapObject);
+                    targets = parseTargets(mapObject, TiledMapProperties.TARGET);
                 }
+
                 boolean trigger = false;
                 if (mapObject.getProperties().containsKey(TiledMapProperties.TRIGGER)) {
                     trigger = (boolean) mapObject.getProperties().get(TiledMapProperties.TRIGGER);
@@ -186,8 +188,6 @@ public class TiledObjectUtil {
 
                         PuzzleController pController = new PuzzleController(
                                 rectObject.getRectangle(),mapObject.getName());
-                        pController.setTargets(targets);
-                        pController.setTrigger(true);
                         pController.setParentPuzzle(engine.getPuzzle(puzzleName));
                         engine.addEntity(pController);
                         break;
@@ -332,6 +332,17 @@ public class TiledObjectUtil {
                     continue;
                 }
                 String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
+
+                //  If the entity has any targets to 'trigger'
+                List<String> completeTargets = new ArrayList<>();
+                List<String> failTargets = new ArrayList<>();
+                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_COMPLETE)) {
+                    completeTargets = parseTargets(mapObject, TiledMapProperties.TARGET_COMPLETE);
+                }
+                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_FAIL)) {
+                    failTargets = parseTargets(mapObject, TiledMapProperties.TARGET_FAIL);
+                }
+
                 //  Retrieves the type of entity specified in the tiled map
                 switch (type) {
                     case TiledMapPuzzleNames.SIMON_SAYS:
@@ -342,6 +353,8 @@ public class TiledObjectUtil {
                             float numStages = (float) mapObject.getProperties().get(TiledMapProperties.STAGES);
 
                             SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
+                            simonSays.setCompleteTargets(completeTargets);
+                            simonSays.setFailTargets(failTargets);
                             engine.addPuzzle(simonSays);
                         } catch (Exception e) {
                             //e.printStackTrace();
@@ -378,8 +391,8 @@ public class TiledObjectUtil {
      * @param mapObject Object to retrieve targets
      * @return List of String of target names
      */
-    public static ArrayList<String> parseTargets(MapObject mapObject) {
-        String targetString = (String)mapObject.getProperties().get(TiledMapProperties.TARGET);
+    public static ArrayList<String> parseTargets(MapObject mapObject, String property) {
+        String targetString = (String)mapObject.getProperties().get(property);
         List<String> parsedTargets = Arrays.asList(targetString.split(","));
         return new ArrayList<>(parsedTargets);
     }
@@ -399,5 +412,32 @@ public class TiledObjectUtil {
             }
         }
         currEntity.setTargetEntities(targetEntities);
+    }
+
+    /**
+     * Used to add the target entities into the current entity.
+     * @param engine Engine to go through all entities
+     * @param puzzle Current entity
+     */
+    public static void parseTargets(EntityEngine engine, Puzzle puzzle) {
+        List<Entity> completeEntities = new ArrayList<>();
+        for (String target : puzzle.getCompleteTargets()) {
+            for (Entity entity : engine.getEntities()) {
+                if (entity.getName().equals(target)) {
+                    completeEntities.add(entity);
+                }
+            }
+        }
+        puzzle.setOnCompleteEntities(completeEntities);
+
+        List<Entity> failEntities = new ArrayList<>();
+        for (String target : puzzle.getFailTargets()) {
+            for (Entity entity : engine.getEntities()) {
+                if (entity.getName().equals(target)) {
+                    failEntities.add(entity);
+                }
+            }
+        }
+        puzzle.setOnFailEntities(failEntities);
     }
 }

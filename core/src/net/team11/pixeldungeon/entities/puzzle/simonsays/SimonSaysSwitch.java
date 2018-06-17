@@ -40,6 +40,9 @@ public class SimonSaysSwitch extends PuzzleComponent {
         TextureAtlas atlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.SS_SWITCH_ON, atlas,1f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.SS_SWITCH_OFF, atlas,1f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.SS_SWITCH_IDLE, atlas,1f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.SS_SWITCH_WAITING, atlas,1f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.SS_SWITCH_FAILED, atlas,1f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AssetName.SS_SWITCH_OFF);
     }
 
@@ -57,7 +60,7 @@ public class SimonSaysSwitch extends PuzzleComponent {
             if (on) {
                 timer = 1;
                 on = false;
-                getComponent(AnimationComponent.class).setAnimation(AssetName.SS_SWITCH_OFF);
+                getComponent(AnimationComponent.class).setAnimation(AssetName.SS_SWITCH_IDLE);
             } else {
                 on = true;
                 getComponent(AnimationComponent.class).setAnimation(AssetName.SS_SWITCH_ON);

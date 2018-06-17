@@ -130,13 +130,6 @@ leverDeactivating
   orig: 10, 21
   offset: 0, 0
   index: 2
-leverDeactivating
-  rotate: false
-  xy: 478, 2
-  size: 10, 21
-  orig: 10, 21
-  offset: 0, 0
-  index: 0
 leverActivating
   rotate: false
   xy: 478, 2
@@ -144,6 +137,13 @@ leverActivating
   orig: 10, 21
   offset: 0, 0
   index: 2
+leverDeactivating
+  rotate: false
+  xy: 478, 2
+  size: 10, 21
+  orig: 10, 21
+  offset: 0, 0
+  index: 0
 leverDeactivating
   rotate: false
   xy: 2, 35
@@ -256,14 +256,28 @@ lockedDoorOpening
   orig: 26, 20
   offset: 0, 0
   index: 10
-mechanicDoorClosed
+lockedDoorOpening
   rotate: false
   xy: 394, 35
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 0
-mechanicDoorClosing
+  index: 11
+buttonDoorOpening
+  rotate: false
+  xy: 394, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 9
+mechanicDoorOpening
+  rotate: false
+  xy: 394, 35
+  size: 26, 20
+  orig: 26, 20
+  offset: 0, 0
+  index: 8
+mechanicDoorClosed
   rotate: false
   xy: 422, 35
   size: 26, 20
@@ -276,133 +290,119 @@ mechanicDoorClosing
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 1
+  index: 0
 mechanicDoorClosing
   rotate: false
   xy: 478, 35
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 2
+  index: 1
 mechanicDoorClosing
   rotate: false
   xy: 2, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 3
+  index: 2
 mechanicDoorClosing
   rotate: false
   xy: 30, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 4
+  index: 3
 mechanicDoorClosing
   rotate: false
   xy: 58, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 5
+  index: 4
 mechanicDoorClosing
   rotate: false
   xy: 86, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 6
+  index: 5
 mechanicDoorClosing
   rotate: false
   xy: 114, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 7
+  index: 6
 mechanicDoorClosing
   rotate: false
   xy: 142, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 8
-mechanicDoorOpening
+  index: 7
+mechanicDoorClosing
   rotate: false
   xy: 170, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 0
+  index: 8
 mechanicDoorOpening
   rotate: false
   xy: 198, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 1
+  index: 0
 mechanicDoorOpening
   rotate: false
   xy: 226, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 2
+  index: 1
 mechanicDoorOpening
   rotate: false
   xy: 254, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 3
+  index: 2
 mechanicDoorOpening
   rotate: false
   xy: 282, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 4
+  index: 3
 mechanicDoorOpening
   rotate: false
   xy: 310, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 5
+  index: 4
 mechanicDoorOpening
   rotate: false
   xy: 338, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 6
+  index: 5
 mechanicDoorOpening
   rotate: false
   xy: 366, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 7
+  index: 6
 mechanicDoorOpening
   rotate: false
   xy: 394, 68
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
-  index: 8
-buttonDoorOpening
-  rotate: false
-  xy: 394, 68
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 9
-lockedDoorOpening
-  rotate: false
-  xy: 394, 68
-  size: 26, 20
-  orig: 26, 20
-  offset: 0, 0
-  index: 11
+  index: 7
 pillar
   rotate: false
   xy: 422, 68
@@ -445,79 +445,107 @@ puzzleControllerDeactivated
   orig: 15, 20
   offset: 0, 0
   index: 0
-simonSaysSwitchOff
+puzzleControllerWaiting
   rotate: false
   xy: 86, 101
-  size: 8, 14
-  orig: 8, 14
+  size: 15, 20
+  orig: 15, 20
   offset: 0, 0
   index: 0
-simonSaysSwitchOn
+simonSaysSwitchFailed
   rotate: false
   xy: 114, 101
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: 0
-torchIdle
+simonSaysSwitchIdle
   rotate: false
   xy: 142, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 8, 14
+  orig: 8, 14
   offset: 0, 0
   index: 0
-torchLit
+simonSaysSwitchOff
   rotate: false
   xy: 170, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 8, 14
+  orig: 8, 14
   offset: 0, 0
   index: 0
-torchLit
+simonSaysSwitchOn
   rotate: false
   xy: 198, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 8, 14
+  orig: 8, 14
   offset: 0, 0
-  index: 1
-torchLit
+  index: 0
+simonSaysSwitchWaiting
   rotate: false
   xy: 226, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 8, 14
+  orig: 8, 14
   offset: 0, 0
-  index: 2
-torchLit
+  index: 0
+torchIdle
   rotate: false
   xy: 254, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 3
+  index: 0
 torchLit
   rotate: false
   xy: 282, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 4
+  index: 0
 torchLit
   rotate: false
   xy: 310, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 5
+  index: 1
 torchLit
   rotate: false
   xy: 338, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 6
+  index: 2
 torchLit
   rotate: false
   xy: 366, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 3
+torchLit
+  rotate: false
+  xy: 394, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 4
+torchLit
+  rotate: false
+  xy: 422, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 5
+torchLit
+  rotate: false
+  xy: 450, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 6
+torchLit
+  rotate: false
+  xy: 478, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
