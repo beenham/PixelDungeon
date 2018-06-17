@@ -22,6 +22,8 @@ import net.team11.pixeldungeon.entities.door.ButtonDoor;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
+import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
+import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
 import net.team11.pixeldungeon.entities.traps.Quicksand;
 import net.team11.pixeldungeon.entitysystem.Entity;
@@ -179,6 +181,26 @@ public class TiledObjectUtil {
                         engine.addEntity(new Pillar(rectObject.getRectangle(), rectObject.getName()));
                         break;
 
+                    case TiledMapObjectNames.PUZZLE_CONTROLLER:
+                        String puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+
+                        PuzzleController pController = new PuzzleController(
+                                rectObject.getRectangle(),mapObject.getName());
+                        pController.setTargets(targets);
+                        pController.setTrigger(true);
+                        pController.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        engine.addEntity(pController);
+                        break;
+
+                    case TiledMapObjectNames.PUZZLE_SS_SWITCH:
+                        puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+
+                        SimonSaysSwitch saysSwitch = new SimonSaysSwitch(
+                                rectObject.getRectangle(),mapObject.getName());
+                        saysSwitch.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        engine.addEntity(saysSwitch);
+                        break;
+
                     case TiledMapObjectNames.LEVER:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.TARGET)){
                             Lever lever = new Lever(rectObject.getRectangle(), rectObject.getName());
@@ -278,6 +300,9 @@ public class TiledObjectUtil {
             } else {
                 continue;
             }
+            if (mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
+                continue;
+            }
 
             Body body;
             BodyDef bdef = new BodyDef();
@@ -300,28 +325,27 @@ public class TiledObjectUtil {
         }
     }
 
-
     public static void parseTiledPuzzleLayer (EntityEngine engine, MapObjects mapObjects) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
-                //  What is used to get the information from the entity objects on the map
-                PolylineMapObject polyObject = new PolylineMapObject();
-                if (mapObject instanceof PolylineMapObject) {
-                    polyObject = (PolylineMapObject) mapObject;
+                if (!mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
+                    continue;
                 }
-
-                //  Retrieves the type of entity specified in the tiled map
                 String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
+                //  Retrieves the type of entity specified in the tiled map
                 switch (type) {
                     case TiledMapPuzzleNames.SIMON_SAYS:
-                        String name = mapObject.getName();
-                        float difficulty = (float) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
-                        float maxAttempts = (float) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
-                        float numStages = (float) mapObject.getProperties().get(TiledMapProperties.STAGES);
+                        try {
+                            String name = mapObject.getName();
+                            float difficulty = (float) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
+                            float maxAttempts = (float) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                            float numStages = (float) mapObject.getProperties().get(TiledMapProperties.STAGES);
 
-
-
-                        SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
+                            SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
+                            engine.addPuzzle(simonSays);
+                        } catch (Exception e) {
+                            //e.printStackTrace();
+                        }
                         break;
                 }
             }

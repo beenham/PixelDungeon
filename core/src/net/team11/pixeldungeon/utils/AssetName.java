@@ -81,12 +81,15 @@ public class AssetName {
 
     public static final String PILLAR = "pillar";
 
-    public static final String PUZZLECONTROLLER_DEACTIVATED = "puzzleControllerDectivated";
+    public static final String PUZZLECONTROLLER_DEACTIVATED = "puzzleControllerDeactivated";
     public static final String PUZZLECONTROLLER_ACTIVATED = "puzzleControllerActivated";
     public static final String PUZZLECONTROLLER_COMPLETED = "puzzleControllerCompleted";
 
     public static final String PRESSUREPLATE_UP = "pressurePlateUp";
     public static final String PRESSUREPLATE_DOWN = "pressurePlateDown";
+
+    public static final String SS_SWITCH_ON = "simonSaysSwitchOn";
+    public static final String SS_SWITCH_OFF = "simonSaysSwitchOff";
 
     public static final String TORCH_OFF = "torchIdle";
     public static final String TORCH_ON = "torchLit";

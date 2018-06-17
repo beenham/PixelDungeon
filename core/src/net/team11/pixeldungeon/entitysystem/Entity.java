@@ -75,6 +75,10 @@ public class Entity {
         return targets;
     }
 
+    public List<Entity> getTargetEntities() {
+        return targetEntities;
+    }
+
     public void setTargetEntities(List<Entity> entities) {
         while (!entities.isEmpty()) {
             if (!targetEntities.contains(entities.get(0))) {

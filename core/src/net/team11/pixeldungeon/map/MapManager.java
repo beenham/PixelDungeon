@@ -6,9 +6,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
 
 import java.util.ArrayList;
@@ -75,6 +77,7 @@ public class MapManager {
         currentMap.setLoaded(true);
         System.out.println("Loading new entities in : " + currentMap.getMapName());
 
+        TiledObjectUtil.parseTiledPuzzleLayer(engine, currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
@@ -85,6 +88,9 @@ public class MapManager {
             if (entity.hasTrigger()) {
                 TiledObjectUtil.parseTargets(engine, entity);
             }
+        }
+        for (Puzzle puzzle : engine.getPuzzles()) {
+            puzzle.setTargets();
         }
     }
 

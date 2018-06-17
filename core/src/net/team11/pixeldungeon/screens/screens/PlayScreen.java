@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.entity.system.CameraSystem;
 import net.team11.pixeldungeon.entity.system.HealthSystem;
 import net.team11.pixeldungeon.entity.system.InteractionSystem;
 import net.team11.pixeldungeon.entity.system.PlayerMovementSystem;
+import net.team11.pixeldungeon.entity.system.PuzzleSystem;
 import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.entity.system.TrapSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
@@ -102,6 +103,7 @@ public class PlayScreen extends AbstractScreen {
         engine.addSystem(new HealthSystem());
         engine.addSystem(new InteractionSystem());
         engine.addSystem(new TrapSystem());
+        engine.addSystem(new PuzzleSystem());
 
         mapManager.setEngine(engine);
     }

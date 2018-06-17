@@ -130,23 +130,16 @@ leverDeactivating
   orig: 10, 21
   offset: 0, 0
   index: 2
-leverActivating
-  rotate: false
-  xy: 478, 2
-  size: 10, 21
-  orig: 10, 21
-  offset: 0, 0
-  index: 1
 leverDeactivating
   rotate: false
   xy: 478, 2
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
-  index: 1
+  index: 0
 leverActivating
   rotate: false
-  xy: 2, 35
+  xy: 478, 2
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
@@ -157,7 +150,14 @@ leverDeactivating
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
-  index: 0
+  index: 1
+leverActivating
+  rotate: false
+  xy: 2, 35
+  size: 10, 21
+  orig: 10, 21
+  offset: 0, 0
+  index: 1
 leverLeft
   rotate: false
   xy: 30, 35
@@ -438,72 +438,86 @@ puzzleControllerCompleted
   orig: 15, 20
   offset: 0, 0
   index: 0
-puzzleControllerDeactivaed
+puzzleControllerDeactivated
   rotate: false
   xy: 58, 101
   size: 15, 20
   orig: 15, 20
   offset: 0, 0
   index: 0
-torchIdle
+simonSaysSwitchOff
   rotate: false
   xy: 86, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 8, 14
+  orig: 8, 14
   offset: 0, 0
   index: 0
-torchLit
+simonSaysSwitchOn
   rotate: false
   xy: 114, 101
-  size: 8, 21
-  orig: 8, 21
+  size: 8, 14
+  orig: 8, 14
   offset: 0, 0
   index: 0
-torchLit
+torchIdle
   rotate: false
   xy: 142, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 1
+  index: 0
 torchLit
   rotate: false
   xy: 170, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 2
+  index: 0
 torchLit
   rotate: false
   xy: 198, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 3
+  index: 1
 torchLit
   rotate: false
   xy: 226, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 4
+  index: 2
 torchLit
   rotate: false
   xy: 254, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 5
+  index: 3
 torchLit
   rotate: false
   xy: 282, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
-  index: 6
+  index: 4
 torchLit
   rotate: false
   xy: 310, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 5
+torchLit
+  rotate: false
+  xy: 338, 101
+  size: 8, 21
+  orig: 8, 21
+  offset: 0, 0
+  index: 6
+torchLit
+  rotate: false
+  xy: 366, 101
   size: 8, 21
   orig: 8, 21
   offset: 0, 0

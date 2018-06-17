@@ -5,6 +5,7 @@ import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entitysystem.Entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,9 +17,11 @@ public class Puzzle {
     protected boolean activated;
     protected float attempts;
     protected float maxAttempts;
+    protected float timer;
+    protected float timerReset;
 
     protected PuzzleController puzzleController;
-    protected List<PuzzleComponent> puzzleComponents = new ArrayList<>();
+    protected HashMap<Integer, PuzzleComponent> puzzleComponents = new HashMap<>();
     protected List<Entity> targetEntities = new ArrayList<>();
     private List<String> targets = new ArrayList<>();
 
@@ -32,7 +35,7 @@ public class Puzzle {
         init();
     }
 
-    private void init() {}
+    protected void init() {}
 
     public boolean isActivated() {
         return this.activated;
@@ -43,11 +46,15 @@ public class Puzzle {
     }
 
     public void addComponent(PuzzleComponent puzzleComponent) {
-        puzzleComponents.add(puzzleComponent);
+        puzzleComponents.put(puzzleComponents.size(),puzzleComponent);
     }
 
     public void setController(PuzzleController controller) {
         this.puzzleController = controller;
+    }
+
+    public void setTargets() {
+        targetEntities.addAll(puzzleController.getTargetEntities());
     }
 
     public void setTargets(List<String> entities) {
@@ -76,6 +83,22 @@ public class Puzzle {
 
     public String getName() {
         return name;
+    }
+
+    public float getTimer() {
+        return timer;
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
+
+    public void deactivate() {
+        activated = false;
+    }
+
+    public void update(float delta) {
+
     }
 
     @Override

@@ -8,9 +8,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
+import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+
+import java.util.List;
 
 public class PuzzleController extends PuzzleComponent {
     public PuzzleController(Rectangle bounds, String name) {
@@ -37,9 +41,33 @@ public class PuzzleController extends PuzzleComponent {
     }
 
     @Override
+    public void setParentPuzzle(Puzzle parentPuzzle) {
+        this.parentPuzzle = parentPuzzle;
+        parentPuzzle.setController(this);
+    }
+
+    @Override
     public void doInteraction() {
         if (!parentPuzzle.isActivated() && !parentPuzzle.isCompleted()) {
             parentPuzzle.activate();
+        }
+    }
+
+    @Override
+    public void setTargets(List<String> entities) {
+        super.setTargets(entities);
+        System.out.println("PUZZLE CONTROLLER");
+        for (String entity : entities) {
+            System.out.println(entity);
+        }
+    }
+
+    @Override
+    public void setTargetEntities(List<Entity> entities) {
+        super.setTargetEntities(entities);
+        System.out.println("PUZZLE CONTROLLER");
+        for (Entity entity : entities) {
+            System.out.println(entity);
         }
     }
 }

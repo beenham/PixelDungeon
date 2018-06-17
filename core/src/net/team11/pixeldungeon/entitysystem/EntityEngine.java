@@ -50,13 +50,17 @@ public class EntityEngine {
         updateSystems();
     }
 
-    public final Puzzle getPuzzles(String name, Class<? extends Puzzle> puzzleType) {
+    public final Puzzle getPuzzle(String name) {
         for (Puzzle puzzle : puzzles) {
-            if (puzzle.getClass().equals(puzzleType) && puzzle.getName().equals(name)) {
+            if (puzzle.getName().equals(name)) {
                 return puzzle;
             }
         }
         return null;
+    }
+
+    public final List<Puzzle> getPuzzles() {
+        return puzzles;
     }
 
     public List<Entity> getEntities(Class<? extends EntityComponent> componentType) {
