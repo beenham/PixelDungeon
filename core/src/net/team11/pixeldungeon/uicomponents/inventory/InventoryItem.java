@@ -35,8 +35,10 @@ public class InventoryItem extends Stack {
 
         Table numberTable = new Table();
         numberTable.bottom().right();
-        Label numberLabel = new Label(String.format(Locale.UK,"%d",item.getAmount()),
-                new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label numberLabel = new Label("",Assets.getInstance().getSkin(Assets.UI_SKIN));
+        if (item.getAmount() > 1) {
+            numberLabel.setText(String.format(Locale.UK,"%d",item.getAmount()));
+        }
         numberLabel.setFontScale(0.75f * PixelDungeon.SCALAR);
 
         if (item.getAmount() > 0){

@@ -136,13 +136,11 @@ public class BodyComponent implements EntityComponent {
         body.setLinearVelocity(0,0);
 
         ArrayList<Float> vertices = new ArrayList<>();
-        System.out.println("BODY : " + shape.getVertexCount());
         for (int i = 0 ; i < shape.getVertexCount() ; i++) {
             Vector2 vector2 = new Vector2();
             shape.getVertex(i, vector2);
             vertices.add(vector2.x);
             vertices.add(vector2.y);
-            System.out.println("BODY : " + vector2.x + "," + vector2.y);
         }
         float[] vertices2 = new float[vertices.size()];
         for (int i = 0 ; i < vertices.size() ; i++) {

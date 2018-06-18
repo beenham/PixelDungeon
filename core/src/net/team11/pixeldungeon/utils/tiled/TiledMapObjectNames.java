@@ -14,6 +14,7 @@ public class TiledMapObjectNames {
     public static final String PRESSURE = "pressurePlate";
     public static final String PUZZLE_CONTROLLER = "puzzleController";
     public static final String PUZZLE_SS_SWITCH = "simonSaysSwitch";
+    public static final String GEM_PILLAR = "gemPillar";
 
     /////   ITEM NAMES      /////
     public static final String COIN = "coin";

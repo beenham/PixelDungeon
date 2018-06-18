@@ -22,22 +22,18 @@ import net.team11.pixeldungeon.entity.system.TrapSystem;
 import net.team11.pixeldungeon.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.screens.AbstractScreen;
-import net.team11.pixeldungeon.uicomponents.PauseMenu;
-import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
+import net.team11.pixeldungeon.uicomponents.UIManager;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
-import net.team11.pixeldungeon.uicomponents.Hud;
 import net.team11.pixeldungeon.map.MapManager;
 
 import box2dLight.RayHandler;
 
-
 public class PlayScreen extends AbstractScreen {
     public static RayHandler rayHandler;
-    private Hud hud;
-    private InventoryUI inventoryUI;
-    private PauseMenu pauseMenu;
+    public static UIManager uiManager;
+
     private MapManager mapManager;
     private String levelName;
 
@@ -60,15 +56,14 @@ public class PlayScreen extends AbstractScreen {
     @Override
     public void buildStage() {
         StatsUtil.getInstance().initialiseCurrStats();
-        this.hud = new Hud(game.batch);
         setupCamera();
         setupViewport();
         setupEngine();
         setupLight();
         setupPlayer(levelName);
-        playerMovementSystem.setHud(hud);
-        playerMovementSystem.setInventoryUI(inventoryUI = new InventoryUI(player, game.batch));
-        pauseMenu = new PauseMenu(game.batch, engine);
+        uiManager = new UIManager(game.batch,engine,player);
+        playerMovementSystem.setUIManager(uiManager);
+
         mapManager.loadMap(levelName);
         engine.resume();
     }
@@ -133,14 +128,6 @@ public class PlayScreen extends AbstractScreen {
         if (!paused) {
             playerMovementSystem.update(deltaTime);
         }
-        if (inventoryUI.isBackPressed()) {
-            inventoryUI.setVisible(false);
-            hud.setVisible(true);
-        } else if (pauseMenu.isResumePressed()) {
-            resume();
-            pauseMenu.setVisible(false);
-            hud.setVisible(true);
-        }
     }
 
     public void update(float deltaTime) {
@@ -150,10 +137,7 @@ public class PlayScreen extends AbstractScreen {
         rayHandler.setCombinedMatrix(gameCam);
         game.batch.setProjectionMatrix(gameCam.combined);
         world.step(1 / 60f, 6, 2);
-        if (!paused) {
-            hud.update(deltaTime);
-            inventoryUI.update();
-        }
+        uiManager.update(deltaTime,paused);
     }
 
     @Override
@@ -169,34 +153,25 @@ public class PlayScreen extends AbstractScreen {
             rayHandler.setAmbientLight(ambientLight);
         }
         rayHandler.render();
-
-        if (hud.isVisible()) {
-            hud.draw();
-        }
-        if (inventoryUI.isVisible()) {
-            inventoryUI.draw();
-        }
-        if (pauseMenu.isVisible()) {
-            pauseMenu.draw();
-        }
+        uiManager.draw();
     }
 
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
-        hud.resize(width, height);
+        uiManager.getHud().resize(width,height);
     }
 
     @Override
     public void pause() {
         paused = true;
-        pauseMenu.setVisible(true);
+        uiManager.showPauseMenu(false);
         engine.pause();
     }
 
     @Override
     public void resume() {
-        if (paused && pauseMenu.isResumePressed()) {
+        if (paused && uiManager.getPauseMenu().isResumePressed()) {
             paused = false;
             engine.resume();
         }
@@ -212,16 +187,11 @@ public class PlayScreen extends AbstractScreen {
         b2dr.dispose();
         world.dispose();
         rayHandler.dispose();
-        hud.dispose();
-        inventoryUI.dispose();
+        uiManager.dispose();
     }
 
     @Override
     public InputProcessor getInputProcessor() {
-        if (hud.isVisible()) {
-            return hud;
-        } else {
-            return inventoryUI;
-        }
+        return uiManager.getHud();
     }
 }

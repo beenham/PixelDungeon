@@ -38,15 +38,12 @@ public class InventoryComponent implements EntityComponent {
     }
 
     public void removeItem(Item item){
-//        System.out.println("Item is : " + item);
-//        System.out.println("List of items: " +items);
         for (Item myItem : items){
             System.out.println("Comparing " + item.toString() + " and " + myItem.toString());
             if (myItem.getClass().equals(item.getClass()) && myItem.getName().equals(item.getName())) {
-//                System.out.println("Match " + item.getName() + " and " + listItems);
+                System.out.println("Match " + item + " and " + myItem);
                 items.remove(myItem);
                 break;
-//                System.out.println("List of Items: " + items);
             }
         }
     }

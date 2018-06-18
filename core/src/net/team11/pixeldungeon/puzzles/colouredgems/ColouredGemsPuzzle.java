@@ -40,7 +40,7 @@ public class ColouredGemsPuzzle extends Puzzle {
         colours.add(Colour.GREEN);
         while (gems.size() < numGems) {
             int rand = new Random().nextInt(colours.size());
-            gems.put(gems.size(),new ColouredGem("Gem",colours.remove(rand)));
+            gems.put(gems.size(),new ColouredGem(colours.get(rand) + " Gem",colours.remove(rand)));
         }
 
         hints = new ColouredGemsHints(gems);

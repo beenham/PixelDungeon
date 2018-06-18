@@ -81,6 +81,14 @@ public class AssetName {
     public static final String MECHANICDOOR_OPENING = "mechanicDoorOpening";
     public static final String MECHANICDOOR_CLOSING = "mechanicDoorClosing";
 
+    public static final String GEMPILLAR_EMPTY = "gemPillarEmpty";
+    public static final String GEMPILLAR_BLUE = "gemPillarBlue";
+    public static final String GEMPILLAR_PURPLE = "gemPillarPurple";
+    public static final String GEMPILLAR_RED = "gemPillarRed";
+    public static final String GEMPILLAR_GREEN = "gemPillarGreen";
+    public static final String GEMPILLAR_YELLOW = "gemPillarYellow";
+    public static final String GEMPILLAR_WHITE = "gemPillarWhite";
+
     public static final String LEVER_LEFT = "leverLeft";
     public static final String LEVER_SWITCHING_LEFT = "leverDeactivating";
     public static final String LEVER_RIGHT = "leverRight";

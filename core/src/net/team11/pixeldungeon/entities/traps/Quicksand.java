@@ -44,7 +44,6 @@ public class Quicksand extends Trap {
         System.out.println("");
         if (contactEntity instanceof Player) {
             Player player = (Player) contactEntity;
-            System.out.println("QUICKSAND : % " + timer/timerReset);
             if (timer / timerReset <= .8f) {
                 contactEntity.getComponent(VelocityComponent.class).setMovementSpeed(speedMod * 3/4);
                 player.setDepth(Player.PlayerDepth.THREE_QUART);

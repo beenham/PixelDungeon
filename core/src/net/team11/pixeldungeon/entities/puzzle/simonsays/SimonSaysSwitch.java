@@ -10,7 +10,7 @@ import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.puzzles.SimonSays;
+import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.utils.AssetName;
 import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;

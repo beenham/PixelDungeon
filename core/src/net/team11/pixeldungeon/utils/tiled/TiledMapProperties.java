@@ -7,6 +7,7 @@ public class TiledMapProperties {
     public static final String DOOR_TYPE = "doorType";
     public static final String ENABLED = "enabled";
     public static final String ENTITY_TYPE = "entity";
+    public static final String ID = "id";
     public static final String ITEM = "item";
     public static final String ITEM_NAME = "itemName";
     public static final String KEY = "key";

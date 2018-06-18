@@ -23,6 +23,7 @@ import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
+import net.team11.pixeldungeon.entities.puzzle.colouredgems.GemPillar;
 import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
 import net.team11.pixeldungeon.entities.traps.Quicksand;
@@ -34,7 +35,7 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.puzzles.SimonSays;
+import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
@@ -70,6 +71,8 @@ public class TiledObjectUtil {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.TRIGGER)) {
                     trigger = (boolean) mapObject.getProperties().get(TiledMapProperties.TRIGGER);
                 }
+
+                String puzzleName;
 
 
                 switch (type) {
@@ -170,6 +173,16 @@ public class TiledObjectUtil {
                         }
                         break;
 
+                    case TiledMapObjectNames.GEM_PILLAR:
+                        puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        int id = (int) mapObject.getProperties().get(TiledMapProperties.ID);
+
+                        GemPillar gemPillar = new GemPillar(
+                                rectObject.getRectangle(),mapObject.getName(), id);
+                        gemPillar.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        engine.addEntity(gemPillar);
+                        break;
+
                     case TiledMapObjectNames.TORCH: //  Torch entity
                         if (rectObject.getProperties().containsKey(TiledMapProperties.TORCH_ON)) {
                             boolean on = (boolean) rectObject.getProperties().get(TiledMapProperties.TORCH_ON);
@@ -185,7 +198,7 @@ public class TiledObjectUtil {
                         break;
 
                     case TiledMapObjectNames.PUZZLE_CONTROLLER:
-                        String puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
 
                         PuzzleController pController = new PuzzleController(
                                 rectObject.getRectangle(),mapObject.getName());

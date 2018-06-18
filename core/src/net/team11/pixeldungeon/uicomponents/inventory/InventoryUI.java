@@ -22,11 +22,12 @@ import net.team11.pixeldungeon.utils.Assets;
 
 public class InventoryUI extends Stage {
     private ShapeRenderer shapeRenderer;
-
+    private String title = "INVENTORY";
     private InventoryComponent inventory;
-    private boolean visible = false;
-    private boolean backPressed;
-    private Array<InventorySlot> slotArray = new Array<>(InventoryComponent.MAX_SIZE);
+
+    protected boolean visible = false;
+    protected boolean backPressed;
+    protected Array<InventorySlot> slotArray = new Array<>(InventoryComponent.MAX_SIZE);
 
     private Table inventoryTable;
 
@@ -41,7 +42,7 @@ public class InventoryUI extends Stage {
     private void setupTable() {
         inventoryTable = new Table();
 
-        Label titleLabel = new Label("INVENTORY", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label titleLabel = new Label(title, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
         inventoryTable.add(titleLabel).colspan(5).left().pad(40 * PixelDungeon.SCALAR);
         inventoryTable.row();
@@ -95,11 +96,13 @@ public class InventoryUI extends Stage {
     }
 
     public void update() {
-        for (int i = 0 ; i < InventoryComponent.MAX_SIZE ; i++) {
-            if (i < inventory.getItems().size()){
-                slotArray.get(i).setItem(inventory.getItems().get(i));
-            } else {
-                slotArray.get(i).setItem(null);
+        if (visible) {
+            for (int i = 0; i < InventoryComponent.MAX_SIZE; i++) {
+                if (i < inventory.getItems().size()) {
+                    slotArray.get(i).setItem(inventory.getItems().get(i));
+                } else {
+                    slotArray.get(i).setItem(null);
+                }
             }
         }
     }

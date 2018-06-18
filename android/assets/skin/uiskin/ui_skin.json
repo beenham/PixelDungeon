@@ -6,6 +6,9 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	PixelFont: {
 		file: PixelFont.fnt
 	}
+	PixelFont_Outlined: {
+		file: PixelFont_Outlined.fnt
+	}
 }
 com.badlogic.gdx.graphics.Color: {
 	black: {
@@ -37,6 +40,16 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		disabled: buttonDisabled
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		imageUp: Button
+		imageDown: buttonDisabled
+		imageOver: Button
+		imageChecked: buttonDisabled
+		imageCheckedOver: buttonDisabled
+		imageDisabled: buttonDisabled
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
 		font: PixelFont
@@ -45,6 +58,26 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	title: {
 		font: BulkyPixels
 		fontColor: white
+	}
+	button: {
+		font: PixelFont
+		fontColor: white
+		background: Button
+	}
+	itemCount: {
+		font: PixelFont_Outlined
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		vScroll: scrollPane
+		vScrollKnob: Button
+	}
+	background: {
+		background: scrollPane
+		vScroll: scrollPaneBar
+		vScrollKnob: Button
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {

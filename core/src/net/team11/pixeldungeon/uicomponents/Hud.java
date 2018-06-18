@@ -220,6 +220,9 @@ public class Hud extends Stage {
                     StatsUtil.getInstance().getTimer() / 60,
                     StatsUtil.getInstance().getTimer() % 60));
         }
+        if (interactPressed) {
+            interactPressed = false;
+        }
     }
 
     public boolean isVisible() {
