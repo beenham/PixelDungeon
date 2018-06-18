@@ -23,6 +23,13 @@ public class AssetName {
     /////   ITEM SPRITE NAMES       /////
     public static final String COIN = "coin";
     public static final String SMALL_KEY = "smallKey";
+    public static final String END_KEY = "endKey";
+    public static final String BLUE_GEM = "blueGem";
+    public static final String PURPLE_GEM = "purpleGem";
+    public static final String WHITE_GEM = "whiteGem";
+    public static final String RED_GEM = "redGem";
+    public static final String YELLOW_GEM = "yellowGem";
+    public static final String GREEN_GEM = "greenGem";
 
 
     /////   PLAYER_INFO SPRITE NAMES     /////

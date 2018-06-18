@@ -34,7 +34,8 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
+import net.team11.pixeldungeon.puzzles.SimonSays;
+import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
@@ -359,6 +360,20 @@ public class TiledObjectUtil {
                         } catch (Exception e) {
                             //e.printStackTrace();
                         }
+                        break;
+                    case TiledMapPuzzleNames.COLOUR_GEMS:
+                        String name = mapObject.getName();
+                        float maxAttempts = (float) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                        int numGems = (int) mapObject.getProperties().get(TiledMapProperties.NUM_GEMS);
+
+                        ArrayList<String> chests;
+                        chests = parseTargets(mapObject, TiledMapProperties.CHESTS);
+
+                        ColouredGemsPuzzle colourGems = new ColouredGemsPuzzle(name, numGems, maxAttempts);
+                        colourGems.setCompleteTargets(completeTargets);
+                        colourGems.setFailTargets(failTargets);
+                        colourGems.setChests(chests);
+                        engine.addPuzzle(colourGems);
                         break;
                 }
             }

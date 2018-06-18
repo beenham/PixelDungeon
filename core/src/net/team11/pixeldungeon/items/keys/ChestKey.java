@@ -7,7 +7,7 @@ import net.team11.pixeldungeon.utils.Assets;
 
 public class ChestKey extends Key {
     public ChestKey(String name) {
-        super(name, Type.CHEST_KEY);
+        super(name);
         amount = 1;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
                 .findRegion(AssetName.SMALL_KEY));

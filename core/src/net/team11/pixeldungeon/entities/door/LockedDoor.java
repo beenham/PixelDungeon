@@ -17,18 +17,10 @@ public class LockedDoor extends Door {
     }
 
     public void doInteraction(Player player){
-        //System.out.println("ATTEMPTING UNLOCK");
         if (!player.getComponent(InventoryComponent.class).getItems().isEmpty()) {
-//            System.out.println("--KeyID--> " + doorKey.getName()+" --");
-//            System.out.println(player.getComponent(InventoryComponent.class).hasItem(doorKey.getName(), Key.class));
             if (player.getComponent(InventoryComponent.class).hasItem(doorKey)){
                 setOpened(true);
-//                System.out.println("Attempting Remove");
                 player.getComponent(InventoryComponent.class).removeItem(doorKey);
-//                GhostItem ghostItem = new GhostItem("");
-//                System.out.println("Ghost add: " + player.getComponent(InventoryComponent.class).addItem(ghostItem));
-                //System.out.println("Ghost remove: " + player.getComponent(InventoryComponent.class).removeItem(ghostItem));
-
             }
         }
 

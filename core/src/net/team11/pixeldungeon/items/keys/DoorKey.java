@@ -7,7 +7,7 @@ import net.team11.pixeldungeon.utils.Assets;
 
 public class DoorKey extends Key{
     public DoorKey(String name) {
-        super(name, Type.DOOR_KEY);
+        super(name);
         amount = 1;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
                 .findRegion(AssetName.SMALL_KEY));

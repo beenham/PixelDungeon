@@ -7,9 +7,9 @@ import net.team11.pixeldungeon.utils.Assets;
 
 public class EndKey extends Key {
     public EndKey(String name) {
-        super(name, Type.END_KEY);
+        super(name);
         amount = 1;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
-                .findRegion(AssetName.SMALL_KEY));
+                .findRegion(AssetName.END_KEY));
     }
 }

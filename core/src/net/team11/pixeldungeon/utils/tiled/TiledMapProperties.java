@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.utils.tiled;
 public class TiledMapProperties {
     public static final String AMOUNT = "amount";
     public static final String BOX_PUSHABLE = "pushable";
+    public static final String CHESTS = "chests";
     public static final String DOOR_TYPE = "doorType";
     public static final String ENABLED = "enabled";
     public static final String ENTITY_TYPE = "entity";
@@ -16,6 +17,7 @@ public class TiledMapProperties {
 
     public static final String KEY_NAME = "keyName";
     public static final String LOCKED = "locked";
+    public static final String NUM_GEMS = "numGems";
     public static final String MAP = "map";
     public static final String OPENED = "opened";
     public static final String PUZZLE_NAME = "puzzleName";

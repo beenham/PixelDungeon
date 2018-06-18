@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.puzzles;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.items.PuzzleItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public class Puzzle {
 
     protected PuzzleController puzzleController;
     protected HashMap<Integer, PuzzleComponent> puzzleComponents = new HashMap<>();
+    protected HashMap<Integer, PuzzleItem> puzzleItems = new HashMap<>();
+
     protected List<Entity> onCompleteEntities = new ArrayList<>();
     protected List<Entity> onFailEntities = new ArrayList<>();
     private List<String> completeTargets = new ArrayList<>();
@@ -49,6 +52,10 @@ public class Puzzle {
 
     public void addComponent(PuzzleComponent puzzleComponent) {
         puzzleComponents.put(puzzleComponents.size(),puzzleComponent);
+    }
+
+    public void addItem(PuzzleItem puzzleItem) {
+        puzzleItems.put(puzzleItems.size(),puzzleItem);
     }
 
     public void setController(PuzzleController controller) {
