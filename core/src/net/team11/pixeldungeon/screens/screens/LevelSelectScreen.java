@@ -11,7 +11,7 @@ import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.components.LevelInfo;
 import net.team11.pixeldungeon.screens.components.LevelSelector;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class LevelSelectScreen extends AbstractScreen {
     private LevelSelector selector;

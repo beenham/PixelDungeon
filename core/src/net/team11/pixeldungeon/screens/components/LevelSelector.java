@@ -16,8 +16,8 @@ import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class LevelSelector extends Table {
     private MapManager mapManager;

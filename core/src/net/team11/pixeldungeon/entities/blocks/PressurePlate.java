@@ -10,12 +10,9 @@ import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.TrapComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Class to handle pressure plates in game

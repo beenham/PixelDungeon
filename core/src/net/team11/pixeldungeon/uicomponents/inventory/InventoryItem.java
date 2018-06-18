@@ -1,6 +1,5 @@
 package net.team11.pixeldungeon.uicomponents.inventory;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
@@ -8,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 import java.util.Locale;
 

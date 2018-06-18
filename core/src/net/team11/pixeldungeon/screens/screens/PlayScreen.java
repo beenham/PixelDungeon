@@ -147,7 +147,7 @@ public class PlayScreen extends AbstractScreen {
         Gdx.gl.glClearColor(88,61,52,0);
         engine.update(delta);
 
-        b2dr.render(world, gameCam.combined);
+        //b2dr.render(world, gameCam.combined);
         if (ambientLight < 0.75f && !paused) {
             ambientLight += 0.01f;
             rayHandler.setAmbientLight(ambientLight);
@@ -158,7 +158,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        //viewport.update(width, height);
         uiManager.getHud().resize(width,height);
     }
 

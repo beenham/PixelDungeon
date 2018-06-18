@@ -10,14 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.entity.system.RenderSystem;
-import net.team11.pixeldungeon.map.Map;
 import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 

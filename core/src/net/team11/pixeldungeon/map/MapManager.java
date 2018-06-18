@@ -11,7 +11,6 @@ import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
 
 import java.util.ArrayList;
@@ -93,7 +92,7 @@ public class MapManager {
         for (Puzzle puzzle : engine.getPuzzles()) {
             TiledObjectUtil.parseTargets(engine,puzzle);
             if (puzzle instanceof ColouredGemsPuzzle) {
-                ((ColouredGemsPuzzle) puzzle).fillChests(engine);
+                ((ColouredGemsPuzzle) puzzle).setupEntities(engine);
             }
         }
     }

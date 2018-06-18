@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextobjectid="92">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextobjectid="102">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer name="background" width="50" height="50" locked="1">
   <data encoding="csv">
@@ -55,16 +55,16 @@
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61
 </data>
  </layer>
- <layer name="floor" width="50" height="50" locked="1">
+ <layer name="floor" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,91,91,91,91,91,91,91,91,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,91,43,43,43,91,43,43,43,91,91,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,91,91,91,91,91,91,91,91,91,91,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,91,91,91,91,43,91,91,91,91,91,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,91,91,91,91,91,91,91,91,91,91,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,91,91,91,91,91,91,91,91,91,91,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,43,43,91,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,91,43,91,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,2147483692,0,0,0,44,2147483692,0,0,0,44,2147483692,0,0,0,0,0,0,0,91,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
@@ -83,7 +83,7 @@
 0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,
@@ -109,7 +109,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="walls" width="50" height="50" locked="1">
+ <layer name="walls" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1610612741,2,2,2,2,2,2,2,2,2,2,5,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1610612738,12,12,12,12,12,12,12,12,12,12,2684354562,0,0,0,0,0,
@@ -118,8 +118,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1610612741,2147483650,2147483650,6,0,0,2684354566,2147483650,2147483650,5,0,0,0,0,0,0,0,1610612738,0,0,0,0,0,0,0,0,0,0,2684354562,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870914,21,12,12,0,0,12,22,12,3758096386,0,0,0,0,0,0,0,1610612738,0,0,0,0,0,0,0,0,0,0,2684354562,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,1610612741,2,2,2147483650,6,0,0,0,0,0,0,0,0,2684354566,2147483650,4,4,2,2,5,0,1610612738,0,0,0,0,0,0,0,0,0,0,2684354562,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,536870914,22,12,12,23,0,0,0,0,0,0,0,0,12,12,23,12,12,12,0,0,1610612738,0,0,0,0,0,0,0,0,0,0,2684354562,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,1610612738,0,0,0,0,0,0,0,0,0,0,2684354562,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,536870914,22,12,12,23,0,0,0,0,0,0,0,0,12,12,23,12,12,12,0,0,1610612738,0,0,0,14,15,16,17,0,0,0,2684354562,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,1610612738,12,12,12,24,25,26,27,12,12,12,2684354562,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1610612741,2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3758096386,2,6,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1610612738,12,12,21,24,0,0,27,12,24,0,0,27,22,24,0,0,27,23,12,12,12,12,12,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1610612738,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
@@ -137,8 +137,8 @@
 0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1610612741,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,536870914,12,12,12,12,12,12,12,12,12,12,12,12,12,12,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,536870914,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3758096386,0,0,0,0,0,
@@ -163,7 +163,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="decoration" width="50" height="50" locked="1">
+ <layer name="decoration" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -191,7 +191,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,3221225477,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,3221225474,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -217,7 +217,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" name="traps" locked="1">
+ <objectgroup color="#ff0000" name="traps" visible="0" locked="1">
   <object id="28" name="floorSpike" x="448" y="240" width="16" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
@@ -490,43 +490,43 @@
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="60" name="puzzleController" x="616" y="96" width="15" height="6">
+  <object id="60" name="puzzleController" x="608" y="85" width="15" height="6">
    <properties>
     <property name="entity" value="puzzleController"/>
     <property name="puzzleName" value="simonSays_1"/>
    </properties>
   </object>
-  <object id="67" name="switch_1" x="560" y="58" width="8" height="6">
+  <object id="67" name="switch_1" x="564" y="54" width="8" height="6">
    <properties>
     <property name="entity" value="simonSaysSwitch"/>
     <property name="puzzleName" value="simonSays_1"/>
    </properties>
   </object>
-  <object id="68" name="switch_2" x="579" y="58" width="8" height="6">
+  <object id="68" name="switch_2" x="581" y="54" width="8" height="6">
    <properties>
     <property name="entity" value="simonSaysSwitch"/>
     <property name="puzzleName" value="simonSays_1"/>
    </properties>
   </object>
-  <object id="69" name="switch_3" x="600" y="58" width="8" height="6">
+  <object id="69" name="switch_3" x="596" y="54" width="8" height="6">
    <properties>
     <property name="entity" value="simonSaysSwitch"/>
     <property name="puzzleName" value="simonSays_1"/>
    </properties>
   </object>
-  <object id="70" name="switch_4" x="620.5" y="58" width="8" height="6">
+  <object id="70" name="switch_4" x="628.5" y="54" width="8" height="6">
    <properties>
     <property name="entity" value="simonSaysSwitch"/>
     <property name="puzzleName" value="simonSays_1"/>
    </properties>
   </object>
-  <object id="71" name="switch_5" x="640" y="58" width="8" height="6">
+  <object id="71" name="switch_5" x="645" y="54" width="8" height="6">
    <properties>
     <property name="entity" value="simonSaysSwitch"/>
     <property name="puzzleName" value="simonSays_1"/>
    </properties>
   </object>
-  <object id="72" name="switch_6" x="660" y="58" width="8" height="6">
+  <object id="72" name="switch_6" x="661" y="54" width="8" height="6">
    <properties>
     <property name="entity" value="simonSaysSwitch"/>
     <property name="puzzleName" value="simonSays_1"/>
@@ -640,16 +640,81 @@
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="90" name="gemPillar1" x="241" y="468" width="14" height="8">
+  <object id="90" name="gemPillar1" x="187" y="472" width="14" height="8">
+   <properties>
+    <property name="entity" value="gemPillar"/>
+    <property name="id" type="int" value="0"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="91" name="puzzleController" x="371" y="470" width="15" height="6">
+   <properties>
+    <property name="entity" value="puzzleController"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="92" name="scribe_1" x="185" y="446" width="32" height="6">
+   <properties>
+    <property name="entity" value="wallScribe"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="93" name="scribe_2" x="234" y="446" width="32" height="6">
+   <properties>
+    <property name="entity" value="wallScribe"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="94" name="scribe_3" x="284" y="446" width="32" height="6">
+   <properties>
+    <property name="entity" value="wallScribe"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="95" name="scribe_4" x="333" y="446" width="32" height="6">
+   <properties>
+    <property name="entity" value="wallScribe"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="96" name="scribe_5" x="379" y="446" width="32" height="6">
+   <properties>
+    <property name="entity" value="wallScribe"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="97" name="gemPillar2" x="215" y="472" width="14" height="8">
    <properties>
     <property name="entity" value="gemPillar"/>
     <property name="id" type="int" value="1"/>
     <property name="puzzleName" value="colourGem1"/>
    </properties>
   </object>
-  <object id="91" name="puzzleController" x="242.5" y="623.5" width="15" height="6">
+  <object id="98" name="gemPillar3" x="241" y="472" width="14" height="8">
    <properties>
-    <property name="entity" value="puzzleController"/>
+    <property name="entity" value="gemPillar"/>
+    <property name="id" type="int" value="2"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="99" name="gemPillar4" x="266" y="472" width="14" height="8">
+   <properties>
+    <property name="entity" value="gemPillar"/>
+    <property name="id" type="int" value="3"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="100" name="gemPillar5" x="293" y="472" width="14" height="8">
+   <properties>
+    <property name="entity" value="gemPillar"/>
+    <property name="id" type="int" value="4"/>
+    <property name="puzzleName" value="colourGem1"/>
+   </properties>
+  </object>
+  <object id="101" name="gemPillar6" x="318" y="472" width="14" height="8">
+   <properties>
+    <property name="entity" value="gemPillar"/>
+    <property name="id" type="int" value="5"/>
     <property name="puzzleName" value="colourGem1"/>
    </properties>
   </object>
@@ -733,9 +798,9 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#000000" name="collision" locked="1">
+ <objectgroup color="#000000" name="collision">
   <object id="17" x="320" y="64">
-   <polyline points="0,-16 0,32 -48,32 -48,64 -112,64 -112,96 -80,96 -80,112 -144,112 -144,592 384,592 384,-32 224,-32 224,112 112,112 112,96 176,96 176,64 80,64 80,32 32,32 32,-16 0,-16"/>
+   <polyline points="0,-16 0,32 -48,32 -48,64 -112,64 -112,96 -80,96 -80,112 -144,112 -144,352 96,352 96,384 -144,384 -144,592 384,592 384,-32 224,-32 224,112 112,112 112,96 176,96 176,64 80,64 80,32 32,32 32,-16 0,-16"/>
   </object>
   <object id="18" x="272" y="160">
    <polyline points="0,0 0,16 48,16 48,0 0,0"/>
@@ -760,25 +825,25 @@
   </object>
   <object id="65" name="simonSays_1" x="576" y="48">
    <properties>
-    <property name="difficulty" type="float" value="1"/>
-    <property name="maxAttempts" type="float" value="3"/>
+    <property name="difficulty" type="int" value="1"/>
+    <property name="maxAttempts" type="int" value="1"/>
     <property name="onComplete" value="mechanicDoor_2"/>
     <property name="onFailure" value="floorSpike_puzzle1,floorSpike_puzzle2,floorSpike_puzzle3,floorSpike_puzzle4"/>
     <property name="puzzle" value="simonSays"/>
-    <property name="stages" type="float" value="3"/>
+    <property name="stages" type="int" value="3"/>
    </properties>
    <polyline points="-32,-16 -32,80 128,80 128,-16 -32,-16"/>
   </object>
-  <object id="79" name="colourGem1" x="256" y="448">
+  <object id="79" name="colourGem1" x="256" y="444">
    <properties>
     <property name="chests" value="puzzleChest1,puzzleChest2,puzzleChest3,puzzleChest4,puzzleChest5,puzzleChest6,puzzleChest7,puzzleChest8,puzzleChest9"/>
-    <property name="maxAttempts" type="float" value="3"/>
+    <property name="maxAttempts" type="int" value="1"/>
     <property name="numGems" type="int" value="6"/>
     <property name="onComplete" value="mechanicDoor_2"/>
     <property name="onFailure" value="floorSpike_puzzle1,floorSpike_puzzle2,floorSpike_puzzle3,floorSpike_puzzle4"/>
     <property name="puzzle" value="colourGems"/>
    </properties>
-   <polyline points="-80,96 -80,208 80,208 80,96 -80,96"/>
+   <polyline points="-80,-12 -80,68 176,68 176,-12 -80,-12"/>
   </object>
  </objectgroup>
 </map>

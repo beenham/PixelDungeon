@@ -68,6 +68,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: PixelFont_Outlined
 		fontColor: white
 	}
+	textBox: {
+		font: PixelFont
+		fontColor: white
+		background: textBox
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: {

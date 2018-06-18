@@ -20,7 +20,7 @@ import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class PauseMenu extends Stage {
     private ShapeRenderer shapeRenderer;

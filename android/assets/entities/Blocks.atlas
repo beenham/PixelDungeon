@@ -1,6 +1,6 @@
 
 Blocks.png
-size: 512,256
+size: 512,206
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -13,589 +13,610 @@ box
   index: 0
 buttonDoorClosed
   rotate: false
-  xy: 30, 2
+  xy: 36, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 buttonDoorOpening
   rotate: false
-  xy: 58, 2
+  xy: 70, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 buttonDoorOpening
   rotate: false
-  xy: 86, 2
+  xy: 104, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 1
 buttonDoorOpening
   rotate: false
-  xy: 114, 2
+  xy: 138, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 2
 buttonDoorOpening
   rotate: false
-  xy: 142, 2
+  xy: 172, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 3
 buttonDoorOpening
   rotate: false
-  xy: 170, 2
+  xy: 206, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 4
 buttonDoorOpening
   rotate: false
-  xy: 198, 2
+  xy: 240, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 5
 buttonDoorOpening
   rotate: false
-  xy: 226, 2
+  xy: 274, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 6
 buttonDoorOpening
   rotate: false
-  xy: 254, 2
+  xy: 308, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 7
 buttonDoorOpening
   rotate: false
-  xy: 282, 2
+  xy: 342, 2
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 8
 chestClosed
   rotate: false
-  xy: 310, 2
+  xy: 376, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 chestOpened
   rotate: false
-  xy: 338, 2
+  xy: 410, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 doorFrameLeft
   rotate: false
-  xy: 366, 2
+  xy: 444, 2
   size: 3, 16
   orig: 3, 16
   offset: 0, 0
   index: 0
 doorFrameRight
   rotate: false
-  xy: 394, 2
+  xy: 478, 2
   size: 3, 16
   orig: 3, 16
   offset: 0, 0
   index: 0
 doorOpened
   rotate: false
-  xy: 422, 2
+  xy: 2, 36
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 gemPillarBlue
   rotate: false
-  xy: 450, 2
+  xy: 36, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 gemPillarEmpty
   rotate: false
-  xy: 478, 2
+  xy: 70, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 gemPillarGreen
   rotate: false
-  xy: 2, 35
+  xy: 104, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 gemPillarPurple
   rotate: false
-  xy: 30, 35
+  xy: 138, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 gemPillarRed
   rotate: false
-  xy: 58, 35
+  xy: 172, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 gemPillarWhite
   rotate: false
-  xy: 86, 35
+  xy: 206, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 gemPillarYellow
   rotate: false
-  xy: 114, 35
+  xy: 240, 36
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 leverActivating
   rotate: false
-  xy: 142, 35
+  xy: 274, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 1
 leverDeactivating
   rotate: false
-  xy: 142, 35
+  xy: 274, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 1
 leverActivating
   rotate: false
-  xy: 170, 35
+  xy: 308, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 2
 leverDeactivating
   rotate: false
-  xy: 170, 35
+  xy: 308, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 0
 leverDeactivating
   rotate: false
-  xy: 198, 35
+  xy: 342, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 2
 leverActivating
   rotate: false
-  xy: 198, 35
+  xy: 342, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 0
 leverLeft
   rotate: false
-  xy: 226, 35
+  xy: 376, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 0
 leverRight
   rotate: false
-  xy: 254, 35
+  xy: 410, 36
   size: 10, 21
   orig: 10, 21
   offset: 0, 0
   index: 0
 lockedDoorOpening
   rotate: false
-  xy: 282, 35
+  xy: 444, 36
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 lockedDoorClosed
   rotate: false
-  xy: 282, 35
+  xy: 444, 36
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 lockedDoorOpening
   rotate: false
-  xy: 310, 35
+  xy: 478, 36
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 1
 lockedDoorOpening
   rotate: false
-  xy: 338, 35
+  xy: 2, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 2
 lockedDoorOpening
   rotate: false
-  xy: 366, 35
+  xy: 36, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 3
 lockedDoorOpening
   rotate: false
-  xy: 394, 35
+  xy: 70, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 4
 lockedDoorOpening
   rotate: false
-  xy: 422, 35
+  xy: 104, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 5
 lockedDoorOpening
   rotate: false
-  xy: 450, 35
+  xy: 138, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 6
 lockedDoorOpening
   rotate: false
-  xy: 478, 35
+  xy: 172, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 7
 lockedDoorOpening
   rotate: false
-  xy: 2, 68
+  xy: 206, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 8
 lockedDoorOpening
   rotate: false
-  xy: 30, 68
+  xy: 240, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 9
 lockedDoorOpening
   rotate: false
-  xy: 58, 68
+  xy: 274, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 10
 mechanicDoorClosed
   rotate: false
-  xy: 86, 68
+  xy: 308, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 mechanicDoorClosing
   rotate: false
-  xy: 114, 68
+  xy: 342, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 mechanicDoorClosing
   rotate: false
-  xy: 142, 68
+  xy: 376, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 1
 mechanicDoorClosing
   rotate: false
-  xy: 170, 68
+  xy: 410, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 2
 mechanicDoorClosing
   rotate: false
-  xy: 198, 68
+  xy: 444, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 3
 mechanicDoorClosing
   rotate: false
-  xy: 226, 68
+  xy: 478, 70
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 4
 mechanicDoorClosing
   rotate: false
-  xy: 254, 68
+  xy: 2, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 5
 mechanicDoorClosing
   rotate: false
-  xy: 282, 68
+  xy: 36, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 6
 mechanicDoorClosing
   rotate: false
-  xy: 310, 68
+  xy: 70, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 7
 mechanicDoorClosing
   rotate: false
-  xy: 338, 68
+  xy: 104, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 8
 mechanicDoorOpening
   rotate: false
-  xy: 366, 68
+  xy: 138, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 0
 mechanicDoorOpening
   rotate: false
-  xy: 394, 68
+  xy: 172, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 1
 mechanicDoorOpening
   rotate: false
-  xy: 422, 68
+  xy: 206, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 2
 mechanicDoorOpening
   rotate: false
-  xy: 450, 68
+  xy: 240, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 3
 mechanicDoorOpening
   rotate: false
-  xy: 478, 68
+  xy: 274, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 4
 mechanicDoorOpening
   rotate: false
-  xy: 2, 101
+  xy: 308, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 5
 mechanicDoorOpening
   rotate: false
-  xy: 30, 101
+  xy: 342, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 6
 mechanicDoorOpening
   rotate: false
-  xy: 58, 101
+  xy: 376, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 7
 mechanicDoorOpening
   rotate: false
-  xy: 86, 101
+  xy: 410, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 8
 buttonDoorOpening
   rotate: false
-  xy: 86, 101
+  xy: 410, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 9
 lockedDoorOpening
   rotate: false
-  xy: 86, 101
+  xy: 410, 104
   size: 26, 20
   orig: 26, 20
   offset: 0, 0
   index: 11
 pillar
   rotate: false
-  xy: 114, 101
+  xy: 444, 104
   size: 14, 31
   orig: 14, 31
   offset: 0, 0
   index: 0
 pressurePlateDown
   rotate: false
-  xy: 142, 101
+  xy: 478, 104
   size: 16, 12
   orig: 16, 12
   offset: 0, 0
   index: 0
 pressurePlateUp
   rotate: false
-  xy: 170, 101
+  xy: 2, 138
   size: 16, 12
   orig: 16, 12
   offset: 0, 0
   index: 0
 puzzleControllerActivated
   rotate: false
-  xy: 198, 101
+  xy: 36, 138
   size: 15, 20
   orig: 15, 20
   offset: 0, 0
   index: 0
 puzzleControllerCompleted
   rotate: false
-  xy: 226, 101
+  xy: 70, 138
   size: 15, 20
   orig: 15, 20
   offset: 0, 0
   index: 0
 puzzleControllerDeactivated
   rotate: false
-  xy: 254, 101
+  xy: 104, 138
   size: 15, 20
   orig: 15, 20
   offset: 0, 0
   index: 0
 puzzleControllerWaiting
   rotate: false
-  xy: 282, 101
+  xy: 138, 138
   size: 15, 20
   orig: 15, 20
   offset: 0, 0
   index: 0
 simonSaysSwitchFailed
   rotate: false
-  xy: 310, 101
+  xy: 172, 138
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: 0
 simonSaysSwitchIdle
   rotate: false
-  xy: 338, 101
+  xy: 206, 138
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: 0
 simonSaysSwitchOff
   rotate: false
-  xy: 366, 101
+  xy: 240, 138
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: 0
 simonSaysSwitchOn
   rotate: false
-  xy: 394, 101
+  xy: 274, 138
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: 0
 simonSaysSwitchWaiting
   rotate: false
-  xy: 422, 101
+  xy: 308, 138
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: 0
 torchIdle
   rotate: false
-  xy: 450, 101
+  xy: 342, 138
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 0
 torchLit
   rotate: false
-  xy: 478, 101
+  xy: 376, 138
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 0
 torchLit
   rotate: false
-  xy: 2, 134
+  xy: 410, 138
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 1
 torchLit
   rotate: false
-  xy: 30, 134
+  xy: 444, 138
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 2
 torchLit
   rotate: false
-  xy: 58, 134
+  xy: 478, 138
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 3
 torchLit
   rotate: false
-  xy: 86, 134
+  xy: 2, 172
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 4
 torchLit
   rotate: false
-  xy: 114, 134
+  xy: 36, 172
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 5
 torchLit
   rotate: false
-  xy: 142, 134
+  xy: 70, 172
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 6
 torchLit
   rotate: false
-  xy: 170, 134
+  xy: 104, 172
   size: 8, 21
   orig: 8, 21
   offset: 0, 0
   index: 7
+wallScribeOne
+  rotate: false
+  xy: 138, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+wallScribeThree
+  rotate: false
+  xy: 172, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+wallScribeTwo
+  rotate: false
+  xy: 206, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0

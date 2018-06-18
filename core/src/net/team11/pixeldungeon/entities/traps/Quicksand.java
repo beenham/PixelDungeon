@@ -1,24 +1,16 @@
 package net.team11.pixeldungeon.entities.traps;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 
 import net.team11.pixeldungeon.entities.player.Player;
-import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.HealthComponent;
 import net.team11.pixeldungeon.entity.component.TrapComponent;
 
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Quicksand extends Trap {
     private float speedMod; //The speed which to set the players speed to. Make it less then 100 to slow down

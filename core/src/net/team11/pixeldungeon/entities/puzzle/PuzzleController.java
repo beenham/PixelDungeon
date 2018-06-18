@@ -10,8 +10,8 @@ import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.List;
@@ -19,8 +19,8 @@ import java.util.List;
 public class PuzzleController extends PuzzleComponent {
     public PuzzleController(Rectangle bounds, String name) {
         super(name);
-        float posX = bounds.getX() - bounds.getWidth()/2;
-        float posY = bounds.getY() - bounds.getHeight()/2;
+        float posX = bounds.getX() + bounds.getWidth()/2;
+        float posY = bounds.getY() + bounds.getHeight()/2;
 
         addComponent(new InteractionComponent(this));
         addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(),posX,posY, 0,
@@ -49,26 +49,10 @@ public class PuzzleController extends PuzzleComponent {
 
     @Override
     public void doInteraction() {
-        if (!parentPuzzle.isActivated() && !parentPuzzle.isCompleted()) {
+        if (!parentPuzzle.isActivated() && !parentPuzzle.isCompleted() && parentPuzzle.getRemainingAttempts()>0) {
             parentPuzzle.activate();
-        }
-    }
-
-    @Override
-    public void setTargets(List<String> entities) {
-        super.setTargets(entities);
-        System.out.println("PUZZLE CONTROLLER");
-        for (String entity : entities) {
-            System.out.println(entity);
-        }
-    }
-
-    @Override
-    public void setTargetEntities(List<Entity> entities) {
-        super.setTargetEntities(entities);
-        System.out.println("PUZZLE CONTROLLER");
-        for (Entity entity : entities) {
-            System.out.println(entity);
+        } else {
+            parentPuzzle.notifyPressed(this);
         }
     }
 }

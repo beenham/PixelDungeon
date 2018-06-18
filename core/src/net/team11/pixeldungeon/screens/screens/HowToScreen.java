@@ -13,8 +13,7 @@ import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class HowToScreen extends AbstractScreen {
     Image backgroundImage;

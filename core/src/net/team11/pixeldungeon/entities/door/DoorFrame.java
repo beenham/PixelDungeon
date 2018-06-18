@@ -9,7 +9,7 @@ import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.DoorFrameComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 public class DoorFrame extends Entity {

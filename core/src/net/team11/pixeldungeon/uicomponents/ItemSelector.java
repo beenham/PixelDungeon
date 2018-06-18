@@ -23,10 +23,8 @@ import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.puzzleitems.ColouredGem;
-import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.uicomponents.inventory.InventorySlot;
-import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 import java.util.ArrayList;
 
@@ -119,8 +117,9 @@ public class ItemSelector extends Stage {
         setVisible(true);
     }
 
-    public void init(Item item) {
+    public void init(Item item, Entity entity) {
         System.out.println(item);
+        this.callingEntity = entity;
         setupDisplay(item);
         setupSingleTable();
         setVisible(true);

@@ -11,8 +11,8 @@ import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 public class SimonSaysSwitch extends PuzzleComponent {
@@ -23,8 +23,8 @@ public class SimonSaysSwitch extends PuzzleComponent {
     public SimonSaysSwitch(Rectangle bounds, String name) {
         super(name);
         on = false;
-        float posX = bounds.getX() - bounds.getWidth()/2;
-        float posY = bounds.getY() - bounds.getHeight()/2;
+        float posX = bounds.getX() + bounds.getWidth()/2;
+        float posY = bounds.getY() + bounds.getHeight()/2;
 
         addComponent(new InteractionComponent(this));
         addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(),posX,posY, 0,

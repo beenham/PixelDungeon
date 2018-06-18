@@ -11,8 +11,8 @@ import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.items.puzzleitems.ColouredGem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 public class GemPillar extends PuzzleComponent {
@@ -22,8 +22,8 @@ public class GemPillar extends PuzzleComponent {
     public GemPillar(Rectangle bounds, String name, int id) {
         super(name);
         this.id = id;
-        float posX = bounds.getX() - bounds.getWidth()/2;
-        float posY = bounds.getY() - bounds.getHeight()/2;
+        float posX = bounds.getX() + bounds.getWidth()/2;
+        float posY = bounds.getY() + bounds.getHeight()/2;
 
         addComponent(new InteractionComponent(this));
         addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(),posX,posY, 0,
@@ -50,11 +50,12 @@ public class GemPillar extends PuzzleComponent {
 
     @Override
     public void doInteraction() {
-        if (this.gem != null) {
-            PlayScreen.uiManager.initItemSelector(gem);
-        } else {
-            System.out.println("SELECTOR CALLED");
-            PlayScreen.uiManager.initItemSelector(ColouredGem.class, this);
+        if (!parentPuzzle.isCompleted() && parentPuzzle.getRemainingAttempts() > 0) {
+            if (this.gem != null) {
+                PlayScreen.uiManager.initItemSelector(gem, this);
+            } else {
+                PlayScreen.uiManager.initItemSelector(ColouredGem.class, this);
+            }
         }
     }
 
@@ -82,6 +83,7 @@ public class GemPillar extends PuzzleComponent {
             default:
                 getComponent(AnimationComponent.class).setAnimation(AssetName.GEMPILLAR_EMPTY);
         }
+        parentPuzzle.notifyPressed(this);
     }
 
     public ColouredGem takeGem() {
@@ -89,5 +91,17 @@ public class GemPillar extends PuzzleComponent {
         gem = null;
         getComponent(AnimationComponent.class).setAnimation(AssetName.GEMPILLAR_EMPTY);
         return tempGem;
+    }
+
+    public boolean hasGem() {
+        return gem != null;
+    }
+
+    public ColouredGem getGem() {
+        return gem;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -19,10 +19,14 @@ public class PuzzleSystem extends EntitySystem {
     public void update(float delta) {
         for (Puzzle puzzle : puzzles) {
             if (puzzle.isActivated()) {
-                puzzle.setTimer(puzzle.getTimer() - delta);
-                puzzle.update(delta);
-                if (puzzle.getTimer() <= 0) {
-                    puzzle.deactivate();
+                if (puzzle.isTimed()) {
+                    puzzle.setTimer(puzzle.getTimer() - delta);
+                    puzzle.update(delta);
+                    if (puzzle.getTimer() <= 0) {
+                        puzzle.outOfTime();
+                    }
+                } else if (puzzle.getRemainingAttempts() > 0) {
+                    puzzle.update(delta);
                 }
             }
         }

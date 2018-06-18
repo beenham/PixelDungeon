@@ -32,14 +32,14 @@ filter: Linear,Linear
 repeat: none
 PixelFont_Outlined
   rotate: false
-  xy: 1, 149
+  xy: 1, 213
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 Button
   rotate: false
-  xy: 1, 1
+  xy: 131, 147
   size: 64, 64
   split: 28, 28, 28, 28
   orig: 64, 64
@@ -47,7 +47,7 @@ Button
   index: -1
 buttonDisabled
   rotate: false
-  xy: 83, 83
+  xy: 515, 579
   size: 64, 64
   split: 28, 28, 28, 28
   orig: 64, 64
@@ -55,7 +55,7 @@ buttonDisabled
   index: -1
 scrollPane
   rotate: false
-  xy: 1, 67
+  xy: 515, 645
   size: 80, 80
   split: 32, 32, 32, 32
   orig: 80, 80
@@ -63,9 +63,18 @@ scrollPane
   index: -1
 scrollPaneBar
   rotate: false
-  xy: 515, 581
+  xy: 1, 1
   size: 80, 80
   split: 32, 28, 32, 32
   orig: 80, 80
+  offset: 0, 0
+  index: -1
+textBox
+  rotate: false
+  xy: 1, 83
+  size: 128, 128
+  split: 46, 46, 46, 46
+  pad: 52, 52, 52, 52
+  orig: 128, 128
   offset: 0, 0
   index: -1

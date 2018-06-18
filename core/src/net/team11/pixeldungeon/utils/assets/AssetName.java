@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.utils;
+package net.team11.pixeldungeon.utils.assets;
 
 public class AssetName {
     /////   HUD SPRITE NAMES        /////
@@ -113,6 +113,10 @@ public class AssetName {
     public static final String TORCH_OFF = "torchIdle";
     public static final String TORCH_ON = "torchLit";
     public static final String TORCH_ACTIVATING = "torchActivating";
+
+    public static final String WALL_SCRIBE_ONE = "wallScribeOne";
+    public static final String WALL_SCRIBE_TWO = "wallScribeTwo";
+    public static final String WALL_SCRIBE_THREE = "wallScribeThree";
 
     /////   TRAP SPRITE NAMES       /////
     public static final String FLOORSPIKE_IDLE = "floorSpikeIdle";

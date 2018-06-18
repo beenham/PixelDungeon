@@ -24,6 +24,7 @@ import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.puzzle.colouredgems.GemPillar;
+import net.team11.pixeldungeon.entities.puzzle.colouredgems.WallScribe;
 import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
 import net.team11.pixeldungeon.entities.traps.Quicksand;
@@ -238,6 +239,15 @@ public class TiledObjectUtil {
                         }
                         break;
 
+                    case TiledMapObjectNames.WALL_SCRIBE:
+                        puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+
+                        WallScribe wallScribe = new WallScribe(
+                                rectObject.getRectangle(),mapObject.getName());
+                        wallScribe.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        engine.addEntity(wallScribe);
+                        break;
+
                     case TiledMapObjectNames.PRESSURE:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
                                 rectObject.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
@@ -362,9 +372,9 @@ public class TiledObjectUtil {
                     case TiledMapPuzzleNames.SIMON_SAYS:
                         try {
                             String name = mapObject.getName();
-                            float difficulty = (float) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
-                            float maxAttempts = (float) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
-                            float numStages = (float) mapObject.getProperties().get(TiledMapProperties.STAGES);
+                            int difficulty = (int) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
+                            int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                            int numStages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
 
                             SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
                             simonSays.setCompleteTargets(completeTargets);
@@ -376,7 +386,7 @@ public class TiledObjectUtil {
                         break;
                     case TiledMapPuzzleNames.COLOUR_GEMS:
                         String name = mapObject.getName();
-                        float maxAttempts = (float) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                        int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
                         int numGems = (int) mapObject.getProperties().get(TiledMapProperties.NUM_GEMS);
 
                         ArrayList<String> chests;

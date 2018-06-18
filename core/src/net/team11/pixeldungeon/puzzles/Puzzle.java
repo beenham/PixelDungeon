@@ -2,12 +2,16 @@ package net.team11.pixeldungeon.puzzles;
 
 import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
+import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.items.PuzzleItem;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Puzzle {
@@ -16,14 +20,15 @@ public class Puzzle {
 
     protected boolean completed;
     protected boolean activated;
-    protected float attempts;
-    protected float maxAttempts;
+    protected boolean timed;
+    protected int attempts;
+    protected int maxAttempts;
     protected float timer;
     protected float timerReset;
 
     protected PuzzleController puzzleController;
-    protected HashMap<Integer, PuzzleComponent> puzzleComponents = new HashMap<>();
-    protected HashMap<Integer, PuzzleItem> puzzleItems = new HashMap<>();
+    protected ArrayList<PuzzleComponent> puzzleComponents = new ArrayList<>();
+    protected ArrayList<PuzzleItem> puzzleItems = new ArrayList<>();
 
     protected List<Entity> onCompleteEntities = new ArrayList<>();
     protected List<Entity> onFailEntities = new ArrayList<>();
@@ -36,6 +41,7 @@ public class Puzzle {
     }
 
     public void activate() {
+        System.out.println("Activated ");
         this.activated = true;
         init();
     }
@@ -51,17 +57,16 @@ public class Puzzle {
     }
 
     public void addComponent(PuzzleComponent puzzleComponent) {
-        puzzleComponents.put(puzzleComponents.size(),puzzleComponent);
+        puzzleComponents.add(puzzleComponents.size(),puzzleComponent);
     }
 
     public void addItem(PuzzleItem puzzleItem) {
-        puzzleItems.put(puzzleItems.size(),puzzleItem);
+        puzzleItems.add(puzzleItems.size(),puzzleItem);
     }
 
     public void setController(PuzzleController controller) {
         this.puzzleController = controller;
     }
-
     public void setCompleteTargets(List<String> entities) {
         while (!entities.isEmpty()) {
             if (!completeTargets.contains(entities.get(0))) {
@@ -131,12 +136,43 @@ public class Puzzle {
         activated = false;
     }
 
-    public void update(float delta) {
-
+    public void outOfTime() {
+        deactivate();
+        String message = Messages.PUZZLE_OUT_OF_TIME + ".\n";
+        if (getRemainingAttempts() == 0) {
+            message += Messages.PUZZLE_FAILED;
+        } else {
+            message += String.format(Locale.UK,Messages.PUZZLE_ATTEMPTS_REMAINING,getRemainingAttempts());
+        }
+        PlayScreen.uiManager.initTextBox(message);
     }
 
-    public void notifyPressed(PuzzleComponent puzzleComponent) {
+    public void update(float delta) {}
 
+    public boolean isTimed() {
+        return timed;
+    }
+
+    protected void trigger() {
+        if (completed) {
+            for (Entity entity : onCompleteEntities) {
+                entity.doInteraction(false);
+            }
+        } else {
+            for (Entity entity : onFailEntities) {
+                if (entity instanceof Trap) {
+                    ((Trap) entity).trigger();
+                } else {
+                    entity.doInteraction();
+                }
+            }
+        }
+    }
+
+    public void notifyPressed(PuzzleComponent puzzleComponent) {}
+
+    public int getRemainingAttempts() {
+        return maxAttempts - attempts;
     }
 
     @Override

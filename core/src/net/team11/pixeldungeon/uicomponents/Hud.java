@@ -17,8 +17,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
@@ -231,9 +231,9 @@ public class Hud extends Stage {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+        setPressed(false);
         if (visible) {
             Gdx.input.setInputProcessor(this);
-            setPressed(false);
         }
     }
 

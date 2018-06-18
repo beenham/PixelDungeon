@@ -1,13 +1,12 @@
 package net.team11.pixeldungeon.items.puzzleitems;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import net.team11.pixeldungeon.entities.puzzle.colouredgems.GemPillar;
 import net.team11.pixeldungeon.items.PuzzleItem;
 import net.team11.pixeldungeon.puzzles.colouredgems.Colour;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class ColouredGem extends PuzzleItem {
     private Colour colour;

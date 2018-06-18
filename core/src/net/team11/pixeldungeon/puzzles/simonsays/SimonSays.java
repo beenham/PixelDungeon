@@ -1,15 +1,19 @@
 package net.team11.pixeldungeon.puzzles.simonsays;
 
 import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
+import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -17,8 +21,8 @@ import java.util.Random;
  * The classic memory puzzle based off of the game 'Simon'
  */
 public class SimonSays extends Puzzle{
-    private float difficulty;
-    private float numStages;
+    private int difficulty;
+    private int numStages;
 
     private int currStage;
     private int currStep;
@@ -33,9 +37,10 @@ public class SimonSays extends Puzzle{
 
     private List<List<Integer>> sequences = new ArrayList<>();
 
-    public SimonSays(String name, float difficulty, float maxAttempts, float numStages) {
+    public SimonSays(String name, int difficulty, int maxAttempts, int numStages) {
         super(name);
         super.maxAttempts = maxAttempts;
+        super.timed = true;
         this.difficulty = difficulty;
         this.numStages = numStages;
 
@@ -97,8 +102,7 @@ public class SimonSays extends Puzzle{
                         currStep = 0;
                         waiting = true;
                         updateAssets(AssetName.SS_SWITCH_WAITING,AssetName.PUZZLECONTROLLER_WAITING);
-                    }
-                    else if (currStep == 0 && currStage > 0) {
+                    } else if (currStep == 0 && currStage > 0) {
                         pauseTime /= 2;
                     }
                 }
@@ -187,7 +191,17 @@ public class SimonSays extends Puzzle{
     }
 
     public void notifyPressed(PuzzleComponent saysSwitch) {
-        if (waiting && !completed && !failed) {
+        if (!activated) {
+            if (saysSwitch instanceof PuzzleController) {
+                if (completed) {
+                    String message = Messages.PUZZLE_COMPLETE;
+                    PlayScreen.uiManager.initTextBox(message);
+                } else if (getRemainingAttempts() == 0) {
+                    String message = Messages.PUZZLE_NO_ATTEMPTS;
+                    PlayScreen.uiManager.initTextBox(message);
+                }
+            }
+        } else if (waiting && !completed && !failed) {
             if (!paused && saysSwitch instanceof SimonSaysSwitch) {
                 if (saysSwitch.equals(puzzleComponents.get(sequences.get(currStage).get(loggedStep)))) {
                     saysSwitch.getComponent(AnimationComponent.class).setAnimation(AssetName.SS_SWITCH_ON);
@@ -196,6 +210,14 @@ public class SimonSays extends Puzzle{
                     paused = true;
                     resetTimer();
                 } else {
+                    String message = Messages.SIMON_INCORRECT_ORDER + ".\n";
+                    if (getRemainingAttempts() > 0) {
+                        message += String.format(Locale.UK, Messages.PUZZLE_ATTEMPTS_REMAINING,
+                                getRemainingAttempts());
+                    } else {
+                        message += Messages.PUZZLE_FAILED;
+                    }
+                    PlayScreen.uiManager.initTextBox(message);
                     deactivate();
                     return;
                 }
@@ -204,13 +226,14 @@ public class SimonSays extends Puzzle{
                     currStage++;
                     loggedStep = 0;
                     pauseTime *= 2;
-                    updateAssets(AssetName.SS_SWITCH_ON,AssetName.PUZZLECONTROLLER_COMPLETED);
+                    updateAssets(AssetName.SS_SWITCH_ON, AssetName.PUZZLECONTROLLER_COMPLETED);
                     if (currStage == numStages) {
                         complete();
                     }
                 }
             }
         }
+
     }
 
     private void generateSequence() {
@@ -225,28 +248,14 @@ public class SimonSays extends Puzzle{
     }
 
     private void complete() {
+        String message = Messages.SIMON_COMPLETE + ".\n" + Messages.PUZZLE_COMPLETE;
+        PlayScreen.uiManager.initTextBox(message);
         completed = true;
         pauseTime /= 2;
         paused = true;
         resetTimer();
         trigger();
         updateAssets(AssetName.SS_SWITCH_IDLE,AssetName.PUZZLECONTROLLER_COMPLETED);
-    }
-
-    private void trigger() {
-        if (completed) {
-            for (Entity entity : onCompleteEntities) {
-                entity.doInteraction(false);
-            }
-        } else {
-            for (Entity entity : onFailEntities) {
-                if (entity instanceof Trap) {
-                    ((Trap) entity).trigger();
-                } else {
-                    entity.doInteraction();
-                }
-            }
-        }
     }
 
     private void updateAssets(String puzzleComp, String puzzleCont) {

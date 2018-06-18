@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class InventorySlot extends Table {
     private static float size = 32 * 4 * PixelDungeon.SCALAR;

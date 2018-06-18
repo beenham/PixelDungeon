@@ -15,13 +15,13 @@ import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.utils.stats.CurrentStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
-import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.Assets;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 public class Chest extends Entity {
