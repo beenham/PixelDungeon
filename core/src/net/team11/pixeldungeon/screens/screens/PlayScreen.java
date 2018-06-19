@@ -173,6 +173,7 @@ public class PlayScreen extends AbstractScreen {
     public void resume() {
         if (paused && uiManager.getPauseMenu().isResumePressed()) {
             paused = false;
+            uiManager.hidePauseMenu(false);
             engine.resume();
         }
     }

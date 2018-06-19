@@ -12,7 +12,6 @@ public class Item {
 
     protected String name;
     protected int amount = 0;
-    private boolean interactive;
     private boolean dungeonOnly;
     protected Image image;
     private UUID uuid;
@@ -21,17 +20,6 @@ public class Item {
         this.name = name;
         this.dungeonOnly = dungeonOnly;
         this.uuid = UUID.randomUUID();
-        this.interactive = false;
-    }
-
-    public Item(Item item) {
-        this.name = item.name;
-        this.image = item.image;
-        this.amount = item.amount;
-        this.interactive = item.interactive;
-        this.dungeonOnly = item.dungeonOnly;
-        this.image = item.image;
-        this.uuid = item.uuid;
     }
 
     public Image getIcon() {
@@ -48,14 +36,6 @@ public class Item {
 
     public int getAmount() {
         return amount;
-    }
-
-    public boolean isInteractive() {
-        return interactive;
-    }
-
-    public void setInteractive(boolean interactive) {
-        this.interactive = interactive;
     }
 
     public void setListener(ClickListener listener) {

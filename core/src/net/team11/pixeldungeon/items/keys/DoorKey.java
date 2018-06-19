@@ -10,6 +10,6 @@ public class DoorKey extends Key{
         super(doorKeyName);
         amount = 1;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
-                .findRegion(AssetName.SMALL_KEY));
+                .findRegion(AssetName.DOOR_KEY));
     }
 }

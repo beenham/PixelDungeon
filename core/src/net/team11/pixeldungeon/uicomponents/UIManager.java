@@ -10,22 +10,16 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
 
 public class UIManager {
-    private SpriteBatch batch;
-    private EntityEngine engine;
-    private Player player;
-
     private Hud hud;
     private InventoryUI inventoryUI;
+    private ItemReceiver itemReceiver;
     private ItemSelector itemSelector;
     private PauseMenu pauseMenu;
     private TextBox textBox;
 
     public UIManager(SpriteBatch batch, EntityEngine engine, Player player) {
-        this.batch = batch;
-        this.engine = engine;
-        this.player = player;
-
         this.hud = new Hud(batch);
+        this.itemReceiver = new ItemReceiver(batch);
         this.inventoryUI = new InventoryUI(player, batch);
         this.itemSelector = new ItemSelector(player, batch);
         this.pauseMenu = new PauseMenu(batch, engine);
@@ -50,9 +44,23 @@ public class UIManager {
         hud.setVisible(true);
     }
 
-    private void hidePauseMenu() {
-        ScreenManager.getInstance().getScreen().resume();
+    public void hidePauseMenu(boolean screenCall) {
+        if (screenCall) {
+            ScreenManager.getInstance().getScreen().resume();
+        }
         pauseMenu.setVisible(false);
+        hud.setVisible(true);
+    }
+
+    public void initItemReceiver(Item item, String message) {
+        hud.setPressed(false);
+        pauseMenu.setVisible(false);
+        inventoryUI.setVisible(false);
+        itemReceiver.init(item,message);
+    }
+
+    private void hideItemReceiver() {
+        itemReceiver.setVisible(false);
         hud.setVisible(true);
     }
 
@@ -94,14 +102,17 @@ public class UIManager {
                 hideItemSelector();
             } else if (textBox.isBackPressed()) {
                 hideTextBox();
+            } else if (itemReceiver.isBackPressed()) {
+                hideItemReceiver();
             }
             hud.update(delta);
             inventoryUI.update();
+            itemReceiver.update();
             itemSelector.update();
             textBox.update(delta);
         }
         if (pauseMenu.isResumePressed()) {
-            hidePauseMenu();
+            hidePauseMenu(true);
         }
     }
 
@@ -121,6 +132,9 @@ public class UIManager {
         if (textBox.isVisible()) {
             textBox.draw();
         }
+        if (itemReceiver.isVisible()) {
+            itemReceiver.draw();
+        }
     }
 
     public void dispose() {
@@ -132,14 +146,6 @@ public class UIManager {
 
     public Hud getHud() {
         return hud;
-    }
-
-    public InventoryUI getInventoryUI() {
-        return inventoryUI;
-    }
-
-    public ItemSelector getItemSelector() {
-        return itemSelector;
     }
 
     public PauseMenu getPauseMenu() {

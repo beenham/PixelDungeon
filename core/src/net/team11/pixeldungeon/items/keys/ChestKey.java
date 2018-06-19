@@ -10,6 +10,6 @@ public class ChestKey extends Key {
         super(chestKeyName);
         amount = 1;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
-                .findRegion(AssetName.SMALL_KEY));
+                .findRegion(AssetName.CHEST_KEY));
     }
 }

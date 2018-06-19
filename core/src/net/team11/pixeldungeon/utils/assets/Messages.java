@@ -9,7 +9,12 @@ public class Messages {
     public static final String CHEST_NEED_KEY = "You need a Chest Key to open this chest";
 
     public static final String DOOR_NEED_KEY = "You need a Door Key to open this door";
-    public static final String NEED_END_KEY = "You need the End Key to open this door";
+    public static final String DOOR_NEED_END_KEY = "You need the End Key to open this door";
+
+    public static final String ITEM_FIND_ONE = "You found a %s";
+    public static final String ITEM_FIND_MULTIPLE = "You found %d %s's";
+    public static final String ITEM_RECEIVE_ONE = "You got a %s";
+    public static final String ITEM_RECEIVE_MULTIPLE = "You found %d %s's";
 
     public static final String WALL_UNREADABLE_TEXT = "The text on the wall is unreadable";
 

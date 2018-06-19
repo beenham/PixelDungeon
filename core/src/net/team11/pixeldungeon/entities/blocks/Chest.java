@@ -26,6 +26,8 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
+import java.util.Locale;
+
 public class Chest extends Entity {
     private boolean opened;
     private boolean locked;
@@ -124,12 +126,14 @@ public class Chest extends Entity {
                         String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
                         PlayScreen.uiManager.initTextBox(message);
                     } else {
+                        initNotification();
                         removeItem(inventory.addItem(item));
                         animationComponent.setAnimation(AssetName.LOCKED_CHEST_LOOTED);
                     }
                 } else {
                     if (inventory.hasItem(chestKey)) {
                         inventory.removeItem(chestKey);
+                        updateStats();
                         opened = true;
                         if (inventory.isFull()) {
                             String message = Messages.INVENTORY_FULL+ "!\n" + Messages.CHEST_LOOT_LATER;
@@ -137,6 +141,7 @@ public class Chest extends Entity {
                             animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENING);
                             animationComponent.setNextAnimation(AssetName.LOCKED_CHEST_OPENED);
                         } else {
+                            initNotification();
                             removeItem(inventory.addItem(item));
                             animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENING);
                             animationComponent.setNextAnimation(AssetName.LOCKED_CHEST_LOOTED);
@@ -148,6 +153,7 @@ public class Chest extends Entity {
                 }
             } else {
                 if (isEmpty()) {
+                    updateStats();
                     looted = true;
                     String message = Messages.CHEST_IS_EMPTY;
                     PlayScreen.uiManager.initTextBox(message);
@@ -158,17 +164,20 @@ public class Chest extends Entity {
                         String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
                         PlayScreen.uiManager.initTextBox(message);
                     } else {
+                        initNotification();
                         removeItem(inventory.addItem(item));
                         animationComponent.setAnimation(AssetName.CHEST_LOOTED);
                     }
                 } else {
                     opened = true;
+                    updateStats();
                     if (inventory.isFull()) {
                         String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
                         PlayScreen.uiManager.initTextBox(message);
                         animationComponent.setAnimation(AssetName.CHEST_OPENING);
                         animationComponent.setNextAnimation(AssetName.CHEST_OPENED);
                     } else {
+                        initNotification();
                         removeItem(inventory.addItem(item));
                         animationComponent.setAnimation(AssetName.CHEST_OPENING);
                         animationComponent.setNextAnimation(AssetName.CHEST_LOOTED);
@@ -181,20 +190,32 @@ public class Chest extends Entity {
         }
     }
 
+    private void initNotification() {
+        String message;
+        if (item.getAmount() > 1) {
+            message = String.format(Locale.UK, Messages.ITEM_FIND_MULTIPLE+"!", item.getAmount(),item.getName());
+        } else {
+            message = String.format(Locale.UK, Messages.ITEM_FIND_ONE+"!", item.getName());
+        }
+        PlayScreen.uiManager.initItemReceiver(item,message);
+    }
+
     private void updateStats() {
         CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
         stats.addChest(getName());
-        if (item.getClass().equals(Key.class) || item.getClass().equals(DoorKey.class) ||
-                item.getClass().equals(ChestKey.class) || item.getClass().equals(EndKey.class)) {
-            StatsUtil.getInstance().getCurrentStats().incrementKeys();
-            StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
-            stats.addKey(item.getName());
-        } else if (!item.getClass().equals(Coin.class)){
-            StatsUtil.getInstance().getCurrentStats().incrementItems();
-            StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
-            stats.addItem(item.getName());
+        if (item != null) {
+            if (item instanceof Key) {
+                System.out.println("FOUND KEY");
+                StatsUtil.getInstance().getCurrentStats().incrementKeys();
+                StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
+                stats.addKey(item.getName());
+            } else if (!(item instanceof Coin)) {
+                StatsUtil.getInstance().getCurrentStats().incrementItems();
+                StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
+                stats.addItem(item.getName());
+            }
         }
-        StatsUtil.getInstance().getCurrentStats().incrementChests();
+        stats.incrementChests();
         StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
         StatsUtil.getInstance().writeGlobalStats();
         StatsUtil.getInstance().saveTimer();

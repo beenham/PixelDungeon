@@ -24,13 +24,20 @@ floorSpikeActivating
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 2
+  index: 1
 floorSpikeDeactivating
   rotate: false
   xy: 20, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
+  index: 3
+floorSpikeActivating
+  rotate: false
+  xy: 38, 2
+  size: 16, 26
+  orig: 16, 26
+  offset: 0, 0
   index: 2
 floorSpikeDeactivating
   rotate: false
@@ -38,50 +45,43 @@ floorSpikeDeactivating
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 1
-floorSpikeActivating
-  rotate: false
-  xy: 38, 2
-  size: 16, 26
-  orig: 16, 26
-  offset: 0, 0
-  index: 3
+  index: 2
 floorSpikeDeactivating
   rotate: false
   xy: 56, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 3
+  index: 0
 floorSpikeActivating
   rotate: false
   xy: 56, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 1
-floorSpikeIdle
+  index: 4
+floorSpikeTriggered
+  rotate: false
+  xy: 56, 2
+  size: 16, 26
+  orig: 16, 26
+  offset: 0, 0
+  index: 0
+floorSpikeDeactivating
   rotate: false
   xy: 74, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 0
-floorSpikeTriggered
-  rotate: false
-  xy: 92, 2
-  size: 16, 26
-  orig: 16, 26
-  offset: 0, 0
-  index: 0
+  index: 1
 floorSpikeActivating
   rotate: false
-  xy: 92, 2
+  xy: 74, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 4
-floorSpikeDeactivating
+  index: 3
+floorSpikeIdle
   rotate: false
   xy: 92, 2
   size: 16, 26

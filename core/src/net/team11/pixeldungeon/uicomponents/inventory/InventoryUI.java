@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.uicomponents.TextBox;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class InventoryUI extends Stage {
@@ -44,20 +46,9 @@ public class InventoryUI extends Stage {
 
         Label titleLabel = new Label(title, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
-        inventoryTable.add(titleLabel).colspan(5).left().pad(40 * PixelDungeon.SCALAR);
-        inventoryTable.row();
 
-        for (int i = 0 ; i < InventoryComponent.MAX_SIZE ; i++) {
-            if (i == 5) {
-                inventoryTable.row();
-            }
-            slotArray.add(new InventorySlot());
-            inventoryTable.add(slotArray.get(i)).pad(15 * PixelDungeon.SCALAR);
-        }
-        inventoryTable.row().padTop(20 * PixelDungeon.SCALAR);
-
-        Label backLabel = new Label("BACK", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
-        backLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
+        TextButton backLabel = new TextButton("Back", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        backLabel.getLabel().setFontScale(PixelDungeon.SCALAR);
         backLabel.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -70,12 +61,23 @@ public class InventoryUI extends Stage {
             }
         });
 
+        inventoryTable.add(titleLabel).colspan(5).left().pad(40 * PixelDungeon.SCALAR);
+        inventoryTable.row();
+
+        for (int i = 0 ; i < InventoryComponent.MAX_SIZE ; i++) {
+            if (i == 5) {
+                inventoryTable.row();
+            }
+            slotArray.add(new InventorySlot());
+            inventoryTable.add(slotArray.get(i)).pad(15 * PixelDungeon.SCALAR);
+        }
+        inventoryTable.row().padTop(20 * PixelDungeon.SCALAR);
+
         inventoryTable.add(backLabel).colspan(5).right().pad(20 * PixelDungeon.SCALAR);
 
         inventoryTable.setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
                 Assets.HUD).createPatch("itemSlot")));
         inventoryTable.pack();
-
         inventoryTable.setPosition(PixelDungeon.V_WIDTH/2 - inventoryTable.getWidth()/2,PixelDungeon.V_HEIGHT/2 - inventoryTable.getHeight()/2);
     }
 
