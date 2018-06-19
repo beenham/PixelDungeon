@@ -64,13 +64,17 @@ public class TextBox extends Stage {
     }
 
     public void init(String text) {
-        if (text != null) {
-            this.text = text;
+        if (visible) {
+            this.text += ".\n\n" + text;
         } else {
-            this.text = Messages.WALL_UNREADABLE_TEXT;
+            if (text != null) {
+                this.text = text;
+            } else {
+                this.text = Messages.WALL_UNREADABLE_TEXT;
+            }
+            this.textLabel.setText(this.text);
+            setVisible(true);
         }
-        this.textLabel.setText(this.text);
-        setVisible(true);
     }
 
     public void setVisible(boolean visible) {

@@ -22,6 +22,7 @@ import net.team11.pixeldungeon.entities.door.ButtonDoor;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
+import net.team11.pixeldungeon.entities.puzzle.CompletedIndicator;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.puzzle.colouredgems.GemPillar;
 import net.team11.pixeldungeon.entities.puzzle.colouredgems.WallScribe;
@@ -34,8 +35,9 @@ import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
-import net.team11.pixeldungeon.items.keys.EndKey;
+import net.team11.pixeldungeon.items.keys.DungeonKey;
 import net.team11.pixeldungeon.puzzles.Puzzle;
+import net.team11.pixeldungeon.puzzles.levelpuzzle.LevelPuzzle;
 import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
 import net.team11.pixeldungeon.utils.CollisionUtil;
@@ -90,6 +92,7 @@ public class TiledObjectUtil {
                         if (rectObject.getProperties().containsKey(TiledMapProperties.OPENED)) {
                             boolean opened = (boolean) rectObject.getProperties().get(TiledMapProperties.OPENED);
                             boolean locked = (boolean) rectObject.getProperties().get(TiledMapProperties.LOCKED);
+                            boolean dungeonKey = false;
                             int amount = (int) rectObject.getProperties().get(TiledMapProperties.AMOUNT);
                             Item item = null;
                             switch ((String)rectObject.getProperties().get(TiledMapProperties.ITEM)) {
@@ -102,15 +105,14 @@ public class TiledObjectUtil {
                                 case TiledMapObjectNames.CHEST_KEY:
                                     item = new ChestKey();
                                     break;
-                                case TiledMapObjectNames.BOSS_KEY:
-                                    item = new EndKey();
+                                case TiledMapObjectNames.DUNGEON_KEY:
+                                    item = new DungeonKey();
+                                    dungeonKey = true;
                                     break;
-
                             }
-
-                            Chest chest = new Chest(rectObject.getRectangle(), opened,locked, rectObject.getName(), item);
-                            if (chest.isLocked()){
-                                    chest.setChestKey(new ChestKey());
+                            Chest chest = new Chest(rectObject.getRectangle(), opened, locked, dungeonKey, rectObject.getName(), item);
+                            if (chest.isLocked()) {
+                                chest.setChestKey(new ChestKey());
                             }
                             engine.addEntity(chest);
                         } else {
@@ -258,6 +260,13 @@ public class TiledObjectUtil {
                             System.err.println("PRESSURE PLATE: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
+
+                    case TiledMapObjectNames.COMPLETED_INDICATOR:
+                        puzzleName = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        CompletedIndicator indicator = new CompletedIndicator(rectObject.getRectangle(), rectObject.getName());
+                        engine.addEntity(indicator);
+                        indicator.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        break;
                     default:
                         throw new IllegalArgumentException("This isn't a valid entity! " + type);
                 }
@@ -355,8 +364,12 @@ public class TiledObjectUtil {
                 String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
 
                 //  If the entity has any targets to 'trigger'
+                List<String> activateTargets = new ArrayList<>();
                 List<String> completeTargets = new ArrayList<>();
                 List<String> failTargets = new ArrayList<>();
+                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_ACTIVATE)) {
+                    activateTargets = parseTargets(mapObject, TiledMapProperties.TARGET_ACTIVATE);
+                }
                 if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_COMPLETE)) {
                     completeTargets = parseTargets(mapObject, TiledMapProperties.TARGET_COMPLETE);
                 }
@@ -366,6 +379,14 @@ public class TiledObjectUtil {
 
                 //  Retrieves the type of entity specified in the tiled map
                 switch (type) {
+                    case TiledMapPuzzleNames.LEVEL_PUZZLE:
+                        LevelPuzzle levelPuzzle = new LevelPuzzle(mapObject.getName());
+                        levelPuzzle.setActivateTargets(activateTargets);
+                        levelPuzzle.setCompleteTargets(completeTargets);
+                        levelPuzzle.setFailTargets(failTargets);
+                        engine.addPuzzle(levelPuzzle);
+                        break;
+
                     case TiledMapPuzzleNames.SIMON_SAYS:
                         try {
                             String name = mapObject.getName();
@@ -374,6 +395,7 @@ public class TiledObjectUtil {
                             int numStages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
 
                             SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
+                            simonSays.setActivateTargets(activateTargets);
                             simonSays.setCompleteTargets(completeTargets);
                             simonSays.setFailTargets(failTargets);
                             engine.addPuzzle(simonSays);
@@ -390,6 +412,7 @@ public class TiledObjectUtil {
                         chests = parseTargets(mapObject, TiledMapProperties.CHESTS);
 
                         ColouredGemsPuzzle colourGems = new ColouredGemsPuzzle(name, numGems, maxAttempts);
+                        colourGems.setActivateTargets(activateTargets);
                         colourGems.setCompleteTargets(completeTargets);
                         colourGems.setFailTargets(failTargets);
                         colourGems.setChests(chests);
@@ -455,6 +478,16 @@ public class TiledObjectUtil {
      * @param puzzle Current entity
      */
     public static void parseTargets(EntityEngine engine, Puzzle puzzle) {
+        List<Entity> activateEntities = new ArrayList<>();
+        for (String target : puzzle.getActivateTargets()) {
+            for (Entity entity : engine.getEntities()) {
+                if (entity.getName().equals(target)) {
+                    activateEntities.add(entity);
+                }
+            }
+        }
+        puzzle.setOnActivateEntities(activateEntities);
+
         List<Entity> completeEntities = new ArrayList<>();
         for (String target : puzzle.getCompleteTargets()) {
             for (Entity entity : engine.getEntities()) {

@@ -35,7 +35,7 @@ public class Door extends Entity {
     protected Type type;
     protected boolean open;
 
-    public Door(String name, Rectangle bounds, Type type, boolean open) {
+    protected Door(String name, Rectangle bounds, Type type, boolean open) {
         super(name);
         this.type = type;
         this.open = open;
@@ -86,9 +86,12 @@ public class Door extends Entity {
                 }
                 break;
         }
+        if (open) {
+            getComponent(BodyComponent.class).removeBody();
+        }
     }
 
-    public void setOpened(boolean opened) {
+    protected void setOpened(boolean opened) {
         this.open = opened;
         if (!open) {
             switch (type) {

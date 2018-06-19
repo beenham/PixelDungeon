@@ -48,11 +48,13 @@ public class PuzzleController extends PuzzleComponent {
     }
 
     @Override
-    public void doInteraction() {
-        if (!parentPuzzle.isActivated() && !parentPuzzle.isCompleted() && parentPuzzle.getRemainingAttempts()>0) {
-            parentPuzzle.activate();
-        } else {
-            parentPuzzle.notifyPressed(this);
+    public void doInteraction(boolean isPlayer) {
+        if (isPlayer) {
+            if (!parentPuzzle.isActivated() && !parentPuzzle.isCompleted() && parentPuzzle.getRemainingAttempts() > 0) {
+                parentPuzzle.activate();
+            } else {
+                parentPuzzle.notifyPressed(this);
+            }
         }
     }
 }

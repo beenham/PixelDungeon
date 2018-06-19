@@ -4,6 +4,7 @@ public class TiledMapObjectNames {
     /////   ENTITY NAMES    /////
     public static final String BOX = "box";
     public static final String CHEST = "chest";
+    public static final String COMPLETED_INDICATOR = "completedIndicator";
     public static final String DOOR = "door";
     public static final String DOOR_PILLAR = "doorPillar";
     public static final String FLOOR_SPIKE = "floorSpike";
@@ -19,10 +20,9 @@ public class TiledMapObjectNames {
 
     /////   ITEM NAMES      /////
     public static final String COIN = "coin";
-    public static final String KEY = "key";
     public static final String CHEST_KEY = "chestKey";
     public static final String DOOR_KEY = "doorKey";
-    public static final String BOSS_KEY = "bossKey";
+    public static final String DUNGEON_KEY = "dungeonKey";
 
     /////   POINT NAMES     /////
     public static final String SPAWN_POINT = "playerSpawn";

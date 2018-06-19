@@ -57,6 +57,7 @@ public class SimonSays extends Puzzle{
         if (attempts < maxAttempts) {
             updateAssets(AssetName.SS_SWITCH_IDLE,AssetName.PUZZLECONTROLLER_ACTIVATED);
             generateSequence();
+            trigger();
             resetTimer();
 
             failed = false;
@@ -185,9 +186,7 @@ public class SimonSays extends Puzzle{
         waiting = true;
         resetTimer();
         updateAssets(AssetName.SS_SWITCH_FAILED,AssetName.PUZZLECONTROLLER_DEACTIVATED);
-        if (attempts == maxAttempts) {
-            trigger();
-        }
+        trigger();
     }
 
     public void notifyPressed(PuzzleComponent saysSwitch) {

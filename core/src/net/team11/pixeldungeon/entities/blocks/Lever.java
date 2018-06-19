@@ -65,10 +65,12 @@ public class Lever extends Entity {
     }
 
     @Override
-    public void doInteraction(){
-        setActivated(!activated);
-        for (Entity entity : targetEntities){
-            entity.doInteraction(false);
+    public void doInteraction(boolean isPlayer){
+        if (isPlayer) {
+            setActivated(!activated);
+            for (Entity entity : targetEntities) {
+                entity.doInteraction(false);
+            }
         }
     }
 }

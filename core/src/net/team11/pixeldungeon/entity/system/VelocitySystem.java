@@ -63,7 +63,8 @@ public class VelocitySystem extends EntitySystem {
             RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
             Rectangle collision = new Rectangle(mapObject.getRectangle());
             Polygon collisionBox = CollisionUtil.createRectangle(
-                    collision.x,collision.y,collision.width,collision.height);
+                    collision.x+collision.width/2,collision.y+collision.height/2,
+                    collision.width,collision.height);
             if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
@@ -78,7 +79,8 @@ public class VelocitySystem extends EntitySystem {
             RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.MAP_EXIT);
             Rectangle collision = new Rectangle(mapObject.getRectangle());
             Polygon collisionBox = CollisionUtil.createRectangle(
-                    collision.x,collision.y,collision.width,collision.height);
+                    collision.x+collision.width/2,collision.y+collision.height/2,
+                    collision.width,collision.height);
             if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 engine.finish();
                 ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,

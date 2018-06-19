@@ -47,16 +47,12 @@ public class SimonSaysSwitch extends PuzzleComponent {
     }
 
     @Override
-    public void doInteraction() {
-        if (parentPuzzle.isActivated()) {
-            parentPuzzle.notifyPressed(this);
-        }
-        super.doInteraction();
-    }
-
-    @Override
     public void doInteraction(boolean isPlayer) {
-        if (!isPlayer) {
+        if (isPlayer) {
+            if (parentPuzzle.isActivated()) {
+                parentPuzzle.notifyPressed(this);
+            }
+        } else {
             if (on) {
                 timer = 1;
                 on = false;

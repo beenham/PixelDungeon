@@ -11,7 +11,9 @@ public class PuzzleComponent extends Entity {
     }
 
     public void setParentPuzzle(Puzzle parentPuzzle) {
-        this.parentPuzzle = parentPuzzle;
-        parentPuzzle.addComponent(this);
+        if (parentPuzzle != null) {
+            this.parentPuzzle = parentPuzzle;
+            parentPuzzle.addComponent(this);
+        }
     }
 }

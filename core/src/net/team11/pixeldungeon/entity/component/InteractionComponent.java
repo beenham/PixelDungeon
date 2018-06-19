@@ -14,7 +14,7 @@ public class InteractionComponent implements EntityComponent {
         this.interacting = false;
     }
     public void doInteraction() {
-        entity.doInteraction();
+        entity.doInteraction(true);
         this.interacting = true;
         this.interactTime = 10;
     }

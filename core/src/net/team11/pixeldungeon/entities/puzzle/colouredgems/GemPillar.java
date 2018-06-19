@@ -49,12 +49,14 @@ public class GemPillar extends PuzzleComponent {
 
 
     @Override
-    public void doInteraction() {
-        if (!parentPuzzle.isCompleted() && parentPuzzle.getRemainingAttempts() > 0) {
-            if (this.gem != null) {
-                PlayScreen.uiManager.initItemSelector(gem, this);
-            } else {
-                PlayScreen.uiManager.initItemSelector(ColouredGem.class, this);
+    public void doInteraction(boolean isPlayer) {
+        if (isPlayer) {
+            if (!parentPuzzle.isCompleted() && parentPuzzle.getRemainingAttempts() > 0) {
+                if (this.gem != null) {
+                    PlayScreen.uiManager.initItemSelector(gem, this);
+                } else {
+                    PlayScreen.uiManager.initItemSelector(ColouredGem.class, this);
+                }
             }
         }
     }

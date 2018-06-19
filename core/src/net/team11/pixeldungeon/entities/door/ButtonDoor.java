@@ -11,10 +11,12 @@ public class ButtonDoor extends Door {
     }
 
     @Override
-    public void doInteraction() {
-        if (type == Type.BUTTON) {
-            if (!open) {
-                setOpened(true);
+    public void doInteraction(boolean isPlayer) {
+        if (isPlayer) {
+            if (type == Type.BUTTON) {
+                if (!open) {
+                    setOpened(true);
+                }
             }
         }
     }

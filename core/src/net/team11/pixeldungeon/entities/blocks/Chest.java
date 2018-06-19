@@ -10,8 +10,6 @@ import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
-import net.team11.pixeldungeon.items.keys.DoorKey;
-import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;
@@ -31,14 +29,16 @@ import java.util.Locale;
 public class Chest extends Entity {
     private boolean opened;
     private boolean locked;
+    private boolean dungeonKey;
     private boolean looted;
     private ChestKey chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item) {
+    public Chest(Rectangle bounds, boolean opened, boolean locked, boolean dungeonKey, String name, Item item) {
         super(name);
         this.opened = opened;
         this.locked = locked;
+        this.dungeonKey = dungeonKey;
         this.looted = false;
         this.item = item;
         float posX = bounds.getX() + bounds.getWidth()/2;
@@ -61,12 +61,18 @@ public class Chest extends Entity {
         animationComponent.addAnimation(AssetName.CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.LOCKED_CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.LOCKED_CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.LOCKED_CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.LOCKED_CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.CHEST_EMPTY_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
-        if (locked) {
+        if (dungeonKey) {
+            animationComponent.setAnimation(AssetName.DUNGEON_CHEST_CLOSED);
+        } else if (locked) {
             if (opened) {
                 if (isEmpty()) {
                     animationComponent.setAnimation(AssetName.LOCKED_CHEST_LOOTED);
@@ -120,7 +126,32 @@ public class Chest extends Entity {
         AnimationComponent animationComponent = getComponent(AnimationComponent.class);
 
         if (!looted) {
-            if (locked) {
+            if (dungeonKey) {
+                if (opened) {
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.DUNGEON_CHEST_LOOTED);
+                    }
+                } else {
+                    opened = true;
+                    updateStats();
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                        animationComponent.setAnimation(AssetName.DUNGEON_CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.DUNGEON_CHEST_OPENED);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.DUNGEON_CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.DUNGEON_CHEST_LOOTED);
+                    }
+                }
+            } else if (locked) {
                 if (opened) {
                     if (inventory.isFull()) {
                         String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;

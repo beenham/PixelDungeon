@@ -30,8 +30,10 @@ public class Puzzle {
     protected ArrayList<PuzzleComponent> puzzleComponents = new ArrayList<>();
     protected ArrayList<PuzzleItem> puzzleItems = new ArrayList<>();
 
-    protected List<Entity> onCompleteEntities = new ArrayList<>();
-    protected List<Entity> onFailEntities = new ArrayList<>();
+    private List<Entity> onActivateEntities = new ArrayList<>();
+    private List<Entity> onCompleteEntities = new ArrayList<>();
+    private List<Entity> onFailEntities = new ArrayList<>();
+    private List<String> activateTargets = new ArrayList<>();
     private List<String> completeTargets = new ArrayList<>();
     private List<String> failTargets = new ArrayList<>();
 
@@ -67,6 +69,27 @@ public class Puzzle {
     public void setController(PuzzleController controller) {
         this.puzzleController = controller;
     }
+
+    public void setActivateTargets(List<String> entities) {
+        while (!entities.isEmpty()) {
+            if (!activateTargets.contains(entities.get(0))) {
+                activateTargets.add(entities.remove(0));
+            } else {
+                entities.remove(0);
+            }
+        }
+    }
+
+    public void setOnActivateEntities(List<Entity> entities) {
+        while (!entities.isEmpty()) {
+            if (!onActivateEntities.contains(entities.get(0))) {
+                onActivateEntities.add(entities.remove(0));
+            } else {
+                entities.remove(0);
+            }
+        }
+    }
+
     public void setCompleteTargets(List<String> entities) {
         while (!entities.isEmpty()) {
             if (!completeTargets.contains(entities.get(0))) {
@@ -115,6 +138,10 @@ public class Puzzle {
         return failTargets;
     }
 
+    public List<String> getActivateTargets() {
+        return activateTargets;
+    }
+
     public String getName() {
         return name;
     }
@@ -125,7 +152,6 @@ public class Puzzle {
 
     public void setTimer(float timer) {
         this.timer = timer;
-        //System.out.println("Time: " + timer);
     }
 
     protected void resetTimer() {
@@ -156,14 +182,33 @@ public class Puzzle {
     protected void trigger() {
         if (completed) {
             for (Entity entity : onCompleteEntities) {
-                entity.doInteraction(false);
+                if (entity instanceof Trap) {
+                    ((Trap) entity).trigger();
+                } else {
+                    entity.doInteraction(false);
+                }
+            }
+            for (Entity entity : onActivateEntities) {
+                if (entity instanceof Trap) {
+                    ((Trap) entity).trigger();
+                } else {
+                    entity.doInteraction(false);
+                }
+            }
+        } else if (getRemainingAttempts() > 0) {
+            for (Entity entity : onActivateEntities) {
+                if (entity instanceof Trap) {
+                    ((Trap) entity).trigger();
+                } else {
+                    entity.doInteraction(false);
+                }
             }
         } else {
             for (Entity entity : onFailEntities) {
                 if (entity instanceof Trap) {
                     ((Trap) entity).trigger();
                 } else {
-                    entity.doInteraction();
+                    entity.doInteraction(false);
                 }
             }
         }
