@@ -74,8 +74,8 @@ public class TextBox extends Stage {
     public void setVisible(boolean visible) {
         this.visible = visible;
         this.backPressed = false;
-        timer = 1;
-        time = 3;
+        timer = 0;
+        time = 0;
         if (visible) {
             Gdx.input.setInputProcessor(this);
         }
@@ -92,7 +92,7 @@ public class TextBox extends Stage {
     public void update(float delta) {
         if (visible) {
             timer += delta;
-            if (timer >= 1) {
+            if (timer >= 0.5) {
                 timer = 0;
                 String string = text;
                 switch (time) {

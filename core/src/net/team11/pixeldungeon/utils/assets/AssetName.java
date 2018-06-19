@@ -71,6 +71,12 @@ public class AssetName {
     public static final String CHEST_CLOSED = "chestClosed";
     public static final String CHEST_OPENED = "chestOpened";
     public static final String CHEST_OPENING = "chestOpening";
+    public static final String CHEST_LOOTED = "chestLooted";
+    public static final String LOCKED_CHEST_CLOSED = "lockedChestClosed";
+    public static final String LOCKED_CHEST_OPENED = "lockedChestOpened";
+    public static final String LOCKED_CHEST_OPENING = "lockedChestOpening";
+    public static final String LOCKED_CHEST_LOOTED = "lockedChestLooted";
+    public static final String CHEST_EMPTY_OPENING = "emptyChestOpening";
 
     public static final String DOOR_OPENED = "doorOpened";
     public static final String BUTTONDOOR_CLOSED = "buttonDoorClosed";

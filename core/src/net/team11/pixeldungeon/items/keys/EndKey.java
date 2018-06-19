@@ -6,8 +6,8 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class EndKey extends Key {
-    public EndKey(String name) {
-        super(name);
+    public EndKey() {
+        super(endKeyName);
         amount = 1;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
                 .findRegion(AssetName.END_KEY));

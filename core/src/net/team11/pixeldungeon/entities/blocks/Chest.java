@@ -13,6 +13,8 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.EndKey;
 import net.team11.pixeldungeon.items.keys.Key;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.CurrentStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;
@@ -27,6 +29,7 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 public class Chest extends Entity {
     private boolean opened;
     private boolean locked;
+    private boolean looted;
     private ChestKey chestKey;
     private Item item;
 
@@ -34,6 +37,7 @@ public class Chest extends Entity {
         super(name);
         this.opened = opened;
         this.locked = locked;
+        this.looted = false;
         this.item = item;
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
@@ -52,11 +56,36 @@ public class Chest extends Entity {
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        if (opened) {
-            animationComponent.setAnimation(AssetName.CHEST_OPENED);
+        animationComponent.addAnimation(AssetName.CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.CHEST_EMPTY_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        if (locked) {
+            if (opened) {
+                if (isEmpty()) {
+                    animationComponent.setAnimation(AssetName.LOCKED_CHEST_LOOTED);
+                    looted = true;
+                } else {
+                    animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENED);
+                }
+            } else {
+                animationComponent.setAnimation(AssetName.LOCKED_CHEST_CLOSED);
+            }
         } else {
-            animationComponent.setAnimation(AssetName.CHEST_CLOSED);
+            if (opened) {
+                if (isEmpty()) {
+                    animationComponent.setAnimation(AssetName.CHEST_LOOTED);
+                    looted = true;
+                } else {
+                    animationComponent.setAnimation(AssetName.CHEST_OPENED);
+                }
+            } else {
+                animationComponent.setAnimation(AssetName.CHEST_CLOSED);
+            }
         }
     }
 
@@ -72,8 +101,7 @@ public class Chest extends Entity {
         if (shouldRemove) {
             updateStats();
             item = null;
-        } else {
-            opened = false;
+            looted = true;
         }
     }
 
@@ -86,32 +114,70 @@ public class Chest extends Entity {
     }
 
     public void doInteraction(Player player) {
-        //Check to see if it's locked or not
+        InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+        AnimationComponent animationComponent = getComponent(AnimationComponent.class);
 
-        if (locked && !opened){
-            System.out.println("Key is :  " + chestKey.getName());
-            //Do nothing we don't have the chestKey
-            System.out.println("IS LOCKED");
-            //Check to see if we have the chestKey
-            if (player.getComponent(InventoryComponent.class).hasItem(chestKey)){
-                locked = false;
-                opened = true;
-                player.getComponent(InventoryComponent.class).removeItem(chestKey);
-                if (!isEmpty()) {
-                    removeItem(player.getComponent(InventoryComponent.class).addItem(item));
+        if (!looted) {
+            if (locked) {
+                if (opened) {
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                    } else {
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.LOCKED_CHEST_LOOTED);
+                    }
+                } else {
+                    if (inventory.hasItem(chestKey)) {
+                        inventory.removeItem(chestKey);
+                        opened = true;
+                        if (inventory.isFull()) {
+                            String message = Messages.INVENTORY_FULL+ "!\n" + Messages.CHEST_LOOT_LATER;
+                            PlayScreen.uiManager.initTextBox(message);
+                            animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENING);
+                            animationComponent.setNextAnimation(AssetName.LOCKED_CHEST_OPENED);
+                        } else {
+                            removeItem(inventory.addItem(item));
+                            animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENING);
+                            animationComponent.setNextAnimation(AssetName.LOCKED_CHEST_LOOTED);
+                        }
+                    } else {
+                        String message = Messages.CHEST_NEED_KEY;
+                        PlayScreen.uiManager.initTextBox(message);
+                    }
                 }
             } else {
-                System.out.println("You do not have the chestKey");
+                if (isEmpty()) {
+                    looted = true;
+                    String message = Messages.CHEST_IS_EMPTY;
+                    PlayScreen.uiManager.initTextBox(message);
+                    animationComponent.setAnimation(AssetName.CHEST_EMPTY_OPENING);
+                    animationComponent.setNextAnimation(AssetName.CHEST_LOOTED);
+                } else if (opened) {
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                    } else {
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.CHEST_LOOTED);
+                    }
+                } else {
+                    opened = true;
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                        animationComponent.setAnimation(AssetName.CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.CHEST_OPENED);
+                    } else {
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.CHEST_LOOTED);
+                    }
+                }
             }
-        } else if (!locked && !opened) {
-            opened = true;
-            if (!isEmpty()) {
-                removeItem(player.getComponent(InventoryComponent.class).addItem(item));
-            }
-        }
-
-        if (opened) {
-            getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
+        } else {
+            String message = Messages.CHEST_IS_LOOTED;
+            PlayScreen.uiManager.initTextBox(message);
         }
     }
 

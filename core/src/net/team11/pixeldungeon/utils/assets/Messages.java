@@ -1,6 +1,16 @@
 package net.team11.pixeldungeon.utils.assets;
 
 public class Messages {
+    public static final String INVENTORY_FULL = "You can't take this item! Your inventory is full";
+
+    public static final String CHEST_IS_EMPTY = "Huh. The chest was empty. Why leave an empty chest?";
+    public static final String CHEST_IS_LOOTED = "Why look in an empty chest again";
+    public static final String CHEST_LOOT_LATER = "Come back later to grab your loot";
+    public static final String CHEST_NEED_KEY = "You need a Chest Key to open this chest";
+
+    public static final String DOOR_NEED_KEY = "You need a Door Key to open this door";
+    public static final String NEED_END_KEY = "You need the End Key to open this door";
+
     public static final String WALL_UNREADABLE_TEXT = "The text on the wall is unreadable";
 
     /////   PUZZLE MESSAGES

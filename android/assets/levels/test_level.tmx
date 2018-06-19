@@ -411,12 +411,9 @@
   <object id="23" name="chest_1" x="208" y="208" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="50"/>
-    <property name="chestKey" value="chestKey"/>
     <property name="entity" value="chest"/>
     <property name="item" value="coin"/>
-    <property name="itemName" value="Coins"/>
-    <property name="keyName" value="Small Chest Key"/>
-    <property name="locked" type="bool" value="false"/>
+    <property name="locked" type="bool" value="true"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
@@ -441,11 +438,8 @@
   <object id="42" name="chest_2" x="368.5" y="180.75" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value="doorKey"/>
-    <property name="itemName" value="Small Key"/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -453,11 +447,8 @@
   <object id="43" name="chest_3" x="368.25" y="199.25" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value="chestKey"/>
-    <property name="itemName" value="Small Chest Key"/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -465,11 +456,8 @@
   <object id="44" name="chest_4" x="368.5" y="216.25" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value="bossKey"/>
-    <property name="itemName" value="Boss Key"/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -535,11 +523,8 @@
   <object id="80" name="puzzleChest1" x="184.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -547,11 +532,8 @@
   <object id="81" name="puzzleChest2" x="210.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -559,11 +541,8 @@
   <object id="82" name="puzzleChest3" x="238.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -571,11 +550,8 @@
   <object id="83" name="puzzleChest4" x="269.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -583,11 +559,8 @@
   <object id="84" name="puzzleChest6" x="323.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -595,11 +568,8 @@
   <object id="85" name="puzzleChest5" x="295.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -607,11 +577,8 @@
   <object id="87" name="puzzleChest9" x="407.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -619,11 +586,8 @@
   <object id="88" name="puzzleChest8" x="381.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -631,11 +595,8 @@
   <object id="89" name="puzzleChest7" x="350.303" y="499.333" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
-    <property name="chestKey" value=""/>
     <property name="entity" value="chest"/>
     <property name="item" value=""/>
-    <property name="itemName" value=""/>
-    <property name="keyName" value=""/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
@@ -719,7 +680,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#002eff" name="doors" locked="1">
+ <objectgroup color="#002eff" name="doors">
   <object id="3" name="doorPillarLeft" x="400" y="160" width="3" height="16">
    <properties>
     <property name="entity" value="doorPillar"/>
@@ -768,7 +729,6 @@
    <properties>
     <property name="doorType" value="LOCKED"/>
     <property name="entity" value="door"/>
-    <property name="keyName" value="Small Key"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>

@@ -23,8 +23,10 @@ import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.puzzleitems.ColouredGem;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.uicomponents.inventory.InventorySlot;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 import java.util.ArrayList;
 
@@ -201,11 +203,14 @@ public class ItemSelector extends Stage {
         item.setListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("IS THIS EVEN BEING PRESSED ");
                 if (!backPressed) {
                     if (callingEntity instanceof GemPillar && item instanceof ColouredGem) {
-                        System.out.println("INVENTORY PRESSED : Added " + ((ColouredGem) item).getColour() + " to inventory");
-                        inventory.addItem(((GemPillar) callingEntity).takeGem());
+                        if (!inventory.isFull()) {
+                            inventory.addItem(((GemPillar) callingEntity).takeGem());
+                        } else {
+                            String message = Messages.INVENTORY_FULL;
+                            PlayScreen.uiManager.initTextBox(message);
+                        }
                     }
                     backPressed = true;
                 }

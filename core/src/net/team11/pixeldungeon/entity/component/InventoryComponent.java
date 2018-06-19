@@ -21,7 +21,6 @@ public class InventoryComponent implements EntityComponent {
                 items.add(item);
                 return true;
             } else {
-                System.out.println("Not enough space!");
                 return false;
             }
         }
@@ -50,13 +49,14 @@ public class InventoryComponent implements EntityComponent {
 
     public boolean hasItem(Item item) {
         for (Item myItem : items) {
-//            System.out.println(item.getClass().toString());
-//            System.out.println(item.getName());
             if (myItem.getClass().equals(item.getClass()) && myItem.getName().equals(item.getName())) {
-//                System.out.println("Item is " + item);
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean isFull() {
+        return items.size() == MAX_SIZE;
     }
 }

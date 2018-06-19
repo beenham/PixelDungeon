@@ -7,7 +7,7 @@ import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class Coin extends Item {
     public Coin(int amount) {
-        super("coin",false);
+        super("Coin",false);
         this.amount = amount;
         this.image = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
                 .findRegion(AssetName.COIN));
