@@ -786,7 +786,7 @@
   <object id="65" name="simonSays_1" x="576" y="48">
    <properties>
     <property name="difficulty" type="int" value="1"/>
-    <property name="maxAttempts" type="int" value="1"/>
+    <property name="maxAttempts" type="int" value="3"/>
     <property name="onComplete" value="mechanicDoor_2"/>
     <property name="onFailure" value="floorSpike_puzzle1,floorSpike_puzzle2,floorSpike_puzzle3,floorSpike_puzzle4"/>
     <property name="puzzle" value="simonSays"/>
@@ -797,7 +797,7 @@
   <object id="79" name="colourGem1" x="256" y="444">
    <properties>
     <property name="chests" value="puzzleChest1,puzzleChest2,puzzleChest3,puzzleChest4,puzzleChest5,puzzleChest6,puzzleChest7,puzzleChest8,puzzleChest9"/>
-    <property name="maxAttempts" type="int" value="1"/>
+    <property name="maxAttempts" type="int" value="3"/>
     <property name="numGems" type="int" value="6"/>
     <property name="onComplete" value="mechanicDoor_2"/>
     <property name="onFailure" value="floorSpike_puzzle1,floorSpike_puzzle2,floorSpike_puzzle3,floorSpike_puzzle4"/>

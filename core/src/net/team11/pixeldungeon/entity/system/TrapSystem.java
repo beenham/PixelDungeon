@@ -31,7 +31,7 @@ public class TrapSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
-        traps = new ArrayList<>(entityEngine.getEntities(TrapComponent.class).size());
+        traps = new ArrayList<>();
         traps = entityEngine.getEntities(TrapComponent.class);
     }
 
@@ -65,14 +65,16 @@ public class TrapSystem extends EntitySystem {
                 }
                 if (trap.isTimed()) {
                     trap.setTimer(trap.getTimer() - delta);
-                    if (overLapping && !submerged) {
+                    if (!overLapping && !submerged) {
+                        trap.setContactingEntity(null);
+                    } else if (trap.requireSubmerged() && !submerged) {
+                        trap.setContactingEntity(null);
+                    } else if (overLapping){
                         trap.setContactingEntity(player);
                         if (trap.isTriggered()) {
                             HealthComponent health = player.getComponent(HealthComponent.class);
                             health.setHealth(health.getHealth()-trap.getDamage());
                         }
-                    } else if (!submerged){
-                        trap.setContactingEntity(null);
                     }
                     if (trap.getTimer() <= 0f) {
                         trap.trigger();

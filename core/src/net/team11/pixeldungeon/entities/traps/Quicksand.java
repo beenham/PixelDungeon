@@ -18,6 +18,7 @@ public class Quicksand extends Trap {
     public Quicksand(ChainShape bounds, String name, float speedMod, float timeBeforeDeath) {
         super(name, false);
         this.speedMod = speedMod;
+        super.requireSubmerged = true;
         triggered = false;
         timed = true;
         timerReset = timeBeforeDeath;

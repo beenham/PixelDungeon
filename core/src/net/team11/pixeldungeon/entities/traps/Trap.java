@@ -6,6 +6,7 @@ public class Trap extends Entity {
     protected boolean enabled;
     protected boolean timed;
     protected boolean triggered;
+    protected boolean requireSubmerged;
 
     protected int damage;
     protected float timerReset;
@@ -16,6 +17,7 @@ public class Trap extends Entity {
     public Trap(String name, Boolean enabled) {
         super(name);
         this.enabled = enabled;
+        requireSubmerged = false;
     }
 
     public void setContactingEntity(Entity entity) {
@@ -24,6 +26,10 @@ public class Trap extends Entity {
 
     public void trigger() {
 
+    }
+
+    public boolean requireSubmerged() {
+        return requireSubmerged;
     }
 
     public boolean isEnabled() {
