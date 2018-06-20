@@ -85,6 +85,7 @@ public class MapManager {
             if (entity.hasTrigger()) {
                 TiledObjectUtil.parseTargets(engine, entity);
             }
+
         }
     }
 
@@ -134,5 +135,9 @@ public class MapManager {
 
     public void setEngine(EntityEngine engine) {
         this.engine = engine;
+    }
+
+    public EntityEngine getEngine() {
+        return engine;
     }
 }

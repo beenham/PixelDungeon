@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="57">
+<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="60">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer id="1" name="background" width="50" height="50">
   <data encoding="csv">
@@ -372,7 +372,7 @@
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="24" name="box_1" x="208" y="320" width="16" height="10">
+  <object id="24" name="box_1" x="257.273" y="236.364" width="16" height="10">
    <properties>
     <property name="entity" value="box"/>
     <property name="pushable" type="bool" value="true"/>
@@ -447,6 +447,21 @@
     <property name="entity" value="pressurePlate"/>
     <property name="target" value="mechanicDoor_1"/>
     <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="57" name="beam_01" x="273.818" y="265.455" width="44.7273" height="4">
+   <properties>
+    <property name="direction" value="right"/>
+    <property name="enabled" type="bool" value="true"/>
+    <property name="entity" value="beam"/>
+    <property name="target" value="beamTarget_01"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="59" name="reflector_01" x="358.364" y="260" width="16" height="16">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="entity" value="reflector"/>
    </properties>
   </object>
  </objectgroup>

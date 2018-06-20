@@ -48,6 +48,14 @@ public class EntityManager {
         this.entities.add(entity);
     }
 
+    public void removeEntity(Entity entity){
+        this.entities.remove(entity);
+    }
+
+    public boolean hasEntity(Entity entity){
+        return this.entities.contains(entity);
+    }
+
     public void storeEntities(String name) {
         System.out.println("Storing @ " + name);
         for (Entity entity :entities) {

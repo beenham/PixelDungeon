@@ -31,7 +31,7 @@ public class BodyComponent implements EntityComponent {
         createBody(bodyType, density);
     }
 
-    private void createBody(BodyDef.BodyType type, float density) {
+    public void createBody(BodyDef.BodyType type, float density) {
         Array<Body> bodies = new Array<>();
         PlayScreen.world.getBodies(bodies);
         for (Body body : bodies) {
@@ -84,7 +84,6 @@ public class BodyComponent implements EntityComponent {
         return new Rectangle(body.getPosition().x - width/2,
                 body.getPosition().y - height/2, width, height);
     }
-
     public float getWidth() {
         return width;
     }
@@ -111,6 +110,8 @@ public class BodyComponent implements EntityComponent {
 
     public void setCoords(float x, float y) {
         body.setTransform(x,y,body.getAngle());
+        this.x = x;
+        this.y = y;
     }
 
     public float getX() {

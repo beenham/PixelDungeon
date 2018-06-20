@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import net.team11.pixeldungeon.entities.mirrors.Beam;
 import net.team11.pixeldungeon.entities.blocks.Box;
 import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.entities.blocks.Lever;
@@ -22,6 +24,8 @@ import net.team11.pixeldungeon.entities.door.ButtonDoor;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
+
+import net.team11.pixeldungeon.entities.mirrors.Reflector;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
 import net.team11.pixeldungeon.entities.traps.Quicksand;
 import net.team11.pixeldungeon.entitysystem.Entity;
@@ -63,7 +67,6 @@ public class TiledObjectUtil {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.TRIGGER)) {
                     trigger = (boolean) mapObject.getProperties().get(TiledMapProperties.TRIGGER);
                 }
-
 
                 switch (type) {
                     case TiledMapObjectNames.BOX:   //  Box entity
@@ -210,6 +213,22 @@ public class TiledObjectUtil {
                             pressurePlate.setTargets(targets);
                         } else {
                             System.err.println("PRESSURE PLATE: " + object.getName() + " was not setup correctly!");
+                        }
+                        break;
+
+                    case TiledMapObjectNames.BEAM:
+                        if (object.getProperties().containsKey(TiledMapProperties.DIRECTION)){
+                            Beam beam = new Beam(object.getRectangle(), object.getName(), true, (String)object.getProperties().get(TiledMapProperties.DIRECTION));
+                            engine.addEntity(beam);
+                            beam.setTrigger(trigger);
+                            beam.setTargets(targets);
+                        }
+                        break;
+
+                    case TiledMapObjectNames.REFLECTOR:
+                        if (object.getProperties().containsKey(TiledMapProperties.DIRECTION)){
+                            Reflector reflector = new Reflector(object.getRectangle(), object.getName(), (String)object.getProperties().get(TiledMapProperties.DIRECTION));
+                            engine.addEntity(reflector);
                         }
                         break;
                     default:

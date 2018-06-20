@@ -27,4 +27,6 @@ public class TiledMapProperties {
     public static final String SMOD = "speedMod";
     public static final String ACTIVETIME = "activeTime";
     public static final String AUTOCLOSE = "autoClose";
+
+    public static final String DIRECTION = "direction";
 }

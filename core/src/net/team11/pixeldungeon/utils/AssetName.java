@@ -68,6 +68,10 @@ public class AssetName {
     public static final String TORCH_ON = "torchLit";
     public static final String TORCH_ACTIVATING = "torchActivating";
 
+    public static final String BEAM = "lightBeam";
+    public static final String BEAM_UD = "lightBeam_UD";
+    public static final String REFLECTOR = "Tmp_Reflector";
+
     /////   TRAP SPRITE NAMES       /////
     public static final String FLOORSPIKE_IDLE = "floorSpikeIdle";
     public static final String FLOORSPIKE_ACTIVATING = "floorSpikeActivating";

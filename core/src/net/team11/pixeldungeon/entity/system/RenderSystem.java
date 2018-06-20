@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
+import net.team11.pixeldungeon.entities.mirrors.Beam;
 import net.team11.pixeldungeon.entities.blocks.Torch;
+import net.team11.pixeldungeon.entities.mirrors.Reflector;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
@@ -16,7 +18,6 @@ import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +95,25 @@ public class RenderSystem extends EntitySystem {
                         bodyComponent.getY() - bodyComponent.getHeight()/2,
                         width,
                         height);
-            } else {
+            } else if (entity instanceof Beam){
+
+                ((Beam)entity).update(entities);
+
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        bodyComponent.getWidth(),
+                        bodyComponent.getHeight());
+
+            } else if (entity instanceof Reflector) {
+                ((Reflector)entity).update(mapManager.getEngine());
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            }
+            else {
                 spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
                         bodyComponent.getX() - bodyComponent.getWidth()/2,
                         bodyComponent.getY() - bodyComponent.getHeight()/2,
@@ -107,4 +126,5 @@ public class RenderSystem extends EntitySystem {
         mapManager.renderDecor();
 
     }
+
 }

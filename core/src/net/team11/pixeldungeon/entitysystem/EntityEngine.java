@@ -29,6 +29,15 @@ public class EntityEngine {
         updateSystems();
     }
 
+    public void removeEntity(Entity entity){
+        entityManager.removeEntity(entity);
+        updateSystems();
+    }
+
+    public boolean hasEntity(Entity entity){
+        return entityManager.hasEntity(entity);
+    }
+
     public List<Entity> getEntities(Class<? extends EntityComponent> componentType) {
         return this.entityManager.getEntities(componentType);
     }
