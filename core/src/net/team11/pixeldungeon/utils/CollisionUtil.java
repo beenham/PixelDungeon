@@ -21,9 +21,9 @@ public class CollisionUtil {
             }
         }
 
-        vertices = polygonOne.getVertices();
-        for (int i = 0 ; i < vertices.length/2 ; i++) {
-            Vector2 vector2 = new Vector2(vertices[i*2], vertices[i * 2 + 1]);
+        float[] secondVertices = polygonOne.getVertices();
+        for (int i = 0 ; i < secondVertices.length/2 ; i++) {
+            Vector2 vector2 = new Vector2(secondVertices[i*2], secondVertices[i * 2 + 1]);
             if (polygonTwo.contains(vector2)) {
                 return true;
             }

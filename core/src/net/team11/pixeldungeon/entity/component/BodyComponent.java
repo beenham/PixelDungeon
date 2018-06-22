@@ -68,6 +68,7 @@ public class BodyComponent implements EntityComponent {
         for (Body body : bodies) {
             if (body.equals(this.body)) {
                 removeBody();
+                this.body = null;
             }
         }
 

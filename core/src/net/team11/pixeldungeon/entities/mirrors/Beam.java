@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entities.traps.Trap;
@@ -28,10 +29,12 @@ public class Beam extends Trap {
     private Direction beamDirection;
 
     private final int DAMAGE = 100;
-    private final float LIGHT_SPEED = (float)0.75;
+    private final float LIGHT_SPEED = 7.5f;
+    private float originX;
+    private float originY;
 
     public static final int DEPTH = 4;
-    public static final int DEF_WIDTH = 4;
+    private static final int DEF_WIDTH = 4;
     private Entity currentClosest = null;
 
     private boolean on;
@@ -44,11 +47,11 @@ public class Beam extends Trap {
 
         this.damage = DAMAGE;
 
-        float posX = bounds.getX() + bounds.getWidth()/2;
-        float posY = bounds.getY() + bounds.getHeight()/2;
+        originX = bounds.getX() + bounds.getWidth()/2;
+        originY = bounds.getY() + bounds.getHeight()/2;
 
         //this.addComponent(new TrapComponent(this));
-        this.addComponent(new BodyComponent(DEF_WIDTH, DEPTH, posX, posY, 0,
+        this.addComponent(new BodyComponent(DEF_WIDTH, DEPTH, originX, originY, 0,
                 (CollisionUtil.TRAP),
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
@@ -60,49 +63,48 @@ public class Beam extends Trap {
     }
 
     public void update(List<Entity> entities){
-
         if (on){
-            BodyComponent beamComponent = this.getComponent(BodyComponent.class);
-            Polygon beamRectangle = beamComponent.getPolygon();
-            boolean overlapping = false;
+            BodyComponent beamBody = this.getComponent(BodyComponent.class);
+            Polygon beamBox = beamBody.getPolygon();
 
-            float beamVertices[] = beamRectangle.getVertices();
-            float beamX;
-            float entityVertices[];
-            float entityX, entityY;
+            boolean overlapping = false;
+            float beamX = beamBody.getX();
+            float beamY = beamBody.getY();
+
+            BodyComponent currClosestBody;
+            BodyComponent entityBody;
+            Polygon entityBox;
 
             for (Entity entity : entities){
-                Polygon rectangle = entity.getComponent(BodyComponent.class).getPolygon();
+                entityBody = entity.getComponent(BodyComponent.class);
+                entityBox = entityBody.getPolygon();
 
-                if (!(entity instanceof Beam) && CollisionUtil.isOverlapping(rectangle, beamRectangle)){
+                if (!(entity instanceof Beam || entity instanceof Trap) && CollisionUtil.isOverlapping(entityBox, beamBox)){
                     overlapping = true;
-
                     //Separate for readability
                     if (currentClosest != null){
-                        float tmpVertices[] = entity.getComponent(BodyComponent.class).getPolygon().getVertices();
-                        float currClosestVertices[] = currentClosest.getComponent(BodyComponent.class).getPolygon().getVertices();
-                        switch (beamDirection){
-
+                        currClosestBody = currentClosest.getComponent(BodyComponent.class);
+                        switch (beamDirection) {
                             case UP:
-                                if (tmpVertices[1] < currClosestVertices[1]){
+                                if (entityBody.getY() < currClosestBody.getY()) {
                                     currentClosest = entity;
                                 }
                                 break;
 
                             case DOWN:
-                                if (tmpVertices[1] > currClosestVertices[1]){
+                                if (entityBody.getY() > currClosestBody.getY()) {
                                     currentClosest = entity;
                                 }
                                 break;
 
                             case LEFT:
-                                if (tmpVertices[0] > currClosestVertices[0]){
+                                if (entityBody.getX() > currClosestBody.getX()) {
                                     currentClosest = entity;
                                 }
                                 break;
 
                             case RIGHT:
-                                if (tmpVertices[0] < currClosestVertices[0]){
+                                if (entityBody.getX() < currClosestBody.getX()) {
                                     currentClosest = entity;
                                 }
                                 break;
@@ -111,70 +113,74 @@ public class Beam extends Trap {
                     } else {
                         currentClosest = entity;
                     }
-
+                    if (entity instanceof Reflector) {
+                        //((Reflector) entity).setBeamIn(this);
+                    }
+                } else if (entity instanceof Reflector) {
+                    // set null if curr beam in is this
                 }
             }
-            beamComponent.createBody(BodyDef.BodyType.StaticBody);
+            beamBody.createBody(BodyDef.BodyType.StaticBody);
 
             if (overlapping){
-                entityVertices = currentClosest.getComponent(BodyComponent.class).getPolygon().getVertices();
-                entityX = entityVertices[0];
+                currClosestBody = currentClosest.getComponent(BodyComponent.class);
+                float currClosestX = currClosestBody.getX();
+                float currClosestY = currClosestBody.getY();
 
                 switch (beamDirection){
                     case UP:
-                        float beamY = beamVertices[1];
-                        entityY = entityVertices[1];
-                        System.out.println("Overlapping with: " + currentClosest);
-                        beamComponent.setHeight(distance(beamY, entityY));
-                        beamComponent.setCoords(beamComponent.getX() ,beamY + beamComponent.getHeight()/2);
+                        beamY -= beamBody.getHeight()/2;
+                        currClosestY -= currClosestBody.getHeight()/2;
+                        beamBody.setHeight(distance(beamY, currClosestY));
+                        beamBody.setCoords(beamBody.getX() ,beamY + beamBody.getHeight()/2);
                         break;
 
                     case DOWN:
-                        float beamYD = beamVertices[25];
-                        entityY = entityVertices[25];
-                        System.out.println("Overlapping with: " + currentClosest);
-                        beamComponent.setHeight(distance(beamYD, entityY));
-                        beamComponent.setCoords(beamComponent.getX() ,beamYD - beamComponent.getHeight()/2);
+                        beamY += beamBody.getHeight()/2;
+                        currClosestY += currClosestBody.getHeight()/2;
+                        beamBody.setHeight(distance(beamY,currClosestY));
+                        beamBody.setCoords(beamBody.getX() ,beamY - beamBody.getHeight()/2);
                         break;
 
                     case LEFT:
-                        beamX = beamVertices[8];
-                        beamComponent.setWidth(distance(beamX, entityX + currentClosest.getComponent(BodyComponent.class).getWidth()));
-                        beamComponent.setCoords(beamX - beamComponent.getWidth()/2, beamComponent.getY());
+                        beamX += beamBody.getWidth()/2;
+                        currClosestX += currClosestBody.getWidth()/2;
+                        beamBody.setWidth(distance(beamX, currClosestX));
+                        beamBody.setCoords(beamX - beamBody.getWidth()/2, beamBody.getY());
                         break;
 
                     case RIGHT:
-                        beamX = beamVertices[0];
-                        beamComponent.setWidth(distance(beamX, entityX));
-                        beamComponent.setCoords(beamX + beamComponent.getWidth()/2, beamComponent.getY());
+                        beamX -= beamBody.getWidth()/2;
+                        currClosestX -= currClosestBody.getWidth()/2;
+                        beamBody.setWidth(distance(beamX, currClosestX));
+                        beamBody.setCoords(beamX + beamBody.getWidth()/2, beamBody.getY());
                         break;
                 }
+                beamBody.createBody(BodyDef.BodyType.StaticBody);
             } else {
-
                 switch (beamDirection){
                     case UP:
-                        beamComponent.setHeight(beamComponent.getHeight() + LIGHT_SPEED);
-                        beamComponent.setCoords( (beamComponent.getX()), (float) (beamComponent.getY() + LIGHT_SPEED /2.0));
+                        beamBody.setHeight(beamBody.getHeight() + LIGHT_SPEED);
+                        beamBody.setCoords(beamBody.getX(), beamBody.getY() + LIGHT_SPEED/2f);
                         break;
 
                     case DOWN:
-                        beamComponent.setHeight(beamComponent.getHeight() + LIGHT_SPEED);
-                        beamComponent.setCoords( (beamComponent.getX()), (float) (beamComponent.getY() - LIGHT_SPEED /2.0));
+                        beamBody.setHeight(beamBody.getHeight() + LIGHT_SPEED);
+                        beamBody.setCoords(beamBody.getX(), beamBody.getY() - LIGHT_SPEED/2f);
                         break;
                     case LEFT:
-                        beamComponent.setWidth(beamComponent.getWidth() + LIGHT_SPEED);
-                        beamComponent.setCoords((float) (beamComponent.getX() - LIGHT_SPEED /2.0), beamComponent.getY());
+                        beamBody.setWidth(beamBody.getWidth() + LIGHT_SPEED);
+                        beamBody.setCoords(beamBody.getX() - LIGHT_SPEED/2f, beamBody.getY());
                         break;
 
                     case RIGHT:
-                        beamComponent.setWidth(beamComponent.getWidth() + LIGHT_SPEED);
-                        beamComponent.setCoords((float) (beamComponent.getX() + LIGHT_SPEED /2.0), beamComponent.getY());
+                        beamBody.setWidth(beamBody.getWidth() + LIGHT_SPEED);
+                        beamBody.setCoords(beamBody.getX() + LIGHT_SPEED/2f, beamBody.getY());
                         break;
                 }
                 currentClosest = null;
             }
         }
-
     }
 
     public Direction getBeamDirection() {
