@@ -1,21 +1,20 @@
 package net.team11.pixeldungeon.entities.traps;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.HealthComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.FloorSpikeComponent;
 import net.team11.pixeldungeon.entity.component.TrapComponent;
-import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,8 +37,8 @@ public class FloorSpike extends Trap {
         this.addComponent(new TrapComponent(this));
         this.addComponent(new FloorSpikeComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
-                (CollisionCategory.TRAP),
-                (byte)(CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                (CollisionUtil.TRAP),
+                (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
         this.addComponent(new InteractionComponent(this));
@@ -85,7 +84,9 @@ public class FloorSpike extends Trap {
                 getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_IDLE);
                 triggered = false;
             }
+            if (timed) {
+                resetTimer();
+            }
         }
-
     }
 }

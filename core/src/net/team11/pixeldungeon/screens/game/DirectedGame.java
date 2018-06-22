@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.screens.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -138,7 +139,11 @@ public abstract class DirectedGame extends Game {
 			batch.dispose();
 			init = false;
 		}
+	}
 
+	@Override
+	public Screen getScreen() {
+		return currScreen;
 	}
 
 }

@@ -41,4 +41,8 @@ public class ScreenManager {
         newScreen.buildStage();
         game.setScreen(newScreen, screenTransition);
     }
+
+    public Screen getScreen() {
+        return game.getScreen();
+    }
 }

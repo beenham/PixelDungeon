@@ -1,8 +1,5 @@
 package net.team11.pixeldungeon.entity.component;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
 
@@ -17,9 +14,9 @@ public class InteractionComponent implements EntityComponent {
         this.interacting = false;
     }
     public void doInteraction() {
-        entity.doInteraction();
+        entity.doInteraction(true);
         this.interacting = true;
-        this.interactTime = 8;
+        this.interactTime = 10;
     }
 
     /////////////////////////////////

@@ -1,22 +1,38 @@
 package net.team11.pixeldungeon.entitysystem;
 
+import net.team11.pixeldungeon.entity.system.RenderSystem;
+import net.team11.pixeldungeon.puzzles.Puzzle;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class EntityEngine {
     private EntityManager entityManager;
     private LinkedList<EntitySystem> systems;
+    private ArrayList<Puzzle> puzzles;
 
+    private boolean finished;
     private boolean paused;
 
     public EntityEngine() {
         this.entityManager = new EntityManager();
         systems = new LinkedList<>();
+        puzzles = new ArrayList<>();
     }
 
     public void update(float delta) {
-        if (paused) {
+        if (finished) {
             return;
+        }
+        if (paused) {
+            for (EntitySystem entitySystem : systems) {
+                if (entitySystem.getClass().equals(RenderSystem.class)) {
+                    ((RenderSystem)entitySystem).updatePaused();
+                    return;
+                }
+            }
         }
 
         for (EntitySystem entitySystem : systems) {
@@ -29,13 +45,22 @@ public class EntityEngine {
         updateSystems();
     }
 
-    public void removeEntity(Entity entity){
-        entityManager.removeEntity(entity);
+    public void addPuzzle(Puzzle puzzle) {
+        puzzles.add(puzzle);
         updateSystems();
     }
 
-    public boolean hasEntity(Entity entity){
-        return entityManager.hasEntity(entity);
+    public final Puzzle getPuzzle(String name) {
+        for (Puzzle puzzle : puzzles) {
+            if (puzzle.getName().equals(name)) {
+                return puzzle;
+            }
+        }
+        return null;
+    }
+
+    public final List<Puzzle> getPuzzles() {
+        return puzzles;
     }
 
     public List<Entity> getEntities(Class<? extends EntityComponent> componentType) {
@@ -90,7 +115,11 @@ public class EntityEngine {
     }
 
     public void resume() {
+        System.out.println("RESUME: resumed called in engine.");
         this.paused = false;
     }
 
+    public void finish() {
+        this.finished = true;
+    }
 }

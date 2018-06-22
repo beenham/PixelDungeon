@@ -1,0 +1,18 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_3":false
+  },
+  "foundItems": {
+  },
+  "foundKeys": {
+    "Small Key":false
+  },
+  "levelName":"level_0_0",
+  "totalChests":2,
+  "totalItems":0,
+  "totalKeys":1
+}

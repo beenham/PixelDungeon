@@ -1,6 +1,8 @@
 package net.team11.pixeldungeon.entity.system;
 
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import net.team11.pixeldungeon.entities.blocks.PressurePlate;
 import net.team11.pixeldungeon.entities.player.Player;
@@ -14,10 +16,11 @@ import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 public class TrapSystem extends EntitySystem {
     private final float timerReset = 50;
@@ -28,7 +31,7 @@ public class TrapSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
-        traps = new ArrayList<>(entityEngine.getEntities(TrapComponent.class).size());
+        traps = new ArrayList<>();
         traps = entityEngine.getEntities(TrapComponent.class);
     }
 
@@ -36,38 +39,48 @@ public class TrapSystem extends EntitySystem {
     public void update(float delta) {
         timer = timer - delta * RenderSystem.FRAME_SPEED;
 
-        Rectangle playerRect = player.getComponent(BodyComponent.class).getRectangle();
+        Polygon playerBox = player.getComponent(BodyComponent.class).getPolygon();
         for (Entity entity : traps) {
             Trap trap = (Trap) entity;
+            TrapComponent trapComponent = trap.getComponent(TrapComponent.class);
+            Polygon trapBox = trap.getComponent(BodyComponent.class).getPolygon();
+            boolean overLapping = CollisionUtil.isOverlapping(trapBox,playerBox);
+            boolean submerged = CollisionUtil.isSubmerged(trapBox,playerBox);
+
+            if (!trap.isEnabled()) {
+                if (submerged) {
+                    trap.setContactingEntity(player);
+                    trap.setEnabled(true);
+                }
+            }
+
             if (trap.isEnabled()) {
-                TrapComponent trapComponent = trap.getComponent(TrapComponent.class);
                 if (trapComponent.isInteracting()) {
-                    trapComponent.setInteractTime(trapComponent.getInteractTime() - delta * RenderSystem.FRAME_SPEED);
+                    trapComponent.setInteractTime(trapComponent.getInteractTime() - delta);
                     if (trapComponent.getInteractTime() <= 0f) {
                         trapComponent.setInteracting(false);
                         trapComponent.setInteractTime(0);
                     }
                     continue;
                 }
-                Rectangle trapRect = trap.getComponent(BodyComponent.class).getRectangle();
                 if (trap.isTimed()) {
-                    trap.setTimer(trap.getTimer() - delta * RenderSystem.FRAME_SPEED);
-                    if (playerRect.overlaps(trapRect)) {
+                    trap.setTimer(trap.getTimer() - delta);
+                    if (!overLapping && !submerged) {
+                        trap.setContactingEntity(null);
+                    } else if (trap.requireSubmerged() && !submerged) {
+                        trap.setContactingEntity(null);
+                    } else if (overLapping){
                         trap.setContactingEntity(player);
                         if (trap.isTriggered()) {
                             HealthComponent health = player.getComponent(HealthComponent.class);
                             health.setHealth(health.getHealth()-trap.getDamage());
                         }
-                    } else {
-                        trap.setContactingEntity(null);
                     }
-
                     if (trap.getTimer() <= 0f) {
                         trap.trigger();
-                        trap.resetTimer();
                     }
                 } else if (trap.hasTrigger()) {
-                    if (playerRect.overlaps(trapRect)) {
+                    if (overLapping) {
                         trap.setContactingEntity(player);
                         if (trap.isTriggered()) {
                             HealthComponent health = player.getComponent(HealthComponent.class);
@@ -77,44 +90,14 @@ public class TrapSystem extends EntitySystem {
                         trap.setContactingEntity(null);
                     }
                 } else {
-                    if (playerRect.overlaps(trapRect)){
+                    if (overLapping){
                         trap.setContactingEntity(player);
                         if (!trap.isTriggered() && !trapComponent.isInteracting()) {
-                            trap.trigger();
+                            trapComponent.trigger();
                         }
                     } else if (trap.isTriggered() && timer <= 0) {
                         trap.setContactingEntity(null);
                         trap.trigger();
-                    }
-                }
-
-                //Quicksand Stuff
-                if (trap.getClass().equals(Quicksand.class)){
-                    Quicksand quicksand = (Quicksand)trap;
-                    if (!playerRect.overlaps(trapRect)){
-                        if (quicksand.isActive()){
-                            quicksand.leave();
-                            player.getComponent(VelocityComponent.class).setMovementSpeed(100);
-                            trap.setContactingEntity(null);
-                        }
-                    } else{
-                        quicksand.enter();
-                    }
-                }
-
-                //Pressure Plate class
-                if (trap.getClass().equals(PressurePlate.class)){
-                    PressurePlate pressurePlate = (PressurePlate) trap;
-                    if (playerRect.overlaps(trapRect)){
-                        trap.setContactingEntity(player);
-                        if (!pressurePlate.isActive()){
-                            pressurePlate.stepOn();
-                        }
-                    } else {
-                        if (pressurePlate.isActive()){
-                            pressurePlate.stepOff();
-                        }
-                        trap.setContactingEntity(null);
                     }
                 }
             }

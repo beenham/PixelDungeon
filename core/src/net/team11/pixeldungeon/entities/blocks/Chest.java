@@ -7,31 +7,39 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.items.Coin;
 import net.team11.pixeldungeon.items.Item;
 import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.Key;
-import net.team11.pixeldungeon.map.Map;
-import net.team11.pixeldungeon.statistics.GlobalStatistics;
-import net.team11.pixeldungeon.statistics.StatisticsUtil;
-import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.CurrentStats;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
+import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.ChestComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.CollisionUtil;
+
+import java.util.Locale;
 
 public class Chest extends Entity {
     private boolean opened;
     private boolean locked;
+    private boolean dungeonKey;
+    private boolean looted;
     private ChestKey chestKey;
     private Item item;
 
-    public Chest(Rectangle bounds, boolean opened, boolean locked, String name, Item item, Map parentMap) {
-        super(name, parentMap);
+    public Chest(Rectangle bounds, boolean opened, boolean locked, boolean dungeonKey, String name, Item item) {
+        super(name);
         this.opened = opened;
         this.locked = locked;
+        this.dungeonKey = dungeonKey;
+        this.looted = false;
         this.item = item;
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
@@ -39,8 +47,8 @@ public class Chest extends Entity {
         AnimationComponent animationComponent;
         this.addComponent(new ChestComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0,
-                (CollisionCategory.ENTITY),
-                (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                (CollisionUtil.ENTITY),
+                (byte)(CollisionUtil.ENTITY | CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
         this.addComponent(new InteractionComponent(this));
@@ -50,11 +58,42 @@ public class Chest extends Entity {
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        if (opened) {
-            animationComponent.setAnimation(AssetName.CHEST_OPENED);
+        animationComponent.addAnimation(AssetName.CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEON_CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_OPENED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.LOCKED_CHEST_LOOTED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.CHEST_EMPTY_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
+        if (dungeonKey) {
+            animationComponent.setAnimation(AssetName.DUNGEON_CHEST_CLOSED);
+        } else if (locked) {
+            if (opened) {
+                if (isEmpty()) {
+                    animationComponent.setAnimation(AssetName.LOCKED_CHEST_LOOTED);
+                    looted = true;
+                } else {
+                    animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENED);
+                }
+            } else {
+                animationComponent.setAnimation(AssetName.LOCKED_CHEST_CLOSED);
+            }
         } else {
-            animationComponent.setAnimation(AssetName.CHEST_CLOSED);
+            if (opened) {
+                if (isEmpty()) {
+                    animationComponent.setAnimation(AssetName.CHEST_LOOTED);
+                    looted = true;
+                } else {
+                    animationComponent.setAnimation(AssetName.CHEST_OPENED);
+                }
+            } else {
+                animationComponent.setAnimation(AssetName.CHEST_CLOSED);
+            }
         }
     }
 
@@ -66,57 +105,150 @@ public class Chest extends Entity {
         return locked;
     }
 
-    public void removeItem(boolean shouldRemove) {
+    private void removeItem(boolean shouldRemove) {
         if (shouldRemove) {
-
-            //Update the statistics for the level
-            getParentMap().getLevelStatistics().updateChests();
-
-            //Update the global statistics
-            GlobalStatistics.updateChests();
-            StatisticsUtil.writeToJson(StatisticsUtil.getGlobalStatistics(), StatisticsUtil.globalLocation);
-            if (item.getClass().equals(Key.class)){
-                getParentMap().getLevelStatistics().updateKeys();
-                GlobalStatistics.updateKeys();
-            }
-
+            updateStats();
             item = null;
-
-        } else {
-            opened = false;
+            looted = true;
         }
     }
 
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return item == null;
     }
 
+    public void setItem (Item item) {
+        this.item = item;
+    }
+
     public void doInteraction(Player player) {
+        InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+        AnimationComponent animationComponent = getComponent(AnimationComponent.class);
 
-        //Check to see if it's locked or not
-
-        if (locked && !opened){
-            System.out.println("Key is :  " + chestKey.getName());
-            //Do nothing we don't have the chestKey
-            System.out.println("IS LOCKED");
-            //Check to see if we have the chestKey
-            if (player.getComponent(InventoryComponent.class).hasItem(chestKey)){
-                locked = false;
-                opened = true;
-                player.getComponent(InventoryComponent.class).removeItem(chestKey);
-                if (!isEmpty()) {
-                    removeItem(player.getComponent(InventoryComponent.class).addItem(item));
+        if (!looted) {
+            if (dungeonKey) {
+                if (opened) {
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.DUNGEON_CHEST_LOOTED);
+                    }
+                } else {
+                    opened = true;
+                    updateStats();
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                        animationComponent.setAnimation(AssetName.DUNGEON_CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.DUNGEON_CHEST_OPENED);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.DUNGEON_CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.DUNGEON_CHEST_LOOTED);
+                    }
                 }
-                getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
+            } else if (locked) {
+                if (opened) {
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.LOCKED_CHEST_LOOTED);
+                    }
+                } else {
+                    if (inventory.hasItem(chestKey)) {
+                        inventory.removeItem(chestKey);
+                        updateStats();
+                        opened = true;
+                        if (inventory.isFull()) {
+                            String message = Messages.INVENTORY_FULL+ "!\n" + Messages.CHEST_LOOT_LATER;
+                            PlayScreen.uiManager.initTextBox(message);
+                            animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENING);
+                            animationComponent.setNextAnimation(AssetName.LOCKED_CHEST_OPENED);
+                        } else {
+                            initNotification();
+                            removeItem(inventory.addItem(item));
+                            animationComponent.setAnimation(AssetName.LOCKED_CHEST_OPENING);
+                            animationComponent.setNextAnimation(AssetName.LOCKED_CHEST_LOOTED);
+                        }
+                    } else {
+                        String message = Messages.CHEST_NEED_KEY;
+                        PlayScreen.uiManager.initTextBox(message);
+                    }
+                }
             } else {
-                System.out.println("You do not have the chestKey");
+                if (isEmpty()) {
+                    updateStats();
+                    looted = true;
+                    String message = Messages.CHEST_IS_EMPTY;
+                    PlayScreen.uiManager.initTextBox(message);
+                    animationComponent.setAnimation(AssetName.CHEST_EMPTY_OPENING);
+                    animationComponent.setNextAnimation(AssetName.CHEST_LOOTED);
+                } else if (opened) {
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.CHEST_LOOTED);
+                    }
+                } else {
+                    opened = true;
+                    updateStats();
+                    if (inventory.isFull()) {
+                        String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
+                        PlayScreen.uiManager.initTextBox(message);
+                        animationComponent.setAnimation(AssetName.CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.CHEST_OPENED);
+                    } else {
+                        initNotification();
+                        removeItem(inventory.addItem(item));
+                        animationComponent.setAnimation(AssetName.CHEST_OPENING);
+                        animationComponent.setNextAnimation(AssetName.CHEST_LOOTED);
+                    }
+                }
             }
-        } else if (!locked && !opened) {
-            opened = true;
-            if (!isEmpty()) {
-                removeItem(player.getComponent(InventoryComponent.class).addItem(item));
-            }
-            getComponent(AnimationComponent.class).setAnimation(AssetName.CHEST_OPENED);
+        } else {
+            String message = Messages.CHEST_IS_LOOTED;
+            PlayScreen.uiManager.initTextBox(message);
         }
+    }
+
+    private void initNotification() {
+        String message;
+        if (item.getAmount() > 1) {
+            message = String.format(Locale.UK, Messages.ITEM_FIND_MULTIPLE+"!", item.getAmount(),item.getName());
+        } else {
+            message = String.format(Locale.UK, Messages.ITEM_FIND_ONE+"!", item.getName());
+        }
+        PlayScreen.uiManager.initItemReceiver(item,message);
+    }
+
+    private void updateStats() {
+        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
+        stats.addChest(getName());
+        if (item != null) {
+            if (item instanceof Key) {
+                System.out.println("FOUND KEY");
+                StatsUtil.getInstance().getCurrentStats().incrementKeys();
+                StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
+                stats.addKey(item.getName());
+            } else if (!(item instanceof Coin)) {
+                StatsUtil.getInstance().getCurrentStats().incrementItems();
+                StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
+                stats.addItem(item.getName());
+            }
+        }
+        stats.incrementChests();
+        StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 }

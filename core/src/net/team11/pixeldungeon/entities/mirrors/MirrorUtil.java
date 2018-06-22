@@ -4,6 +4,8 @@ import net.team11.pixeldungeon.utils.Direction;
 
 public class MirrorUtil {
 
+
+
     public static Direction parseDirection(String direction){
 
         String dir = direction.toLowerCase();

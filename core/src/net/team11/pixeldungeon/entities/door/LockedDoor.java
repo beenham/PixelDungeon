@@ -6,32 +6,26 @@ import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.items.keys.DoorKey;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class LockedDoor extends Door {
     private DoorKey doorKey;
 
-    public LockedDoor (String name, Rectangle bounds, boolean open, String keyName) {
+    public LockedDoor (String name, Rectangle bounds, boolean open) {
         super(name, bounds, Type.LOCKED, open);
-        this.doorKey = new DoorKey(keyName);
+        this.doorKey = new DoorKey();
         this.addComponent(new InteractionComponent(this));
     }
 
     public void doInteraction(Player player){
-        //System.out.println("ATTEMPTING UNLOCK");
-        if (!player.getComponent(InventoryComponent.class).getItems().isEmpty()) {
-//            System.out.println("--KeyID--> " + doorKey.getName()+" --");
-//            System.out.println(player.getComponent(InventoryComponent.class).hasItem(doorKey.getName(), Key.class));
-            if (player.getComponent(InventoryComponent.class).hasItem(doorKey)){
-                setOpened(true);
-//                System.out.println("Attempting Remove");
-                player.getComponent(InventoryComponent.class).removeItem(doorKey);
-//                GhostItem ghostItem = new GhostItem("");
-//                System.out.println("Ghost add: " + player.getComponent(InventoryComponent.class).addItem(ghostItem));
-                //System.out.println("Ghost remove: " + player.getComponent(InventoryComponent.class).removeItem(ghostItem));
-
-            }
+        if (player.getComponent(InventoryComponent.class).hasItem(doorKey)){
+            setOpened(true);
+            player.getComponent(InventoryComponent.class).removeItem(doorKey);
+        } else {
+            String message = Messages.DOOR_NEED_KEY;
+            PlayScreen.uiManager.initTextBox(message);
         }
-
     }
 
     @Override

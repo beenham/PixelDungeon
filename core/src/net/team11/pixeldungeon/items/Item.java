@@ -1,27 +1,23 @@
 package net.team11.pixeldungeon.items;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.UUID;
 
 public class Item {
-    public enum Type {
-        COIN,
-        DOOR_KEY,
-        CHEST_KEY,
-        END_KEY
-    }
+    private ClickListener listener = new ClickListener();
 
     protected String name;
-    private Type type;
     protected int amount = 0;
     private boolean dungeonOnly;
     protected Image image;
     private UUID uuid;
 
-    public Item(String name, Type type, boolean dungeonOnly){
+    protected Item(String name, boolean dungeonOnly){
         this.name = name;
-        this.type = type;
         this.dungeonOnly = dungeonOnly;
         this.uuid = UUID.randomUUID();
     }
@@ -34,16 +30,35 @@ public class Item {
         return this.name;
     }
 
-    public Type getType() {
-        return this.type;
-    }
-
     public boolean isDungeonOnly() {
         return dungeonOnly;
     }
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setListener(ClickListener listener) {
+        this.listener = listener;
+        image.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (Item.this.listener != null) {
+                    return Item.this.listener.touchDown(event,x,y,pointer,button);
+                } else {
+                    return super.touchDown(event,x,y,pointer,button);
+                }
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (Item.this.listener != null) {
+                    Item.this.listener.touchUp(event, x, y, pointer, button);
+                } else {
+                    super.touchUp(event, x, y, pointer, button);
+                }
+            }
+        });
     }
 
     @Override

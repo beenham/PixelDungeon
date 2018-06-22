@@ -1,12 +1,12 @@
 
 Hud.png
-size: 296,237
+size: 376,237
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 Button
   rotate: false
-  xy: 228, 105
+  xy: 310, 105
   size: 64, 64
   split: 28, 28, 28, 28
   orig: 64, 64
@@ -14,7 +14,7 @@ Button
   index: -1
 buttonDisabled
   rotate: false
-  xy: 228, 171
+  xy: 310, 171
   size: 64, 64
   split: 28, 28, 28, 28
   orig: 64, 64
@@ -22,7 +22,7 @@ buttonDisabled
   index: -1
 darken0
   rotate: false
-  xy: 228, 18
+  xy: 332, 23
   size: 9, 9
   split: 3, 3, 3, 3
   pad: 4, 4, 4, 4
@@ -39,7 +39,7 @@ darken100
   index: -1
 darken20
   rotate: false
-  xy: 285, 83
+  xy: 332, 45
   size: 9, 9
   split: 3, 3, 3, 3
   pad: 4, 4, 4, 4
@@ -48,7 +48,7 @@ darken20
   index: -1
 darken40
   rotate: false
-  xy: 285, 94
+  xy: 351, 75
   size: 9, 9
   split: 3, 3, 3, 3
   pad: 4, 4, 4, 4
@@ -57,7 +57,7 @@ darken40
   index: -1
 darken60
   rotate: false
-  xy: 266, 56
+  xy: 332, 56
   size: 9, 9
   split: 3, 3, 3, 3
   pad: 4, 4, 4, 4
@@ -66,7 +66,7 @@ darken60
   index: -1
 darken80
   rotate: false
-  xy: 247, 37
+  xy: 332, 34
   size: 9, 9
   split: 3, 3, 3, 3
   pad: 4, 4, 4, 4
@@ -75,35 +75,35 @@ darken80
   index: -1
 downButton
   rotate: false
-  xy: 228, 29
+  xy: 332, 67
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
 interactButton
   rotate: false
-  xy: 266, 67
+  xy: 348, 86
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
 interactButton2
   rotate: false
-  xy: 228, 48
+  xy: 313, 61
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
 inventoryBack
   rotate: false
-  xy: 228, 67
+  xy: 294, 16
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
 inventoryButton
   rotate: false
-  xy: 247, 67
+  xy: 313, 42
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
@@ -118,28 +118,59 @@ itemSlot
   index: -1
 leftButton
   rotate: false
-  xy: 228, 86
+  xy: 294, 35
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
 pauseButton
   rotate: false
-  xy: 247, 48
+  xy: 329, 86
   size: 17, 17
   orig: 17, 17
+  offset: 0, 0
+  index: -1
+playerButton
+  rotate: false
+  xy: 310, 80
+  size: 17, 23
+  orig: 17, 23
   offset: 0, 0
   index: -1
 rightButton
   rotate: false
-  xy: 247, 86
+  xy: 294, 54
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
+scrollPane
+  rotate: false
+  xy: 228, 155
+  size: 80, 80
+  split: 32, 32, 32, 32
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+scrollPaneBar
+  rotate: false
+  xy: 228, 73
+  size: 80, 80
+  split: 32, 28, 32, 32
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+textBox
+  rotate: false
+  xy: 228, 7
+  size: 64, 64
+  split: 26, 26, 26, 26
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 upButton
   rotate: false
-  xy: 266, 86
+  xy: 313, 23
   size: 17, 17
   orig: 17, 17
   offset: 0, 0

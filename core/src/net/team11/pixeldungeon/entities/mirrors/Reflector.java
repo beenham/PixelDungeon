@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.entities.mirrors.Beam;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
-import net.team11.pixeldungeon.utils.AssetName;
-import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+
+
+import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Direction;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class Reflector extends Entity {
 
@@ -30,8 +31,8 @@ public class Reflector extends Entity {
 
         //this.addComponent(new TrapComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0,
-                (CollisionCategory.TRAP),
-                (byte)(CollisionCategory.ENTITY |  CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                (CollisionUtil.TRAP),
+                (byte)(CollisionUtil.ENTITY |  CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));    
         
         this.reflectDirection = MirrorUtil.parseDirection(direction);
@@ -80,17 +81,14 @@ public class Reflector extends Entity {
                     break;
 
                 default:
-                    posx = bodyComponent.getRectangle().getX() + bodyComponent.getRectangle().getWidth()/2;
-                    posy = bodyComponent.getRectangle().getY() + bodyComponent.getRectangle().getHeight()/2;
+                    posx = bodyComponent.getPolygon().getBoundingRectangle().getX() + bodyComponent.getPolygon().getBoundingRectangle().getWidth()/2;
+                    posy = bodyComponent.getPolygon().getBoundingRectangle().getY() + bodyComponent.getPolygon().getBoundingRectangle().getHeight()/2;
                     break;
             }
 
-            this.beamOut = new Beam(new Rectangle(posx, posy, bodyComponent.getRectangle().getWidth(), Beam.DEPTH), this.name + "_beam_" + this.reflectDirection, true, this.reflectDirection.toString());
+            //this.beamOut = new Beam(new Rectangle(posx, posy, bodyComponent.getPolygon().getBoundingRectangle().getWidth(), Beam.DEPTH), this.name + "_beam_" + this.reflectDirection, true, this.reflectDirection.toString());
             engine.addEntity(this.beamOut);
 
-        } else if (beamIn == null && beamOut != null){
-            engine.removeEntity(this.beamOut);
-            this.beamOut = null;
         }
     }
 

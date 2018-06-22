@@ -1,12 +1,5 @@
 package net.team11.pixeldungeon.entitysystem;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
-
-import net.team11.pixeldungeon.map.Map;
-import net.team11.pixeldungeon.map.MapManager;
-import net.team11.pixeldungeon.screens.PlayScreen;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,24 +7,17 @@ import java.util.UUID;
 public class Entity {
     protected String name;
     private UUID uuid;
-    private List<EntityComponent> entityComponents = new ArrayList<EntityComponent>();
-    private Map parentMap;
+    private List<EntityComponent> entityComponents = new ArrayList<>();
 
     protected List<Entity> targetEntities = new ArrayList<>();
     private List<String> targets = new ArrayList<>();
     private boolean trigger = false;
 
-    public Entity() {
+    protected Entity() {
         this.uuid = UUID.randomUUID();
     }
 
-    public Entity(String name, Map parentMap) {
-        this.parentMap = parentMap;
-        this.name = name;
-        this.uuid = UUID.randomUUID();
-    }
-
-    public Entity(String name){
+    protected Entity(String name){
         this.name = name;
         this.uuid = UUID.randomUUID();
     }
@@ -57,9 +43,6 @@ public class Entity {
         }
         return null;
     }
-
-    //  Void ; to be overridden by child if necessary
-    public void doInteraction() {}
 
     //  Void ; to be overridden by child if needs to know if player is the entity interacting
     public void doInteraction(boolean isPlayer){}
@@ -89,6 +72,10 @@ public class Entity {
         return targets;
     }
 
+    public List<Entity> getTargetEntities() {
+        return targetEntities;
+    }
+
     public void setTargetEntities(List<Entity> entities) {
         while (!entities.isEmpty()) {
             if (!targetEntities.contains(entities.get(0))) {
@@ -97,10 +84,6 @@ public class Entity {
                 entities.remove(0);
             }
         }
-    }
-
-    public Map getParentMap(){
-        return this.parentMap;
     }
 
     public String getName() {

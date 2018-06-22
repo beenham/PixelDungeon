@@ -1,43 +1,37 @@
 package net.team11.pixeldungeon.entity.system;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
-import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.entities.door.Door;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
-import net.team11.pixeldungeon.entity.component.InteractionComponent;
+import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.entity.component.VelocityComponent;
-import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
-import net.team11.pixeldungeon.entity.component.entitycomponent.FloorSpikeComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
-import net.team11.pixeldungeon.screens.PlayScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlice;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSlide;
-import net.team11.pixeldungeon.utils.TiledMapLayers;
-import net.team11.pixeldungeon.utils.TiledMapObjectNames;
-import net.team11.pixeldungeon.utils.TiledMapProperties;
-import net.team11.pixeldungeon.utils.TiledObjectUtil;
+import net.team11.pixeldungeon.utils.CollisionUtil;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
+import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
+import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
+import net.team11.pixeldungeon.utils.tiled.TiledMapProperties;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VelocitySystem extends EntitySystem {
-
     private List<Entity> players = new ArrayList<>();
     private MapManager mapManager;
+    private EntityEngine engine;
 
     @Override
     public void init(EntityEngine entityEngine) {
+        engine = entityEngine;
         players = entityEngine.getEntities(VelocityComponent.class, PlayerComponent.class);
         mapManager = MapManager.getInstance();
     }
@@ -60,25 +54,41 @@ public class VelocitySystem extends EntitySystem {
             bodyComponent.moveX(1 * velocityComponent.getxDirection() * velocityComponent.getMovementSpeed());
             bodyComponent.moveY(1 * velocityComponent.getyDirection() * velocityComponent.getMovementSpeed());
 
-            isOverlapping(bodyComponent.getRectangle());
+            isOverlapping(bodyComponent.getPolygon());
         }
     }
 
-    private void isOverlapping(Rectangle entityRectangle) {
+    private void isOverlapping(Polygon entityBox) {
         try {
             RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
-            Rectangle collison = new Rectangle(mapObject.getRectangle());
-            if (entityRectangle.overlaps(collison)) {
+            Rectangle collision = new Rectangle(mapObject.getRectangle());
+            Polygon collisionBox = CollisionUtil.createRectangle(
+                    collision.x+collision.width/2,collision.y+collision.height/2,
+                    collision.width,collision.height);
+            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
-                            //ScreenTransitionSlide.init(1.5f,ScreenTransitionSlide.RIGHT, true, Interpolation.fade),
-                            //ScreenTransitionSlice.init(0.5f,ScreenTransitionSlice.UP_DOWN,2,Interpolation.pow2),
                             null,
                             mapObject.getProperties().get(TiledMapProperties.MAP));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        try {
+            RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.MAP_EXIT);
+            Rectangle collision = new Rectangle(mapObject.getRectangle());
+            Polygon collisionBox = CollisionUtil.createRectangle(
+                    collision.x+collision.width/2,collision.y+collision.height/2,
+                    collision.width,collision.height);
+            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
+                engine.finish();
+                ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,
+                        ScreenTransitionFade.init(1f),
+                        players.get(0).getComponent(InventoryComponent.class));
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
         }
     }
 }

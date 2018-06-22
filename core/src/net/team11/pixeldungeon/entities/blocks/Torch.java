@@ -1,20 +1,18 @@
 package net.team11.pixeldungeon.entities.blocks;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.utils.AssetName;
+import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entity.component.entitycomponent.TorchComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.Assets;
-import net.team11.pixeldungeon.utils.CollisionCategory;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import box2dLight.Light;
 import box2dLight.PointLight;
@@ -33,8 +31,8 @@ public class Torch extends Entity {
         AnimationComponent animationComponent;
         this.addComponent(new TorchComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
-                CollisionCategory.ENTITY,
-                (byte)(CollisionCategory.ENTITY | CollisionCategory.PUZZLE_AREA | CollisionCategory.BOUNDARY),
+                CollisionUtil.ENTITY,
+                (byte)(CollisionUtil.ENTITY | CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(animationComponent = new AnimationComponent(0));
         setupAnimations(animationComponent);

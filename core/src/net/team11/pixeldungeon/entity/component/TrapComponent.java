@@ -4,7 +4,7 @@ import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
 
 public class TrapComponent implements EntityComponent {
-    Trap trap;
+    private Trap trap;
     private boolean interacting;
     private float interactTime;
 
