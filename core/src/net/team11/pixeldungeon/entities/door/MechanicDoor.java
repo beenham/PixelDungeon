@@ -25,8 +25,10 @@ public class MechanicDoor extends Door {
     @Override
     public void doInteraction(boolean isPlayer){
         if (isPlayer) {
-            String message = Messages.DOOR_CANNOT_OPEN;
-            PlayScreen.uiManager.initTextBox(message);
+            if (!isOpen()) {
+                String message = Messages.DOOR_CANNOT_OPEN;
+                PlayScreen.uiManager.initTextBox(message);
+            }
         } else {
             setOpened(!isOpen());
         }

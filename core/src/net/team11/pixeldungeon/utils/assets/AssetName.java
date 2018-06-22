@@ -68,6 +68,7 @@ public class AssetName {
 
     /////   ENTITY SPRITE NAMES     /////
     public static final String BOX_IDLE = "box";
+    public static final String BOX_DOCKED = "boxDocked";
 
     public static final String CHEST_CLOSED = "chestClosed";
     public static final String CHEST_OPENED = "chestOpened";
@@ -94,6 +95,11 @@ public class AssetName {
     public static final String MECHANICDOOR_CLOSED = "mechanicDoorClosed";
     public static final String MECHANICDOOR_OPENING = "mechanicDoorOpening";
     public static final String MECHANICDOOR_CLOSING = "mechanicDoorClosing";
+
+    public static final String FLOORPISTON_ACTIVATED = "floorPistonActivated";
+    public static final String FLOORPISTON_ACTIVATING = "floorPistonActivating";
+    public static final String FLOORPISTON_DEACTIVATING = "floorPistonDeactivating";
+    public static final String FLOORPISTON_DEACTIVATED = "floorPistonDeactivated";
 
     public static final String GEMPILLAR_EMPTY = "gemPillarEmpty";
     public static final String GEMPILLAR_BLUE = "gemPillarBlue";

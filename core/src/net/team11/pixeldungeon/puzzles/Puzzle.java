@@ -4,6 +4,7 @@ import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.items.PuzzleItem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;
@@ -219,6 +220,8 @@ public class Puzzle {
     public int getRemainingAttempts() {
         return maxAttempts - attempts;
     }
+
+    public void setupEntities(EntityEngine engine){}
 
     @Override
     public String toString() {

@@ -106,7 +106,7 @@ public class Door extends Entity {
                     getComponent(AnimationComponent.class).setNextAnimation(AssetName.MECHANICDOOR_CLOSED);
                     break;
             }
-            getComponent(BodyComponent.class).createBody(BodyDef.BodyType.StaticBody);
+            getComponent(BodyComponent.class).recreateBody(BodyDef.BodyType.StaticBody);
         } else {
             switch (type) {
                 case BUTTON:
@@ -124,7 +124,7 @@ public class Door extends Entity {
         }
     }
 
-    public boolean isOpen() {
+    protected boolean isOpen() {
         return open;
     }
 }

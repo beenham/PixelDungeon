@@ -91,9 +91,7 @@ public class MapManager {
         }
         for (Puzzle puzzle : engine.getPuzzles()) {
             TiledObjectUtil.parseTargets(engine,puzzle);
-            if (puzzle instanceof ColouredGemsPuzzle) {
-                ((ColouredGemsPuzzle) puzzle).setupEntities(engine);
-            }
+            puzzle.setupEntities(engine);
         }
     }
 

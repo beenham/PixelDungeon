@@ -160,6 +160,7 @@ public class ColouredGemsPuzzle extends Puzzle {
         this.chests = chests;
     }
 
+    @Override
     public void setupEntities(EntityEngine engine) {
         Collections.shuffle(chests);
         int item = 0;

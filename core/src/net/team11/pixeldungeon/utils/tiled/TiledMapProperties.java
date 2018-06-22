@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.utils.tiled;
 
 public class TiledMapProperties {
     public static final String AMOUNT = "amount";
+    public static final String BOXES = "boxes";
     public static final String BOX_PUSHABLE = "pushable";
     public static final String CHESTS = "chests";
     public static final String DOOR_TYPE = "doorType";
@@ -27,6 +28,7 @@ public class TiledMapProperties {
     public static final String TRIGGER = "trigger";
     public static final String SMOD = "speedMod";
     public static final String ACTIVETIME = "activeTime";
+    public static final String ACTIVATED = "activated";
     public static final String AUTOCLOSE = "autoClose";
     public static final String MAX_ATTEMPTS = "maxAttempts";
     public static final String DIFFICULTY = "difficulty";

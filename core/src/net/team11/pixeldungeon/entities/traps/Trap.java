@@ -44,6 +44,14 @@ public class Trap extends Entity {
         return timed;
     }
 
+    public boolean isContacting() {
+        return contactEntity != null;
+    }
+
+    public Entity getContactEntity() {
+        return contactEntity;
+    }
+
     public float getTimer() {
         return timer;
     }

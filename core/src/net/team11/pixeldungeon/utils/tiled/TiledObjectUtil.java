@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import net.team11.pixeldungeon.entities.blocks.Box;
 import net.team11.pixeldungeon.entities.blocks.Chest;
+import net.team11.pixeldungeon.entities.blocks.FloorPiston;
 import net.team11.pixeldungeon.entities.blocks.Lever;
 import net.team11.pixeldungeon.entities.blocks.Pillar;
 import net.team11.pixeldungeon.entities.blocks.PressurePlate;
@@ -37,6 +38,7 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.DungeonKey;
 import net.team11.pixeldungeon.puzzles.Puzzle;
+import net.team11.pixeldungeon.puzzles.boxpuzzle.BoxPuzzle;
 import net.team11.pixeldungeon.puzzles.levelpuzzle.LevelPuzzle;
 import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
@@ -267,8 +269,14 @@ public class TiledObjectUtil {
                         engine.addEntity(indicator);
                         indicator.setParentPuzzle(engine.getPuzzle(puzzleName));
                         break;
+
+                    case  TiledMapObjectNames.FLOOR_PISTON:
+                        boolean activated = (boolean) rectObject.getProperties().get(TiledMapProperties.ACTIVATED);
+                        engine.addEntity(new FloorPiston(rectObject.getRectangle(), activated, rectObject.getName()));
+                        break;
+
                     default:
-                        throw new IllegalArgumentException("This isn't a valid entity! " + type);
+                        //throw new IllegalArgumentException("This isn't a valid entity! " + type);
                 }
             }
         }
@@ -328,9 +336,6 @@ public class TiledObjectUtil {
             if (mapObject instanceof PolylineMapObject) {
                 shape = createPolyLine((PolylineMapObject) mapObject);
             } else {
-                continue;
-            }
-            if (mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
                 continue;
             }
 
@@ -417,6 +422,17 @@ public class TiledObjectUtil {
                         colourGems.setFailTargets(failTargets);
                         colourGems.setChests(chests);
                         engine.addPuzzle(colourGems);
+                        break;
+                    case TiledMapPuzzleNames.BOX_PUZZLE:
+                        ArrayList<String> boxes;
+                        boxes = parseTargets(mapObject, TiledMapProperties.BOXES);
+
+                        BoxPuzzle boxPuzzle = new BoxPuzzle(mapObject.getName());
+                        boxPuzzle.setActivateTargets(activateTargets);
+                        boxPuzzle.setCompleteTargets(completeTargets);
+                        boxPuzzle.setFailTargets(failTargets);
+                        boxPuzzle.setBoxNames(boxes);
+                        engine.addPuzzle(boxPuzzle);
                         break;
                 }
             }

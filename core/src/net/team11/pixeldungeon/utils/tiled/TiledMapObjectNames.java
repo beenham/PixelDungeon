@@ -3,11 +3,13 @@ package net.team11.pixeldungeon.utils.tiled;
 public class TiledMapObjectNames {
     /////   ENTITY NAMES    /////
     public static final String BOX = "box";
+    public static final String BOX_DOCK = "boxDock";
     public static final String CHEST = "chest";
     public static final String COMPLETED_INDICATOR = "completedIndicator";
     public static final String DOOR = "door";
     public static final String DOOR_PILLAR = "doorPillar";
     public static final String FLOOR_SPIKE = "floorSpike";
+    public static final String FLOOR_PISTON = "floorPiston";
     public static final String PILLAR = "pillar";
     public static final String TORCH = "torch";
     public static final String LEVER = "lever";
