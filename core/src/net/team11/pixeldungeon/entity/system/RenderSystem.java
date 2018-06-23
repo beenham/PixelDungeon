@@ -38,7 +38,6 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch spriteBatch;
     private List<Entity> entities = null;
     private MapManager mapManager;
-    private EntityEngine engine;
 
     public RenderSystem(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
@@ -46,9 +45,7 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void init(EntityEngine entityEngine) {
-        this.engine = entityEngine;
         mapManager = MapManager.getInstance();
-        entities = new ArrayList<>(entityEngine.getEntities(AnimationComponent.class).size());
         entities = entityEngine.getEntities(AnimationComponent.class);
     }
 
@@ -106,21 +103,13 @@ public class RenderSystem extends EntitySystem {
 
 
             if (entity instanceof Beam ){
-                ((Beam)entity).update(entities);
-
-                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                        bodyComponent.getX() - bodyComponent.getWidth()/2,
-                        bodyComponent.getY() - bodyComponent.getHeight()/2,
-                        bodyComponent.getWidth(),
-                        bodyComponent.getHeight());
-
-            } else if (entity instanceof Reflector) {
-                //((Reflector)entity).update(mapManager.getEngine());
-                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                        bodyComponent.getX() - bodyComponent.getWidth()/2,
-                        bodyComponent.getY() - bodyComponent.getHeight()/2,
-                        width,
-                        height);
+                if (((Beam) entity).isOn()) {
+                    spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                            bodyComponent.getX() - bodyComponent.getWidth()/2,
+                            bodyComponent.getY() - bodyComponent.getHeight()/2,
+                            bodyComponent.getWidth(),
+                            bodyComponent.getHeight());
+                }
             } else {
                 spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
                         bodyComponent.getX() - bodyComponent.getWidth()/2,

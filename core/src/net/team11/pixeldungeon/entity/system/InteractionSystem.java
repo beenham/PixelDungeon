@@ -26,7 +26,7 @@ public class InteractionSystem extends EntitySystem {
 
     @Override
     public void init(EntityEngine entityEngine) {
-        entities = new ArrayList<>(entityEngine.getEntities(InteractionComponent.class, BodyComponent.class).size());
+        entities = new ArrayList<>();
         entities = entityEngine.getEntities(InteractionComponent.class, BodyComponent.class);
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
     }
