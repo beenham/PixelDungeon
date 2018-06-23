@@ -417,7 +417,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" name="traps">
+ <objectgroup color="#ff0000" name="traps" visible="0">
   <object id="58" name="slowTrap_2" x="207" y="416">
    <properties>
     <property name="entity" value="quicksand"/>
@@ -1027,7 +1027,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" name="blocks">
+ <objectgroup color="#ff9500" name="blocks" visible="0">
   <object id="21" name="pillar_2" x="201" y="300" width="14" height="8">
    <properties>
     <property name="entity" value="pillar"/>
@@ -1367,7 +1367,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#002eff" name="doors">
+ <objectgroup color="#002eff" name="doors" visible="0">
   <object id="3" name="doorPillarLeft" x="800" y="176" width="3" height="16">
    <properties>
     <property name="entity" value="doorPillar"/>
@@ -1466,13 +1466,13 @@
  </objectgroup>
  <objectgroup color="#000000" name="collision">
   <object id="17" x="400.25" y="80">
-   <polyline points="-48,-16 -48,32 -80,32 -80,96 -32,96 -32,112 -96,112 -96,0 -240,0 -240,784 752,784 752,112 432,112 432,96 752,96 752,0 352,0 352,96 400,96 400,112 256,112 256,96 336,96 336,0 144,0 144,96 224,96 224,112 0,112 0,96 48,96 48,32 16,32 16,-16 -48,-16"/>
+   <polyline points="-48,-16 -48,32 -80,32 -80,96 -32,96 -32,112 -96,112 -96,0 -240,0 -240.25,192 -128.25,192 -128.25,288 -176.25,288 -176.25,272 -144.25,272 -144.25,208 -240.25,208 -240.25,272 -208.25,272 -208.25,288 -240.25,288 -240,784 752,784 752,112 432,112 432,96 752,96 752,0 352,0 352,96 400,96 400,112 256,112 256,96 336,96 336,0 144,0 144,96 224,96 224,112 0,112 0,96 48,96 48,32 16,32 16,-16 -48,-16"/>
   </object>
   <object id="174" x="432" y="448">
-   <polyline points="0,0 80,0 80,-32 16,-32 16,-112 80,-112 80,-128 48,-128 48,-144 80,-144 80,-192 112,-192 112,-144 144,-144 144,-128 112,-128 112,-112 176,-112 176,-32 112,-32 112,0 192,0 192,-144 160,-144 160,-208 32,-208 32,-144 0,-144 0,0"/>
+   <polyline points="0,0 80,0 80,-16 16,-16 16,-112 80,-112 80,-128 48,-128 48,-144 80,-144 80,-192 112,-192 112,-144 144,-144 144,-128 112,-128 112,-112 176,-112 176,-16 112,-16 112,0 192,0 192,-144 160,-144 160,-192 32,-192 32,-144 0,-144 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points">
+ <objectgroup color="#ffffff" name="points" visible="0">
   <object id="2" name="playerSpawn" x="384" y="256" width="16" height="16"/>
   <object id="41" name="layerExitPoint" x="352" y="64" width="64" height="32">
    <properties>
@@ -1482,7 +1482,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#04ff00" name="puzzle">
+ <objectgroup color="#04ff00" name="puzzle" visible="0">
   <object id="20" name="boxPuzzle1" x="192" y="112">
    <properties>
     <property name="boxes" value="box_1"/>

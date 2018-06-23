@@ -107,7 +107,7 @@ public class Chest extends Entity {
 
     private void removeItem(boolean shouldRemove) {
         if (shouldRemove) {
-            updateStats();
+            updateStatsLooted();
             item = null;
             looted = true;
         }
@@ -138,7 +138,7 @@ public class Chest extends Entity {
                     }
                 } else {
                     opened = true;
-                    updateStats();
+                    updateStatsOpened();
                     if (inventory.isFull()) {
                         String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
                         PlayScreen.uiManager.initTextBox(message);
@@ -164,7 +164,7 @@ public class Chest extends Entity {
                 } else {
                     if (inventory.hasItem(chestKey)) {
                         inventory.removeItem(chestKey);
-                        updateStats();
+                        updateStatsOpened();
                         opened = true;
                         if (inventory.isFull()) {
                             String message = Messages.INVENTORY_FULL+ "!\n" + Messages.CHEST_LOOT_LATER;
@@ -184,7 +184,7 @@ public class Chest extends Entity {
                 }
             } else {
                 if (isEmpty()) {
-                    updateStats();
+                    updateStatsOpened();
                     looted = true;
                     String message = Messages.CHEST_IS_EMPTY;
                     PlayScreen.uiManager.initTextBox(message);
@@ -201,7 +201,7 @@ public class Chest extends Entity {
                     }
                 } else {
                     opened = true;
-                    updateStats();
+                    updateStatsOpened();
                     if (inventory.isFull()) {
                         String message = Messages.INVENTORY_FULL + "!\n" + Messages.CHEST_LOOT_LATER;
                         PlayScreen.uiManager.initTextBox(message);
@@ -231,12 +231,10 @@ public class Chest extends Entity {
         PlayScreen.uiManager.initItemReceiver(item,message);
     }
 
-    private void updateStats() {
+    private void updateStatsLooted() {
         CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
-        stats.addChest(getName());
         if (item != null) {
             if (item instanceof Key) {
-                System.out.println("FOUND KEY");
                 StatsUtil.getInstance().getCurrentStats().incrementKeys();
                 StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
                 stats.addKey(item.getName());
@@ -246,6 +244,13 @@ public class Chest extends Entity {
                 stats.addItem(item.getName());
             }
         }
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
+    }
+
+    private void updateStatsOpened() {
+        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
+        stats.addChest(getName());
         stats.incrementChests();
         StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
         StatsUtil.getInstance().writeGlobalStats();

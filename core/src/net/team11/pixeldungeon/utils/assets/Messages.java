@@ -23,7 +23,7 @@ public class Messages {
     public static final String PUZZLE_ATTEMPTS_REMAINING = "You have %d attempts remaining";
     public static final String PUZZLE_FAILED = "You have no attempts remaining and have failed this puzzle";
     public static final String PUZZLE_NO_ATTEMPTS = "You have no attempts left. The puzzle is locked";
-    public static final String PUZZLE_COMPLETE = "Puzzle complete";
+    public static final String PUZZLE_COMPLETE = "Puzzle onComplete";
     public static final String PUZZLE_OUT_OF_TIME = "You ran out of time. Terminating puzzle";
 
     public static final String LEVEL_PART_COMPLETE = "Part completed";
@@ -40,4 +40,55 @@ public class Messages {
 
     public static final String SIMON_INCORRECT_ORDER = "Simon didn't say that order";
     public static final String SIMON_COMPLETE = "Well done. Simon is proud";
+
+    /////   UI MESSAGES
+    public static final String ACHIEVEMENTS_CAMELCASE = "Achievements";
+    public static final String ACHIEVEMENTS_UPPER = "ACHIEVEMENTS";
+    public static final String ARE_YOU_SURE = "ARE YOU SURE?";
+    public static final String ARROW_LEFT = "<";
+    public static final String ARROW_RIGHT = ">";
+    public static final String BACK_CAMELCASE = "Back";
+    public static final String BACK_UPPER = "BACK";
+    public static final String DONE_CAMELCASE = "Done";
+    public static final String GAME_PAUSED_CAMELCASE = "Game Paused";
+    public static final String GAME_PAUSED_UPPER = "GAME PAUSED";
+    public static final String HOW_TO_PLAY = "HOW TO PLAY";
+    public static final String INVENTORY_CAMELCASE = "Inventory";
+    public static final String INVENTORY_UPPER = "INVENTORY";
+    public static final String ITEMSELECT_CAMELCASE = "Item Selector";
+    public static final String ITEMSELECT_UPPER = "ITEM SELECTOR";
+    public static final String LEADERBOARDS_CAMELCASE = "Leader Boards";
+    public static final String LEADERBOARDS_UPPER = "LEADER BOARDS";
+    public static final String LEVEL_LEAVING = "Leaving will result in a loss of all " +
+            "progress of this dungeon so far!";
+    public static final String NO = "NO";
+    public static final String PLAY_UPPER = "PLAY";
+    public static final String RESUME = "RESUME";
+    public static final String SIGN_IN = "SIGN IN";
+    public static final String SIGN_OUT = "SIGN OUT";
+    public static final String SKIN_SELECT = "SKIN SELECTION";
+    public static final String TITLE = "Pixel Dungeon";
+    public static final String TITLE_UPPER = "PIXEL DUNGEON";
+    public static final String QUIT_TO_MAIN = "QUIT TO MAIN MENU";
+    public static final String X = "X";
+    public static final String YES = "YES";
+
+    /////   STATS MESSAGES
+    public static final String STATS_ATTEMPTED = "Attempted";
+    public static final String STATS_LEVELS_ATTEMPTED = "Levels Attempted";
+    public static final String STATS_COMPLETED = "Completed";
+    public static final String STATS_LEVELS_COMPLETED = "Levels Completed";
+    public static final String STATS_BEST_TIME = "Best Time";
+    public static final String STATS_TOTAL_TIME = "Total Time";
+    public static final String STATS_YOUR_TIME = "Your Time";
+    public static final String STATS_CHESTS = "Chests";
+    public static final String STATS_CHESTS_OPENED = "Chests Opened";
+    public static final String STATS_KEYS = "Keys";
+    public static final String STATS_KEYS_FOUND = "Keys Found";
+    public static final String STATS_ITEMS = "Items";
+    public static final String STATS_ITEMS_FOUND = "Items Found";
+    public static final String STATS_DEATHS = "Deaths";
+    public static final String STATS_TOTAL_DEATHS = "Total Deaths";
+    public static final String STATS_PUZZLES_ATTEMPTED = "Puzzles Attempted";
+    public static final String STATS_PUZZLES_COMPLETED = "Puzzles Completed";
 }

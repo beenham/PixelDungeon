@@ -22,6 +22,7 @@ import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class MainMenuScreen extends AbstractScreen {
     private Image backgroundImage;
@@ -46,7 +47,7 @@ public class MainMenuScreen extends AbstractScreen {
         Table mainTable = new Table();
         mainTable.center().pad(padding);
 
-        TextButton playButton = new TextButton("PLAY",Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton playButton = new TextButton(Messages.PLAY_UPPER,Assets.getInstance().getSkin(Assets.UI_SKIN));
         playButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
 
         playButton.addListener(new ClickListener() {
@@ -58,7 +59,7 @@ public class MainMenuScreen extends AbstractScreen {
             }
         });
 
-        TextButton skinButton = new TextButton("SKIN SELECTION", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton skinButton = new TextButton(Messages.SKIN_SELECT, Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
         skinButton.setDisabled(true);
 
@@ -73,7 +74,7 @@ public class MainMenuScreen extends AbstractScreen {
         });
         //*/
 
-        TextButton helpButton = new TextButton("HOW TO PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton helpButton = new TextButton(Messages.HOW_TO_PLAY, Assets.getInstance().getSkin(Assets.UI_SKIN));
         helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
         helpButton.setDisabled(true);
 
@@ -101,7 +102,7 @@ public class MainMenuScreen extends AbstractScreen {
         Table titleTable = new Table();
         titleTable.top().padTop(padding);
 
-        Label label = new Label("PIXEL DUNGEON",Assets.getInstance().getSkin(Assets.UI_SKIN), "title");
+        Label label = new Label(Messages.TITLE,Assets.getInstance().getSkin(Assets.UI_SKIN), "title");
         label.setFontScale(2f * PixelDungeon.SCALAR);
         titleTable.add(label);
 

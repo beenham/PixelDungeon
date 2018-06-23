@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
@@ -89,7 +90,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         Table mainTable = new Table();
         mainTable.setDebug(true);
 
-        TextButton doneButton = new TextButton("Done",Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton doneButton = new TextButton(Messages.DONE_CAMELCASE,Assets.getInstance().getSkin(Assets.UI_SKIN));
         doneButton.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
         doneButton.addListener(new ClickListener(){
             @Override
@@ -102,12 +103,12 @@ public class LevelCompleteScreen extends AbstractScreen {
 
         mainTable.add(createLabel(MapManager.getInstance().getCurrentMap().getMapName(), 1.5f))
                 .pad(padding*4,padding*4,padding,padding).left();
-        mainTable.add(createLabel("Completed", 1.25f))
+        mainTable.add(createLabel(Messages.STATS_COMPLETED, 1.25f))
                 .pad(padding*4,padding,padding,padding*4).right().expandX();
         mainTable.row();
-        mainTable.add(yourTime = createLabel("Your Time:  " + "00:00", 1.25f))
+        mainTable.add(yourTime = createLabel(Messages.STATS_YOUR_TIME+":  " + "00:00", 1.25f))
                 .pad(padding,padding*4,padding,padding).left();
-        mainTable.add(bestTime = createLabel("Best Time:  " + "00:00", 1.25f))
+        mainTable.add(bestTime = createLabel(Messages.STATS_BEST_TIME+":  " + "00:00", 1.25f))
                 .pad(padding,padding,padding,padding*4).right();
         mainTable.row();
         mainTable.add(playerStats()).colspan(2)
@@ -131,7 +132,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         LevelStats stats = statsUtil.getLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
         Table playerStats = new Table();
 
-        Label chests = new Label("Chests Opened", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label chests = new Label(Messages.STATS_CHESTS_OPENED+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         chestsVal = new Label(String.format(Locale.UK,"%d/%d",
                 chestValue,
                 stats.getTotalChests()),
@@ -139,7 +140,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         chests.setFontScale(PixelDungeon.SCALAR);
         chestsVal.setFontScale(PixelDungeon.SCALAR);
 
-        Label keys = new Label("Keys Found", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label keys = new Label(Messages.STATS_KEYS_FOUND+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         keysVal = new Label(String.format(Locale.UK,"%d/%d",
                 keysValue,
                 stats.getTotalKeys()),
@@ -147,7 +148,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         keys.setFontScale(PixelDungeon.SCALAR);
         keysVal.setFontScale(PixelDungeon.SCALAR);
 
-        Label items = new Label("Items Found", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label items = new Label(Messages.STATS_ITEMS_FOUND+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         itemsVal = new Label(String.format(Locale.UK,"%d/%d",
                 itemsValue,
                 stats.getTotalItems()),
@@ -155,7 +156,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         items.setFontScale(PixelDungeon.SCALAR);
         itemsVal.setFontScale(PixelDungeon.SCALAR);
 
-        Label deaths = new Label("Deaths", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label deaths = new Label(Messages.STATS_DEATHS+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         deathsVal = new Label(String.format(Locale.UK,"%d",
                 deathsValue),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
@@ -194,10 +195,10 @@ public class LevelCompleteScreen extends AbstractScreen {
             if (timer >= speed) {
                 timeVal++;
                 yourTime.setText(String.
-                        format(Locale.UK, "Your Time:  %02d:%02d", timeVal / 60, timeVal % 60));
+                        format(Locale.UK, Messages.STATS_YOUR_TIME+":  %02d:%02d", timeVal / 60, timeVal % 60));
                 if (timeVal <= levelStats.getBestTimeVal()) {
                     bestTime.setText(String.
-                            format(Locale.UK, "Best Time:  %02d:%02d", timeVal / 60, timeVal % 60));
+                            format(Locale.UK, Messages.STATS_BEST_TIME+":  %02d:%02d", timeVal / 60, timeVal % 60));
                 }
                 if (statsUtil.getTimer() - timeVal <= 10) {
                     speed += 0.025f;

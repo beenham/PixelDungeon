@@ -32,7 +32,6 @@ import java.util.ArrayList;
 
 public class ItemSelector extends Stage {
     private ShapeRenderer shapeRenderer;
-    private String title = "Item Selector";
     private InventoryComponent inventory;
 
     private boolean visible = false;
@@ -54,7 +53,7 @@ public class ItemSelector extends Stage {
 
     private void setupCompleteTable() {
         inventoryTable.reset();
-        Label titleLabel = new Label(title, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label titleLabel = new Label(Messages.ITEMSELECT_CAMELCASE, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
         inventoryTable.add(titleLabel).colspan(5).left().pad(40 * PixelDungeon.SCALAR);
         inventoryTable.row();
@@ -68,7 +67,7 @@ public class ItemSelector extends Stage {
         }
         inventoryTable.row().padTop(20 * PixelDungeon.SCALAR);
 
-        TextButton backLabel = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton backLabel = new TextButton(Messages.BACK_CAMELCASE, Assets.getInstance().getSkin(Assets.UI_SKIN));
         backLabel.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
         backLabel.addListener(new ClickListener() {
             @Override
@@ -87,14 +86,14 @@ public class ItemSelector extends Stage {
 
     private void setupSingleTable() {
         inventoryTable.reset();
-        Label titleLabel = new Label(title, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label titleLabel = new Label(Messages.ITEMSELECT_CAMELCASE, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
         inventoryTable.add(titleLabel).colspan(5).left().pad(40 * PixelDungeon.SCALAR);
         inventoryTable.row();
         inventoryTable.add(slotArray.get(0)).pad(15 * PixelDungeon.SCALAR).colspan(5);
         inventoryTable.row().padTop(20 * PixelDungeon.SCALAR);
 
-        TextButton backLabel = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton backLabel = new TextButton(Messages.BACK_CAMELCASE, Assets.getInstance().getSkin(Assets.UI_SKIN));
         backLabel.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
         backLabel.addListener(new ClickListener() {
             @Override
@@ -176,7 +175,6 @@ public class ItemSelector extends Stage {
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                             if (!backPressed) {
                                 if (callingEntity instanceof GemPillar && item instanceof ColouredGem) {
-                                    System.out.println("INVENTORY PRESSED : Removing " + ((ColouredGem) item).getColour() + " from inventory");
                                     ((GemPillar) callingEntity).setGem((ColouredGem) item);
                                     inventory.removeItem(item);
                                 }

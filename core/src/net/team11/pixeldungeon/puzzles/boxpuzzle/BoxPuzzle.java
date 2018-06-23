@@ -9,6 +9,7 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,9 @@ public class BoxPuzzle extends Puzzle {
 
     @Override
     protected void init() {
-
+        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 
     @Override
@@ -69,6 +72,11 @@ public class BoxPuzzle extends Puzzle {
             }
             boxNames.remove(boxName);
         }
+    }
+
+    @Override
+    protected void onComplete() {
+        super.onComplete();
     }
 
     public void setBoxNames(ArrayList<String> boxNames) {

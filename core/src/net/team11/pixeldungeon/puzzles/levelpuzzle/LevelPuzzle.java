@@ -5,6 +5,7 @@ import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
 
@@ -17,6 +18,13 @@ public class LevelPuzzle extends Puzzle {
         maxParts = 0;
         completedParts = 0;
         activate();
+    }
+
+    @Override
+    protected void init() {
+        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 
     @Override
@@ -46,7 +54,9 @@ public class LevelPuzzle extends Puzzle {
         }
     }
 
-    private void onComplete() {
+    @Override
+    protected void onComplete() {
+        super.onComplete();
         completed = true;
         activated = false;
         trigger();

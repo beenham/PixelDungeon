@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -110,9 +111,9 @@ public class ColouredGemsPuzzle extends Puzzle {
                         }
                     }
                     if (correct) {
-                        complete();
+                        onComplete();
                     } else {
-                        attempts++;
+                        incrementAttempts();
                         String message = Messages.GEMS_INCORRECT_ORDER + ".\n";
                         if (attempts == maxAttempts) {
                             trigger();
@@ -135,7 +136,9 @@ public class ColouredGemsPuzzle extends Puzzle {
         }
     }
 
-    private void complete() {
+    @Override
+    protected void onComplete() {
+        super.onComplete();
         this.completed = true;
         this.activated = false;
         String message = Messages.GEMS_COMPLETE + ".\n" + Messages.PUZZLE_COMPLETE + ".";
@@ -188,5 +191,12 @@ public class ColouredGemsPuzzle extends Puzzle {
         for (WallScribe wallScribe : scribes) {
             wallScribe.setText(hints.getHint());
         }
+    }
+
+    private void incrementAttempts() {
+        attempts++;
+        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 }

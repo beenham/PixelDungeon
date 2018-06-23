@@ -3,13 +3,12 @@ package net.team11.pixeldungeon.puzzles.simonsays;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
-import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
-import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +54,9 @@ public class SimonSays extends Puzzle{
     @Override
     protected void init() {
         if (attempts < maxAttempts) {
+            StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
+            StatsUtil.getInstance().writeGlobalStats();
+            StatsUtil.getInstance().saveTimer();
             updateAssets(AssetName.SS_SWITCH_IDLE,AssetName.PUZZLECONTROLLER_ACTIVATED);
             generateSequence();
             trigger();
@@ -227,7 +229,7 @@ public class SimonSays extends Puzzle{
                     pauseTime *= 2;
                     updateAssets(AssetName.SS_SWITCH_ON, AssetName.PUZZLECONTROLLER_COMPLETED);
                     if (currStage == numStages) {
-                        complete();
+                        onComplete();
                     }
                 }
             }
@@ -246,7 +248,9 @@ public class SimonSays extends Puzzle{
         }
     }
 
-    private void complete() {
+    @Override
+    protected void onComplete() {
+        super.onComplete();
         String message = Messages.SIMON_COMPLETE + ".\n" + Messages.PUZZLE_COMPLETE;
         PlayScreen.uiManager.initTextBox(message);
         completed = true;

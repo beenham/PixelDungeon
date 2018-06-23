@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.PlayerInfo;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class PlayerScreen extends AbstractScreen {
@@ -51,7 +52,7 @@ public class PlayerScreen extends AbstractScreen {
         Table mainTable = new Table();
         mainTable.center().pad(padding);
 
-        TextButton signInButton = new TextButton("SIGN IN", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton signInButton = new TextButton(Messages.SIGN_IN, Assets.getInstance().getSkin(Assets.UI_SKIN));
         signInButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
 
         signInButton.addListener(new ClickListener() {
@@ -62,7 +63,7 @@ public class PlayerScreen extends AbstractScreen {
             }
         });
 
-        TextButton backButton = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton backButton = new TextButton(Messages.BACK_UPPER, Assets.getInstance().getSkin(Assets.UI_SKIN));
         backButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
 
         backButton.addListener(new ClickListener() {

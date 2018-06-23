@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class SkinSelectScreen extends AbstractScreen {
     Image backgroundImage;
@@ -38,7 +39,7 @@ public class SkinSelectScreen extends AbstractScreen {
         Table mainTable = new Table();
         mainTable.center().pad(padding);
 
-        TextButton backButton = new TextButton("BACK",Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton backButton = new TextButton(Messages.BACK_UPPER,Assets.getInstance().getSkin(Assets.UI_SKIN));
         backButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
 
         backButton.addListener(new ClickListener() {

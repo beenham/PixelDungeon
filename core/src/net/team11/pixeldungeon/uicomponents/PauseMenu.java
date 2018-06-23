@@ -21,6 +21,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class PauseMenu extends Stage {
     private ShapeRenderer shapeRenderer;
@@ -42,10 +43,10 @@ public class PauseMenu extends Stage {
     private void setupTable() {
         float padding = 25 * PixelDungeon.SCALAR;
 
-        Label titleLabel = new Label("GAME PAUSED", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label titleLabel = new Label(Messages.GAME_PAUSED_UPPER, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.5f * PixelDungeon.SCALAR);
 
-        TextButton resumeButton = new TextButton("RESUME", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton resumeButton = new TextButton(Messages.RESUME, Assets.getInstance().getSkin(Assets.UI_SKIN));
         resumeButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         resumeButton.addListener(new ClickListener() {
             @Override
@@ -59,7 +60,7 @@ public class PauseMenu extends Stage {
             }
         });
 
-        TextButton mainMenuButton = new TextButton("QUIT TO MAIN MENU", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton mainMenuButton = new TextButton(Messages.QUIT_TO_MAIN, Assets.getInstance().getSkin(Assets.UI_SKIN));
         mainMenuButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         mainMenuButton.addListener(new ClickListener() {
             @Override
@@ -85,14 +86,15 @@ public class PauseMenu extends Stage {
     private void setupDialog() {
         float padding = 25 * PixelDungeon.SCALAR;
 
-        Label titleLabel = new Label("ARE YOU SURE?", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label titleLabel = new Label(Messages.ARE_YOU_SURE, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.5f * PixelDungeon.SCALAR);
 
-        Label infoLabel = new Label("Leaving will result in loss of\nall progress of this dungeon so far!", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label infoLabel = new Label(Messages.LEVEL_LEAVING, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        infoLabel.setWrap(true);
         infoLabel.setFontScale(PixelDungeon.SCALAR);
         infoLabel.setAlignment(Align.center);
 
-        TextButton yesButton = new TextButton("YES", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton yesButton = new TextButton(Messages.YES, Assets.getInstance().getSkin(Assets.UI_SKIN));
         yesButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         yesButton.addListener(new ClickListener() {
             @Override
@@ -104,7 +106,7 @@ public class PauseMenu extends Stage {
             }
         });
 
-        TextButton noButton = new TextButton("NO", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton noButton = new TextButton(Messages.NO, Assets.getInstance().getSkin(Assets.UI_SKIN));
         noButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         noButton.addListener(new ClickListener() {
             @Override
@@ -117,16 +119,16 @@ public class PauseMenu extends Stage {
         });
 
         pauseTable = new Table();
-        pauseTable.add(titleLabel).colspan(5).padBottom(padding);
+        pauseTable.add(titleLabel).colspan(5).pad(padding,padding*7,padding,padding*7);
         pauseTable.row().pad(padding);
-        pauseTable.add(infoLabel).colspan(5).padBottom(padding*4);
+        pauseTable.add(infoLabel).colspan(5).padBottom(padding*4).fillX().expandX();
         pauseTable.row();
         pauseTable.add().pad(padding);
-        pauseTable.add(yesButton).pad(padding).fillX();
+        pauseTable.add(yesButton).pad(padding).size(yesButton.getPrefWidth()*2,yesButton.getPrefHeight()).right();
         pauseTable.add().pad(padding/2);
-        pauseTable.add(noButton).pad(padding).fillX();
+        pauseTable.add(noButton).pad(padding).size(yesButton.getPrefWidth()*2,yesButton.getPrefHeight()).left();
         pauseTable.add().pad(padding);
-        pauseTable.pack();
+        pauseTable.setSize(PixelDungeon.V_WIDTH*4/5,PixelDungeon.V_HEIGHT*4/5);
 
         pauseTable.setPosition(PixelDungeon.V_WIDTH/2 - pauseTable.getWidth()/2,PixelDungeon.V_HEIGHT/2 - pauseTable.getHeight()/2);
     }
