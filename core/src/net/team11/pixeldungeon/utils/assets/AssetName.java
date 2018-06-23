@@ -135,8 +135,12 @@ public class AssetName {
     /////   Mirror Sprite Names     /////
     public static final String BEAM_HORIZONTAL = "beamLightHorizontal";
     public static final String BEAM_VERTICAL = "beamLightVertical";
+
     public static final String BEAM_REFLECTOR_OFF = "beamReflectorOff";
     public static final String BEAM_REFLECTOR_ON = "beamReflectorOn";
+
+    public static final String BEAM_GENERATOR_OFF = "beamGeneratorOff";
+    public static final String BEAM_GENERATOR_ON = "beamGeneratorOn";
 
     /////   TRAP SPRITE NAMES       /////
     public static final String FLOORSPIKE_IDLE = "floorSpikeIdle";

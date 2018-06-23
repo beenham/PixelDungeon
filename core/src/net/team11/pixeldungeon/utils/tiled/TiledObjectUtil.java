@@ -23,6 +23,7 @@ import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.entities.mirrors.Beam;
+import net.team11.pixeldungeon.entities.mirrors.BeamGenerator;
 import net.team11.pixeldungeon.entities.mirrors.Reflector;
 import net.team11.pixeldungeon.entities.puzzle.CompletedIndicator;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
@@ -285,6 +286,16 @@ public class TiledObjectUtil {
                             Reflector reflector = new Reflector(rectObject.getRectangle(), rectObject.getName(),
                                     (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION));
                             engine.addEntity(reflector);
+                        } else {
+                            System.err.println("BEAM_REFLECTOR_OFF: " + rectObject.getName() +  " was not setup correctly!");
+                        }
+                        break;
+
+                    case TiledMapObjectNames.BEAM_GENERATOR:
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
+                            BeamGenerator generator = new BeamGenerator(rectObject.getRectangle(), rectObject.getName(),
+                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION));
+                            engine.addEntity(generator);
                         } else {
                             System.err.println("BEAM_REFLECTOR_OFF: " + rectObject.getName() +  " was not setup correctly!");
                         }

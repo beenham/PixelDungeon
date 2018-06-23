@@ -15,6 +15,7 @@ public class TiledMapObjectNames {
     public static final String PRESSURE = "pressurePlate";
     public static final String BEAM = "beam";
     public static final String REFLECTOR = "reflector";
+    public static final String BEAM_GENERATOR = "beamGenerator";
     public static final String PUZZLE_CONTROLLER = "puzzleController";
     public static final String PUZZLE_SS_SWITCH = "simonSaysSwitch";
     public static final String GEM_PILLAR = "gemPillar";
