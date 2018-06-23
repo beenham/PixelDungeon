@@ -133,9 +133,10 @@ public class AssetName {
     public static final String WALL_SCRIBE_THREE = "wallScribeThree";
 
     /////   Mirror Sprite Names     /////
-    public static final String BEAM = "lightBeam";
-    public static final String BEAM_UD = "lightBeam_UD";
-    public static final String REFLECTOR = "Tmp_Reflector";
+    public static final String BEAM_HORIZONTAL = "beamLightHorizontal";
+    public static final String BEAM_VERTICAL = "beamLightVertical";
+    public static final String BEAM_REFLECTOR_OFF = "beamReflectorOff";
+    public static final String BEAM_REFLECTOR_ON = "beamReflectorOn";
 
     /////   TRAP SPRITE NAMES       /////
     public static final String FLOORSPIKE_IDLE = "floorSpikeIdle";

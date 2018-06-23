@@ -276,7 +276,7 @@ public class TiledObjectUtil {
                                     true, (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION),true);
                             engine.addEntity(beam);
                         } else {
-                            System.err.println("BEAM: " + rectObject.getName() +  " was not setup correctly!");
+                            System.err.println("BEAM_HORIZONTAL: " + rectObject.getName() +  " was not setup correctly!");
                         }
                         break;
 
@@ -286,7 +286,7 @@ public class TiledObjectUtil {
                                     (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION));
                             engine.addEntity(reflector);
                         } else {
-                            System.err.println("REFLECTOR: " + rectObject.getName() +  " was not setup correctly!");
+                            System.err.println("BEAM_REFLECTOR_OFF: " + rectObject.getName() +  " was not setup correctly!");
                         }
                         break;
                     default:

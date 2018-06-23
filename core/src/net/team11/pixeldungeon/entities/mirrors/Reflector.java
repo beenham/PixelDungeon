@@ -31,7 +31,7 @@ public class Reflector extends Entity {
 
         //this.addComponent(new TrapComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0,
-                (CollisionUtil.TRAP),
+                (CollisionUtil.ENTITY),
                 (byte)(CollisionUtil.ENTITY |  CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));    
         
@@ -98,8 +98,9 @@ public class Reflector extends Entity {
 
     private void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
-        animationComponent.addAnimation(AssetName.REFLECTOR, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AssetName.REFLECTOR);
+        animationComponent.addAnimation(AssetName.BEAM_REFLECTOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.BEAM_REFLECTOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.setAnimation(AssetName.BEAM_REFLECTOR_OFF);
     }
 
 }

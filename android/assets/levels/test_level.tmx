@@ -442,7 +442,7 @@
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="59" name="reflector_01" x="298.227" y="314.318" width="16" height="16">
+  <object id="59" name="reflector_01" x="299.227" y="314.318" width="12" height="12">
    <properties>
     <property name="direction" value="right"/>
     <property name="entity" value="reflector"/>

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entities.traps.Trap;
@@ -195,11 +194,11 @@ public class Beam extends Trap {
     private void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         if (beamDirection == Direction.RIGHT || beamDirection == Direction.LEFT) {
-            animationComponent.addAnimation(AssetName.BEAM, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-            animationComponent.setAnimation(AssetName.BEAM);
+            animationComponent.addAnimation(AssetName.BEAM_HORIZONTAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+            animationComponent.setAnimation(AssetName.BEAM_HORIZONTAL);
         } else {
-            animationComponent.addAnimation(AssetName.BEAM_UD, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-            animationComponent.setAnimation(AssetName.BEAM_UD);
+            animationComponent.addAnimation(AssetName.BEAM_VERTICAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+            animationComponent.setAnimation(AssetName.BEAM_VERTICAL);
         }
     }
 
