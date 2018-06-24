@@ -10,7 +10,7 @@ public class Messages {
 
     public static final String DOOR_CANNOT_OPEN = "You can't open the door this way";
     public static final String DOOR_NEED_KEY = "You need a Door Key to open this door";
-    public static final String DOOR_NEED_END_KEY = "You need the End Key to open this door";
+    public static final String DOOR_NEED_DUNGEON_KEY = "You need the Dungeon Key to open this door";
 
     public static final String ITEM_FIND_ONE = "You found a %s";
     public static final String ITEM_FIND_MULTIPLE = "You found %d %s's";

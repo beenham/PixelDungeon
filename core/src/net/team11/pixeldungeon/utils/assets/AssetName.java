@@ -90,6 +90,8 @@ public class AssetName {
     public static final String DOOR_OPENED = "doorOpened";
     public static final String BUTTONDOOR_CLOSED = "buttonDoorClosed";
     public static final String BUTTONDOOR_OPENING = "buttonDoorOpening";
+    public static final String DUNGEONDOOR_CLOSED = "dungeonDoorClosed";
+    public static final String DUNGEONDOOR_OPENING = "dungeonDoorOpening";
     public static final String LOCKEDDOOR_CLOSED = "lockedDoorClosed";
     public static final String LOCKEDDOOR_OPENING = "lockedDoorOpening";
     public static final String MECHANICDOOR_CLOSED = "mechanicDoorClosed";

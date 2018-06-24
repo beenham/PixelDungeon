@@ -44,7 +44,7 @@ public class VelocitySystem extends EntitySystem {
 
             //Paralyzing handling
             if (velocityComponent.isParalyzed()) {
-                velocityComponent.setParalyzedTime(velocityComponent.getParalyzedTime() - delta * RenderSystem.FRAME_SPEED);
+                velocityComponent.setParalyzedTime(velocityComponent.getParalyzedTime() - (delta * RenderSystem.FRAME_SPEED));
                 if (velocityComponent.getParalyzedTime() <= 0f) {
                     velocityComponent.setParalyzed(false);
                     velocityComponent.setParalyzedTime(0);
@@ -59,22 +59,6 @@ public class VelocitySystem extends EntitySystem {
     }
 
     private void isOverlapping(Polygon entityBox) {
-        try {
-            RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.LAYER_EXIT);
-            Rectangle collision = new Rectangle(mapObject.getRectangle());
-            Polygon collisionBox = CollisionUtil.createRectangle(
-                    collision.x+collision.width/2,collision.y+collision.height/2,
-                    collision.width,collision.height);
-            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
-                if (mapObject.getProperties().containsKey(TiledMapProperties.MAP)) {
-                    ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
-                            null,
-                            mapObject.getProperties().get(TiledMapProperties.MAP));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         try {
             RectangleMapObject mapObject = mapManager.getCurrentMap().getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.MAP_EXIT);
             Rectangle collision = new Rectangle(mapObject.getRectangle());

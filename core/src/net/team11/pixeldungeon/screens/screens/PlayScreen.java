@@ -77,7 +77,7 @@ public class PlayScreen extends AbstractScreen {
 
     private void setupCamera() {
         gameCam.setToOrtho(false, PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
-        gameCam.zoom = 0.13f/(PixelDungeon.SCALAR);
+        gameCam.zoom = 0.15f/(PixelDungeon.SCALAR);
         this.mapManager = MapManager.getInstance();
         this.mapManager.reset();
         gameCam.update();
@@ -147,7 +147,7 @@ public class PlayScreen extends AbstractScreen {
         Gdx.gl.glClearColor(88,61,52,0);
         engine.update(delta);
 
-        b2dr.render(world, gameCam.combined);
+        //b2dr.render(world, gameCam.combined);
         if (ambientLight < 0.75f && !paused) {
             ambientLight += 0.01f;
             rayHandler.setAmbientLight(ambientLight);

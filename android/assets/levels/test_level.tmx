@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="199">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="202">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer name="background" width="100" height="100">
   <data encoding="csv">
@@ -1367,7 +1367,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#002eff" name="doors" visible="0">
+ <objectgroup color="#002eff" name="doors">
   <object id="3" name="doorPillarLeft" x="800" y="176" width="3" height="16">
    <properties>
     <property name="entity" value="doorPillar"/>
@@ -1448,7 +1448,7 @@
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
-    <property name="opened" type="bool" value="false"/>
+    <property name="opened" type="bool" value="true"/>
    </properties>
   </object>
   <object id="179" name="doorPillarRight" x="541" y="432" width="3" height="16">
@@ -1463,8 +1463,27 @@
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
+  <object id="199" name="dungeonDoor_0" x="515" y="320" width="26" height="16">
+   <properties>
+    <property name="doorType" value="DUNGEON"/>
+    <property name="entity" value="door"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="200" name="doorPillarRight" x="541" y="320" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameRight"/>
+   </properties>
+  </object>
+  <object id="201" name="doorPillarLeft" x="512" y="320" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameLeft"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#000000" name="collision">
+ <objectgroup color="#000000" name="collision" visible="0" locked="1">
   <object id="17" x="400.25" y="80">
    <polyline points="-48,-16 -48,32 -80,32 -80,96 -32,96 -32,112 -96,112 -96,0 -240,0 -240.25,192 -128.25,192 -128.25,288 -176.25,288 -176.25,272 -144.25,272 -144.25,208 -240.25,208 -240.25,272 -208.25,272 -208.25,288 -240.25,288 -240,784 752,784 752,112 432,112 432,96 752,96 752,0 352,0 352,96 400,96 400,112 256,112 256,96 336,96 336,0 144,0 144,96 224,96 224,112 0,112 0,96 48,96 48,32 16,32 16,-16 -48,-16"/>
   </object>

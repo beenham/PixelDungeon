@@ -21,6 +21,7 @@ import net.team11.pixeldungeon.entities.blocks.PressurePlate;
 import net.team11.pixeldungeon.entities.blocks.Torch;
 import net.team11.pixeldungeon.entities.door.ButtonDoor;
 import net.team11.pixeldungeon.entities.door.DoorFrame;
+import net.team11.pixeldungeon.entities.door.DungeonDoor;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.entities.puzzle.CompletedIndicator;
@@ -30,6 +31,8 @@ import net.team11.pixeldungeon.entities.puzzle.colouredgems.WallScribe;
 import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
 import net.team11.pixeldungeon.entities.traps.FloorSpike;
 import net.team11.pixeldungeon.entities.traps.Quicksand;
+import net.team11.pixeldungeon.entities.traps.TrapRoom;
+import net.team11.pixeldungeon.entity.component.entitycomponent.TrapRoomComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.items.Coin;
@@ -130,6 +133,9 @@ public class TiledObjectUtil {
                                 case "BUTTON":
                                     engine.addEntity(new ButtonDoor(rectObject.getName(), rectObject.getRectangle(), open));
                                     break;
+                                case "DUNGEON":
+                                    engine.addEntity(new DungeonDoor(rectObject.getName(), rectObject.getRectangle()));
+                                    break;
                                 case "LOCKED":
                                     engine.addEntity(new LockedDoor(rectObject.getName(), rectObject.getRectangle(), open));
                                     //System.out.println("//\n"+keyID+"\n"+keyName+"\\");
@@ -158,12 +164,21 @@ public class TiledObjectUtil {
                             FloorSpike floorSpike;
                             boolean enabled = (boolean) rectObject.getProperties().get(TiledMapProperties.ENABLED);
                             boolean timed = (boolean) rectObject.getProperties().get(TiledMapProperties.TIMED);
+                            String room = (String) rectObject.getProperties().get(TiledMapProperties.ROOM);
+
                             if (timed) {
                                 float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
-                                engine.addEntity(floorSpike = new FloorSpike(rectObject.getRectangle(), enabled,
-                                        rectObject.getName(), timer));
+                                floorSpike = new FloorSpike(rectObject.getRectangle(), enabled,
+                                        rectObject.getName(), timer);
                             } else {
-                                engine.addEntity(floorSpike = new FloorSpike(rectObject.getRectangle(), enabled, rectObject.getName()));
+                                floorSpike = new FloorSpike(rectObject.getRectangle(), enabled, rectObject.getName());
+                            }
+                            List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
+                            for (Entity entity : trapRooms) {
+                                if (entity instanceof TrapRoom && entity.getName().equals(room)) {
+                                    ((TrapRoom) entity).addTrap(floorSpike);
+                                    engine.addEntity(floorSpike);
+                                }
                             }
 
                             if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET)) {
@@ -230,11 +245,19 @@ public class TiledObjectUtil {
 
                     case TiledMapObjectNames.QUICKSAND:
                         if (mapObject.getProperties().containsKey(TiledMapProperties.SMOD)){
+                            String room = (String) rectObject.getProperties().get(TiledMapProperties.ROOM);
                             ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
                             Quicksand quicksand = new Quicksand(shape, mapObject.getName(),
                                     (float)mapObject.getProperties().get(TiledMapProperties.SMOD),
                                     (float) mapObject.getProperties().get(TiledMapProperties.TIMER));
-                            engine.addEntity(quicksand);
+                            List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
+
+                            for (Entity entity : trapRooms) {
+                                if (entity instanceof TrapRoom && entity.getName().equals(room)) {
+                                    ((TrapRoom) entity).addTrap(quicksand);
+                                    engine.addEntity(quicksand);
+                                }
+                            }
                         } else {
                             System.err.println("QUICKSAND: " + rectObject.getName() + " was not setup correctly!");
                         }
@@ -249,17 +272,25 @@ public class TiledObjectUtil {
                         engine.addEntity(wallScribe);
                         break;
 
-                    case TiledMapObjectNames.PRESSURE:
+                    case TiledMapObjectNames.PRESSURE_PLATE:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
                                 rectObject.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
+                            String room = (String) rectObject.getProperties().get(TiledMapProperties.ROOM);
                             PressurePlate pressurePlate = new PressurePlate(rectObject.getRectangle(), rectObject.getName(),
                                     (float)rectObject.getProperties().get(TiledMapProperties.ACTIVETIME),
                                     (boolean)rectObject.getProperties().get(TiledMapProperties.AUTOCLOSE));
-                            engine.addEntity(pressurePlate);
+                            List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
+
+                            for (Entity entity : trapRooms) {
+                                if (entity instanceof TrapRoom && entity.getName().equals(room)) {
+                                    ((TrapRoom) entity).addTrap(pressurePlate);
+                                    engine.addEntity(pressurePlate);
+                                }
+                            }
                             pressurePlate.setTrigger(trigger);
                             pressurePlate.setTargets(targets);
                         } else {
-                            System.err.println("PRESSURE PLATE: " + rectObject.getName() + " was not setup correctly!");
+                            System.err.println("PRESSURE_PLATE PLATE: " + rectObject.getName() + " was not setup correctly!");
                         }
                         break;
 
@@ -277,6 +308,23 @@ public class TiledObjectUtil {
 
                     default:
                         //throw new IllegalArgumentException("This isn't a valid entity! " + type);
+                }
+            }
+        }
+    }
+
+    public static void parseTiledRoomLayer (EntityEngine engine, MapObjects mapObjects) {
+        if (mapObjects != null) {
+            for (MapObject mapObject : mapObjects) {
+                if (mapObject instanceof PolylineMapObject) {
+                    String type = (String) mapObject.getProperties().get(TiledMapProperties.ENTITY_TYPE);
+
+                    switch (type) {
+                        case TiledMapObjectNames.TRAP_ROOM:
+                            ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
+                            TrapRoom room = new TrapRoom(shape, mapObject.getName());
+                            engine.addEntity(room);
+                    }
                 }
             }
         }
@@ -438,9 +486,6 @@ public class TiledObjectUtil {
             }
         }
     }
-
-
-
 
     /**
      * Used to create a body shape for the collision boundary

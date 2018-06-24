@@ -12,9 +12,10 @@ public class TiledMapObjectNames {
     public static final String FLOOR_PISTON = "floorPiston";
     public static final String PILLAR = "pillar";
     public static final String TORCH = "torch";
+    public static final String TRAP_ROOM = "trapRoom";
     public static final String LEVER = "lever";
     public static final String QUICKSAND = "quicksand";
-    public static final String PRESSURE = "pressurePlate";
+    public static final String PRESSURE_PLATE = "pressurePlate";
     public static final String PUZZLE_CONTROLLER = "puzzleController";
     public static final String PUZZLE_SS_SWITCH = "simonSaysSwitch";
     public static final String GEM_PILLAR = "gemPillar";

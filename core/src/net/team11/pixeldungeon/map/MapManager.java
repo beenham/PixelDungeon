@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import net.team11.pixeldungeon.entities.traps.TrapRoom;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.puzzles.Puzzle;
@@ -54,9 +55,14 @@ public class MapManager {
         renderer.render(layers);
     }
 
-    public void renderDecor() {
+    public void renderWallTop() {
         renderer.setView(PlayScreen.gameCam);
-        int[] layers = {currentMap.getMap().getLayers().getIndex(TiledMapLayers.DECOR_LAYER)};
+        int[] layers = {
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.DECOR_LAYER),
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP1_LAYER),
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP2_LAYER),
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP3_LAYER)
+        };
 
         renderer.render(layers);
     }
@@ -80,6 +86,7 @@ public class MapManager {
         TiledObjectUtil.parseTiledPuzzleLayer(engine, currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
+        TiledObjectUtil.parseTiledRoomLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
         TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
         TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
@@ -89,6 +96,7 @@ public class MapManager {
                 TiledObjectUtil.parseTargets(engine, entity);
             }
         }
+
         for (Puzzle puzzle : engine.getPuzzles()) {
             TiledObjectUtil.parseTargets(engine,puzzle);
             puzzle.setupEntities(engine);
