@@ -1,6 +1,5 @@
 package net.team11.pixeldungeon.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
 import net.team11.pixeldungeon.screens.game.DirectedGame;

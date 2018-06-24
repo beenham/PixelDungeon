@@ -66,6 +66,11 @@ public class AssetName {
     public static final String PLAYER_MOVING_LEFT_3Q = "playerMoveLeft_3Quart";
     public static final String PLAYER_MOVING_RIGHT_3Q = "playerMoveRight_3Quart";
 
+
+    /////   DEATH SPRITE NAMES
+    public static final String DEATH_FIRE = "deathFire";
+    public static final String DEATH_FLOOR_SPIKE = "deathFloorSpike";
+
     /////   ENTITY SPRITE NAMES     /////
     public static final String BOX_IDLE = "box";
     public static final String BOX_DOCKED = "boxDocked";

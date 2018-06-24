@@ -120,8 +120,8 @@ public class RenderSystem extends EntitySystem {
             drawList.add(0,entity);
         }
 
-        System.out.println("List: " + drawList.size() +"/"+entities.size());
-        System.out.println("Loop iterations : " + loopIterations);
+        //System.out.println("List: " + drawList.size() +"/"+entities.size());
+        //System.out.println("Loop iterations : " + loopIterations);
 
         spriteBatch.begin();
         for (Entity entity : drawList) {

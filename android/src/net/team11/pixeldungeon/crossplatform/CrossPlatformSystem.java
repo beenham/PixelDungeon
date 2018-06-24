@@ -55,6 +55,11 @@ public class CrossPlatformSystem implements AndroidInterface {
     }
 
     @Override
+    public void earnLetsTryAgain() {
+
+    }
+
+    @Override
     public void openAchievements() {
         Intent achieveIntent = mActivity.getPackageManager().
                 getLaunchIntentForPackage("com.google.android.play.games");

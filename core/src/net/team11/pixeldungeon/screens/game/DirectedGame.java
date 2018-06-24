@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
+import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
 
@@ -30,6 +31,8 @@ public abstract class DirectedGame extends Game {
 	public void setScreen(AbstractScreen screen, ScreenTransition screenTransition) {
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
+		PixelDungeon.V_WIDTH = w;
+		PixelDungeon.V_HEIGHT = h;
 		if (!init) {
 			currFbo = new FrameBuffer(Format.RGB888, w, h, false);
 			nextFbo = new FrameBuffer(Format.RGB888, w, h, false);
@@ -42,7 +45,9 @@ public abstract class DirectedGame extends Game {
 		nextScreen.resize(w, h);
 		nextScreen.render(0); // let screen update() once
 		if (currScreen != null) {
+			currScreen.setGameCall(true);
 			currScreen.pause();
+			currScreen.setGameCall(false);
 		}
 
 		Gdx.input.setInputProcessor(null); // disable input
@@ -67,9 +72,12 @@ public abstract class DirectedGame extends Game {
 			t = Math.min(t + deltaTime, duration);
 			if (screenTransition == null || t >= duration) {
 				// no transition effect set or transition has just finished
-				if (currScreen != null)
+				if (currScreen != null) {
 					currScreen.hide();
+				}
+				nextScreen.setGameCall(true);
 				nextScreen.resume();
+				nextScreen.setGameCall(false);
 				// enable input for next screen
 				Gdx.input.setInputProcessor(nextScreen.getInputProcessor());
 				// switch screens
@@ -108,9 +116,10 @@ public abstract class DirectedGame extends Game {
 	@Override
 	public void pause() {
 		Gdx.app.debug(TAG, "pause() called on screen");
-
 		if (currScreen != null) {
+			currScreen.setGameCall(true);
 			currScreen.pause();
+			currScreen.setGameCall(false);
 		}
 	}
 

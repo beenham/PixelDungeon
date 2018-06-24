@@ -23,6 +23,7 @@ import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 public class MainMenuScreen extends AbstractScreen {
     private Image backgroundImage;
@@ -31,6 +32,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        StatsUtil.getInstance().clearCurrStats();
         float padding = 25 * PixelDungeon.SCALAR;
 
         addActor(setupBackground());

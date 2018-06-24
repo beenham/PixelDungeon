@@ -47,7 +47,7 @@ public class TrapSystem extends EntitySystem {
             Polygon trapRoomBox = trapRoomEntity.getComponent(BodyComponent.class).getPolygon();
             boolean updateTraps = CollisionUtil.isOverlapping(trapRoomBox,playerBox);
             if (trapRoomEntity instanceof TrapRoom && updateTraps) {
-                System.out.println("TRAPROOM : " + trapRoomEntity.getName() + " traps : " + ((TrapRoom) trapRoomEntity).getTraps().size());
+                //System.out.println("TRAPROOM : " + trapRoomEntity.getName() + " traps : " + ((TrapRoom) trapRoomEntity).getTraps().size());
 
                 for (Entity trapEntity : ((TrapRoom) trapRoomEntity).getTraps()) {
                     if (trapEntity instanceof PressurePlate) {
@@ -106,7 +106,7 @@ public class TrapSystem extends EntitySystem {
                                     trap.setContactingEntity(player);
                                     if (trap.isTriggered()) {
                                         HealthComponent health = player.getComponent(HealthComponent.class);
-                                        health.setHealth(health.getHealth() - trap.getDamage());
+                                        health.setHealth(health.getHealth() - trap.getDamage(),trap);
                                     }
                                 }
                                 if (trap.getTimer() <= 0f) {
@@ -117,7 +117,7 @@ public class TrapSystem extends EntitySystem {
                                     trap.setContactingEntity(player);
                                     if (trap.isTriggered()) {
                                         HealthComponent health = player.getComponent(HealthComponent.class);
-                                        health.setHealth(health.getHealth() - trap.getDamage());
+                                        health.setHealth(health.getHealth() - trap.getDamage(),trap);
                                     }
                                 } else {
                                     trap.setContactingEntity(null);

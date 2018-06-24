@@ -77,7 +77,7 @@ public class FloorSpike extends Trap {
                 triggered = true;
                 if (contactEntity != null) {
                     contactEntity.getComponent(HealthComponent.class)
-                            .setHealth(contactEntity.getComponent(HealthComponent.class).getHealth() - damage);
+                            .setHealth(contactEntity.getComponent(HealthComponent.class).getHealth() - damage,this);
                 }
             } else {
                 getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_DEACTIVATING);

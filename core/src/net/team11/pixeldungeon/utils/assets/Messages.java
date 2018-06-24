@@ -49,6 +49,7 @@ public class Messages {
     public static final String ARROW_RIGHT = ">";
     public static final String BACK_CAMELCASE = "Back";
     public static final String BACK_UPPER = "BACK";
+    public static final String DEATH_MESSAGE_CAMELCASE = "You Died";
     public static final String DONE_CAMELCASE = "Done";
     public static final String GAME_PAUSED_CAMELCASE = "Game Paused";
     public static final String GAME_PAUSED_UPPER = "GAME PAUSED";
@@ -64,6 +65,7 @@ public class Messages {
     public static final String NO = "NO";
     public static final String PLAY_UPPER = "PLAY";
     public static final String RESUME = "RESUME";
+    public static final String RETRY = "RETRY";
     public static final String SIGN_IN = "SIGN IN";
     public static final String SIGN_OUT = "SIGN OUT";
     public static final String SKIN_SELECT = "SKIN SELECTION";

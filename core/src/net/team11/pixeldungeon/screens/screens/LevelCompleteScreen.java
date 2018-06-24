@@ -42,6 +42,7 @@ public class LevelCompleteScreen extends AbstractScreen {
 
     private float timer = 0;
     private float speed = .05f;
+    private boolean paused;
 
     public LevelCompleteScreen(InventoryComponent inventory) {
         this.inventory = inventory;
@@ -73,6 +74,7 @@ public class LevelCompleteScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        this.paused = false;
         addActor(setupBackground());
         addActor(buildScreen());
     }
@@ -190,68 +192,70 @@ public class LevelCompleteScreen extends AbstractScreen {
     }
 
     private void update(float delta) {
-        if (timeVal < statsUtil.getTimer()) {
-            timer += delta;
-            if (timer >= speed) {
-                timeVal++;
-                yourTime.setText(String.
-                        format(Locale.UK, Messages.STATS_YOUR_TIME+":  %02d:%02d", timeVal / 60, timeVal % 60));
-                if (timeVal <= levelStats.getBestTimeVal()) {
-                    bestTime.setText(String.
-                            format(Locale.UK, Messages.STATS_BEST_TIME+":  %02d:%02d", timeVal / 60, timeVal % 60));
+        if (!paused) {
+            if (timeVal < statsUtil.getTimer()) {
+                timer += delta;
+                if (timer >= speed) {
+                    timeVal++;
+                    yourTime.setText(String.
+                            format(Locale.UK, Messages.STATS_YOUR_TIME + ":  %02d:%02d", timeVal / 60, timeVal % 60));
+                    if (timeVal <= levelStats.getBestTimeVal()) {
+                        bestTime.setText(String.
+                                format(Locale.UK, Messages.STATS_BEST_TIME + ":  %02d:%02d", timeVal / 60, timeVal % 60));
+                    }
+                    if (statsUtil.getTimer() - timeVal <= 10) {
+                        speed += 0.025f;
+                    }
+                    timer = 0;
                 }
-                if (statsUtil.getTimer() - timeVal <= 10) {
-                    speed += 0.025f;
+            } else if (chestValue < statsUtil.getCurrentStats().getChestsFound()) {
+                speed = 0.3f;
+                timer += delta;
+                if (timer >= speed) {
+                    chestValue++;
+                    chestsVal.setText(String.format(Locale.UK, "%d/%d",
+                            chestValue,
+                            levelStats.getTotalChests()));
+                    timer = 0;
                 }
-                timer = 0;
-            }
-        } else if (chestValue < statsUtil.getCurrentStats().getChestsFound()) {
-            speed = 0.3f;
-            timer += delta;
-            if (timer >= speed) {
-                chestValue++;
-                chestsVal.setText(String.format(Locale.UK,"%d/%d",
-                        chestValue,
-                        levelStats.getTotalChests()));
-                timer = 0;
-            }
-            if (itemsValue == statsUtil.getCurrentStats().getItemsFound()) {
-                speed = 0.05f;
-            }
-        }  else if (keysValue < statsUtil.getCurrentStats().getKeysFound()) {
-            speed = 0.3f;
-            timer += delta;
-            if (timer >= speed) {
-                keysValue++;
-                keysVal.setText(String.format(Locale.UK,"%d/%d",
-                        keysValue,
-                        levelStats.getTotalKeys()));
-                timer = 0;
-            }
-            if (itemsValue == statsUtil.getCurrentStats().getItemsFound()) {
-                speed = 0.05f;
-            }
-        }  else if (itemsValue < statsUtil.getCurrentStats().getItemsFound()) {
-            speed = 0.3f;
-            timer += delta;
-            if (timer >= speed) {
-                itemsValue++;
-                itemsVal.setText(String.format(Locale.UK,"%d/%d",
-                        itemsValue,
-                        levelStats.getTotalItems()));
-                timer = 0;
-            }
-            if (itemsValue == statsUtil.getCurrentStats().getItemsFound()) {
-                speed = 0.05f;
-            }
-        } else if (deathsValue < statsUtil.getCurrentStats().getDeaths()) {
-            timer += delta;
-            if (timer >= speed) {
-                deathsValue++;
-                deathsVal.setText(String.format(Locale.UK,"%d", deathsValue));
-                timer = 0;
-                if (statsUtil.getTimer() - timeVal <= 10) {
-                    speed += 0.025f;
+                if (itemsValue == statsUtil.getCurrentStats().getItemsFound()) {
+                    speed = 0.05f;
+                }
+            } else if (keysValue < statsUtil.getCurrentStats().getKeysFound()) {
+                speed = 0.3f;
+                timer += delta;
+                if (timer >= speed) {
+                    keysValue++;
+                    keysVal.setText(String.format(Locale.UK, "%d/%d",
+                            keysValue,
+                            levelStats.getTotalKeys()));
+                    timer = 0;
+                }
+                if (itemsValue == statsUtil.getCurrentStats().getItemsFound()) {
+                    speed = 0.05f;
+                }
+            } else if (itemsValue < statsUtil.getCurrentStats().getItemsFound()) {
+                speed = 0.3f;
+                timer += delta;
+                if (timer >= speed) {
+                    itemsValue++;
+                    itemsVal.setText(String.format(Locale.UK, "%d/%d",
+                            itemsValue,
+                            levelStats.getTotalItems()));
+                    timer = 0;
+                }
+                if (itemsValue == statsUtil.getCurrentStats().getItemsFound()) {
+                    speed = 0.05f;
+                }
+            } else if (deathsValue < statsUtil.getCurrentStats().getDeaths()) {
+                timer += delta;
+                if (timer >= speed) {
+                    deathsValue++;
+                    deathsVal.setText(String.format(Locale.UK, "%d", deathsValue));
+                    timer = 0;
+                    if (statsUtil.getTimer() - timeVal <= 10) {
+                        speed += 0.025f;
+                    }
                 }
             }
         }
@@ -264,11 +268,13 @@ public class LevelCompleteScreen extends AbstractScreen {
 
     @Override
     public void pause() {
+        this.paused = true;
         super.pause();
     }
 
     @Override
     public void resume() {
+        this.paused = false;
         super.resume();
     }
 

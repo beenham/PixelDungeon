@@ -4,7 +4,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.map.Map;
+import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.screens.ScreenEnum;
+import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -18,6 +23,9 @@ import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.stats.CurrentStats;
+import net.team11.pixeldungeon.utils.stats.LevelStats;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import static net.team11.pixeldungeon.entities.player.Player.PlayerDepth.FOUR_QUART;
 
@@ -58,12 +66,12 @@ public class Player extends Entity {
         this.addComponent(new PlayerComponent(this));
         this.addComponent(velocityComponent = new VelocityComponent(100));
         this.addComponent(animationComponent = new AnimationComponent(0));
-        this.addComponent(new HealthComponent(3, 3));
+        this.addComponent(new HealthComponent(1,1));
         this.addComponent(new CameraComponent(PlayScreen.gameCam));
         this.addComponent(new InteractionComponent(this));
         this.addComponent(new InventoryComponent());
 
-        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.PLAYER);
+        TextureAtlas textureAtlas = Assets.getInstance().getPlayerTexture(Assets.PLAYER_DEFAULT);
         animationComponent.addAnimation(AssetName.PLAYER_MOVING_UP, textureAtlas, 2f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PLAYER_MOVING_DOWN, textureAtlas, 2f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PLAYER_MOVING_LEFT, textureAtlas, 2f, Animation.PlayMode.LOOP);
@@ -113,7 +121,22 @@ public class Player extends Entity {
 
     @Override
     public void respawn() {
-        getComponent(BodyComponent.class).setCoords(spawnX, spawnY);
-        getComponent(HealthComponent.class).setHealth(getComponent(HealthComponent.class).getMaxHealth());
+        Map currentMap = MapManager.getInstance().getCurrentMap();
+
+        StatsUtil statsUtil = StatsUtil.getInstance();
+        CurrentStats currStats = statsUtil.getCurrentStats();
+        LevelStats levelStats = statsUtil.getLevelStats(currentMap.getMapName());
+
+        currStats.respawn();
+        levelStats.incrementAttempts();
+        statsUtil.writeLevelStats(currentMap.getMapName());
+        statsUtil.getGlobalStats().incrementAttempts();
+        statsUtil.saveTimer();
+
+        ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
+                null,
+                currentMap.getMapName()
+                );
+        PixelDungeon.getInstance().getAndroidInterface().earnLetsTryAgain();
     }
 }
