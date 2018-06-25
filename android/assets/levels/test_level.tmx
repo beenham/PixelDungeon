@@ -1894,7 +1894,7 @@
     <property name="puzzle" value="simonSays"/>
     <property name="stages" type="int" value="1"/>
    </properties>
-   <polyline points="-64,-16 -64,80 128,80 128,-16 -64,-16"/>
+   <polyline points="-64,80 -64,-16 128,-16 128,80 -64,80"/>
   </object>
   <object id="79" name="colourGem1" x="832" y="92">
    <properties>

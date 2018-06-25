@@ -34,6 +34,7 @@ public class BeamGenerator extends Entity {
                 (byte)(CollisionUtil.ENTITY |  CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
 
+
         AnimationComponent animationComponent;
         this.addComponent(animationComponent = new AnimationComponent(0));
         setupAnimations(animationComponent);
@@ -58,6 +59,13 @@ public class BeamGenerator extends Entity {
         beamOut.getComponent(BodyComponent.class).setCoords(x,y);
     }
 
+    private void setupAnimations(AnimationComponent animationComponent){
+        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
+        animationComponent.addAnimation(AssetName.BEAM_GENERATOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.BEAM_GENERATOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
+    }
+
     @Override
     public void doInteraction(boolean isPlayer) {
         if (!isPlayer) {
@@ -70,12 +78,5 @@ public class BeamGenerator extends Entity {
                 beamOut.setOn(true);
             }
         }
-    }
-
-    private void setupAnimations(AnimationComponent animationComponent){
-        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
-        animationComponent.addAnimation(AssetName.BEAM_GENERATOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.addAnimation(AssetName.BEAM_GENERATOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
     }
 }
