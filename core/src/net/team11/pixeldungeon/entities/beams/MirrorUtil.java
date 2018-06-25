@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.entities.mirrors;
+package net.team11.pixeldungeon.entities.beams;
 
 import net.team11.pixeldungeon.utils.Direction;
 

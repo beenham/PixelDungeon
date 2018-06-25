@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import net.team11.pixeldungeon.entities.beams.BeamTarget;
 import net.team11.pixeldungeon.entities.blocks.Box;
 import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.entities.blocks.FloorPiston;
@@ -24,9 +25,9 @@ import net.team11.pixeldungeon.entities.door.DoorFrame;
 import net.team11.pixeldungeon.entities.door.DungeonDoor;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.door.MechanicDoor;
-import net.team11.pixeldungeon.entities.mirrors.Beam;
-import net.team11.pixeldungeon.entities.mirrors.BeamGenerator;
-import net.team11.pixeldungeon.entities.mirrors.Reflector;
+import net.team11.pixeldungeon.entities.beams.Beam;
+import net.team11.pixeldungeon.entities.beams.BeamGenerator;
+import net.team11.pixeldungeon.entities.beams.Reflector;
 import net.team11.pixeldungeon.entities.puzzle.CompletedIndicator;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.puzzle.colouredgems.GemPillar;
@@ -44,6 +45,7 @@ import net.team11.pixeldungeon.items.keys.ChestKey;
 import net.team11.pixeldungeon.items.keys.DoorKey;
 import net.team11.pixeldungeon.items.keys.DungeonKey;
 import net.team11.pixeldungeon.puzzles.Puzzle;
+import net.team11.pixeldungeon.puzzles.beamPuzzle.BeamPuzzle;
 import net.team11.pixeldungeon.puzzles.boxpuzzle.BoxPuzzle;
 import net.team11.pixeldungeon.puzzles.levelpuzzle.LevelPuzzle;
 import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
@@ -341,6 +343,14 @@ public class TiledObjectUtil {
                         }
                         break;
 
+                    case TiledMapObjectNames.BEAM_TARGET:
+                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+
+                        BeamTarget beamTarget = new BeamTarget(rectObject.getRectangle(), rectObject.getName());
+                        beamTarget.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        engine.addEntity(beamTarget);
+                        break;
+
                     case  TiledMapObjectNames.FLOOR_PISTON:
                         boolean activated = (boolean) rectObject.getProperties().get(TiledMapProperties.ACTIVATED);
                         engine.addEntity(new FloorPiston(rectObject.getRectangle(), activated, rectObject.getName()));
@@ -522,6 +532,12 @@ public class TiledObjectUtil {
                         boxPuzzle.setBoxNames(boxes);
                         engine.addPuzzle(boxPuzzle);
                         break;
+
+                    case TiledMapPuzzleNames.BEAM_PUZZLE:
+                        BeamPuzzle beamPuzzle = new BeamPuzzle(mapObject.getName());
+
+                        beamPuzzle.setCompleteTargets(completeTargets);
+                        engine.addPuzzle(beamPuzzle);
                 }
             }
         }

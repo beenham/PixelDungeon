@@ -10,6 +10,7 @@ public class TiledMapProperties {
     public static final String ENTITY_TYPE = "entity";
     public static final String ID = "id";
     public static final String ITEM = "item";
+    public static final String BEAM_TARGETS = "beamTargets";
 
     public static final String LOCKED = "locked";
     public static final String NUM_GEMS = "numGems";

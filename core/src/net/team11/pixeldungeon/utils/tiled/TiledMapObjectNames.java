@@ -20,6 +20,7 @@ public class TiledMapObjectNames {
     public static final String BEAM = "beamOut";
     public static final String REFLECTOR = "reflector";
     public static final String BEAM_GENERATOR = "beamGenerator";
+    public static final String BEAM_TARGET = "beamTarget";
 
     public static final String PRESSURE_PLATE = "pressurePlate";
 

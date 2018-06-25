@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 
-import net.team11.pixeldungeon.entities.mirrors.Beam;
+import net.team11.pixeldungeon.entities.beams.Beam;
 
 import net.team11.pixeldungeon.entities.blocks.PressurePlate;
 
 import net.team11.pixeldungeon.entities.blocks.Torch;
-import net.team11.pixeldungeon.entities.mirrors.Reflector;
+import net.team11.pixeldungeon.entities.beams.Reflector;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 

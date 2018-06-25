@@ -3,9 +3,9 @@ package net.team11.pixeldungeon.entity.system;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.entities.mirrors.Beam;
-import net.team11.pixeldungeon.entities.mirrors.BeamGenerator;
-import net.team11.pixeldungeon.entities.mirrors.Reflector;
+import net.team11.pixeldungeon.entities.beams.Beam;
+import net.team11.pixeldungeon.entities.beams.BeamGenerator;
+import net.team11.pixeldungeon.entities.beams.Reflector;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
@@ -14,7 +14,6 @@ import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.RoundTo;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -5,4 +5,5 @@ public class TiledMapPuzzleNames {
     public static final String SIMON_SAYS = "simonSays";
     public static final String COLOUR_GEMS = "colourGems";
     public static final String BOX_PUZZLE = "boxPuzzle";
+    public static final String BEAM_PUZZLE = "beamPuzzle";
 }

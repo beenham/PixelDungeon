@@ -1,11 +1,10 @@
-package net.team11.pixeldungeon.entities.mirrors;
+package net.team11.pixeldungeon.entities.beams;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;

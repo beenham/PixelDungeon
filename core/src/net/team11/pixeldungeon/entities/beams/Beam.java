@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.entities.mirrors;
+package net.team11.pixeldungeon.entities.beams;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
