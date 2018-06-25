@@ -149,14 +149,14 @@
   </object>
   <object id="34" name="box_1" x="213" y="113" width="16" height="10">
    <properties>
+    <property name="activated" type="bool" value="true"/>
     <property name="entity" value="box"/>
-    <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="35" name="box_2" x="261.25" y="69.75" width="16" height="10">
    <properties>
+    <property name="activated" type="bool" value="true"/>
     <property name="entity" value="box"/>
-    <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="38" name="torch_1" x="557" y="78" width="8" height="6">
@@ -343,7 +343,7 @@
     <property name="entity" value="floorSpike"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="30"/>
+    <property name="timer" type="float" value="3"/>
    </properties>
   </object>
   <object id="74" name="floorSpike_8" x="592" y="160" width="16" height="16">
@@ -352,7 +352,7 @@
     <property name="entity" value="floorSpike"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="30"/>
+    <property name="timer" type="float" value="3"/>
    </properties>
   </object>
   <object id="91" name="floorSpike_10" x="720" y="240" width="16" height="16">
@@ -361,7 +361,7 @@
     <property name="entity" value="floorSpike"/>
     <property name="target" value="floorSpike_11"/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="50"/>
+    <property name="timer" type="float" value="5"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
@@ -371,7 +371,7 @@
     <property name="entity" value="floorSpike"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="50"/>
+    <property name="timer" type="float" value="5"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>

@@ -51,7 +51,7 @@ public class PlayScreen extends AbstractScreen {
 
     public PlayScreen(String levelName) {
         this.levelName = levelName;
-        paused = false;
+        paused = true;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PlayScreen extends AbstractScreen {
 
     private void setupCamera() {
         gameCam.setToOrtho(false, PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT);
-        gameCam.zoom = 0.13f/(PixelDungeon.SCALAR);
+        gameCam.zoom = 0.12f/(PixelDungeon.SCALAR);
         this.mapManager = MapManager.getInstance();
         this.mapManager.reset();
         gameCam.update();
@@ -160,20 +160,26 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void resize(int width, int height) {
-        //viewport.update(width, height);
-        //uiManager.getHud().resize(width,height);
+        viewport.update(width, height);
+        uiManager.getHud().resize(width,height);
     }
 
     @Override
     public void pause() {
-        paused = true;
-        uiManager.showPauseMenu(false);
-        engine.pause();
+        if (!uiManager.getDeathMenu().isVisible()) {
+            paused = true;
+            uiManager.showPauseMenu(false);
+            engine.pause();
+        }
     }
 
     @Override
     public void resume() {
-        if (paused && uiManager.getPauseMenu().isResumePressed()) {
+        if (super.gameCall && paused) {
+            paused = false;
+            uiManager.hidePauseMenu(false);
+            engine.resume();
+        } else if (paused && uiManager.getPauseMenu().isResumePressed()) {
             paused = false;
             uiManager.hidePauseMenu(false);
             engine.resume();

@@ -4,9 +4,11 @@ import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entitysystem.Entity;
+import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.items.PuzzleItem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +50,8 @@ public class Puzzle {
         init();
     }
 
-    protected void init() {}
+    protected void init() {
+    }
 
     public boolean isActivated() {
         return this.activated;
@@ -218,6 +221,14 @@ public class Puzzle {
 
     public int getRemainingAttempts() {
         return maxAttempts - attempts;
+    }
+
+    public void setupEntities(EntityEngine engine){}
+
+    protected void onComplete() {
+        StatsUtil.getInstance().getGlobalStats().incrementPuzzleCompleted();
+        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 
     @Override

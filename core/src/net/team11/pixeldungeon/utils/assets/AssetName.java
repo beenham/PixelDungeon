@@ -66,8 +66,14 @@ public class AssetName {
     public static final String PLAYER_MOVING_LEFT_3Q = "playerMoveLeft_3Quart";
     public static final String PLAYER_MOVING_RIGHT_3Q = "playerMoveRight_3Quart";
 
+
+    /////   DEATH SPRITE NAMES
+    public static final String DEATH_FIRE = "deathFire";
+    public static final String DEATH_FLOOR_SPIKE = "deathFloorSpike";
+
     /////   ENTITY SPRITE NAMES     /////
     public static final String BOX_IDLE = "box";
+    public static final String BOX_DOCKED = "boxDocked";
 
     public static final String CHEST_CLOSED = "chestClosed";
     public static final String CHEST_OPENED = "chestOpened";
@@ -89,11 +95,18 @@ public class AssetName {
     public static final String DOOR_OPENED = "doorOpened";
     public static final String BUTTONDOOR_CLOSED = "buttonDoorClosed";
     public static final String BUTTONDOOR_OPENING = "buttonDoorOpening";
+    public static final String DUNGEONDOOR_CLOSED = "dungeonDoorClosed";
+    public static final String DUNGEONDOOR_OPENING = "dungeonDoorOpening";
     public static final String LOCKEDDOOR_CLOSED = "lockedDoorClosed";
     public static final String LOCKEDDOOR_OPENING = "lockedDoorOpening";
     public static final String MECHANICDOOR_CLOSED = "mechanicDoorClosed";
     public static final String MECHANICDOOR_OPENING = "mechanicDoorOpening";
     public static final String MECHANICDOOR_CLOSING = "mechanicDoorClosing";
+
+    public static final String FLOORPISTON_ACTIVATED = "floorPistonActivated";
+    public static final String FLOORPISTON_ACTIVATING = "floorPistonActivating";
+    public static final String FLOORPISTON_DEACTIVATING = "floorPistonDeactivating";
+    public static final String FLOORPISTON_DEACTIVATED = "floorPistonDeactivated";
 
     public static final String GEMPILLAR_EMPTY = "gemPillarEmpty";
     public static final String GEMPILLAR_BLUE = "gemPillarBlue";

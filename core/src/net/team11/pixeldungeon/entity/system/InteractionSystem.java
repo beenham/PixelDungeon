@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import net.team11.pixeldungeon.entities.blocks.Chest;
 import net.team11.pixeldungeon.entities.blocks.Lever;
+import net.team11.pixeldungeon.entities.door.DungeonDoor;
 import net.team11.pixeldungeon.entities.door.LockedDoor;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -78,6 +79,9 @@ public class InteractionSystem extends EntitySystem {
                         } else if (entity instanceof LockedDoor){
                             LockedDoor lockedDoor = (LockedDoor) entity;
                             lockedDoor.doInteraction(player);
+                        } else if (entity instanceof DungeonDoor){
+                            DungeonDoor dungeonDoor = (DungeonDoor) entity;
+                            dungeonDoor.doInteraction(player);
                         }
                     }
                 }

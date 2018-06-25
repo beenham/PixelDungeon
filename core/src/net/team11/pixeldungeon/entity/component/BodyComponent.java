@@ -65,10 +65,13 @@ public class BodyComponent implements EntityComponent {
 
         Array<Body> bodies = new Array<>();
         PlayScreen.world.getBodies(bodies);
-        for (Body body : bodies) {
-            if (body.equals(this.body)) {
-                removeBody();
-                this.body = null;
+
+        if (body != null) {
+            for (Body body : bodies) {
+                if (body.equals(this.body)) {
+                    removeBody();
+                }
+
             }
         }
 
@@ -107,9 +110,11 @@ public class BodyComponent implements EntityComponent {
         shapeType = ShapeType.POLYGON;
         Array<Body> bodies = new Array<>();
         PlayScreen.world.getBodies(bodies);
-        for (Body body : bodies) {
-            if (body.equals(this.body)) {
-                removeBody();
+        if (body != null) {
+            for (Body body : bodies) {
+                if (body.equals(this.body)) {
+                    removeBody();
+                }
             }
         }
 
@@ -155,20 +160,25 @@ public class BodyComponent implements EntityComponent {
 
     public void removeBody() {
         PlayScreen.world.destroyBody(body);
+        this.body = null;
     }
 
-    public void createBody(BodyDef.BodyType bodyType) {
+    public void recreateBody(BodyDef.BodyType bodyType) {
         createBody(bodyType,density);
     }
 
     public Polygon getPolygon() {
-        switch (shapeType) {
-            case POLYGON:
-                return bodyShape;
-            case RECTANGLE:
-                return CollisionUtil.createRectangle(body.getPosition().x,body.getPosition().y,width,height);
-            default:
-                return new Polygon();
+        if (body != null) {
+            switch (shapeType) {
+                case POLYGON:
+                    return bodyShape;
+                case RECTANGLE:
+                    return CollisionUtil.createRectangle(body.getPosition().x, body.getPosition().y, width, height);
+                default:
+                    return new Polygon();
+            }
+        } else {
+            return CollisionUtil.createRectangle(x,y,width,height);
         }
     }
     public float getWidth() {
@@ -196,17 +206,23 @@ public class BodyComponent implements EntityComponent {
     }
 
     public void setCoords(float x, float y) {
-        body.setTransform(x,y,body.getAngle());
-        this.x = x;
-        this.y = y;
+        body.setTransform(this.x = x,this.y = y,body.getAngle());
     }
 
     public float getX() {
-        return body.getPosition().x;
+        if (body == null) {
+            return x;
+        } else {
+            return x = body.getPosition().x;
+        }
     }
 
     public float getY() {
-        return body.getPosition().y;
+        if (body == null) {
+            return y;
+        } else {
+            return y = body.getPosition().y;
+        }
     }
 
     public boolean isPushing() {

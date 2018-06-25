@@ -111,7 +111,7 @@ public class BeamSystem extends EntitySystem {
                     }
                 }
 
-                beamBody.createBody(BodyDef.BodyType.StaticBody);
+                beamBody.recreateBody(BodyDef.BodyType.StaticBody);
                 if (overlapping){
                     currClosest = beam.getCurrentClosest();
                     currClosestBody = currClosest.getComponent(BodyComponent.class);
@@ -147,7 +147,7 @@ public class BeamSystem extends EntitySystem {
                             beamBody.setCoords(beamX + beamBody.getWidth()/2, beamBody.getY());
                             break;
                     }
-                    beamBody.createBody(BodyDef.BodyType.StaticBody);
+                    beamBody.recreateBody(BodyDef.BodyType.StaticBody);
                 } else {
                     switch (beam.getBeamDirection()){
                         case UP:

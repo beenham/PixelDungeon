@@ -14,16 +14,19 @@ public class CollisionUtil {
 
     public static boolean isOverlapping(Polygon polygonOne, Polygon polygonTwo) {
         float[] vertices = polygonTwo.getVertices();
-        for (int i = 0; i < vertices.length/2; i++){
-            Vector2 vector2 = new Vector2(vertices[i+2], vertices[i * 2 + 1]);
-            if (polygonOne.contains(vector2)){
+
+        for (int i = 0 ; i < vertices.length/2 ; i++) {
+            Vector2 vector2 = new Vector2(vertices[i*2], vertices[i * 2 + 1]);
+            if (polygonOne.contains(vector2)) {
+
                 return true;
             }
         }
 
-        float[] secondVertices = polygonOne.getVertices();
-        for (int i = 0 ; i < secondVertices.length/2 ; i++) {
-            Vector2 vector2 = new Vector2(secondVertices[i*2], secondVertices[i * 2 + 1]);
+
+        vertices = polygonOne.getVertices();
+        for (int i = 0 ; i < vertices.length/2 ; i++) {
+            Vector2 vector2 = new Vector2(vertices[i*2], vertices[i * 2 + 1]);
             if (polygonTwo.contains(vector2)) {
                 return true;
             }
@@ -31,12 +34,12 @@ public class CollisionUtil {
         return false;
     }
 
-    public static boolean isSubmerged(Polygon polygon, Polygon rectangle) {
+    public static boolean isSubmerged(Polygon biggerPolygon, Polygon smallerPolygon) {
         ArrayList<Boolean> booleans = new ArrayList<>();
-        float[] vertices = rectangle.getVertices();
+        float[] vertices = smallerPolygon.getVertices();
         for (int i = 0 ; i < vertices.length/2 ; i++) {
             Vector2 vector2 = new Vector2(vertices[i*2], vertices[i * 2 + 1]);
-            if (polygon.contains(vector2)) {
+            if (biggerPolygon.contains(vector2)) {
                 booleans.add(true);
             }
         }
@@ -53,18 +56,22 @@ public class CollisionUtil {
                 x + width/4, y - height/2,
 
                 //Top right to before bottom right
+
                 x + width/2, y - height/2,
                 x + width/2, y - height/4,
                 x + width/2, y,
                 x + width/2, y + height/4,
 
                 //Bottom right to before bottom left
+
                 x + width/2, y + height/2,
                 x + width/4, y + height/2,
                 x          , y + height/2,
                 x - width/4, y + height/2,
 
+
                 //Bottom left to before top left
+
                 x - width/2, y + height/2,
                 x - width/2, y + height/4,
                 x - width/2, y,

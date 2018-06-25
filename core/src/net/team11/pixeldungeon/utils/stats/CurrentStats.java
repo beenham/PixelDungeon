@@ -7,15 +7,18 @@ public class CurrentStats {
     private int keysFound;
     private int itemsFound;
     private int deaths;
-    private ArrayList<String> chests = new ArrayList<>();
-    private ArrayList<String> keys = new ArrayList<>();
-    private ArrayList<String> items = new ArrayList<>();
+    private ArrayList<String> chests;
+    private ArrayList<String> keys;
+    private ArrayList<String> items;
 
     public CurrentStats() {
         chestsFound = 0;
         keysFound = 0;
         itemsFound = 0;
         deaths = 0;
+        chests = new ArrayList<>();
+        keys = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     public void incrementChests() {
@@ -42,6 +45,16 @@ public class CurrentStats {
 
     public void addItem(String item) {
         items.add(item);
+    }
+
+    public void respawn() {
+        deaths++;
+        chestsFound = 0;
+        keysFound = 0;
+        itemsFound = 0;
+        chests = new ArrayList<>();
+        keys = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     public int getChestsFound() {

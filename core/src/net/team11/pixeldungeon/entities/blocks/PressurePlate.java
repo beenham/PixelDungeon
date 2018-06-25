@@ -27,6 +27,7 @@ public class PressurePlate extends Trap {
         super(name, true);
         this.activated = false;
         this.autoClose = autoClose;
+        enabled = true;
         timed = true;
         timerReset = activeTime;
         timer = 0;
@@ -65,12 +66,6 @@ public class PressurePlate extends Trap {
                     triggered = false;
                 }
             }
-        } else if (!triggered && activated) {
-            super.setTimer(timer);
-            if (timer <= 0) {
-                callTargets();
-                triggered = true;
-            }
         }
     }
 
@@ -86,14 +81,27 @@ public class PressurePlate extends Trap {
             }
         } else if (contactEntity != null && !activated) {
             activated = true;
-            resetTimer();
             getComponent(AnimationComponent.class).setAnimation(AssetName.PRESSUREPLATE_DOWN);
+            if (!triggered) {
+                triggered = true;
+                callTargets();
+            }
         }
     }
 
     private void callTargets() {
         for (Entity entity : targetEntities) {
             entity.doInteraction(false);
+        }
+    }
+
+    @Override
+    public void setContactingEntity(Entity entity) {
+        super.setContactingEntity(entity);
+        if (contactEntity != null) {
+            trigger();
+        } else {
+            trigger();
         }
     }
 }

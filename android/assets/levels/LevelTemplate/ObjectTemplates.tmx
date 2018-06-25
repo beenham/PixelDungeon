@@ -242,7 +242,7 @@
   <object id="24" name="box_1" x="208" y="320" width="16" height="10">
    <properties>
     <property name="entity" value="box"/>
-    <property name="pushable" type="bool" value="true"/>
+    <property name="activated" type="bool" value="true"/>
    </properties>
   </object>
   <object id="25" name="torch_1" x="196" y="197" width="8" height="6">

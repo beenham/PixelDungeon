@@ -10,6 +10,7 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.uicomponents.inventory.InventoryUI;
 
 public class UIManager {
+    private DeathMenu deathMenu;
     private Hud hud;
     private InventoryUI inventoryUI;
     private ItemReceiver itemReceiver;
@@ -18,12 +19,24 @@ public class UIManager {
     private TextBox textBox;
 
     public UIManager(SpriteBatch batch, EntityEngine engine, Player player) {
+        this.deathMenu = new DeathMenu(batch,engine);
         this.hud = new Hud(batch);
         this.itemReceiver = new ItemReceiver(batch);
         this.inventoryUI = new InventoryUI(player, batch);
         this.itemSelector = new ItemSelector(player, batch);
         this.pauseMenu = new PauseMenu(batch, engine);
         this.textBox = new TextBox(batch);
+    }
+
+    public void showDeathMenu(String deathAnimation) {
+        hud.setPressed(false);
+        hud.setVisible(false);
+        inventoryUI.setVisible(false);
+        itemSelector.setVisible(false);
+        itemReceiver.setVisible(false);
+        textBox.setVisible(false);
+        pauseMenu.setVisible(false);
+        deathMenu.setVisible(true, deathAnimation);
     }
 
     public void showInventory(){
@@ -36,6 +49,10 @@ public class UIManager {
             ScreenManager.getInstance().getScreen().pause();
         }
         hud.setPressed(false);
+        textBox.setVisible(false);
+        itemSelector.setVisible(false);
+        itemReceiver.setVisible(false);
+        inventoryUI.setVisible(false);
         pauseMenu.setVisible(true);
     }
 
@@ -110,6 +127,7 @@ public class UIManager {
             itemReceiver.update();
             itemSelector.update();
             textBox.update(delta);
+            deathMenu.update(delta);
         }
         if (pauseMenu.isResumePressed()) {
             hidePauseMenu(true);
@@ -135,6 +153,10 @@ public class UIManager {
         if (itemReceiver.isVisible()) {
             itemReceiver.draw();
         }
+
+        if (deathMenu.isVisible()) {
+            deathMenu.draw();
+        }
     }
 
     public void dispose() {
@@ -142,6 +164,9 @@ public class UIManager {
         inventoryUI.dispose();
         itemSelector.dispose();
         pauseMenu.dispose();
+        itemReceiver.dispose();
+        itemSelector.dispose();
+        deathMenu.dispose();
     }
 
     public Hud getHud() {
@@ -150,5 +175,9 @@ public class UIManager {
 
     public PauseMenu getPauseMenu() {
         return pauseMenu;
+    }
+
+    public DeathMenu getDeathMenu() {
+        return deathMenu;
     }
 }

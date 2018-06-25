@@ -21,15 +21,15 @@ import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.uicomponents.TextBox;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class InventoryUI extends Stage {
     private ShapeRenderer shapeRenderer;
-    private String title = "INVENTORY";
     private InventoryComponent inventory;
 
-    protected boolean visible = false;
-    protected boolean backPressed;
-    protected Array<InventorySlot> slotArray = new Array<>(InventoryComponent.MAX_SIZE);
+    private boolean visible = false;
+    private boolean backPressed;
+    private Array<InventorySlot> slotArray = new Array<>(InventoryComponent.MAX_SIZE);
 
     private Table inventoryTable;
 
@@ -44,10 +44,10 @@ public class InventoryUI extends Stage {
     private void setupTable() {
         inventoryTable = new Table();
 
-        Label titleLabel = new Label(title, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label titleLabel = new Label(Messages.INVENTORY_CAMELCASE, new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
         titleLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
 
-        TextButton backLabel = new TextButton("Back", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton backLabel = new TextButton(Messages.BACK_CAMELCASE, Assets.getInstance().getSkin(Assets.UI_SKIN));
         backLabel.getLabel().setFontScale(PixelDungeon.SCALAR);
         backLabel.addListener(new ClickListener() {
             @Override

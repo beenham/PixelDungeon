@@ -14,9 +14,7 @@ import net.team11.pixeldungeon.entities.mirrors.Reflector;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 
-import net.team11.pixeldungeon.entity.component.entitycomponent.BoxComponent;
-import net.team11.pixeldungeon.entity.component.entitycomponent.DoorComponent;
-import net.team11.pixeldungeon.entity.component.entitycomponent.TorchComponent;
+import net.team11.pixeldungeon.entities.player.Player;
 
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
@@ -36,6 +34,7 @@ public class RenderSystem extends EntitySystem {
     public static float FRAME_SPEED = 15;
 
     private SpriteBatch spriteBatch;
+    private Player player;
     private List<Entity> entities = null;
     private MapManager mapManager;
 
@@ -46,6 +45,10 @@ public class RenderSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         mapManager = MapManager.getInstance();
+
+        player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
+        entities = new ArrayList<>();
+
         entities = entityEngine.getEntities(AnimationComponent.class);
     }
 
@@ -54,10 +57,10 @@ public class RenderSystem extends EntitySystem {
         mapManager.renderBackGround();
         mapManager.renderEnvironment();
 
-        ArrayList<Entity> entityList = new ArrayList<>(entities.size());
+        ArrayList<Entity> drawList = new ArrayList<>();
+        ArrayList<Entity> restOfList = new ArrayList<>();
 
         float bleed = 64;
-
         Polygon cameraBox = CollisionUtil.createRectangle(
                 PlayScreen.gameCam.position.x,
                 PlayScreen.gameCam.position.y,
@@ -65,34 +68,72 @@ public class RenderSystem extends EntitySystem {
                 PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
 
         ArrayList<Entity> alwaysBottom = new ArrayList<>();
+        drawList.add(player);
+
+        int loopIterations = 0;
+
         for (int i = 0 ; i < entities.size() ; i++) {
+            loopIterations++;
             Polygon entityBox = entities.get(i).getComponent(BodyComponent.class).getPolygon();
             if (CollisionUtil.isOverlapping(cameraBox,entityBox)) {
-                if (i == 0) {
-                    entityList.add(entities.get(i));
+                if (entities.get(i).equals(player)) {
+                    continue;
+                }
+                if (entities.get(i) instanceof PressurePlate) {
+                    alwaysBottom.add(entities.get(i));
                 } else {
-                    int size = entityList.size();
-                    for (int j = 0; j < size; j++) {
-                        if (entities.get(i) instanceof PressurePlate) {
-                            alwaysBottom.add(entities.get(i));
-                        } else if (entities.get(i).getComponent(BodyComponent.class).getY() > entityList.get(j).getComponent(BodyComponent.class).getY()) {
-                            entityList.add(j, entities.get(i));
-                            break;
-                        } else if (j == size - 1) {
-                            entityList.add(j + 1, entities.get(i));
-                            break;
+                    float entityY = entities.get(i).getComponent(BodyComponent.class).getY();
+                    if (entityY > player.getComponent(BodyComponent.class).getY()) {
+                        // FILTER LEFT SIDE OF ARRAY
+                        boolean added = false;
+                        int j = drawList.indexOf(player) - 1;
+                        while (j > 0) {
+                            loopIterations++;
+                            if (entityY <= drawList.get(j).getComponent(BodyComponent.class).getY()) {
+                                drawList.add(j+1,entities.get(i));
+                                added = true;
+                                break;
+                            } else {
+                                j--;
+                            }
+                        }
+                        if (!added) {
+                            drawList.add(0, entities.get(i));
+                        }
+                    } else {
+                        // FILTER RIGHT SIDE OF ARRAY
+                        boolean added = false;
+                        int j = drawList.size()-1;
+                        while (j > drawList.indexOf(player)) {
+                            loopIterations++;
+                            if (entityY <= drawList.get(j).getComponent(BodyComponent.class).getY()) {
+                                drawList.add(j+1,entities.get(i));
+                                added = true;
+                                break;
+                            } else {
+                                j--;
+                            }
+                        }
+                        if (!added) {
+                            drawList.add(j+1, entities.get(i));
                         }
                     }
                 }
+            } else {
+                restOfList.add(entities.get(i));
             }
         }
         for (Entity entity : alwaysBottom) {
-            entityList.add(0,entity);
+            loopIterations++;
+            drawList.add(0,entity);
         }
 
+        //System.out.println("List: " + drawList.size() +"/"+entities.size());
+        //System.out.println("Loop iterations : " + loopIterations);
+
         spriteBatch.begin();
-        for (Entity entity : entityList) {
-            if (entity.hasComponent(TorchComponent.class) && ((int)(delta*100000))%6 == 0) {
+        for (Entity entity : drawList) {
+            if (entity instanceof Torch && ((int)(delta*100000))%6 == 0) {
                 ((Torch) entity).setLightSize(new Random().nextInt(10)+40f);
             }
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
@@ -128,7 +169,13 @@ public class RenderSystem extends EntitySystem {
             animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
         }
         spriteBatch.end();
-        mapManager.renderDecor();
+
+        for (Entity entity : restOfList) {
+            AnimationComponent animComp = entity.getComponent(AnimationComponent.class);
+            animComp.setStateTime(animComp.getStateTime() + (delta * FRAME_SPEED));
+        }
+
+        mapManager.renderWallTop();
     }
 
     public void updatePaused() {
@@ -176,6 +223,6 @@ public class RenderSystem extends EntitySystem {
                     height);
         }
         spriteBatch.end();
-        mapManager.renderDecor();
+        mapManager.renderWallTop();
     }
 }

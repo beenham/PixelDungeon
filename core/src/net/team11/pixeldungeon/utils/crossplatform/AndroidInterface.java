@@ -16,4 +16,5 @@ public interface AndroidInterface {
 
     ////    Earning Achievements
     void earnNewAdventurer();
+    void earnLetsTryAgain();
 }

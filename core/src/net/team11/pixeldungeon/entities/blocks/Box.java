@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.entity.animation.AnimationName;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -39,10 +40,21 @@ public class Box extends Entity {
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("entities/Blocks.atlas"));
         animationComponent.addAnimation(AssetName.BOX_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        //animationComponent.addAnimation(AssetName.BOX_DOCKED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AssetName.BOX_IDLE);
     }
 
-    public boolean isPushable() {
-        return pushable;
+    @Override
+    public void doInteraction(boolean isPlayer) {
+        /*
+        if (!isPlayer) {
+            pushable = !pushable;
+            if (!pushable) {
+                BodyComponent bodyComponent = getComponent(BodyComponent.class);
+                bodyComponent.recreateBody(BodyDef.BodyType.StaticBody);
+                getComponent(AnimationComponent.class).setAnimation(AssetName.BOX_DOCKED);
+             }
+        }
+        */
     }
 }

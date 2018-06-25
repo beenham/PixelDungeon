@@ -69,7 +69,13 @@ public class StatsUtil {
     }
 
     public void initialiseCurrStats() {
-        currentStats = new CurrentStats();
+        if (currentStats == null) {
+            currentStats = new CurrentStats();
+        }
+    }
+
+    public void clearCurrStats () {
+        currentStats = null;
     }
 
     public CurrentStats getCurrentStats() {

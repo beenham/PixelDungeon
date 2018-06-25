@@ -11,6 +11,13 @@ level_0_0
   orig: 160, 160
   offset: 0, 0
   index: 0
+level_0
+  rotate: false
+  xy: 2, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 0
 test_level
   rotate: false
   xy: 164, 2

@@ -1,0 +1,132 @@
+
+Player_Deaths.png
+size: 149,48
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+deathFire
+  rotate: false
+  xy: 2, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 0
+deathFire
+  rotate: false
+  xy: 2, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 1
+deathFire
+  rotate: false
+  xy: 23, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 2
+deathFire
+  rotate: false
+  xy: 23, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 3
+deathFire
+  rotate: false
+  xy: 44, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 4
+deathFire
+  rotate: false
+  xy: 44, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 5
+deathFire
+  rotate: false
+  xy: 65, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 6
+deathFire
+  rotate: false
+  xy: 65, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 7
+deathFloorSpike
+  rotate: false
+  xy: 86, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 0
+deathFloorSpike
+  rotate: false
+  xy: 86, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 1
+deathFloorSpike
+  rotate: false
+  xy: 86, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 9
+deathFloorSpike
+  rotate: false
+  xy: 86, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 2
+deathFloorSpike
+  rotate: false
+  xy: 86, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 8
+deathFloorSpike
+  rotate: false
+  xy: 107, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 3
+deathFloorSpike
+  rotate: false
+  xy: 107, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 7
+deathFloorSpike
+  rotate: false
+  xy: 107, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 4
+deathFloorSpike
+  rotate: false
+  xy: 107, 2
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 6
+deathFloorSpike
+  rotate: false
+  xy: 128, 25
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: 5

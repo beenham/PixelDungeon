@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;
@@ -61,36 +62,29 @@ public class LevelInfo extends Table {
         float padding = 30f * PixelDungeon.SCALAR;
         float fontScale = PixelDungeon.SCALAR;
 
-        Label attempts = new Label("Attempts", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        //attemptsVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label attempts = new Label(Messages.STATS_ATTEMPTED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         attemptsVal = new Label(String.format(Locale.UK, "%d", statsUtil.getLevelStats(selector.getMap().getMapName()).getAttempts()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
-        Label completed = new Label("Completed", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        //completedVal = new Label(String.format(Locale.UK,"%d",0), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label completed = new Label(Messages.STATS_COMPLETED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         completedVal = new Label(String.format(Locale.UK, "%s", statsUtil.getLevelStats(selector.getMap().getMapName()).getCompleted()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
-        Label bestTime = new Label("Best Time", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        //bestTimeVal = new Label(String.format(Locale.UK,"%02d:%02d",5,43), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label bestTime = new Label(Messages.STATS_BEST_TIME, Assets.getInstance().getSkin(Assets.UI_SKIN));
         bestTimeVal = new Label(String.format(Locale.UK,"%s",statsUtil.getLevelStats(selector.getMap().getMapName()).getBestTime()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
-        Label chests = new Label("Chests", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        //chestsVal = new Label(String.format(Locale.UK,"%d/%d",2,3), Assets.getInstance().getSkin(Assets.UI_SKIN));
-
+        Label chests = new Label(Messages.STATS_CHESTS, Assets.getInstance().getSkin(Assets.UI_SKIN));
         chestsVal = new Label(String.format(Locale.UK,"%d/%d",statsUtil.getLevelStats(selector.getMap().getMapName()).getFoundChests(),
                 statsUtil.getLevelStats(selector.getMap().getMapName()).getTotalChests()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
-        Label keys = new Label("Keys", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        //keysVal = new Label(String.format(Locale.UK,"%d/%d",1,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label keys = new Label(Messages.STATS_KEYS, Assets.getInstance().getSkin(Assets.UI_SKIN));
         keysVal = new Label(String.format(Locale.UK,"%d/%d",statsUtil.getLevelStats(selector.getMap().getMapName()).getFoundKeys(),
                 statsUtil.getLevelStats(selector.getMap().getMapName()).getTotalKeys()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
 
-        Label items = new Label("Items", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        //itemsVal = new Label(String.format(Locale.UK,"%d/%d",0,1), Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Label items = new Label(Messages.STATS_ITEMS, Assets.getInstance().getSkin(Assets.UI_SKIN));
         itemsVal = new Label(String.format(Locale.UK,"%d/%d",statsUtil.getLevelStats(selector.getMap().getMapName()).getFoundItems(),
                 statsUtil.getLevelStats(selector.getMap().getMapName()).getTotalItems()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
@@ -132,7 +126,7 @@ public class LevelInfo extends Table {
     }
 
     private void setupPlay() {
-        Button playButton = new TextButton("PLAY", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        Button playButton = new TextButton(Messages.PLAY_UPPER, Assets.getInstance().getSkin(Assets.UI_SKIN));
         ((TextButton)playButton).getLabel().setFontScale(1f * PixelDungeon.SCALAR);
         playButton.addListener(new ClickListener() {
             @Override

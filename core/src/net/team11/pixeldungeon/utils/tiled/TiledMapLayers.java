@@ -11,6 +11,9 @@ public class TiledMapLayers {
 
     /////   RENDER LAYERS   /////
     public static final String DECOR_LAYER = "decoration";
+    public static final String WALLTOP1_LAYER = "wallTop1";
+    public static final String WALLTOP2_LAYER = "wallTop2";
+    public static final String WALLTOP3_LAYER = "wallTop3";
     public static final String WALL_LAYER = "walls";
     public static final String FLOOR_LAYER = "floor";
     public static final String BACKGROUND_LAYER = "background";

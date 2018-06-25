@@ -18,6 +18,7 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class LevelSelector extends Table {
     private MapManager mapManager;
@@ -34,7 +35,7 @@ public class LevelSelector extends Table {
     }
 
     private void setupTable(float size) {
-        TextButton backButton = new TextButton("BACK", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton backButton = new TextButton(Messages.BACK_UPPER, Assets.getInstance().getSkin(Assets.UI_SKIN));
         backButton.getLabel().setFontScale(1f * PixelDungeon.SCALAR);
         backButton.addListener(new ClickListener() {
             @Override
@@ -48,7 +49,7 @@ public class LevelSelector extends Table {
                 Assets.LEVELS).findRegion(currentMap.getMapName()));
 
 
-        TextButton leftButton = new TextButton("<", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton leftButton = new TextButton(Messages.ARROW_LEFT, Assets.getInstance().getSkin(Assets.UI_SKIN));
         leftButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         leftButton.addListener(new ClickListener() {
             @Override
@@ -57,7 +58,7 @@ public class LevelSelector extends Table {
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-        TextButton rightButton = new TextButton(">", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        TextButton rightButton = new TextButton(Messages.ARROW_RIGHT, Assets.getInstance().getSkin(Assets.UI_SKIN));
         rightButton.getLabel().setFontScale(PixelDungeon.SCALAR);
         rightButton.addListener(new ClickListener() {
             @Override

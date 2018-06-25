@@ -1,6 +1,6 @@
 
-Player.png
-size: 512,256
+Player_Default.png
+size: 496,164
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none

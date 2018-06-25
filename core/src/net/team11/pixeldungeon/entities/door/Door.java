@@ -15,13 +15,15 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 
 public class Door extends Entity {
     public enum Type {
-        BUTTON, LOCKED, MECHANIC;
+        BUTTON, DUNGEON, LOCKED, MECHANIC;
 
         @Override
         public final String toString() {
             switch (this) {
                 case BUTTON:
                     return "BUTTON";
+                case DUNGEON:
+                    return "DUNGEON";
                 case LOCKED:
                     return "LOCKED";
                 case MECHANIC:
@@ -59,10 +61,12 @@ public class Door extends Entity {
         animationComponent.addAnimation(AssetName.BUTTONDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.LOCKEDDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.MECHANICDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.DUNGEONDOOR_CLOSED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.BUTTONDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.LOCKEDDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.MECHANICDOOR_OPENING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
         animationComponent.addAnimation(AssetName.MECHANICDOOR_CLOSING, textureAtlas, .75f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.DUNGEONDOOR_OPENING, textureAtlas, 1.25f, Animation.PlayMode.NORMAL);
         switch (type) {
             case BUTTON:
                 if (open) {
@@ -85,6 +89,8 @@ public class Door extends Entity {
                     animationComponent.setAnimation(AssetName.MECHANICDOOR_CLOSED);
                 }
                 break;
+            case DUNGEON:
+                animationComponent.setAnimation(AssetName.DUNGEONDOOR_CLOSED);
         }
         if (open) {
             getComponent(BodyComponent.class).removeBody();
@@ -106,11 +112,14 @@ public class Door extends Entity {
                     getComponent(AnimationComponent.class).setNextAnimation(AssetName.MECHANICDOOR_CLOSED);
                     break;
             }
-            getComponent(BodyComponent.class).createBody(BodyDef.BodyType.StaticBody);
+            getComponent(BodyComponent.class).recreateBody(BodyDef.BodyType.StaticBody);
         } else {
             switch (type) {
                 case BUTTON:
                     getComponent(AnimationComponent.class).setAnimation(AssetName.BUTTONDOOR_OPENING);
+                    break;
+                case DUNGEON:
+                    getComponent(AnimationComponent.class).setAnimation(AssetName.DUNGEONDOOR_OPENING);
                     break;
                 case LOCKED:
                     getComponent(AnimationComponent.class).setAnimation(AssetName.LOCKEDDOOR_OPENING);
@@ -124,7 +133,7 @@ public class Door extends Entity {
         }
     }
 
-    public boolean isOpen() {
+    protected boolean isOpen() {
         return open;
     }
 }

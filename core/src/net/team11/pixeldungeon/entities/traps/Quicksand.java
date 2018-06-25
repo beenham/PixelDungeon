@@ -74,7 +74,7 @@ public class Quicksand extends Trap {
         triggered = true;
         ((Player)contactEntity).setDepth(Player.PlayerDepth.FOUR_QUART);
         HealthComponent health = contactEntity.getComponent(HealthComponent.class);
-        health.setHealth(health.getHealth() - damage);
+        health.setHealth(health.getHealth() - damage,this);
     }
 
     @Override
