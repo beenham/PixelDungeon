@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class LevelStats {
+    private String fileName;
     private String levelName;
     private int totalChests;
     private int totalKeys;
@@ -17,9 +18,11 @@ public class LevelStats {
     private HashMap<String, Boolean> foundKeys = new HashMap<>();
     private HashMap<String, Boolean> foundItems = new HashMap<>();
 
-    public String getLevelName() {
-        return levelName;
+    public String getFileName() {
+        return fileName;
     }
+
+    public String getLevelName() { return levelName; }
 
     public int getTotalChests() {
         return totalChests;
@@ -117,7 +120,7 @@ public class LevelStats {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("Level Name : ").append(levelName).append('\n');
+        s.append("Level Name : ").append(fileName).append('\n');
         s.append("Best Time : ").append(String.format(Locale.UK,"%02d:%02d",bestTime/60,bestTime%60)).append('\n');
         s.append("Attempts : ").append(attempts).append('\n');
         s.append("Completed : ").append(completed).append('\n');

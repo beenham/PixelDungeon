@@ -5,12 +5,45 @@ Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
     <string name="app_name">Pixel Dungeon</string>
+
     <!-- app_id -->
     <string name="app_id" translatable="false">1022168830802</string>
     <!-- package_name -->
     <string name="package_name" translatable="false">net.team11.pixeldungeon</string>
     <!-- achievement New Adventurer! -->
     <string name="achievement_new_adventurer" translatable="false">CgkI0qaK8N8dEAIQAQ</string>
+    <!-- achievement Attempt 10 Dungeons -->
+    <string name="achievement_attempt_10_dungeons" translatable="false">CgkI0qaK8N8dEAIQBg</string>
+    <!-- achievement Attempt 100 Dungeons -->
+    <string name="achievement_attempt_100_dungeons" translatable="false">CgkI0qaK8N8dEAIQBw</string>
+    <!-- achievement Attempt 500 Dungeons -->
+    <string name="achievement_attempt_500_dungeons" translatable="false">CgkI0qaK8N8dEAIQCA</string>
+    <!-- achievement Attempt 1000 Dungeons -->
+    <string name="achievement_attempt_1000_dungeons" translatable="false">CgkI0qaK8N8dEAIQCQ</string>
+    <!-- achievement Complete Dungeon 1 -->
+    <string name="achievement_complete_dungeon_1" translatable="false">CgkI0qaK8N8dEAIQCg</string>
+    <!-- achievement Complete Dungeon 5 -->
+    <string name="achievement_complete_dungeon_5" translatable="false">CgkI0qaK8N8dEAIQCw</string>
+    <!-- achievement Complete Dungeon 10 -->
+    <string name="achievement_complete_dungeon_10" translatable="false">CgkI0qaK8N8dEAIQDA</string>
+    <!-- achievement Complete Dungeon 15 -->
+    <string name="achievement_complete_dungeon_15" translatable="false">CgkI0qaK8N8dEAIQDQ</string>
+    <!-- achievement Complete Dungeon 20 -->
+    <string name="achievement_complete_dungeon_20" translatable="false">CgkI0qaK8N8dEAIQDg</string>
+    <!-- achievement Complete Dungeon 25 -->
+    <string name="achievement_complete_dungeon_25" translatable="false">CgkI0qaK8N8dEAIQDw</string>
+    <!-- achievement Let's Try Again.. -->
+    <string name="achievement_lets_try_again.." translatable="false">CgkI0qaK8N8dEAIQFQ</string>
+    <!-- achievement Simon Says! -->
+    <string name="achievement_simon_says" translatable="false">CgkI0qaK8N8dEAIQEw</string>
+    <!-- achievement The Colours Have Aligned! -->
+    <string name="achievement_the_colours_have_aligned" translatable="false">CgkI0qaK8N8dEAIQFA</string>
+    <!-- achievement Key Master -->
+    <string name="achievement_key_master" translatable="false">CgkI0qaK8N8dEAIQEA</string>
+    <!-- achievement Loot Junkie! -->
+    <string name="achievement_loot_junkie" translatable="false">CgkI0qaK8N8dEAIQEQ</string>
+    <!-- achievement I CAN'T CARRY ANY MORE -->
+    <string name="achievement_i_cant_carry_any_more" translatable="false">CgkI0qaK8N8dEAIQEg</string>
     <!-- leaderboard Best Times -->
     <string name="leaderboard_best_times" translatable="false">CgkI0qaK8N8dEAIQAg</string>
 </resources>

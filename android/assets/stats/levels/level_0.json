@@ -11,7 +11,8 @@
   "foundKeys": {
     "Small Key":false
   },
-  "levelName":"level_0",
+  "fileName":"level_0",
+  "levelName":"A Failure",
   "totalChests":2,
   "totalItems":0,
   "totalKeys":1

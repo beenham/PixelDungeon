@@ -26,7 +26,7 @@ public class StatsUtil {
                 if (file.toString().endsWith(".json")) {
                     Json json = new Json();
                     LevelStats stats = json.fromJson(LevelStats.class,file);
-                    levelStats.put(stats.getLevelName(), stats);
+                    levelStats.put(stats.getFileName(), stats);
                 }
             }
             readInternalLevelFiles();
@@ -38,8 +38,8 @@ public class StatsUtil {
         for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
             if (file.toString().endsWith(".json") && !levelStats.containsKey(file.nameWithoutExtension())) {
                 LevelStats stats = json.fromJson(LevelStats.class,file);
-                levelStats.put(stats.getLevelName(), stats);
-                String filePath = "stats/levels/" + stats.getLevelName() + ".json";
+                levelStats.put(stats.getFileName(), stats);
+                String filePath = "stats/levels/" + stats.getFileName() + ".json";
                 Gdx.files.local(filePath).writeString(json.toJson(stats),false);
             }
         }
@@ -59,7 +59,7 @@ public class StatsUtil {
     public void writeLevelStats(String file) {
         Json json = new Json();
         LevelStats stats = levelStats.get(file);
-        String filePath = "stats/levels/" + stats.getLevelName() + ".json";
+        String filePath = "stats/levels/" + stats.getFileName() + ".json";
         Gdx.files.local(filePath).writeString(json.toJson(stats),false);
     }
 

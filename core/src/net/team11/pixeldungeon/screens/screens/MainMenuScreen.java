@@ -19,6 +19,7 @@ import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
@@ -65,7 +66,7 @@ public class MainMenuScreen extends AbstractScreen {
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
         skinButton.setDisabled(true);
 
-        /*
+        //*
         skinButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -80,7 +81,7 @@ public class MainMenuScreen extends AbstractScreen {
         helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
         helpButton.setDisabled(true);
 
-        /*
+        //*
         helpButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

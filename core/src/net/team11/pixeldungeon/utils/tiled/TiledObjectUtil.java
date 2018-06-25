@@ -245,7 +245,7 @@ public class TiledObjectUtil {
 
                     case TiledMapObjectNames.QUICKSAND:
                         if (mapObject.getProperties().containsKey(TiledMapProperties.SMOD)){
-                            String room = (String) rectObject.getProperties().get(TiledMapProperties.ROOM);
+                            String room = (String) mapObject.getProperties().get(TiledMapProperties.ROOM);
                             ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
                             Quicksand quicksand = new Quicksand(shape, mapObject.getName(),
                                     (float)mapObject.getProperties().get(TiledMapProperties.SMOD),
@@ -255,6 +255,7 @@ public class TiledObjectUtil {
                             for (Entity entity : trapRooms) {
                                 if (entity instanceof TrapRoom && entity.getName().equals(room)) {
                                     ((TrapRoom) entity).addTrap(quicksand);
+                                    engine.addEntity(quicksand);
                                     engine.addEntity(quicksand);
                                 }
                             }
@@ -275,9 +276,9 @@ public class TiledObjectUtil {
                     case TiledMapObjectNames.PRESSURE_PLATE:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.ACTIVETIME) &&
                                 rectObject.getProperties().containsKey(TiledMapProperties.AUTOCLOSE)){
-                            String room = (String) rectObject.getProperties().get(TiledMapProperties.ROOM);
+                            String room = (String) mapObject.getProperties().get(TiledMapProperties.ROOM);
                             PressurePlate pressurePlate = new PressurePlate(rectObject.getRectangle(), rectObject.getName(),
-                                    (float)rectObject.getProperties().get(TiledMapProperties.ACTIVETIME),
+                                    (float)mapObject.getProperties().get(TiledMapProperties.ACTIVETIME),
                                     (boolean)rectObject.getProperties().get(TiledMapProperties.AUTOCLOSE));
                             List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
 

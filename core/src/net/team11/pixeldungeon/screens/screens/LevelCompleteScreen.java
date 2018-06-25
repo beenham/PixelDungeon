@@ -103,7 +103,7 @@ public class LevelCompleteScreen extends AbstractScreen {
             }
         });
 
-        mainTable.add(createLabel(MapManager.getInstance().getCurrentMap().getMapName(), 1.5f))
+        mainTable.add(createLabel(levelStats.getLevelName(), 1.5f))
                 .pad(padding*4,padding*4,padding,padding).left();
         mainTable.add(createLabel(Messages.STATS_COMPLETED, 1.25f))
                 .pad(padding*4,padding,padding,padding*4).right().expandX();

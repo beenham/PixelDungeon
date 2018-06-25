@@ -15,7 +15,8 @@
     "Small Chest Key":false,
     "Boss Key":false
   },
-  "levelName":"test_level",
+  "fileName":"test_level",
+  "levelName":"Testing Zone",
   "totalChests":4,
   "totalItems":0,
   "totalKeys":3

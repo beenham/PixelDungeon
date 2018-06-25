@@ -23,7 +23,9 @@ import net.team11.pixeldungeon.crossplatform.CrossPlatformSystem;
 
 public class AndroidLauncher extends AndroidApplication {
 	private static String TAG = "PixelDungeon";
-	private static int RC_SIGN_IN = 9001;
+	public static int RC_SIGN_IN = 9001;
+	public static int RC_ACHIEVEMENT_UI = 9003;
+	public static int RC_LEADERBOARD_UI = 9004;
 	private GoogleSignInClient mGoogleSignInClient = null;
 	private GoogleSignInAccount mSignedInAccount = null;
 	private Player mGooglePlayer = null;

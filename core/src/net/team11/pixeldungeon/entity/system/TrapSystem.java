@@ -47,7 +47,7 @@ public class TrapSystem extends EntitySystem {
             Polygon trapRoomBox = trapRoomEntity.getComponent(BodyComponent.class).getPolygon();
             boolean updateTraps = CollisionUtil.isOverlapping(trapRoomBox,playerBox);
             if (trapRoomEntity instanceof TrapRoom && updateTraps) {
-                //System.out.println("TRAPROOM : " + trapRoomEntity.getName() + " traps : " + ((TrapRoom) trapRoomEntity).getTraps().size());
+                System.out.println("TRAPROOM : " + trapRoomEntity.getName() + " traps : " + ((TrapRoom) trapRoomEntity).getTraps().size());
 
                 for (Entity trapEntity : ((TrapRoom) trapRoomEntity).getTraps()) {
                     if (trapEntity instanceof PressurePlate) {

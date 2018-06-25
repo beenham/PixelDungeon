@@ -49,7 +49,7 @@ public class LevelInfo extends Table {
     }
 
     private void setupTitle() {
-        levelName = new Label(selector.getMap().getMapName(), Assets.getInstance().getSkin(Assets.UI_SKIN),"title");
+        levelName = new Label(statsUtil.getLevelStats(selector.getMap().getMapName()).getLevelName(), Assets.getInstance().getSkin(Assets.UI_SKIN),"title");
         levelName.setFontScale(1.25f * PixelDungeon.SCALAR);
 
         Table table = new Table();
@@ -152,7 +152,7 @@ public class LevelInfo extends Table {
     public void update() {
         LevelStats stats = statsUtil.getLevelStats(selector.getMap().getMapName());
 
-        levelName.setText(selector.getMap().getMapName());
+        levelName.setText(stats.getLevelName());
         attemptsVal.setText(String.format(Locale.UK,"%d",stats.getAttempts()));
         completedVal.setText(String.format(Locale.UK,"%s",stats.getCompleted()));
         bestTimeVal.setText(String.format(Locale.UK,"%s",stats.getBestTime()));

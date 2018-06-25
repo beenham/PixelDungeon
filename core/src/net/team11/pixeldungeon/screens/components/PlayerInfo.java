@@ -123,7 +123,7 @@ public class PlayerInfo extends Table {
         leaderboards.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.openAchievements();
+                androidInterface.openLeaderboards();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
