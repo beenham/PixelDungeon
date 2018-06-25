@@ -19,6 +19,7 @@ public class StatsUtil {
     private int flaggedTimer = 0;
 
     private StatsUtil() {
+        clearLocal();
         if (!Gdx.files.local("stats/").exists()) {
             readInternalLevelFiles();
         } else {

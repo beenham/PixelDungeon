@@ -5,20 +5,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 
-import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.entities.beams.Beam;
+
 import net.team11.pixeldungeon.entities.blocks.PressurePlate;
+
 import net.team11.pixeldungeon.entities.blocks.Torch;
-import net.team11.pixeldungeon.entities.player.Player;
+import net.team11.pixeldungeon.entities.beams.Reflector;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
-import net.team11.pixeldungeon.entity.component.entitycomponent.TorchComponent;
+
+import net.team11.pixeldungeon.entities.player.Player;
+
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.map.MapManager;
+
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +45,10 @@ public class RenderSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         mapManager = MapManager.getInstance();
+
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
         entities = new ArrayList<>();
+
         entities = entityEngine.getEntities(AnimationComponent.class);
     }
 
@@ -73,6 +81,43 @@ public class RenderSystem extends EntitySystem {
                 }
                 if (entities.get(i) instanceof PressurePlate) {
                     alwaysBottom.add(entities.get(i));
+                } else if (entities.get(i) instanceof Beam){
+                    float beamY = entities.get(i).getComponent(BodyComponent.class).getY();
+                    float playerY = player.getComponent(BodyComponent.class).getY() - BeamSystem.yOffset;
+                    if (beamY > playerY){
+                        boolean added = false;
+                        int j = drawList.indexOf(player);
+                        while (j > 0){
+                            loopIterations++;
+                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() - BeamSystem.yOffset){
+                                drawList.add(j+1, entities.get(i));
+                                added = true;
+                                break;
+                            } else{
+                                j--;
+                            }
+                        }
+
+                        if (!added){
+                            drawList.add(0, entities.get(i));
+                        }
+                    } else {
+                        boolean added = false;
+                        int j = drawList.size()-1;
+                        while (j > drawList.indexOf(player)){
+                            loopIterations++;
+                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() - BeamSystem.yOffset){
+                                drawList.add(j+1, entities.get(i));
+                                added = true;
+                                break;
+                            } else {
+                                j--;
+                            }
+                        }
+                        if (!added){
+                            drawList.add(j+1, entities.get(i));
+                        }
+                    }
                 } else {
                     float entityY = entities.get(i).getComponent(BodyComponent.class).getY();
                     if (entityY > player.getComponent(BodyComponent.class).getY()) {
@@ -125,6 +170,7 @@ public class RenderSystem extends EntitySystem {
 
         spriteBatch.begin();
         for (Entity entity : drawList) {
+//            System.out.println(entity.getName());
             if (entity instanceof Torch && ((int)(delta*100000))%6 == 0) {
                 ((Torch) entity).setLightSize(new Random().nextInt(10)+40f);
             }
@@ -134,11 +180,29 @@ public class RenderSystem extends EntitySystem {
             float width = currentAnimation.getKeyFrame(0).getRegionWidth();
             int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
-            spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                    bodyComponent.getX() - width/2,
-                    bodyComponent.getY() - bodyComponent.getHeight()/2,
-                    width,
-                    height);
+
+            if (entity instanceof  Reflector) {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            }  else if (!(entity instanceof Beam)) {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - width/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            } else {
+                if (((Beam) entity).isOn()) {
+                    spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                            bodyComponent.getX() - bodyComponent.getWidth()/2,
+                            bodyComponent.getY() - bodyComponent.getHeight()/2,
+                            bodyComponent.getWidth(),
+                            bodyComponent.getHeight());
+                }
+            }
+
             animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
         }
         spriteBatch.end();

@@ -145,6 +145,19 @@ public class AssetName {
     public static final String WALL_SCRIBE_TWO = "wallScribeTwo";
     public static final String WALL_SCRIBE_THREE = "wallScribeThree";
 
+    /////   Mirror Sprite Names     /////
+    public static final String BEAM_HORIZONTAL = "beamLightHorizontal";
+    public static final String BEAM_VERTICAL = "beamLightVertical";
+
+    public static final String BEAM_REFLECTOR_OFF = "beamReflectorOff";
+    public static final String BEAM_REFLECTOR_ON = "beamReflectorOn";
+
+    public static final String BEAM_GENERATOR_OFF = "beamGeneratorOff";
+    public static final String BEAM_GENERATOR_ON = "beamGeneratorOn";
+
+    public static final String BEAM_TARGET_OFF = "beamTargetOff";
+    public static final String BEAM_TARGET_ON = "beamTargetOn";
+
     /////   TRAP SPRITE NAMES       /////
     public static final String FLOORSPIKE_IDLE = "floorSpikeIdle";
     public static final String FLOORSPIKE_ACTIVATING = "floorSpikeActivating";

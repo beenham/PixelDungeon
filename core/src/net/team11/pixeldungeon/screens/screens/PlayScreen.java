@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.system.AnimationSystem;
+import net.team11.pixeldungeon.entity.system.BeamSystem;
 import net.team11.pixeldungeon.entity.system.CameraSystem;
 import net.team11.pixeldungeon.entity.system.HealthSystem;
 import net.team11.pixeldungeon.entity.system.InteractionSystem;
@@ -99,6 +100,7 @@ public class PlayScreen extends AbstractScreen {
         engine.addSystem(new InteractionSystem());
         engine.addSystem(new TrapSystem());
         engine.addSystem(new PuzzleSystem());
+        engine.addSystem(new BeamSystem());
 
         mapManager.setEngine(engine);
     }
@@ -147,7 +149,7 @@ public class PlayScreen extends AbstractScreen {
         Gdx.gl.glClearColor(88,61,52,0);
         engine.update(delta);
 
-        //b2dr.render(world, gameCam.combined);
+        b2dr.render(world, gameCam.combined);
         if (ambientLight < 0.75f && !paused) {
             ambientLight += 0.01f;
             rayHandler.setAmbientLight(ambientLight);

@@ -41,6 +41,8 @@ public class Messages {
     public static final String SIMON_INCORRECT_ORDER = "Simon didn't say that order";
     public static final String SIMON_COMPLETE = "Well done. Simon is proud";
 
+    public static final String BEAM_COMPLETE_01 = "Oh look, the door opened";
+
     /////   UI MESSAGES
     public static final String ACHIEVEMENTS_CAMELCASE = "Achievements";
     public static final String ACHIEVEMENTS_UPPER = "ACHIEVEMENTS";

@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BodySystem extends EntitySystem {
-    private List<Entity> entities = new ArrayList<>();
+    private List<Entity> entities;
 
     @Override
     public void init(EntityEngine entityEngine) {
+        entities = new ArrayList<>();
         entities = entityEngine.getEntities(BodyComponent.class);
     }
 

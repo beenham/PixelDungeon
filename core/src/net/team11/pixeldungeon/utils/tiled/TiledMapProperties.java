@@ -10,6 +10,7 @@ public class TiledMapProperties {
     public static final String ENTITY_TYPE = "entity";
     public static final String ID = "id";
     public static final String ITEM = "item";
+    public static final String BEAM_TARGETS = "beamTargets";
 
     public static final String LOCKED = "locked";
     public static final String NUM_GEMS = "numGems";
@@ -31,6 +32,9 @@ public class TiledMapProperties {
     public static final String ACTIVETIME = "activeTime";
     public static final String ACTIVATED = "activated";
     public static final String AUTOCLOSE = "autoClose";
+
+    public static final String DIRECTION = "direction";
+
     public static final String MAX_ATTEMPTS = "maxAttempts";
     public static final String DIFFICULTY = "difficulty";
     public static final String STAGES = "stages";
