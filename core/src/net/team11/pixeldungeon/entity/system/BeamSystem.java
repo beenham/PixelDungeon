@@ -14,12 +14,14 @@ import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.RoundTo;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BeamSystem extends EntitySystem {
-    private List<Beam> beams = new ArrayList<>();
-    private List<Entity> entities = new ArrayList<>();
+    private List<Beam> beams;
+    private List<Reflector> reflectors;
+    private List<Entity> entities;
 
     public final static float yOffset = -7f;
     private final float LIGHT_SPEED = 7.5f;
@@ -27,12 +29,16 @@ public class BeamSystem extends EntitySystem {
     @Override
     public void init(EntityEngine entityEngine) {
         beams = new ArrayList<>();
+        reflectors = new ArrayList<>();
         entities = new ArrayList<>();
         List<Entity> allEntities = entityEngine.getEntities();
         for (Entity entity : allEntities) {
             if (entity instanceof Beam) {
                 beams.add((Beam)entity);
             } else if (!(entity instanceof Trap)) {
+                if (entity instanceof Reflector) {
+                    reflectors.add((Reflector)entity);
+                }
                 entities.add(entity);
             }
         }
@@ -40,6 +46,14 @@ public class BeamSystem extends EntitySystem {
 
     @Override
     public void update(float delta) {
+        for (Reflector reflector : reflectors) {
+            if (reflector.hasBeamIn()) {
+                if (!reflector.getBeamIn().isOn()) {
+                    reflector.setBeamIn(null);
+                }
+            }
+        }
+
         for (Beam beam : beams) {
             if (beam.isOn()) {
                 Entity currClosest = null;
@@ -114,6 +128,12 @@ public class BeamSystem extends EntitySystem {
                             } else if (currClosest != entity){
                                 beam.setCurrentClosest(entity);
                                 ((Reflector) entity).setBeamIn(beam);
+                            } else {
+                                ((Reflector) entity).setBeamIn(beam);
+                            }
+                        } else {
+                            if (((Reflector) entity).hasBeamIn() && ((Reflector) entity).getBeamIn().equals(beam)) {
+                                ((Reflector) entity).setBeamIn(null);
                             }
                         }
                     } else if (CollisionUtil.isOverlapping(entityBox, beamBox)) {

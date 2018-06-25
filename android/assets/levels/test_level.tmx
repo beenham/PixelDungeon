@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="219">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="224">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer name="background" width="100" height="100">
   <data encoding="csv">
@@ -1372,7 +1372,7 @@
     <property name="entity" value="reflector"/>
    </properties>
   </object>
-  <object id="207" name="box_1" x="784" y="256" width="15" height="10">
+  <object id="207" name="box_1" x="748" y="256" width="15" height="10">
    <properties>
     <property name="entity" value="box"/>
     <property name="pushable" type="bool" value="true"/>
@@ -1384,42 +1384,10 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="211" name="beamGenUp" x="787" y="370" width="6" height="6">
-   <properties>
-    <property name="direction" value="up"/>
-    <property name="entity" value="beamGenerator"/>
-   </properties>
-  </object>
-  <object id="212" name="beamGenRight" x="688" y="288" width="6" height="6">
-   <properties>
-    <property name="direction" value="right"/>
-    <property name="entity" value="beamGenerator"/>
-   </properties>
-  </object>
-  <object id="213" name="beamGenLeft" x="912" y="288" width="6" height="6">
-   <properties>
-    <property name="direction" value="left"/>
-    <property name="entity" value="beamGenerator"/>
-   </properties>
-  </object>
   <object id="214" name="beamGenDown" x="787" y="218" width="6" height="6">
    <properties>
     <property name="direction" value="down"/>
     <property name="entity" value="beamGenerator"/>
-   </properties>
-  </object>
-  <object id="215" name="lever_01" x="784" y="379" width="10" height="8">
-   <properties>
-    <property name="entity" value="lever"/>
-    <property name="target" value="beamGenUp"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="216" name="lever_01" x="921" y="288" width="10" height="8">
-   <properties>
-    <property name="entity" value="lever"/>
-    <property name="target" value="beamGenLeft"/>
-    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="217" name="lever_01" x="772" y="218" width="10" height="8">
@@ -1429,11 +1397,34 @@
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="218" name="lever_01" x="676" y="288" width="10" height="8">
+  <object id="219" name="reflector_01" x="851" y="288" width="12" height="12">
    <properties>
-    <property name="entity" value="lever"/>
-    <property name="target" value="beamGenRight"/>
-    <property name="trigger" type="bool" value="true"/>
+    <property name="direction" value="up"/>
+    <property name="entity" value="reflector"/>
+   </properties>
+  </object>
+  <object id="220" name="reflector_01" x="851" y="232" width="12" height="12">
+   <properties>
+    <property name="direction" value="left"/>
+    <property name="entity" value="reflector"/>
+   </properties>
+  </object>
+  <object id="221" name="reflector_01" x="814" y="232" width="12" height="12">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="entity" value="reflector"/>
+   </properties>
+  </object>
+  <object id="222" name="reflector_01" x="814" y="320" width="12" height="12">
+   <properties>
+    <property name="direction" value="left"/>
+    <property name="entity" value="reflector"/>
+   </properties>
+  </object>
+  <object id="223" name="reflector_01" x="749" y="320" width="12" height="12">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="entity" value="reflector"/>
    </properties>
   </object>
  </objectgroup>

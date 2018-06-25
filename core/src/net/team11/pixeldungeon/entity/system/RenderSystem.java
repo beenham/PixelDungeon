@@ -181,8 +181,7 @@ public class RenderSystem extends EntitySystem {
             int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
 
-            if (entity instanceof  Reflector){
-                ((Reflector)entity).update();
+            if (entity instanceof  Reflector) {
                 spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
                         bodyComponent.getX() - bodyComponent.getWidth()/2,
                         bodyComponent.getY() - bodyComponent.getHeight()/2,

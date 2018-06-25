@@ -2,9 +2,7 @@ package net.team11.pixeldungeon.entities.mirrors;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
@@ -17,13 +15,13 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class BeamGenerator extends Entity {
-    private Direction beamDirection;
-    private Beam beam;
+    protected Direction beamDirection;
+    protected Beam beamOut;
     public static float BOX_SIZE = 6f;
 
-    public BeamGenerator(Rectangle bounds, String name, String direction, Beam beam){
+    public BeamGenerator(Rectangle bounds, String name, String direction, Beam beamOut){
         super(name);
-        this.beam = beam;
+        this.beamOut = beamOut;
         this.beamDirection = MirrorUtil.parseDirection(direction);
 
         float posX = bounds.getX() + bounds.getWidth()/2;
@@ -36,13 +34,12 @@ public class BeamGenerator extends Entity {
                 (byte)(CollisionUtil.ENTITY |  CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
 
-
         AnimationComponent animationComponent;
         this.addComponent(animationComponent = new AnimationComponent(0));
         setupAnimations(animationComponent);
     }
 
-    private void setupBeam(float x, float y) {
+    protected void setupBeam(float x, float y) {
         float offset = 0.1f;
         switch (beamDirection) {
             case UP:
@@ -58,7 +55,21 @@ public class BeamGenerator extends Entity {
                 x += (BOX_SIZE/2 + Beam.DEPTH/2 + offset);
                 break;
         }
-        beam.getComponent(BodyComponent.class).setCoords(x,y);
+        beamOut.getComponent(BodyComponent.class).setCoords(x,y);
+    }
+
+    @Override
+    public void doInteraction(boolean isPlayer) {
+        if (!isPlayer) {
+            if (beamOut.isOn()) {
+                beamOut.setOn(false);
+                getComponent(AnimationComponent.class).setAnimation(AssetName.BEAM_GENERATOR_OFF);
+            } else {
+                setupBeam(getComponent(BodyComponent.class).getX(),getComponent(BodyComponent.class).getY()-BeamSystem.yOffset);
+                getComponent(AnimationComponent.class).setAnimation(AssetName.BEAM_GENERATOR_ON);
+                beamOut.setOn(true);
+            }
+        }
     }
 
     private void setupAnimations(AnimationComponent animationComponent){
@@ -66,19 +77,5 @@ public class BeamGenerator extends Entity {
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
-    }
-
-    @Override
-    public void doInteraction(boolean isPlayer) {
-        if (!isPlayer) {
-            if (beam.isOn()) {
-                beam.setOn(false);
-                getComponent(AnimationComponent.class).setAnimation(AssetName.BEAM_GENERATOR_OFF);
-            } else {
-                setupBeam(getComponent(BodyComponent.class).getX(),getComponent(BodyComponent.class).getY()-BeamSystem.yOffset);
-                getComponent(AnimationComponent.class).setAnimation(AssetName.BEAM_GENERATOR_ON);
-                beam.setOn(true);
-            }
-        }
     }
 }

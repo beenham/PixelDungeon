@@ -317,9 +317,12 @@ public class TiledObjectUtil {
 
                     case TiledMapObjectNames.REFLECTOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
+                            Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
+                                    true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
                             Reflector reflector = new Reflector(rectObject.getRectangle(), rectObject.getName(),
-                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), engine);
+                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
                             engine.addEntity(reflector);
+                            engine.addEntity(beamOut);
                         } else {
                             System.err.println("BEAM_REFLECTOR_OFF: " + rectObject.getName() +  " was not setup correctly!");
                         }
