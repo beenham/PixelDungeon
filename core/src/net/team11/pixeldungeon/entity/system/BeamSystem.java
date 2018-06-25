@@ -21,7 +21,7 @@ public class BeamSystem extends EntitySystem {
     private List<Entity> entities = new ArrayList<>();
 
     public final static float yOffset = -7f;
-    private final float LIGHT_SPEED = .5f;
+    private final float LIGHT_SPEED = 7.5f;
 
     @Override
     public void init(EntityEngine entityEngine) {
