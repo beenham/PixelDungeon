@@ -81,6 +81,43 @@ public class RenderSystem extends EntitySystem {
                 }
                 if (entities.get(i) instanceof PressurePlate) {
                     alwaysBottom.add(entities.get(i));
+                } else if (entities.get(i) instanceof Beam){
+                    float beamY = entities.get(i).getComponent(BodyComponent.class).getY();
+                    float playerY = player.getComponent(BodyComponent.class).getY() + BeamSystem.yOffset;
+                    if (beamY > playerY){
+                        boolean added = false;
+                        int j = drawList.indexOf(player);
+                        while (j > 0){
+                            loopIterations++;
+                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() + BeamSystem.yOffset){
+                                drawList.add(j+1, entities.get(i));
+                                added = true;
+                                break;
+                            } else{
+                                j--;
+                            }
+                        }
+
+                        if (!added){
+                            drawList.add(0, entities.get(i));
+                        }
+                    } else {
+                        boolean added = false;
+                        int j = drawList.size()-1;
+                        while (j > drawList.indexOf(player)){
+                            loopIterations++;
+                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() + BeamSystem.yOffset){
+                                drawList.add(j+1, entities.get(i));
+                                added = true;
+                                break;
+                            } else {
+                                j--;
+                            }
+                        }
+                        if (!added){
+                            drawList.add(j+1, entities.get(i));
+                        }
+                    }
                 } else {
                     float entityY = entities.get(i).getComponent(BodyComponent.class).getY();
                     if (entityY > player.getComponent(BodyComponent.class).getY()) {
@@ -133,6 +170,7 @@ public class RenderSystem extends EntitySystem {
 
         spriteBatch.begin();
         for (Entity entity : drawList) {
+//            System.out.println(entity.getName());
             if (entity instanceof Torch && ((int)(delta*100000))%6 == 0) {
                 ((Torch) entity).setLightSize(new Random().nextInt(10)+40f);
             }

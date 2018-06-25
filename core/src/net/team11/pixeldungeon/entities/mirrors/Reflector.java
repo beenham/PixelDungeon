@@ -49,7 +49,7 @@ public class Reflector extends Entity {
 
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0,
                 (CollisionUtil.ENTITY),
-                (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
+                (byte)(CollisionUtil.ENTITY | CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
 
         System.out.println("Reflector bounds " + this.getComponent(BodyComponent.class).getX() + " " + (this.getComponent(BodyComponent.class).getX() - this.getComponent(BodyComponent.class).getWidth()/2));
