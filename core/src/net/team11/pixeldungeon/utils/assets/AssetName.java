@@ -155,6 +155,9 @@ public class AssetName {
     public static final String BEAM_GENERATOR_OFF = "beamGeneratorOff";
     public static final String BEAM_GENERATOR_ON = "beamGeneratorOn";
 
+    public static final String BEAM_TARGET_OFF = "beamTargetOff";
+    public static final String BEAM_TARGET_ON = "beamTargetOn";
+
     /////   TRAP SPRITE NAMES       /////
     public static final String FLOORSPIKE_IDLE = "floorSpikeIdle";
     public static final String FLOORSPIKE_ACTIVATING = "floorSpikeActivating";
