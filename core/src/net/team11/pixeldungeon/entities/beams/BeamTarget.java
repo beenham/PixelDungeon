@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import net.team11.pixeldungeon.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
+import net.team11.pixeldungeon.entity.system.BeamSystem;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
@@ -17,7 +18,7 @@ public class BeamTarget extends PuzzleComponent {
 
     private Beam beamIn = null;
 
-    private float yOffset = -8f;
+
 
     public BeamTarget(Rectangle bounds, String name) {
         super(name);
@@ -36,7 +37,7 @@ public class BeamTarget extends PuzzleComponent {
 
     public Polygon getInnerBounds() {
         BodyComponent body = getComponent(BodyComponent.class);
-        return CollisionUtil.createRectangle(body.getX(),body.getY()- yOffset,
+        return CollisionUtil.createRectangle(body.getX(),body.getY()- BeamSystem.yOffset,
                 BeamGenerator.BOX_SIZE,BeamGenerator.BOX_SIZE);
     }
 

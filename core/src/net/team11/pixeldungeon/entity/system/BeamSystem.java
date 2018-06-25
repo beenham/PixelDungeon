@@ -256,7 +256,7 @@ public class BeamSystem extends EntitySystem {
                     float currClosestY = currClosestBody.getY() - yOffset;
                     float bodyWidth;
                     float bodyHeight;
-                    if (currClosest instanceof Reflector) {
+                    if (currClosest instanceof Reflector || currClosest instanceof BeamTarget) {
                         bodyWidth = BeamGenerator.BOX_SIZE;
                         bodyHeight = BeamGenerator.BOX_SIZE;
                     } else {
