@@ -19,7 +19,7 @@ import net.team11.pixeldungeon.utils.assets.Assets;
 public class BeamGenerator extends Entity {
     private Direction beamDirection;
     private Beam beam;
-    private static float BOX_SIZE = 6f;
+    public static float BOX_SIZE = 6f;
 
     public BeamGenerator(Rectangle bounds, String name, String direction, Beam beam){
         super(name);
