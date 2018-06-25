@@ -11,6 +11,7 @@ import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+import net.team11.pixeldungeon.utils.RoundTo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ public class BeamSystem extends EntitySystem {
     private List<Beam> beams = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
 
-    public final static float yOffset = -7;
-    private final float LIGHT_SPEED = 7.5f;
+    public final static float yOffset = -7f;
+    private final float LIGHT_SPEED = .5f;
 
     @Override
     public void init(EntityEngine entityEngine) {
@@ -63,19 +64,60 @@ public class BeamSystem extends EntitySystem {
                     float entityY = entityBody.getY() - yOffset;
                     float entityX = entityBody.getX();
 
-
                     if (entity instanceof Reflector){
                         Polygon innerBox = ((Reflector)entity).getInnerBounds();
-                        if (CollisionUtil.isOverlapping(innerBox, beamBox)){
-                            ((Reflector)entity).setBeamIn(beam);
+                        if (CollisionUtil.isOverlapping(innerBox, beamBox)) {
+                            overlapping = true;
+                            if (currClosest != null && currClosest != entity) {
+                                currClosest = beam.getCurrentClosest();
+                                currClosestBody = currClosest.getComponent(BodyComponent.class);
+                                float currClosestY = currClosestBody.getY() - yOffset;
+                                float currClosestX = currClosestBody.getX();
+                                switch (beam.getBeamDirection()) {
+                                    case UP:
+                                        if (entityY < currClosestY) {
+                                            beam.setCurrentClosest(entity);
+                                            ((Reflector) entity).setBeamIn(beam);
+                                        } else {
+                                            ((Reflector) entity).setBeamIn(null);
+                                        }
+                                        break;
+
+                                    case DOWN:
+                                        if (entityY > currClosestY) {
+                                            beam.setCurrentClosest(entity);
+                                            ((Reflector) entity).setBeamIn(beam);
+                                        } else {
+                                            ((Reflector) entity).setBeamIn(null);
+                                        }
+                                        break;
+
+                                    case LEFT:
+                                        if (entityX > currClosestX) {
+                                            beam.setCurrentClosest(entity);
+                                            ((Reflector) entity).setBeamIn(beam);
+                                        } else {
+                                            ((Reflector) entity).setBeamIn(null);
+                                        }
+                                        break;
+
+                                    case RIGHT:
+                                        if (entityX < currClosestX) {
+                                            beam.setCurrentClosest(entity);
+                                            ((Reflector) entity).setBeamIn(beam);
+                                        } else {
+                                            ((Reflector) entity).setBeamIn(null);
+                                        }
+                                        break;
+                                }
+                            } else if (currClosest != entity){
+                                beam.setCurrentClosest(entity);
+                                ((Reflector) entity).setBeamIn(beam);
+                            }
                         }
-                    }
-
-
-                    else if (CollisionUtil.isOverlapping(entityBox, beamBox)) {
+                    } else if (CollisionUtil.isOverlapping(entityBox, beamBox)) {
                         overlapping = true;
-
-                        if (currClosest != null) {
+                        if (currClosest != null && currClosest != entity) {
                             currClosest = beam.getCurrentClosest();
                             currClosestBody = currClosest.getComponent(BodyComponent.class);
                             float currClosestY = currClosestBody.getY() - yOffset;
@@ -105,7 +147,7 @@ public class BeamSystem extends EntitySystem {
                                     }
                                     break;
                             }
-                        } else {
+                        } else if (currClosest != entity){
                             beam.setCurrentClosest(entity);
                         }
                     }
@@ -122,28 +164,28 @@ public class BeamSystem extends EntitySystem {
                         case UP:
                             beamY -= beamBody.getHeight()/2;
                             currClosestY -= currClosestBody.getHeight()/2;
-                            beamBody.setHeight(distance(beamY, currClosestY));
+                            beamBody.setHeight(distance(beamY, currClosestY) + 0.1f);
                             beamBody.setCoords(beamBody.getX() ,beamY + beamBody.getHeight()/2);
                             break;
 
                         case DOWN:
                             beamY += beamBody.getHeight()/2;
                             currClosestY += currClosestBody.getHeight()/2;
-                            beamBody.setHeight(distance(beamY,currClosestY));
+                            beamBody.setHeight(distance(beamY,currClosestY) + 0.1f);
                             beamBody.setCoords(beamBody.getX() ,beamY - beamBody.getHeight()/2);
                             break;
 
                         case LEFT:
                             beamX += beamBody.getWidth()/2;
                             currClosestX += currClosestBody.getWidth()/2;
-                            beamBody.setWidth(distance(beamX, currClosestX));
+                            beamBody.setWidth(distance(beamX, currClosestX) + 0.1f);
                             beamBody.setCoords(beamX - beamBody.getWidth()/2, beamBody.getY());
                             break;
 
                         case RIGHT:
                             beamX -= beamBody.getWidth()/2;
                             currClosestX -= currClosestBody.getWidth()/2;
-                            beamBody.setWidth(distance(beamX, currClosestX));
+                            beamBody.setWidth(distance(beamX, currClosestX) + 0.1f);
                             beamBody.setCoords(beamX + beamBody.getWidth()/2, beamBody.getY());
                             break;
                     }
@@ -176,6 +218,6 @@ public class BeamSystem extends EntitySystem {
     }
 
     private float distance(float v1, float v2){
-        return Math.abs(v2-v1);
+        return RoundTo.RoundToNearest(Math.abs(v2-v1),.1f);
     }
 }

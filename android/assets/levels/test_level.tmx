@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="207">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="219">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
- <layer id="1" name="background" width="100" height="100">
+ <layer name="background" width="100" height="100">
   <data encoding="csv">
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,
@@ -105,7 +105,7 @@
 61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61
 </data>
  </layer>
- <layer id="2" name="floor" width="100" height="100">
+ <layer name="floor" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -209,7 +209,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="walls" width="100" height="100">
+ <layer name="walls" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -313,7 +313,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="decoration" width="100" height="100">
+ <layer name="decoration" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -417,7 +417,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" id="5" name="traps">
+ <objectgroup color="#ff0000" name="traps">
   <object id="58" name="slowTrap_2" x="207" y="416">
    <properties>
     <property name="entity" value="quicksand"/>
@@ -1027,7 +1027,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" id="6" name="blocks">
+ <objectgroup color="#ff9500" name="blocks">
   <object id="21" name="pillar_2" x="201" y="300" width="14" height="8">
    <properties>
     <property name="entity" value="pillar"/>
@@ -1366,22 +1366,78 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="203" name="reflector_01" x="323" y="275.75" width="12" height="12">
+  <object id="203" name="reflector_01" x="784" y="288" width="12" height="12">
    <properties>
     <property name="direction" value="right"/>
     <property name="entity" value="reflector"/>
    </properties>
   </object>
-  <object id="205" name="beam_right_01" x="306.755" y="274.451" width="4" height="4">
+  <object id="207" name="box_1" x="784" y="256" width="15" height="10">
+   <properties>
+    <property name="entity" value="box"/>
+    <property name="pushable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="210" name="box_1" x="784" y="336" width="15" height="10">
+   <properties>
+    <property name="entity" value="box"/>
+    <property name="pushable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="211" name="beamGenUp" x="787" y="370" width="6" height="6">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="entity" value="beamGenerator"/>
+   </properties>
+  </object>
+  <object id="212" name="beamGenRight" x="688" y="288" width="6" height="6">
    <properties>
     <property name="direction" value="right"/>
-    <property name="entity" value="beam"/>
-    <property name="targets" value=""/>
+    <property name="entity" value="beamGenerator"/>
+   </properties>
+  </object>
+  <object id="213" name="beamGenLeft" x="912" y="288" width="6" height="6">
+   <properties>
+    <property name="direction" value="left"/>
+    <property name="entity" value="beamGenerator"/>
+   </properties>
+  </object>
+  <object id="214" name="beamGenDown" x="787" y="218" width="6" height="6">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="entity" value="beamGenerator"/>
+   </properties>
+  </object>
+  <object id="215" name="lever_01" x="784" y="379" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="beamGenUp"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="216" name="lever_01" x="921" y="288" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="beamGenLeft"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="217" name="lever_01" x="772" y="218" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="beamGenDown"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="218" name="lever_01" x="676" y="288" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="beamGenRight"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
- <layer id="11" name="wallTop1" width="100" height="100">
+ <layer name="wallTop1" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1485,7 +1541,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="12" name="wallTop2" width="100" height="100">
+ <layer name="wallTop2" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1589,7 +1645,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="13" name="wallTop3" width="100" height="100">
+ <layer name="wallTop3" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1693,7 +1749,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#002eff" id="7" name="doors">
+ <objectgroup color="#002eff" name="doors">
   <object id="3" name="doorPillarLeft" x="800" y="176" width="3" height="16">
    <properties>
     <property name="entity" value="doorPillar"/>
@@ -1809,7 +1865,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#000000" id="8" name="collision" locked="1">
+ <objectgroup color="#000000" name="collision" locked="1">
   <object id="17" x="400.25" y="80">
    <polyline points="-48,-16 -48,32 -80,32 -80,96 -32,96 -32,112 -96,112 -96,0 -240,0 -240.25,192 -128.25,192 -128.25,288 -176.25,288 -176.25,272 -144.25,272 -144.25,208 -240.25,208 -240.25,272 -208.25,272 -208.25,288 -240.25,288 -240,784 752,784 752,112 432,112 432,96 752,96 752,0 352,0 352,96 400,96 400,112 256,112 256,96 336,96 336,0 144,0 144,96 224,96 224,112 0,112 0,96 48,96 48,32 16,32 16,-16 -48,-16"/>
   </object>
@@ -1817,7 +1873,7 @@
    <polyline points="0,0 80,0 80,-16 16,-16 16,-112 80,-112 80,-128 48,-128 48,-144 80,-144 80,-192 112,-192 112,-144 144,-144 144,-128 112,-128 112,-112 176,-112 176,-16 112,-16 112,0 192,0 192,-144 160,-144 160,-192 32,-192 32,-144 0,-144 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" id="9" name="points">
+ <objectgroup color="#ffffff" name="points">
   <object id="2" name="playerSpawn" x="384" y="256" width="16" height="16"/>
   <object id="41" name="layerExitPoint" x="352" y="64" width="64" height="32">
    <properties>
@@ -1827,7 +1883,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#04ff00" id="10" name="puzzle">
+ <objectgroup color="#04ff00" name="puzzle">
   <object id="20" name="boxPuzzle1" x="192" y="112">
    <properties>
     <property name="boxes" value="box_1"/>

@@ -89,6 +89,9 @@ public class Beam extends Trap {
 
     public void setOn(boolean on){
         this.on = on;
+        BodyComponent body = getComponent(BodyComponent.class);
+        body.setWidth(WIDTH);
+        body.setHeight(DEPTH);
     }
 
     @Override

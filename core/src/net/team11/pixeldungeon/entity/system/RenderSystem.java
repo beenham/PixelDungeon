@@ -83,13 +83,13 @@ public class RenderSystem extends EntitySystem {
                     alwaysBottom.add(entities.get(i));
                 } else if (entities.get(i) instanceof Beam){
                     float beamY = entities.get(i).getComponent(BodyComponent.class).getY();
-                    float playerY = player.getComponent(BodyComponent.class).getY() + BeamSystem.yOffset;
+                    float playerY = player.getComponent(BodyComponent.class).getY() - BeamSystem.yOffset;
                     if (beamY > playerY){
                         boolean added = false;
                         int j = drawList.indexOf(player);
                         while (j > 0){
                             loopIterations++;
-                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() + BeamSystem.yOffset){
+                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() - BeamSystem.yOffset){
                                 drawList.add(j+1, entities.get(i));
                                 added = true;
                                 break;
@@ -106,7 +106,7 @@ public class RenderSystem extends EntitySystem {
                         int j = drawList.size()-1;
                         while (j > drawList.indexOf(player)){
                             loopIterations++;
-                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() + BeamSystem.yOffset){
+                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() - BeamSystem.yOffset){
                                 drawList.add(j+1, entities.get(i));
                                 added = true;
                                 break;
