@@ -2,7 +2,6 @@ package net.team11.pixeldungeon.entities.mirrors;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -20,9 +19,6 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 
-import java.util.List;
-
-
 public class Beam extends Trap {
 
     private Direction beamDirection;
@@ -32,7 +28,7 @@ public class Beam extends Trap {
     private float originY;
 
     public static final int DEPTH = 4;
-    private static final int DEF_WIDTH = 4;
+    public static final int WIDTH = 4;
     private Entity currentClosest = null;
 
     private boolean on;
@@ -49,7 +45,7 @@ public class Beam extends Trap {
         originY = bounds.getY() + bounds.getHeight()/2;
 
         //this.addComponent(new TrapComponent(this));
-        this.addComponent(new BodyComponent(DEF_WIDTH, DEPTH, originX, originY, 0,
+        this.addComponent(new BodyComponent(WIDTH, DEPTH, originX, originY, 0,
                 (CollisionUtil.TRAP),
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
@@ -89,6 +85,10 @@ public class Beam extends Trap {
 
     public boolean isOn() {
         return this.on;
+    }
+
+    public void setOn(boolean on){
+        this.on = on;
     }
 
     @Override

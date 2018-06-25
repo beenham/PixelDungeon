@@ -2,93 +2,184 @@ package net.team11.pixeldungeon.entities.mirrors;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
+
 import net.team11.pixeldungeon.entitysystem.EntityEngine;
-
-
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
+import java.util.ArrayList;
+
 public class Reflector extends Entity {
 
     private Direction reflectDirection;
-    
     private Beam beamIn = null;
-    private Beam beamOut;
+
+    private final float yOffset = -7;
+
+    //UP, DOWN, LEFT, RIGHT
+    //x,y,w,h
+    private ArrayList<Beam> beamsOut = new ArrayList<>();
+
+    private EntityEngine engine;
+
+    private Polygon innerBounds;
     
-    public Reflector(Rectangle bounds, String name, String direction){
+    public Reflector(Rectangle bounds, String name, String direction, EntityEngine engine){
         super(name);
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
+        this.engine = engine;
 
-        //this.addComponent(new TrapComponent(this));
+        this.innerBounds = CollisionUtil.createRectangle(posX, posY + 7, 6, 6);
+        float[] points = innerBounds.getVertices();
+        System.out.println("Inner bounds: " + points[0] +  " " + points[8] + " " + points[16] + " " + points[24]);
+        System.out.println("Inner Width/Height: " + (points[8] - points[0]) + " " + (points[25] - points[1] ));
+
+
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0,
                 (CollisionUtil.ENTITY),
-                (byte)(CollisionUtil.ENTITY |  CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
-                BodyDef.BodyType.StaticBody));    
-        
+                (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
+                BodyDef.BodyType.StaticBody));
+
+        System.out.println("Reflector bounds " + this.getComponent(BodyComponent.class).getX() + " " + (this.getComponent(BodyComponent.class).getX() - this.getComponent(BodyComponent.class).getWidth()/2));
+
         this.reflectDirection = MirrorUtil.parseDirection(direction);
 
         AnimationComponent animationComponent;
         this.addComponent(animationComponent = new AnimationComponent(0));
         setupAnimations(animationComponent);
-    
+
+        setupBeams();
+    }
+
+    public Polygon getInnerBounds() {
+        return this.innerBounds;
+    }
+
+    private void setupBeams(){
+        BodyComponent bodyComponent = this.getComponent(BodyComponent.class);
+        float[] vertices = this.innerBounds.getVertices();
+        float rightX = vertices[0]+4 ;
+
+        for (int i = 0 ; i < vertices.length; i++){
+            System.out.println(vertices[i]);
+        }
+
+        this.beamsOut.add(new Beam(
+                new Rectangle(bodyComponent.getX(), bodyComponent.getY() + bodyComponent.getHeight()/2 - yOffset, Beam.WIDTH, Beam.DEPTH),
+                this.getName() +  "_BEAM_UP", true, "up", false));
+
+        this.beamsOut.add(new Beam(
+                new Rectangle(bodyComponent.getX() - 2, bodyComponent.getY() - bodyComponent.getHeight()/2 - 3, Beam.WIDTH, Beam.DEPTH),
+                this.getName() +  "_BEAM_DOWN", true, "down", false));
+
+        this.beamsOut.add(new Beam(
+                new Rectangle(bodyComponent.getX()  - bodyComponent.getWidth()/2 - 4.5f, bodyComponent.getY(), Beam.WIDTH, Beam.DEPTH),
+                this.getName() +  "_BEAM_LEFT", true, "left", false));
+
+        this.beamsOut.add(new Beam(
+                new Rectangle(rightX, bodyComponent.getY() + 4, Beam.WIDTH, Beam.DEPTH),
+                this.getName() +  "_BEAM_RIGHT", true, "right", false));
+
+    }
+
+    private boolean hasBeamIn(){
+        return (this.beamIn != null);
     }
 
     public void setBeamIn(Beam beamIn){
-        System.out.println("Beam in " + beamIn);
-        this.beamIn = beamIn;
+        if (!hasBeamIn()){
+            this.beamIn = beamIn;
+        }
     }
 
-    public void update(EntityEngine engine){
-        if (beamIn != null && beamOut == null){
-            float posx;
-            float posy;
+    private void enableBeams(){
+        switch (reflectDirection){
+            case UP:
+                if (!engine.hasEntity(beamsOut.get(0))){
+                    engine.addEntity(beamsOut.get(0));
 
-            BodyComponent bodyComponent = this.getComponent(BodyComponent.class);
+                }
+                this.beamsOut.get(0).setOn(true);
+                break;
+            case DOWN:
+                if (!engine.hasEntity(beamsOut.get(1))){
+                    engine.addEntity(beamsOut.get(1));
 
-            switch (reflectDirection){
-                case UP:
-                    System.out.println("UP");
-                    posx = this.getComponent(BodyComponent.class).getX();
-                    posy = this.getComponent(BodyComponent.class).getY() + this.getComponent(BodyComponent.class).getHeight()/2;
-                    break;
+                }
+                this.beamsOut.get(1).setOn(true);
+                break;
+            case LEFT:
+                if (!engine.hasEntity(beamsOut.get(2))){
+                    engine.addEntity(beamsOut.get(2));
 
-                case DOWN:
-                    System.out.println("DOWN");
-                    posx = this.getComponent(BodyComponent.class).getX() ;
-                    posy = this.getComponent(BodyComponent.class).getY() - this.getComponent(BodyComponent.class).getHeight()/2;
-                    break;
+                }
+                this.beamsOut.get(2).setOn(true);
+                break;
+            case RIGHT:
+                if (!engine.hasEntity(beamsOut.get(3))){
+                    engine.addEntity(beamsOut.get(3));
+                }
+                this.beamsOut.get(3).setOn(true);
+                break;
+        }
+    }
 
-                case LEFT:
-                    System.out.println("LEFT");
-                    posx = this.getComponent(BodyComponent.class).getX() - this.getComponent(BodyComponent.class).getWidth()/2;
-                    posy = this.getComponent(BodyComponent.class).getY() ;
-                    break;
+    public void removeBeamIn(){
+        this.beamIn = null;
+    }
 
-                case RIGHT:
-                    System.out.println("RIGHT");
-                    posx = this.getComponent(BodyComponent.class).getX() + this.getComponent(BodyComponent.class).getWidth()/2;
-                    posy = this.getComponent(BodyComponent.class).getY() ;
-                    break;
+    public void disableBeam(){
+        switch (reflectDirection){
+            case UP:
+                this.beamsOut.get(0).setOn(false);
+                break;
+            case DOWN:
+                this.beamsOut.get(1).setOn(false);
+                break;
+            case LEFT:
+                this.beamsOut.get(2).setOn(false);
+                break;
+            case RIGHT:
+                this.beamsOut.get(3).setOn(false);
+                break;
+        }
+    }
 
-                default:
-                    posx = bodyComponent.getPolygon().getBoundingRectangle().getX() + bodyComponent.getPolygon().getBoundingRectangle().getWidth()/2;
-                    posy = bodyComponent.getPolygon().getBoundingRectangle().getY() + bodyComponent.getPolygon().getBoundingRectangle().getHeight()/2;
-                    break;
-            }
+    private boolean isOutOn(){
+        switch (reflectDirection){
+            case UP:
+                return beamsOut.get(0).isOn();
 
-            //this.beamOut = new Beam(new Rectangle(posx, posy, bodyComponent.getPolygon().getBoundingRectangle().getWidth(), Beam.DEPTH), this.name + "_beam_" + this.reflectDirection, true, this.reflectDirection.toString());
-            engine.addEntity(this.beamOut);
+            case DOWN:
+                return beamsOut.get(1).isOn();
 
+            case LEFT:
+                return beamsOut.get(2).isOn();
+
+            case RIGHT:
+                return beamsOut.get(3).isOn();
+        }
+
+        return false;
+    }
+
+    public void update(){
+                if (beamIn != null && !isOutOn()){
+            enableBeams();
+        } else if (beamIn != null && isOutOn()){
+        } else { disableBeam();
         }
     }
 

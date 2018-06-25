@@ -284,7 +284,7 @@ public class TiledObjectUtil {
                     case TiledMapObjectNames.REFLECTOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
                             Reflector reflector = new Reflector(rectObject.getRectangle(), rectObject.getName(),
-                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION));
+                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), engine);
                             engine.addEntity(reflector);
                         } else {
                             System.err.println("BEAM_REFLECTOR_OFF: " + rectObject.getName() +  " was not setup correctly!");

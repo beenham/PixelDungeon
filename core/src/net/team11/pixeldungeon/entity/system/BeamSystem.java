@@ -57,61 +57,56 @@ public class BeamSystem extends EntitySystem {
                 Polygon entityBox;
 
                 for (Entity entity : entities) {
-                    if (entity instanceof Reflector) {
-                        /*
-                            TODO:
-                            Check if beam is connecting with reflector box
-                         */
-                        if (overlapping) {
-                            // set beam in, turn on
-                        } else {
-                            // if reflector beam in = this beam, set reflector beam in null
-                            // turn off reflector
+                    entityBody = entity.getComponent(BodyComponent.class);
+                    entityBox = CollisionUtil.createRectangle(entityBody.getX(), entityBody.getY() - yOffset,
+                            entityBody.getWidth(), entityBody.getHeight());
+                    float entityY = entityBody.getY() - yOffset;
+                    float entityX = entityBody.getX();
+
+
+                    if (entity instanceof Reflector){
+                        Polygon innerBox = ((Reflector)entity).getInnerBounds();
+                        if (CollisionUtil.isOverlapping(innerBox, beamBox)){
+                            ((Reflector)entity).setBeamIn(beam);
                         }
-                    } else {
-                        entityBody = entity.getComponent(BodyComponent.class);
-                        entityBox = CollisionUtil.createRectangle(entityBody.getX(),entityBody.getY()-yOffset,
-                                entityBody.getWidth(),entityBody.getHeight());
-                        float entityY = entityBody.getY() - yOffset;
-                        float entityX = entityBody.getX();
+                    }
 
-                        if (CollisionUtil.isOverlapping(entityBox, beamBox)){
-                            overlapping = true;
 
-                            //Separate for readability
-                            if (currClosest != null){
-                                currClosest = beam.getCurrentClosest();
-                                currClosestBody = currClosest.getComponent(BodyComponent.class);
-                                float currClosestY = currClosestBody.getY() - yOffset;
-                                float currClosestX = currClosestBody.getX();
-                                switch (beam.getBeamDirection()) {
-                                    case UP:
-                                        if (entityY < currClosestY) {
-                                            beam.setCurrentClosest(entity);
-                                        }
-                                        break;
+                    else if (CollisionUtil.isOverlapping(entityBox, beamBox)) {
+                        overlapping = true;
 
-                                    case DOWN:
-                                        if (entityY > currClosestY) {
-                                            beam.setCurrentClosest(entity);
-                                        }
-                                        break;
+                        if (currClosest != null) {
+                            currClosest = beam.getCurrentClosest();
+                            currClosestBody = currClosest.getComponent(BodyComponent.class);
+                            float currClosestY = currClosestBody.getY() - yOffset;
+                            float currClosestX = currClosestBody.getX();
+                            switch (beam.getBeamDirection()) {
+                                case UP:
+                                    if (entityY < currClosestY) {
+                                        beam.setCurrentClosest(entity);
+                                    }
+                                    break;
 
-                                    case LEFT:
-                                        if (entityX > currClosestX) {
-                                            beam.setCurrentClosest(entity);
-                                        }
-                                        break;
+                                case DOWN:
+                                    if (entityY > currClosestY) {
+                                        beam.setCurrentClosest(entity);
+                                    }
+                                    break;
 
-                                    case RIGHT:
-                                        if (entityX < currClosestX) {
-                                            beam.setCurrentClosest(entity);
-                                        }
-                                        break;
-                                }
-                            } else {
-                                beam.setCurrentClosest(entity);
+                                case LEFT:
+                                    if (entityX > currClosestX) {
+                                        beam.setCurrentClosest(entity);
+                                    }
+                                    break;
+
+                                case RIGHT:
+                                    if (entityX < currClosestX) {
+                                        beam.setCurrentClosest(entity);
+                                    }
+                                    break;
                             }
+                        } else {
+                            beam.setCurrentClosest(entity);
                         }
                     }
                 }

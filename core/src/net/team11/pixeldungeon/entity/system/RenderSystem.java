@@ -102,7 +102,20 @@ public class RenderSystem extends EntitySystem {
             int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
 
-            if (entity instanceof Beam ){
+            if (entity instanceof  Reflector){
+                ((Reflector)entity).update();
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            }  else if (!(entity instanceof Beam)) {
+                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                        bodyComponent.getX() - bodyComponent.getWidth()/2,
+                        bodyComponent.getY() - bodyComponent.getHeight()/2,
+                        width,
+                        height);
+            } else {
                 if (((Beam) entity).isOn()) {
                     spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
                             bodyComponent.getX() - bodyComponent.getWidth()/2,
@@ -110,12 +123,6 @@ public class RenderSystem extends EntitySystem {
                             bodyComponent.getWidth(),
                             bodyComponent.getHeight());
                 }
-            } else {
-                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                        bodyComponent.getX() - bodyComponent.getWidth()/2,
-                        bodyComponent.getY() - bodyComponent.getHeight()/2,
-                        width,
-                        height);
             }
 
             animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));

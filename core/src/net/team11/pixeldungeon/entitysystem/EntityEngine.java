@@ -67,6 +67,10 @@ public class EntityEngine {
         return this.entityManager.getEntities(componentType);
     }
 
+    public boolean hasEntity(Entity entity){
+        return entityManager.hasEntity(entity);
+    }
+
     @SafeVarargs
     public final List<Entity> getEntities(Class<? extends EntityComponent>... componentType) {
         return this.entityManager.getEntities(componentType);
