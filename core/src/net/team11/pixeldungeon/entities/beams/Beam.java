@@ -37,7 +37,7 @@ public class Beam extends Trap {
         super(name, enabled);
         this.enabled = true;
         this.on = on;
-        this.beamDirection = MirrorUtil.parseDirection(direction);
+        this.beamDirection = Direction.parseInput(direction);
 
         this.damage = DAMAGE;
 

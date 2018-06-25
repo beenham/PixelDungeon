@@ -20,9 +20,6 @@ public class Reflector extends BeamGenerator {
     public Reflector(Rectangle bounds, String name, String direction, Beam beam){
         super(bounds,name,direction,beam);
         super.beamOut.setOn(false);
-
-        System.out.println("Reflector bounds " + this.getComponent(BodyComponent.class).getX() + " " + (this.getComponent(BodyComponent.class).getX() - this.getComponent(BodyComponent.class).getWidth()/2));
-
         setupAnimations(getComponent(AnimationComponent.class));
     }
 

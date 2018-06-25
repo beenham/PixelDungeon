@@ -307,17 +307,6 @@ public class TiledObjectUtil {
                         indicator.setParentPuzzle(engine.getPuzzle(puzzleName));
                         break;
 
-
-                    case TiledMapObjectNames.BEAM:
-                        if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
-                            Beam beam = new Beam(rectObject.getRectangle(), rectObject.getName(),
-                                    true, (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION),true);
-                            engine.addEntity(beam);
-                        } else {
-                            System.err.println("BEAM_HORIZONTAL: " + rectObject.getName() +  " was not setup correctly!");
-                        }
-                        break;
-
                     case TiledMapObjectNames.REFLECTOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),

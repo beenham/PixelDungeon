@@ -22,7 +22,7 @@ public class BeamGenerator extends Entity {
     public BeamGenerator(Rectangle bounds, String name, String direction, Beam beamOut){
         super(name);
         this.beamOut = beamOut;
-        this.beamDirection = MirrorUtil.parseDirection(direction);
+        this.beamDirection = Direction.parseInput(direction);
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
