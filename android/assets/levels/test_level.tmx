@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="226">
+<map version="1.0" tiledversion="2018.05.24" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="232">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer id="1" name="background" width="100" height="100">
   <data encoding="csv">
@@ -1087,7 +1087,7 @@
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="49" name="lever_01" x="339" y="193" width="10" height="8">
+  <object id="49" name="lever_01" x="319.909" y="195.909" width="10" height="8">
    <properties>
     <property name="entity" value="lever"/>
     <property name="target" value="mechanicDoor_1"/>
@@ -1366,13 +1366,13 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="203" name="reflector_01" x="784.25" y="275.875" width="12" height="12">
+  <object id="203" name="reflector_01" x="406.432" y="232.784" width="12" height="12">
    <properties>
     <property name="direction" value="left"/>
     <property name="entity" value="reflector"/>
    </properties>
   </object>
-  <object id="210" name="box_1" x="763.125" y="323.875" width="15" height="10">
+  <object id="210" name="box_1" x="404.943" y="256.784" width="15" height="10">
    <properties>
     <property name="entity" value="box"/>
     <property name="pushable" type="bool" value="true"/>
@@ -1384,9 +1384,9 @@
     <property name="entity" value="beamGenerator"/>
    </properties>
   </object>
-  <object id="213" name="beamGenLeft" x="912.625" y="323.875" width="6" height="6">
+  <object id="213" name="beamGenLeft" x="347.716" y="261.511" width="6" height="6">
    <properties>
-    <property name="direction" value="left"/>
+    <property name="direction" value="up"/>
     <property name="entity" value="beamGenerator"/>
    </properties>
   </object>
@@ -1397,7 +1397,7 @@
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="216" name="lever_01" x="921.875" y="323.125" width="10" height="8">
+  <object id="216" name="lever_01" x="356.966" y="260.943" width="10" height="8">
    <properties>
     <property name="entity" value="lever"/>
     <property name="target" value="beamGenLeft"/>
@@ -1410,22 +1410,53 @@
     <property name="entity" value="reflector"/>
    </properties>
   </object>
-  <object id="220" name="reflector_01" x="784.125" y="297.25" width="12" height="12">
+  <object id="220" name="reflector_01" x="519.216" y="226.705" width="12" height="12">
    <properties>
     <property name="direction" value="right"/>
     <property name="entity" value="reflector"/>
    </properties>
   </object>
-  <object id="221" name="beamTarget_01" x="777.273" y="195.455" width="12" height="12">
+  <object id="221" name="beamTarget_01" x="348.415" y="194.557" width="8" height="12">
    <properties>
     <property name="entity" value="beamTarget"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
-  <object id="223" name="beamTarget_02" x="844.545" y="195.455" width="12" height="12">
+  <object id="223" name="beamTarget_02" x="408.5" y="194.494" width="8" height="12">
    <properties>
     <property name="entity" value="beamTarget"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
+   </properties>
+  </object>
+  <object id="227" name="beamGenUp" x="410.261" y="273.511" width="6" height="6">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="entity" value="beamGenerator"/>
+   </properties>
+  </object>
+  <object id="228" name="lever_01" x="422.602" y="273.489" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="beamGenUp"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="229" name="reflector_01" x="406.432" y="219.511" width="12" height="12">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="entity" value="reflector"/>
+   </properties>
+  </object>
+  <object id="230" name="reflector_01" x="321.523" y="233.33" width="12" height="12">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="entity" value="reflector"/>
+   </properties>
+  </object>
+  <object id="231" name="reflector_01" x="321.886" y="218.602" width="12" height="12">
+   <properties>
+    <property name="direction" value="right"/>
+    <property name="entity" value="reflector"/>
    </properties>
   </object>
  </objectgroup>
@@ -1866,7 +1897,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffffff" id="12" name="points">
-  <object id="2" name="playerSpawn" x="677" y="253.667" width="16" height="16"/>
+  <object id="2" name="playerSpawn" x="367.545" y="304.394" width="16" height="16"/>
   <object id="41" name="layerExitPoint" x="352" y="64" width="64" height="32">
    <properties>
     <property name="complete" type="bool" value="false"/>
@@ -1895,7 +1926,7 @@
     <property name="puzzle" value="simonSays"/>
     <property name="stages" type="int" value="1"/>
    </properties>
-   <polyline points="-64,80 -64,-16 128,-16 128,80 -64,80"/>
+   <polyline points="-64,-16 -64,80 128,80 128,-16 -64,-16"/>
   </object>
   <object id="79" name="colourGem1" x="832" y="92">
    <properties>
@@ -1916,10 +1947,10 @@
    </properties>
    <polyline points="0,-16 160,-16 160,-96 0,-96 0,-16"/>
   </object>
-  <object id="224" name="beamPuzzle_01" x="773.727" y="189.818" width="87.0909" height="25.6364">
+  <object id="224" name="beamPuzzle_01" x="341.545" y="187.091" width="87.0909" height="25.6364">
    <properties>
     <property name="beamTargets" value="beamTarget_01, beamTarget_02"/>
-    <property name="onComplete" value="lockedDoor_01"/>
+    <property name="onComplete" value="mechanicDoor_1"/>
     <property name="puzzle" value="beamPuzzle"/>
    </properties>
   </object>

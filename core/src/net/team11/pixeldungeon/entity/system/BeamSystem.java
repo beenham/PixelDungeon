@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entities.beams.Beam;
 import net.team11.pixeldungeon.entities.beams.BeamGenerator;
+import net.team11.pixeldungeon.entities.beams.BeamTarget;
 import net.team11.pixeldungeon.entities.beams.Reflector;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -21,7 +22,7 @@ public class BeamSystem extends EntitySystem {
     private List<Beam> beams;
     private List<Reflector> reflectors;
     private List<Entity> entities;
-
+    private List<BeamTarget> beamTargets;
     public final static float yOffset = -7f;
     private final float LIGHT_SPEED = 7.5f;
 
@@ -30,6 +31,7 @@ public class BeamSystem extends EntitySystem {
         beams = new ArrayList<>();
         reflectors = new ArrayList<>();
         entities = new ArrayList<>();
+        beamTargets = new ArrayList<>();
         List<Entity> allEntities = entityEngine.getEntities();
         for (Entity entity : allEntities) {
             if (entity instanceof Beam) {
@@ -37,6 +39,9 @@ public class BeamSystem extends EntitySystem {
             } else if (!(entity instanceof Trap)) {
                 if (entity instanceof Reflector) {
                     reflectors.add((Reflector)entity);
+                }
+                if (entity instanceof BeamTarget){
+                    beamTargets.add((BeamTarget)entity);
                 }
                 entities.add(entity);
             }
@@ -52,6 +57,15 @@ public class BeamSystem extends EntitySystem {
                 }
             }
         }
+
+        for (BeamTarget beamTarget : beamTargets) {
+            if (beamTarget.hasBeamIn()) {
+                if (!beamTarget.getBeamIn().isOn()) {
+                    beamTarget.setBeamIn(null);
+                }
+            }
+        }
+
 
         for (Beam beam : beams) {
             if (beam.isOn()) {
@@ -82,6 +96,7 @@ public class BeamSystem extends EntitySystem {
                         Polygon innerBox = ((Reflector)entity).getInnerBounds();
                         if (CollisionUtil.isOverlapping(innerBox, beamBox)) {
                             overlapping = true;
+
                             if (currClosest != null && currClosest != entity) {
                                 currClosest = beam.getCurrentClosest();
                                 currClosestBody = currClosest.getComponent(BodyComponent.class);
@@ -135,6 +150,66 @@ public class BeamSystem extends EntitySystem {
                                 ((Reflector) entity).setBeamIn(null);
                             }
                         }
+                    } else if (entity instanceof BeamTarget){
+                        Polygon innerBox = ((BeamTarget)entity).getInnerBounds();
+                        if (CollisionUtil.isOverlapping(innerBox, beamBox)) {
+                            overlapping = true;
+
+                            if (currClosest != null && currClosest != entity) {
+                                float btOffset = -8f;
+                                currClosest = beam.getCurrentClosest();
+                                currClosestBody = currClosest.getComponent(BodyComponent.class);
+                                float currClosestY = currClosestBody.getY() - btOffset;
+                                float currClosestX = currClosestBody.getX();
+                                switch (beam.getBeamDirection()) {
+                                    case UP:
+                                        if (entityY < currClosestY) {
+                                            beam.setCurrentClosest(entity);
+                                            ((BeamTarget) entity).setBeamIn(beam);
+                                        } else {
+                                            ((BeamTarget) entity).setBeamIn(null);
+                                        }
+                                        break;
+
+                                    case DOWN:
+                                        if (entityY > currClosestY) {
+                                            beam.setCurrentClosest(entity);
+                                            ((BeamTarget) entity).setBeamIn(beam);
+                                        } else {
+                                            ((BeamTarget) entity).setBeamIn(null);
+                                        }
+                                        break;
+
+                                    case LEFT:
+                                        if (entityX > currClosestX) {
+                                            beam.setCurrentClosest(entity);
+                                            ((BeamTarget) entity).setBeamIn(beam);
+                                        } else {
+                                            ((BeamTarget) entity).setBeamIn(null);
+                                        }
+                                        break;
+
+                                    case RIGHT:
+                                        if (entityX < currClosestX) {
+                                            beam.setCurrentClosest(entity);
+                                            ((BeamTarget) entity).setBeamIn(beam);
+                                        } else {
+                                            ((BeamTarget) entity).setBeamIn(null);
+                                        }
+                                        break;
+                                }
+                            } else if (currClosest != entity){
+                                beam.setCurrentClosest(entity);
+                                ((BeamTarget) entity).setBeamIn(beam);
+                            } else {
+                                ((BeamTarget) entity).setBeamIn(beam);
+                            }
+                        } else {
+                            if (((BeamTarget) entity).hasBeamIn() && ((BeamTarget) entity).getBeamIn().equals(beam)) {
+                                ((BeamTarget) entity).setBeamIn(null);
+                            }
+                        }
+
                     } else if (CollisionUtil.isOverlapping(entityBox, beamBox)) {
                         overlapping = true;
                         if (currClosest != null && currClosest != entity) {
