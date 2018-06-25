@@ -29,10 +29,12 @@ public interface AndroidInterface {
     void earnCompleteDungeon20();
     void earnCompleteDungeon25();
 
+    void earnCompletePuzzle1000();
+
     void earnLetsTryAgain();
     void earnSimonSays();
     void earnColoursAligned();
-    void earnKeyMaster();
-    void earnLootJunkie();
+    void earnKeyMaster(int amount);
+    void earnLootJunkie(int amount);
     void earnFullInventory();
 }

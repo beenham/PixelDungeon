@@ -8,6 +8,7 @@ import net.team11.pixeldungeon.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.AchivementStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
@@ -259,6 +260,7 @@ public class SimonSays extends Puzzle{
         resetTimer();
         trigger();
         updateAssets(AssetName.SS_SWITCH_IDLE,AssetName.PUZZLECONTROLLER_COMPLETED);
+        AchivementStats.completePuzzle(this);
     }
 
     private void updateAssets(String puzzleComp, String puzzleCont) {

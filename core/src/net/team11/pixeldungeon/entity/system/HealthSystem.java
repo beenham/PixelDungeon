@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.entity.system;
 
+import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entities.player.Player;
 import net.team11.pixeldungeon.entity.component.HealthComponent;
 import net.team11.pixeldungeon.entity.component.playercomponent.PlayerComponent;
@@ -35,6 +36,7 @@ public class HealthSystem extends EntitySystem {
     @Override
     public void update(float delta) {
         if (playerHealthComponent.getHealth() <= 0 && !deathDisplayed) {
+            PixelDungeon.getInstance().getAndroidInterface().earnLetsTryAgain();
             StatsUtil statsUtil = StatsUtil.getInstance();
             statsUtil.getGlobalStats().incrementDeaths();
             statsUtil.saveTimer();

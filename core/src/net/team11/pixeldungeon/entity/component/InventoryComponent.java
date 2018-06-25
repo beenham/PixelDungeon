@@ -1,7 +1,9 @@
 package net.team11.pixeldungeon.entity.component;
 
+import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.entitysystem.EntityComponent;
 import net.team11.pixeldungeon.items.Item;
+import net.team11.pixeldungeon.utils.stats.AchivementStats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,9 @@ public class InventoryComponent implements EntityComponent {
         if (item != null) {
             if (items.size() < MAX_SIZE) {
                 items.add(item);
+                if (isFull()) {
+                    PixelDungeon.getInstance().getAndroidInterface().earnFullInventory();
+                }
                 return true;
             } else {
                 return false;

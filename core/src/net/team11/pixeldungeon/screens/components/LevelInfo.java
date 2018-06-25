@@ -138,7 +138,12 @@ public class LevelInfo extends Table {
                 ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                         null,
                         selector.getMap().getMapName());
+                
                 PixelDungeon.getInstance().getAndroidInterface().earnNewAdventurer();
+                PixelDungeon.getInstance().getAndroidInterface().earn10Attempts();
+                PixelDungeon.getInstance().getAndroidInterface().earn100Attempts();
+                PixelDungeon.getInstance().getAndroidInterface().earn500Attempts();
+                PixelDungeon.getInstance().getAndroidInterface().earn1000Attempts();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

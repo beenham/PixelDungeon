@@ -17,6 +17,7 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.AchivementStats;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
@@ -70,6 +71,8 @@ public class LevelCompleteScreen extends AbstractScreen {
         levelStats.submitBestTime(StatsUtil.getInstance().getTimer());
         statsUtil.writeLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
         statsUtil.writeGlobalStats();
+
+        AchivementStats.updateStats(statsUtil.getCurrentStats(),levelStats);
     }
 
     @Override
