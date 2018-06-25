@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entities.mirrors.Beam;
+import net.team11.pixeldungeon.entities.mirrors.BeamGenerator;
 import net.team11.pixeldungeon.entities.mirrors.Reflector;
 import net.team11.pixeldungeon.entities.traps.Trap;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
@@ -159,32 +160,41 @@ public class BeamSystem extends EntitySystem {
                     currClosestBody = currClosest.getComponent(BodyComponent.class);
                     float currClosestX = currClosestBody.getX();
                     float currClosestY = currClosestBody.getY() - yOffset;
+                    float bodyWidth;
+                    float bodyHeight;
+                    if (currClosest instanceof Reflector) {
+                        bodyWidth = BeamGenerator.BOX_SIZE;
+                        bodyHeight = BeamGenerator.BOX_SIZE;
+                    } else {
+                        bodyWidth = currClosestBody.getWidth();
+                        bodyHeight = currClosestBody.getHeight();
+                    }
 
                     switch (beam.getBeamDirection()){
                         case UP:
                             beamY -= beamBody.getHeight()/2;
-                            currClosestY -= currClosestBody.getHeight()/2;
+                            currClosestY -= bodyHeight/2;
                             beamBody.setHeight(distance(beamY, currClosestY) + 0.1f);
                             beamBody.setCoords(beamBody.getX() ,beamY + beamBody.getHeight()/2);
                             break;
 
                         case DOWN:
                             beamY += beamBody.getHeight()/2;
-                            currClosestY += currClosestBody.getHeight()/2;
+                            currClosestY += bodyHeight/2;
                             beamBody.setHeight(distance(beamY,currClosestY) + 0.1f);
                             beamBody.setCoords(beamBody.getX() ,beamY - beamBody.getHeight()/2);
                             break;
 
                         case LEFT:
                             beamX += beamBody.getWidth()/2;
-                            currClosestX += currClosestBody.getWidth()/2;
+                            currClosestX += bodyWidth/2;
                             beamBody.setWidth(distance(beamX, currClosestX) + 0.1f);
                             beamBody.setCoords(beamX - beamBody.getWidth()/2, beamBody.getY());
                             break;
 
                         case RIGHT:
                             beamX -= beamBody.getWidth()/2;
-                            currClosestX -= currClosestBody.getWidth()/2;
+                            currClosestX -= bodyWidth/2;
                             beamBody.setWidth(distance(beamX, currClosestX) + 0.1f);
                             beamBody.setCoords(beamX + beamBody.getWidth()/2, beamBody.getY());
                             break;
