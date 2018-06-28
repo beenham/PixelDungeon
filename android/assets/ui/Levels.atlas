@@ -1,27 +1,34 @@
 
 Levels.png
-size: 512,256
+size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-level_0_0
-  rotate: false
-  xy: 2, 2
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: 0
 level_0
   rotate: false
-  xy: 2, 2
-  size: 160, 160
-  orig: 160, 160
+  xy: 104, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 0
+level_0_0
+  rotate: false
+  xy: 104, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 0
+level_0_1
+  rotate: false
+  xy: 206, 2
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: 0
 test_level
   rotate: false
-  xy: 164, 2
-  size: 160, 160
-  orig: 160, 160
+  xy: 2, 2
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
