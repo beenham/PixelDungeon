@@ -146,7 +146,7 @@ public class PlayScreen extends AbstractScreen {
     public void render(float delta) {
         update(delta);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl.glClearColor(88,61,52,0);
+        Gdx.gl.glClearColor(0,0,0,0);
         engine.update(delta);
 
         b2dr.render(world, gameCam.combined);
@@ -166,10 +166,10 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void pause() {
+        paused = true;
+        engine.pause();
         if (!uiManager.getDeathMenu().isVisible()) {
-            paused = true;
             uiManager.showPauseMenu(false);
-            engine.pause();
         }
     }
 

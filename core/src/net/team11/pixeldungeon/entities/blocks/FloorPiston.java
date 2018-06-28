@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import net.team11.pixeldungeon.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.entity.component.BodyComponent;
-import net.team11.pixeldungeon.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;

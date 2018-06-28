@@ -37,7 +37,7 @@ public class Torch extends Entity {
         this.addComponent(animationComponent = new AnimationComponent(0));
         setupAnimations(animationComponent);
         if (on) {
-            setupLight(bounds);
+            //setupLight(bounds);
         }
     }
 
@@ -63,6 +63,6 @@ public class Torch extends Entity {
     }
 
     public void setLightSize(float size) {
-        light.setDistance(size);
+        //light.setDistance(size);
     }
 }

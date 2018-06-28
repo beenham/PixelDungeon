@@ -109,6 +109,7 @@ public class DeathMenu extends Stage {
         deathTable.pack();
 
         deathTable.setPosition(PixelDungeon.V_WIDTH/2 - deathTable.getWidth()/2,PixelDungeon.V_HEIGHT/2 - deathTable.getHeight()/2);
+        deathImage.setVisible(true);
     }
 
     private void setupDialog() {
@@ -152,6 +153,7 @@ public class DeathMenu extends Stage {
         deathTable.setSize(PixelDungeon.V_WIDTH*4/5,PixelDungeon.V_HEIGHT*4/5);
 
         deathTable.setPosition(PixelDungeon.V_WIDTH/2 - deathTable.getWidth()/2,PixelDungeon.V_HEIGHT/2 - deathTable.getHeight()/2);
+        deathImage.setVisible(false);
     }
 
     public void setVisible(boolean visible, String deathAnimation) {
@@ -161,6 +163,11 @@ public class DeathMenu extends Stage {
             loaded = false;
             delta = 0;
             darken = 0.4f;
+            this.deathAnimation = new Animation<TextureRegion>(2f,
+                    Assets.getInstance().getPlayerTexture(Assets.PLAYER_DEATH)
+                            .findRegions(deathAnimationName),
+                    Animation.PlayMode.LOOP);
+            update(0);
             Gdx.input.setInputProcessor(this);
         }
     }
@@ -184,8 +191,11 @@ public class DeathMenu extends Stage {
             }
 
             this.delta += delta * RenderSystem.FRAME_SPEED;
-            deathTable.getCell(deathImage).setActor(
-                    deathImage = new Image(deathAnimation.getKeyFrame(this.delta)));
+
+            if (deathImage.isVisible()) {
+                deathTable.getCell(deathImage).setActor(
+                        deathImage = new Image(deathAnimation.getKeyFrame(this.delta)));
+            }
         }
     }
 
