@@ -17,6 +17,7 @@ public class InventoryUtil {
     private HashMap<Integer,Skin> skins;
 
     private InventoryUtil() {
+        clearLocal();
         skins = readSkins();
         skinList = parseSkinList();
     }
@@ -59,12 +60,23 @@ public class InventoryUtil {
         return internalList;
     }
 
+    public void save() {
+        String filePath = "shop/shopitems/skinList.json";
+
+        Json json = new Json();
+        Gdx.files.local(filePath).writeString(json.toJson(skinList),false);
+    }
+
     public HashMap<Integer,Skin> getSkins() {
         return skins;
     }
 
     public SkinList getSkinList() {
         return skinList;
+    }
+
+    private void clearLocal() {
+        Gdx.files.local("shop").deleteDirectory();
     }
 
     public static InventoryUtil getInstance() {

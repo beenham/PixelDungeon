@@ -244,7 +244,7 @@ public class Chest extends Entity {
                 stats.addItem(item.getName());
             }
         }
-        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveGlobalStats();
         StatsUtil.getInstance().saveTimer();
     }
 
@@ -253,7 +253,7 @@ public class Chest extends Entity {
         stats.addChest(getName());
         stats.incrementChests();
         StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
-        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveGlobalStats();
         StatsUtil.getInstance().saveTimer();
     }
 }

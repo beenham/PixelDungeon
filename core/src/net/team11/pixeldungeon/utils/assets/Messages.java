@@ -68,6 +68,7 @@ public class Messages {
     public static final String LEVEL_LEAVING = "Leaving will result in a loss of all " +
             "progress of this dungeon so far!";
     public static final String NO = "NO";
+    public static final String NOT_ENOUGH = "Not Enough Coins";
     public static final String PLAY_UPPER = "PLAY";
     public static final String RESUME = "RESUME";
     public static final String RETRY = "RETRY";

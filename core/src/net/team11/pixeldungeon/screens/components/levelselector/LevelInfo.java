@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Align;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.ScreenEnum;
@@ -52,6 +53,7 @@ public class LevelInfo extends Table {
         levelName = new Label(statsUtil.getLevelStats(selector.getMap().getMapName()).getLevelName(), Assets.getInstance().getSkin(Assets.UI_SKIN),"title");
         levelName.setFontScale(1.25f * PixelDungeon.SCALAR);
         levelName.setWrap(true);
+        levelName.setAlignment(Align.center);
 
         Table table = new Table();
         table.add(levelName).bottom().padTop(getHeight()/5);
@@ -135,7 +137,7 @@ public class LevelInfo extends Table {
                 statsUtil.getLevelStats(selector.getMap().getMapName()).incrementAttempts();
                 statsUtil.writeLevelStats(selector.getMap().getMapName());
                 statsUtil.getGlobalStats().incrementAttempts();
-                statsUtil.writeGlobalStats();
+                statsUtil.saveGlobalStats();
                 ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                         null,
                         selector.getMap().getMapName());

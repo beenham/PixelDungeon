@@ -226,7 +226,7 @@ public class Puzzle {
 
     protected void onComplete() {
         StatsUtil.getInstance().getGlobalStats().incrementPuzzleCompleted();
-        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveGlobalStats();
         StatsUtil.getInstance().saveTimer();
     }
 

@@ -28,7 +28,7 @@ public class BoxPuzzle extends Puzzle {
     @Override
     protected void init() {
         StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveGlobalStats();
         StatsUtil.getInstance().saveTimer();
     }
 

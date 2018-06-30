@@ -1,7 +1,6 @@
 package net.team11.pixeldungeon.screens;
 
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.screens.screens.HowToScreen;
 import net.team11.pixeldungeon.screens.screens.LevelCompleteScreen;
 import net.team11.pixeldungeon.screens.screens.LevelSelectScreen;
 import net.team11.pixeldungeon.screens.screens.MainMenuScreen;
@@ -13,16 +12,6 @@ public enum ScreenEnum {
     GAME {
         public AbstractScreen getScreen(Object... params) {
             return new PlayScreen((String) params[0]);
-        }
-    },
-    HOW_TO {
-        @Override
-        public String toString() {
-            return "howToScreen";
-        }
-        @Override
-        public AbstractScreen getScreen(Object... params) {
-            return new HowToScreen();
         }
     },
     LEVEL_SELECT {

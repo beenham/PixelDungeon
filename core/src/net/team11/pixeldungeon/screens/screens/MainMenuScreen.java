@@ -41,7 +41,7 @@ public class MainMenuScreen extends AbstractScreen {
         addActor(setupMainTable(padding));
         addActor(setupTitleTable(padding));
         addActor(setupTopRightTable(padding));
-        //addActor(setupBottomRightTable(padding));
+        addActor(setupBottomRightTable(padding));
         //addActor(setupBottomLeftTable(padding));
         //addActor(setupTopLeftTable(padding));
     }
@@ -64,7 +64,6 @@ public class MainMenuScreen extends AbstractScreen {
 
         TextButton skinButton = new TextButton(Messages.SKIN_SELECT, Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-        skinButton.setDisabled(true);
 
         //*
         skinButton.addListener(new ClickListener() {
@@ -77,26 +76,9 @@ public class MainMenuScreen extends AbstractScreen {
         });
         //*/
 
-        TextButton helpButton = new TextButton(Messages.HOW_TO_PLAY, Assets.getInstance().getSkin(Assets.UI_SKIN));
-        helpButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-        helpButton.setDisabled(true);
-
-        //*
-        helpButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.HOW_TO,
-                        ScreenTransitionPush.init(1.5f,ScreenTransitionPush.RIGHT,Interpolation.pow2));
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-        //*/
-
         mainTable.add(playButton).pad(padding);
         mainTable.row();
         mainTable.add(skinButton).pad(padding);
-        mainTable.row();
-        mainTable.add(helpButton).pad(padding);
         mainTable.setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
         return mainTable;
     }
@@ -141,7 +123,7 @@ public class MainMenuScreen extends AbstractScreen {
         Table brTable = new Table();
         brTable.bottom().padBottom(padding).right().padRight(padding);
 
-        Label label = new Label("BR",
+        Label label = new Label(PixelDungeon.VERSION,
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         label.setFontScale(1.2f * PixelDungeon.SCALAR);
         brTable.add(label);

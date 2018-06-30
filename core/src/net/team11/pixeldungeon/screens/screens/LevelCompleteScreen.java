@@ -70,7 +70,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         }
         levelStats.submitBestTime(StatsUtil.getInstance().getTimer());
         statsUtil.writeLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
-        statsUtil.writeGlobalStats();
+        statsUtil.saveGlobalStats();
 
         AchivementStats.updateStats(statsUtil.getCurrentStats(),levelStats);
     }

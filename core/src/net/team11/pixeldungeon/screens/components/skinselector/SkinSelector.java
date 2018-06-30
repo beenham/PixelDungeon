@@ -20,13 +20,17 @@ import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
+import java.util.ArrayList;
+
 public class SkinSelector extends Table {
     private SkinInfo info;
+    private CoinDisplay coinDisplay;
+    private ArrayList<SkinDisplay> skinDisplays;
 
     public SkinSelector(SkinInfo skinInfo, float size) {
         this.info = skinInfo;
+        skinDisplays = new ArrayList<>();
         setupTable(size/2);
-        //setDebug(true);
     }
 
     private void setupTable(float size) {
@@ -43,7 +47,7 @@ public class SkinSelector extends Table {
             }
         });
 
-        add(new CoinDisplay(backButton.getHeight(),
+        add(coinDisplay = new CoinDisplay(backButton.getHeight(),
                 StatsUtil.getInstance().getGlobalStats().getCurrentCoins()))
                 .pad(padding).expandX().left();
         add(backButton).right().pad(padding);
@@ -68,6 +72,7 @@ public class SkinSelector extends Table {
                     return super.touchDown(event, x, y, pointer, button);
                 }
             });
+            skinDisplays.add(skinDisplay);
             table.add(skinDisplay).pad(size/5);
         }
         ScrollPane scrollPane = new ScrollPane(table, Assets.getInstance().getSkin(Assets.UI_SKIN),
@@ -75,5 +80,14 @@ public class SkinSelector extends Table {
         scrollPane.setFadeScrollBars(false);
         scrollPane.setScrollingDisabled(true,false);
         return scrollPane;
+    }
+
+    public void update() {
+        getCell(coinDisplay).setActor(coinDisplay = new CoinDisplay(coinDisplay.getHeight(),
+                StatsUtil.getInstance().getGlobalStats().getCurrentCoins()));
+
+        for (SkinDisplay display : skinDisplays) {
+            display.update();
+        }
     }
 }

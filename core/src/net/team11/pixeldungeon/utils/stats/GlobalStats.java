@@ -114,4 +114,8 @@ public class GlobalStats {
     public void addKeysFound(int keys) {totalKeysFound+=keys;}
 
     public void addItemsFound(int items) {totalItemsFound+=items;}
+
+    public void subtractCoins(int coins) {
+        currentCoins -= coins;
+    }
 }

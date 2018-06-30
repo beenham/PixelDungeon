@@ -46,7 +46,7 @@ public class StatsUtil {
             }
         }
         readGlobalStats();
-        writeGlobalStats();
+        saveGlobalStats();
     }
 
     private void readGlobalStats() {
@@ -65,7 +65,7 @@ public class StatsUtil {
         Gdx.files.local(filePath).writeString(json.toJson(stats),false);
     }
 
-    public void writeGlobalStats() {
+    public void saveGlobalStats() {
         Json json = new Json();
         Gdx.files.local(globalFile).writeString(json.toJson(globalStats),false);
     }
@@ -96,7 +96,7 @@ public class StatsUtil {
     public void saveTimer() {
         globalStats.addTime(timer-flaggedTimer);
         flaggedTimer = timer;
-        writeGlobalStats();
+        saveGlobalStats();
     }
 
     public int getTimer() {
@@ -107,7 +107,7 @@ public class StatsUtil {
         return String.format(Locale.UK,"%02d:%02d",timer/60,timer%60);
     }
 
-    public void clearLocal() {
+    private void clearLocal() {
         Gdx.files.local("stats").deleteDirectory();
     }
 

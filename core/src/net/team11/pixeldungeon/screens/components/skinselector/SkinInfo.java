@@ -17,6 +17,7 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.HashMap;
 
@@ -116,19 +117,36 @@ public class SkinInfo extends Table {
                 button.addListener(new ClickListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        skinList.setCurrentSkin(currentSkin);
+                        InventoryUtil.getInstance().save();
+                        update(currentSkin);
                         return super.touchDown(event, x, y, pointer, button);
                     }
                 });
             }
         } else {
             if (skins.get(currentSkin).isBuyable()) {
-                button = new TextButton(Messages.BUY, Assets.getInstance().getSkin(Assets.UI_SKIN));
-                button.addListener(new ClickListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        return super.touchDown(event, x, y, pointer, button);
-                    }
-                });
+                if (StatsUtil.getInstance().getGlobalStats().getCurrentCoins() >=
+                        skins.get(currentSkin).getCost()) {
+                    button = new TextButton(Messages.BUY, Assets.getInstance().getSkin(Assets.UI_SKIN));
+                    button.addListener(new ClickListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            skinList.unlockSkin(skins.get(currentSkin).getName());
+                            skinList.setCurrentSkin(currentSkin);
+                            InventoryUtil.getInstance().save();
+
+                            StatsUtil.getInstance().getGlobalStats()
+                                    .subtractCoins(skins.get(currentSkin).getCost());
+                            StatsUtil.getInstance().saveGlobalStats();
+                            update(currentSkin);
+                            return super.touchDown(event, x, y, pointer, button);
+                        }
+                    });
+                } else {
+                    button = new TextButton(Messages.NOT_ENOUGH, Assets.getInstance().getSkin(Assets.UI_SKIN));
+                    button.setDisabled(true);
+                }
             } else {
                 button = new TextButton("",Assets.getInstance().getSkin(Assets.UI_SKIN));
                 button.setVisible(false);

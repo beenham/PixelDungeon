@@ -196,7 +196,7 @@ public class ColouredGemsPuzzle extends Puzzle {
     private void incrementAttempts() {
         attempts++;
         StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-        StatsUtil.getInstance().writeGlobalStats();
+        StatsUtil.getInstance().saveGlobalStats();
         StatsUtil.getInstance().saveTimer();
     }
 }

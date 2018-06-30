@@ -17,8 +17,13 @@ public class SkinList {
 
     public void setSkin(String skin, boolean bool) {
         if (skins.containsKey(skin)) {
-            skins.remove(skin);
             skins.put(skin,bool);
+        }
+    }
+
+    public void unlockSkin(String skin) {
+        if (skins.containsKey(skin)) {
+            skins.put(skin,true);
         }
     }
 
@@ -32,5 +37,9 @@ public class SkinList {
 
     public int getCurrentSkin() {
         return currentSkin;
+    }
+
+    public void setCurrentSkin(int currentSkin) {
+        this.currentSkin = currentSkin;
     }
 }
