@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
-import net.team11.pixeldungeon.screens.components.LevelInfo;
-import net.team11.pixeldungeon.screens.components.LevelSelector;
+import net.team11.pixeldungeon.screens.components.levelselector.LevelInfo;
+import net.team11.pixeldungeon.screens.components.levelselector.LevelSelector;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class LevelSelectScreen extends AbstractScreen {

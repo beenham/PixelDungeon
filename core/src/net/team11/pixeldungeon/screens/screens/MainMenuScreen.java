@@ -141,7 +141,8 @@ public class MainMenuScreen extends AbstractScreen {
         Table brTable = new Table();
         brTable.bottom().padBottom(padding).right().padRight(padding);
 
-        Label label = new Label("BR", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label label = new Label("BR",
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
         label.setFontScale(1.2f * PixelDungeon.SCALAR);
         brTable.add(label);
 
@@ -154,7 +155,8 @@ public class MainMenuScreen extends AbstractScreen {
         Table blTable = new Table();
         blTable.bottom().padBottom(padding).left().padLeft(padding);
 
-        Label label = new Label("BL", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label label = new Label("BL",
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
         label.setFontScale(1.2f * PixelDungeon.SCALAR);
         blTable.add(label);
 
@@ -166,7 +168,8 @@ public class MainMenuScreen extends AbstractScreen {
         Table tlTable = new Table();
         tlTable.top().padTop(padding).left().padLeft(padding);
 
-        Label label = new Label("TL", new Label.LabelStyle(Assets.getInstance().getFont(Assets.P_FONT), Color.WHITE));
+        Label label = new Label("TL",
+                Assets.getInstance().getSkin(Assets.UI_SKIN));
         label.setFontScale(1.2f * PixelDungeon.SCALAR);
         tlTable.add(label);
 

@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.game.map.MapManager;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;

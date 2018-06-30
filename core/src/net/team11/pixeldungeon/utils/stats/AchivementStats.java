@@ -1,9 +1,9 @@
 package net.team11.pixeldungeon.utils.stats;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
-import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
+import net.team11.pixeldungeon.game.puzzles.Puzzle;
+import net.team11.pixeldungeon.game.puzzles.colouredgems.ColouredGemsPuzzle;
+import net.team11.pixeldungeon.game.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class AchivementStats {

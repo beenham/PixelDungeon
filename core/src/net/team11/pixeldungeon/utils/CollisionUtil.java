@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class CollisionUtil {
     public static final Byte BOUNDARY       = 0x0001;

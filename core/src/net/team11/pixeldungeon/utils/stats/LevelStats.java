@@ -18,6 +18,8 @@ public class LevelStats {
     private HashMap<String, Boolean> foundKeys = new HashMap<>();
     private HashMap<String, Boolean> foundItems = new HashMap<>();
 
+    private boolean tutorial;
+
     public String getFileName() {
         return fileName;
     }
@@ -115,6 +117,10 @@ public class LevelStats {
             foundItems.remove(name);
             foundItems.put(name,true);
         }
+    }
+
+    public boolean isTutorial() {
+        return tutorial;
     }
 
     @Override

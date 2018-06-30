@@ -13,45 +13,45 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import net.team11.pixeldungeon.entities.beams.BeamTarget;
-import net.team11.pixeldungeon.entities.blocks.Box;
-import net.team11.pixeldungeon.entities.blocks.Chest;
-import net.team11.pixeldungeon.entities.blocks.FloorPiston;
-import net.team11.pixeldungeon.entities.blocks.Lever;
-import net.team11.pixeldungeon.entities.blocks.Pillar;
-import net.team11.pixeldungeon.entities.blocks.PressurePlate;
-import net.team11.pixeldungeon.entities.blocks.Torch;
-import net.team11.pixeldungeon.entities.door.ButtonDoor;
-import net.team11.pixeldungeon.entities.door.DoorFrame;
-import net.team11.pixeldungeon.entities.door.DungeonDoor;
-import net.team11.pixeldungeon.entities.door.LockedDoor;
-import net.team11.pixeldungeon.entities.door.MechanicDoor;
-import net.team11.pixeldungeon.entities.beams.Beam;
-import net.team11.pixeldungeon.entities.beams.BeamGenerator;
-import net.team11.pixeldungeon.entities.beams.Reflector;
-import net.team11.pixeldungeon.entities.puzzle.CompletedIndicator;
-import net.team11.pixeldungeon.entities.puzzle.PuzzleController;
-import net.team11.pixeldungeon.entities.puzzle.colouredgems.GemPillar;
-import net.team11.pixeldungeon.entities.puzzle.colouredgems.WallScribe;
-import net.team11.pixeldungeon.entities.puzzle.simonsays.SimonSaysSwitch;
-import net.team11.pixeldungeon.entities.traps.FloorSpike;
-import net.team11.pixeldungeon.entities.traps.Quicksand;
-import net.team11.pixeldungeon.entities.traps.TrapRoom;
-import net.team11.pixeldungeon.entity.component.entitycomponent.TrapRoomComponent;
-import net.team11.pixeldungeon.entitysystem.Entity;
-import net.team11.pixeldungeon.entitysystem.EntityEngine;
-import net.team11.pixeldungeon.items.Coin;
-import net.team11.pixeldungeon.items.Item;
-import net.team11.pixeldungeon.items.keys.ChestKey;
-import net.team11.pixeldungeon.items.keys.DoorKey;
-import net.team11.pixeldungeon.items.keys.DungeonKey;
-import net.team11.pixeldungeon.puzzles.Puzzle;
-import net.team11.pixeldungeon.puzzles.beamPuzzle.BeamPuzzle;
-import net.team11.pixeldungeon.puzzles.boxpuzzle.BoxPuzzle;
-import net.team11.pixeldungeon.puzzles.levelpuzzle.LevelPuzzle;
-import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
-import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
-import net.team11.pixeldungeon.tutorial.TutorialZone;
+import net.team11.pixeldungeon.game.entities.beams.BeamGenerator;
+import net.team11.pixeldungeon.game.entities.beams.BeamTarget;
+import net.team11.pixeldungeon.game.entities.blocks.Box;
+import net.team11.pixeldungeon.game.entities.blocks.Chest;
+import net.team11.pixeldungeon.game.entities.blocks.FloorPiston;
+import net.team11.pixeldungeon.game.entities.blocks.Lever;
+import net.team11.pixeldungeon.game.entities.blocks.Pillar;
+import net.team11.pixeldungeon.game.entities.blocks.PressurePlate;
+import net.team11.pixeldungeon.game.entities.blocks.Torch;
+import net.team11.pixeldungeon.game.entities.door.ButtonDoor;
+import net.team11.pixeldungeon.game.entities.door.DoorFrame;
+import net.team11.pixeldungeon.game.entities.door.DungeonDoor;
+import net.team11.pixeldungeon.game.entities.door.LockedDoor;
+import net.team11.pixeldungeon.game.entities.door.MechanicDoor;
+import net.team11.pixeldungeon.game.entities.beams.Beam;
+import net.team11.pixeldungeon.game.entities.beams.Reflector;
+import net.team11.pixeldungeon.game.entities.puzzle.CompletedIndicator;
+import net.team11.pixeldungeon.game.entities.puzzle.PuzzleController;
+import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.GemPillar;
+import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.WallScribe;
+import net.team11.pixeldungeon.game.entities.puzzle.simonsays.SimonSaysSwitch;
+import net.team11.pixeldungeon.game.entities.traps.FloorSpike;
+import net.team11.pixeldungeon.game.entities.traps.Quicksand;
+import net.team11.pixeldungeon.game.entities.traps.TrapRoom;
+import net.team11.pixeldungeon.game.entity.component.entitycomponent.TrapRoomComponent;
+import net.team11.pixeldungeon.game.entitysystem.Entity;
+import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.game.items.Coin;
+import net.team11.pixeldungeon.game.items.Item;
+import net.team11.pixeldungeon.game.items.keys.ChestKey;
+import net.team11.pixeldungeon.game.items.keys.DoorKey;
+import net.team11.pixeldungeon.game.items.keys.DungeonKey;
+import net.team11.pixeldungeon.game.puzzles.Puzzle;
+import net.team11.pixeldungeon.game.puzzles.beamPuzzle.BeamPuzzle;
+import net.team11.pixeldungeon.game.puzzles.boxpuzzle.BoxPuzzle;
+import net.team11.pixeldungeon.game.puzzles.levelpuzzle.LevelPuzzle;
+import net.team11.pixeldungeon.game.puzzles.simonsays.SimonSays;
+import net.team11.pixeldungeon.game.puzzles.colouredgems.ColouredGemsPuzzle;
+import net.team11.pixeldungeon.game.tutorial.TutorialZone;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
@@ -251,19 +251,21 @@ public class TiledObjectUtil {
                         break;
 
                     case TiledMapObjectNames.QUICKSAND:
-                        if (mapObject.getProperties().containsKey(TiledMapProperties.SMOD)){
-                            String room = (String) mapObject.getProperties().get(TiledMapProperties.ROOM);
-                            ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
-                            Quicksand quicksand = new Quicksand(shape, mapObject.getName(),
-                                    (float)mapObject.getProperties().get(TiledMapProperties.SMOD),
-                                    (float) mapObject.getProperties().get(TiledMapProperties.TIMER));
-                            List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
+                        if (mapObject instanceof PolylineMapObject) {
+                            if (mapObject.getProperties().containsKey(TiledMapProperties.SMOD)) {
+                                String room = (String) mapObject.getProperties().get(TiledMapProperties.ROOM);
+                                ChainShape shape = createPolyLine(((PolylineMapObject) mapObject));
+                                Quicksand quicksand = new Quicksand(shape, mapObject.getName(),
+                                        (float) mapObject.getProperties().get(TiledMapProperties.SMOD),
+                                        (float) mapObject.getProperties().get(TiledMapProperties.TIMER));
+                                List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
 
-                            for (Entity entity : trapRooms) {
-                                if (entity instanceof TrapRoom && entity.getName().equals(room)) {
-                                    ((TrapRoom) entity).addTrap(quicksand);
-                                    engine.addEntity(quicksand);
-                                    engine.addEntity(quicksand);
+                                for (Entity entity : trapRooms) {
+                                    if (entity instanceof TrapRoom && entity.getName().equals(room)) {
+                                        ((TrapRoom) entity).addTrap(quicksand);
+                                        engine.addEntity(quicksand);
+                                        engine.addEntity(quicksand);
+                                    }
                                 }
                             }
                         } else {

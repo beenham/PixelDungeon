@@ -1,6 +1,6 @@
 {
   "attempts":0,
-  "bestTime":3599,
+  "bestTime":0,
   "completed":0,
   "foundChests": {
     "chest_1":false,
@@ -10,12 +10,12 @@
   "foundItems": {
   },
   "foundKeys": {
-    "Door Key":false,
-    "Dungeon Key":false
+
   },
   "fileName":"level_0_1",
   "levelName":"The Tutorial",
-  "totalChests":3,
+  "totalChests":0,
   "totalItems":0,
-  "totalKeys":2
+  "totalKeys":0,
+  "tutorial":true
 }

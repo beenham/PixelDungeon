@@ -10,24 +10,23 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.entities.player.Player;
-import net.team11.pixeldungeon.entity.system.AnimationSystem;
-import net.team11.pixeldungeon.entity.system.BeamSystem;
-import net.team11.pixeldungeon.entity.system.CameraSystem;
-import net.team11.pixeldungeon.entity.system.HealthSystem;
-import net.team11.pixeldungeon.entity.system.InteractionSystem;
-import net.team11.pixeldungeon.entity.system.PlayerMovementSystem;
-import net.team11.pixeldungeon.entity.system.PuzzleSystem;
-import net.team11.pixeldungeon.entity.system.RenderSystem;
-import net.team11.pixeldungeon.entity.system.TrapSystem;
-import net.team11.pixeldungeon.entity.system.VelocitySystem;
-import net.team11.pixeldungeon.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.game.entities.player.Player;
+import net.team11.pixeldungeon.game.entity.system.BeamSystem;
+import net.team11.pixeldungeon.game.entity.system.CameraSystem;
+import net.team11.pixeldungeon.game.entity.system.HealthSystem;
+import net.team11.pixeldungeon.game.entity.system.InteractionSystem;
+import net.team11.pixeldungeon.game.entity.system.PlayerMovementSystem;
+import net.team11.pixeldungeon.game.entity.system.PuzzleSystem;
+import net.team11.pixeldungeon.game.entity.system.RenderSystem;
+import net.team11.pixeldungeon.game.entity.system.TrapSystem;
+import net.team11.pixeldungeon.game.entity.system.VelocitySystem;
+import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.screens.AbstractScreen;
-import net.team11.pixeldungeon.uicomponents.UIManager;
+import net.team11.pixeldungeon.game.uicomponents.UIManager;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
-import net.team11.pixeldungeon.map.MapManager;
+import net.team11.pixeldungeon.game.map.MapManager;
 
 import box2dLight.RayHandler;
 
@@ -93,7 +92,6 @@ public class PlayScreen extends AbstractScreen {
         engine.pause();
         engine.addSystem(new RenderSystem(game.batch));
         engine.addSystem(playerMovementSystem = new PlayerMovementSystem());
-        engine.addSystem(new AnimationSystem());
         engine.addSystem(new VelocitySystem());
         engine.addSystem(new CameraSystem());
         engine.addSystem(new HealthSystem());
@@ -168,7 +166,7 @@ public class PlayScreen extends AbstractScreen {
     public void pause() {
         paused = true;
         engine.pause();
-        if (!uiManager.getDeathMenu().isVisible()) {
+        if (!uiManager.getDeathMenu().isVisible() && !engine.isFinished()) {
             uiManager.showPauseMenu(false);
         }
     }

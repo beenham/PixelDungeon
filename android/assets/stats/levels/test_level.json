@@ -19,5 +19,6 @@
   "levelName":"Testing Zone",
   "totalChests":4,
   "totalItems":0,
-  "totalKeys":3
+  "totalKeys":3,
+  "tutorial":true
 }

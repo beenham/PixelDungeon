@@ -16,7 +16,7 @@ public class ScreenTransitionSlice implements ScreenTransition {
 	private float duration;
 	private int direction;
 	private Interpolation easing;
-	private Array<Integer> sliceIndex = new Array<Integer>();
+	private Array<Integer> sliceIndex = new Array<>();
 
 	public static ScreenTransitionSlice init(float duration, int direction, int numSlices, Interpolation easing) {
 		instance.duration = duration;
