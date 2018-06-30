@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.utils;
 
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.ChainShape;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -77,5 +78,20 @@ public class CollisionUtil {
                 x - width/2, y,
                 x - width/2, y - height/4,
         });
+    }
+
+    public static Polygon createPolygon(ChainShape chainShape) {
+        ArrayList<Float> vertices = new ArrayList<>();
+        for (int i = 0 ; i < chainShape.getVertexCount() ; i++) {
+            Vector2 vector2 = new Vector2();
+            chainShape.getVertex(i, vector2);
+            vertices.add(vector2.x);
+            vertices.add(vector2.y);
+        }
+        float[] vertices2 = new float[vertices.size()];
+        for (int i = 0 ; i < vertices.size() ; i++) {
+            vertices2[i] = vertices.get(i);
+        }
+        return new Polygon(vertices2);
     }
 }

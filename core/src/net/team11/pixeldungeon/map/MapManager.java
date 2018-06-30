@@ -90,6 +90,9 @@ public class MapManager {
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
         TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
         TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
+        if (currentMap.hasLayer(TiledMapLayers.TUTORIAL_LAYER)) {
+            TiledObjectUtil.parseTiledRoomLayer(engine, currentMap.getObjects(TiledMapLayers.TUTORIAL_LAYER));
+        }
 
         for (Entity entity : engine.getEntities()) {
             if (entity.hasTrigger()) {

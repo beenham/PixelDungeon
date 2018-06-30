@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -50,6 +51,7 @@ import net.team11.pixeldungeon.puzzles.boxpuzzle.BoxPuzzle;
 import net.team11.pixeldungeon.puzzles.levelpuzzle.LevelPuzzle;
 import net.team11.pixeldungeon.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.puzzles.colouredgems.ColouredGemsPuzzle;
+import net.team11.pixeldungeon.tutorial.TutorialZone;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.ArrayList;
@@ -358,12 +360,18 @@ public class TiledObjectUtil {
             for (MapObject mapObject : mapObjects) {
                 if (mapObject instanceof PolylineMapObject) {
                     String type = (String) mapObject.getProperties().get(TiledMapProperties.ENTITY_TYPE);
-
+                    ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
                     switch (type) {
                         case TiledMapObjectNames.TRAP_ROOM:
-                            ChainShape shape = createPolyLine(((PolylineMapObject)mapObject));
                             TrapRoom room = new TrapRoom(shape, mapObject.getName());
                             engine.addEntity(room);
+                            break;
+                        case TiledMapObjectNames.TUTORIAL_ZONE:
+                            Polygon polygon = CollisionUtil.createPolygon(shape);
+                            String message = (String) mapObject.getProperties().get(TiledMapProperties.MESSAGE);
+                            TutorialZone tutorialZone = new TutorialZone(polygon,message);
+                            engine.addTutorial(tutorialZone);
+                            break;
                     }
                 }
             }

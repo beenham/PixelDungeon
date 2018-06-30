@@ -17,6 +17,7 @@ public class UIManager {
     private ItemSelector itemSelector;
     private PauseMenu pauseMenu;
     private TextBox textBox;
+    private TutorialMessage tutorialMessage;
 
     public UIManager(SpriteBatch batch, EntityEngine engine, Player player) {
         this.deathMenu = new DeathMenu(batch,engine);
@@ -26,6 +27,7 @@ public class UIManager {
         this.itemSelector = new ItemSelector(player, batch);
         this.pauseMenu = new PauseMenu(batch, engine);
         this.textBox = new TextBox(batch);
+        this.tutorialMessage = new TutorialMessage(batch);
     }
 
     public void showDeathMenu(String deathAnimation) {
@@ -35,6 +37,7 @@ public class UIManager {
         itemSelector.setVisible(false);
         itemReceiver.setVisible(false);
         textBox.setVisible(false);
+        tutorialMessage.setVisible(false);
         pauseMenu.setVisible(false);
         deathMenu.setVisible(true, deathAnimation);
     }
@@ -95,20 +98,28 @@ public class UIManager {
         itemSelector.init(itemType, entity);
     }
 
+    private void hideItemSelector() {
+        itemSelector.setVisible(false);
+        hud.setVisible(true);
+    }
+
     public void initTextBox(String text) {
         hud.setPressed(false);
         hud.setVisible(false);
         textBox.init(text);
     }
 
-    private void hideItemSelector() {
-        itemSelector.setVisible(false);
-        hud.setVisible(true);
-    }
-
     private void hideTextBox() {
         textBox.setVisible(false);
         hud.setVisible(true);
+    }
+
+    public void initTutorial(String text) {
+        tutorialMessage.init(text);
+    }
+
+    public void hideTutorial() {
+        tutorialMessage.setVisible(false);
     }
 
     public void update(float delta, boolean paused) {
@@ -138,20 +149,29 @@ public class UIManager {
         if (hud.isVisible()) {
             hud.draw();
         }
-        if (inventoryUI.isVisible()) {
-            inventoryUI.draw();
+
+        if (tutorialMessage.isVisible()) {
+            tutorialMessage.draw();
         }
+
         if (itemSelector.isVisible()) {
             itemSelector.draw();
         }
-        if (pauseMenu.isVisible()) {
-            pauseMenu.draw();
-        }
+
         if (textBox.isVisible()) {
             textBox.draw();
         }
+
         if (itemReceiver.isVisible()) {
             itemReceiver.draw();
+        }
+
+        if (inventoryUI.isVisible()) {
+            inventoryUI.draw();
+        }
+
+        if (pauseMenu.isVisible()) {
+            pauseMenu.draw();
         }
 
         if (deathMenu.isVisible()) {
@@ -166,7 +186,7 @@ public class UIManager {
         pauseMenu.dispose();
         itemReceiver.dispose();
         itemSelector.dispose();
-        deathMenu.dispose();
+        //deathMenu.dispose();
     }
 
     public Hud getHud() {

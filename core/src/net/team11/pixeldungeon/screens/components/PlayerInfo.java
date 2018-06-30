@@ -50,37 +50,51 @@ public class PlayerInfo extends Table {
     }
 
     private Table playerStats() {
+        float fontScale = PixelDungeon.SCALAR * 0.75f;
+
         Table playerStats = new Table();
 
         Label attempts = new Label(Messages.STATS_LEVELS_ATTEMPTED, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        attempts.setFontScale(fontScale);
         Label attemptsVal = new Label(String.format(Locale.UK, "%d",
                 StatsUtil.getInstance().getGlobalStats().getTotalAttempts()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
+        attemptsVal.setFontScale(fontScale);
 
         Label completed = new Label(Messages.STATS_LEVELS_COMPLETED, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        completed.setFontScale(fontScale);
         Label completedVal = new Label(String.format(Locale.UK, "%d",
                 StatsUtil.getInstance().getGlobalStats().getTotalCompleted()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
+        completedVal.setFontScale(fontScale);
 
         Label bestTime = new Label(Messages.STATS_TOTAL_TIME, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        bestTime.setFontScale(fontScale);
         Label bestTimeVal = new Label(String.format(Locale.UK,"%s",
                 StatsUtil.getInstance().getGlobalStats().getTime()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
+        bestTimeVal.setFontScale(fontScale);
 
         Label chests = new Label(Messages.STATS_CHESTS_OPENED, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        chests.setFontScale(fontScale);
         Label chestsVal = new Label(String.format(Locale.UK,"%d",
                 StatsUtil.getInstance().getGlobalStats().getTotalChestsFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
+        chestsVal.setFontScale(fontScale);
 
         Label keys = new Label(Messages.STATS_KEYS_FOUND, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        keys.setFontScale(fontScale);
         Label keysVal = new Label(String.format(Locale.UK,"%d",
                 StatsUtil.getInstance().getGlobalStats().getTotalKeysFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
+        keysVal.setFontScale(fontScale);
 
         Label deaths = new Label(Messages.STATS_TOTAL_DEATHS, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        deaths.setFontScale(fontScale);
         Label deathVal = new Label(String.format(Locale.UK,"%d",
                 StatsUtil.getInstance().getGlobalStats().getTotalDeaths()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
+        deathVal.setFontScale(fontScale);
 
 
         playerStats.add(bestTime).left();

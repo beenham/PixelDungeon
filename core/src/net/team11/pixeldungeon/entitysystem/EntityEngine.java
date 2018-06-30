@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.entitysystem;
 
 import net.team11.pixeldungeon.entity.system.RenderSystem;
 import net.team11.pixeldungeon.puzzles.Puzzle;
+import net.team11.pixeldungeon.tutorial.TutorialZone;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,6 +13,7 @@ public class EntityEngine {
     private EntityManager entityManager;
     private LinkedList<EntitySystem> systems;
     private ArrayList<Puzzle> puzzles;
+    private ArrayList<TutorialZone> tutorials;
 
     private boolean finished;
     private boolean paused;
@@ -20,6 +22,7 @@ public class EntityEngine {
         this.entityManager = new EntityManager();
         systems = new LinkedList<>();
         puzzles = new ArrayList<>();
+        tutorials = new ArrayList<>();
     }
 
     public void update(float delta) {
@@ -59,6 +62,14 @@ public class EntityEngine {
         return null;
     }
 
+    public void addTutorial(TutorialZone tutorialZone) {
+        tutorials.add(tutorialZone);
+    }
+
+    public final ArrayList<TutorialZone> getTutorials() {
+        return tutorials;
+    }
+
     public final List<Puzzle> getPuzzles() {
         return puzzles;
     }
@@ -70,24 +81,6 @@ public class EntityEngine {
     @SafeVarargs
     public final List<Entity> getEntities(Class<? extends EntityComponent>... componentType) {
         return this.entityManager.getEntities(componentType);
-    }
-
-    public void storeEntities(String name) {
-        entityManager.storeEntities(name);
-    }
-
-    public void loadEntities (String name) {
-        entityManager.loadEntities(name);
-    }
-
-    public boolean hasEntities() {
-        return !entityManager.isEmpty();
-    }
-
-    public void hasSystem(Class<?> systemType) {
-        for (EntitySystem entitySystem : systems) {
-            systemType.isInstance(entitySystem);
-        }
     }
 
     public void addSystem(EntitySystem system) {
@@ -115,7 +108,6 @@ public class EntityEngine {
     }
 
     public void resume() {
-        System.out.println("RESUME: resumed called in engine.");
         this.paused = false;
     }
 

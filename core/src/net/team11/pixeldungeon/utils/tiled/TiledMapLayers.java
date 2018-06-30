@@ -8,6 +8,7 @@ public class TiledMapLayers {
     public static final String POINTS_LAYER = "points";
     public static final String PUZZLE_LAYER = "puzzle";
     public static final String TRAP_LAYER = "traps";
+    public static final String TUTORIAL_LAYER = "tutorial";
 
     /////   RENDER LAYERS   /////
     public static final String DECOR_LAYER = "decoration";

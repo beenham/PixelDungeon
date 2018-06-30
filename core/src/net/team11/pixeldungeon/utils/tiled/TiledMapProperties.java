@@ -15,6 +15,7 @@ public class TiledMapProperties {
     public static final String LOCKED = "locked";
     public static final String NUM_GEMS = "numGems";
     public static final String MAP = "map";
+    public static final String MESSAGE = "message";
     public static final String OPENED = "opened";
     public static final String PUZZLE_NAME = "puzzleName";
     public static final String PUZZLE_TYPE = "puzzle";

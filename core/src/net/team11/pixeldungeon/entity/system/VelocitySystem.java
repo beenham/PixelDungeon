@@ -15,6 +15,7 @@ import net.team11.pixeldungeon.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.tutorial.TutorialZone;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
@@ -25,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VelocitySystem extends EntitySystem {
-    private List<Entity> players = new ArrayList<>();
+    private List<Entity> players;
+    private List<TutorialZone> tutorials;
     private MapManager mapManager;
     private EntityEngine engine;
 
@@ -33,7 +35,9 @@ public class VelocitySystem extends EntitySystem {
     public void init(EntityEngine entityEngine) {
         engine = entityEngine;
         players = entityEngine.getEntities(VelocityComponent.class, PlayerComponent.class);
+        tutorials = entityEngine.getTutorials();
         mapManager = MapManager.getInstance();
+
     }
 
     @Override
@@ -55,6 +59,13 @@ public class VelocitySystem extends EntitySystem {
             bodyComponent.moveY(1 * velocityComponent.getyDirection() * velocityComponent.getMovementSpeed());
 
             isOverlapping(bodyComponent.getPolygon());
+            for (TutorialZone zone : tutorials) {
+                if (zone.isVisible() && !CollisionUtil.isOverlapping(bodyComponent.getPolygon(),zone.getZone())) {
+                    zone.exitZone();
+                } else if (!zone.isVisible() && CollisionUtil.isOverlapping(bodyComponent.getPolygon(),zone.getZone())) {
+                    zone.initZone();
+                }
+            }
         }
     }
 

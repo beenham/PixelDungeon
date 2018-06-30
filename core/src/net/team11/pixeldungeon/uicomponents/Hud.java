@@ -45,8 +45,8 @@ public class Hud extends Stage {
     private void setupHud() {
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.HUD);
         Image texture = new Image(textureAtlas.findRegion(AssetName.UP_BUTTON));
-        float width = texture.getWidth()*11*PixelDungeon.SCALAR;
-        float height = texture.getHeight()*11*PixelDungeon.SCALAR;
+        float width = texture.getWidth()*10*PixelDungeon.SCALAR;
+        float height = texture.getHeight()*10*PixelDungeon.SCALAR;
 
         //  Bottom Left
         setupController(textureAtlas, width, height);
@@ -207,7 +207,8 @@ public class Hud extends Stage {
         Table timerTable = new Table();
         timerTable.setPosition(0,PixelDungeon.V_HEIGHT);
         timerTable.left().padLeft(width/4).top().padTop(height/4);
-        timerTable.add(timeLabel);
+        timerTable.add(timeLabel).size(width,height);
+
         addActor(timerTable);
     }
 

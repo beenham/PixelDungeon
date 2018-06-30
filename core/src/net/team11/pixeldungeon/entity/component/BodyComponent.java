@@ -139,18 +139,7 @@ public class BodyComponent implements EntityComponent {
         body.setLinearDamping(2*density);
         body.setLinearVelocity(0,0);
 
-        ArrayList<Float> vertices = new ArrayList<>();
-        for (int i = 0 ; i < shape.getVertexCount() ; i++) {
-            Vector2 vector2 = new Vector2();
-            shape.getVertex(i, vector2);
-            vertices.add(vector2.x);
-            vertices.add(vector2.y);
-        }
-        float[] vertices2 = new float[vertices.size()];
-        for (int i = 0 ; i < vertices.size() ; i++) {
-            vertices2[i] = vertices.get(i);
-        }
-        bodyShape = new Polygon(vertices2);
+        bodyShape = CollisionUtil.createPolygon(shape);
         shape.dispose();
     }
 

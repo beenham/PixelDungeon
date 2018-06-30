@@ -13,6 +13,7 @@ public class TiledMapObjectNames {
     public static final String PILLAR = "pillar";
     public static final String TORCH = "torch";
     public static final String TRAP_ROOM = "trapRoom";
+    public static final String TUTORIAL_ZONE = "tutorialZone";
     public static final String LEVER = "lever";
     public static final String QUICKSAND = "quicksand";
 
