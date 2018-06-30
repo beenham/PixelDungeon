@@ -1,9 +1,11 @@
 {
-  "id":0,
+  "id":2,
   "name":"monsterHunter",
-  "displayName":"The Default Character Skin!",
-  "description":"Buy the default Character skin.",
+  "displayName":"Monster Hunter",
+  "description":"Gotta Catch 'em All!",
   "amount":1,
-  "cost":500,
+  "cost":5000,
+  "buyable":true,
+  "unlock":"Unlocked by default. Fool.",
   "image":null
 }

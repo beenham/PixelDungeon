@@ -7,6 +7,9 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class Skin extends Item {
+    private boolean buyable;
+    private String unlock;
+
     @Override
     public Image getImage() {
         if (image == null) {
@@ -15,5 +18,13 @@ public class Skin extends Item {
                     .findRegion(AssetName.PLAYER_IDLE_DOWN));
         }
         return image;
+    }
+
+    public boolean isBuyable() {
+        return buyable;
+    }
+
+    public String getUnlock() {
+        return unlock;
     }
 }

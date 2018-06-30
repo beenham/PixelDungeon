@@ -1,9 +1,11 @@
 {
-  "id":0,
+  "id":4,
   "name":"one",
-  "displayName":"The Default Character Skin!",
-  "description":"Buy the default Character skin.",
+  "displayName":"Filler!",
+  "description":"some Text.",
   "amount":1,
   "cost":500,
+  "buyable":true,
+  "unlock":"Unlocked by default. Fool.",
   "image":null
 }

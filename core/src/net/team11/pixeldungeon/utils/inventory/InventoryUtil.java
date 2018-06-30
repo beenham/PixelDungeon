@@ -8,24 +8,26 @@ import net.team11.pixeldungeon.inventory.skinselect.Skin;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class InventoryUtil {
     private static InventoryUtil INSTANCE;
     private SkinList skinList;
-    private ArrayList<Skin> skins;
+    private HashMap<Integer,Skin> skins;
 
     private InventoryUtil() {
         skins = readSkins();
         skinList = parseSkinList();
     }
 
-    private ArrayList<Skin> readSkins() {
-        ArrayList<Skin> list = new ArrayList<>();
+    private HashMap<Integer,Skin> readSkins() {
+        HashMap<Integer,Skin> list = new HashMap<>();
         Json json = new Json();
         for (FileHandle file : Gdx.files.internal("shop/shopitems/skins").list()) {
             if (file.toString().endsWith(".json")) {
                 Skin skin = json.fromJson(Skin.class,file);
-                list.add(skin);
+                list.put(skin.getId(),skin);
             }
         }
         return list;
@@ -57,8 +59,12 @@ public class InventoryUtil {
         return internalList;
     }
 
-    public ArrayList<Skin> getSkins() {
+    public HashMap<Integer,Skin> getSkins() {
         return skins;
+    }
+
+    public SkinList getSkinList() {
+        return skinList;
     }
 
     public static InventoryUtil getInstance() {

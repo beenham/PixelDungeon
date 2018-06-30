@@ -197,9 +197,7 @@ public class Hud extends Stage {
 
     private void setupTimer(float width, float height) {
         StatsUtil.getInstance().startTimer();
-        timeLabel = new Label(String.format(Locale.ENGLISH,"%02d : %02d",
-                StatsUtil.getInstance().getTimer() / 60,
-                StatsUtil.getInstance().getTimer() % 60),
+        timeLabel = new Label(StatsUtil.getInstance().getTimerString(),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         timeLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
 
@@ -216,9 +214,7 @@ public class Hud extends Stage {
         if (timer >= 1) {
             StatsUtil.getInstance().incrementTimer();
             timer = 0;
-            timeLabel.setText(String.format(Locale.ENGLISH, "%02d : %02d",
-                    StatsUtil.getInstance().getTimer() / 60,
-                    StatsUtil.getInstance().getTimer() % 60));
+            timeLabel.setText(StatsUtil.getInstance().getTimerString());
         }
         if (interactPressed) {
             interactPressed = false;

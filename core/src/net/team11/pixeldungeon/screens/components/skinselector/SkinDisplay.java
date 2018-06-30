@@ -25,9 +25,6 @@ public class SkinDisplay extends Table {
     private Stack setupSkinSlot() {
         Image icon = skin.getImage();
         float width = icon.getWidth() / (icon.getHeight()/size);
-        System.out.println("w: " + width);
-        System.out.println("h: " + size);
-        icon.setSize(width,size);
         Table iconTable = new Table();
         iconTable.add(icon).size(width,size);
 

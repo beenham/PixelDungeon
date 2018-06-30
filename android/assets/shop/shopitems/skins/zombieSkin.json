@@ -1,9 +1,11 @@
 {
-  "id":0,
+  "id":6,
   "name":"zombie",
-  "displayName":"The Default Character Skin!",
+  "displayName":"Zooombieeees!",
   "description":"Buy the default Character skin.",
   "amount":1,
   "cost":500,
+  "buyable":false,
+  "unlock":"Die 100 times.",
   "image":null
 }

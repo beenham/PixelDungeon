@@ -51,6 +51,7 @@ public class LevelInfo extends Table {
     private void setupTitle() {
         levelName = new Label(statsUtil.getLevelStats(selector.getMap().getMapName()).getLevelName(), Assets.getInstance().getSkin(Assets.UI_SKIN),"title");
         levelName.setFontScale(1.25f * PixelDungeon.SCALAR);
+        levelName.setWrap(true);
 
         Table table = new Table();
         table.add(levelName).bottom().padTop(getHeight()/5);

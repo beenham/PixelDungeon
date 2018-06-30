@@ -1,9 +1,11 @@
 {
-  "id":0,
+  "id":1,
   "name":"mage",
-  "displayName":"The Default Character Skin!",
-  "description":"Buy the default Character skin.",
+  "displayName":"The Mage",
+  "description":"A Wizard Boi for all your Wizard needs.",
   "amount":1,
-  "cost":500,
+  "cost":1500,
+  "buyable":true,
+  "unlock":"Unlocked by default. Fool.",
   "image":null
 }

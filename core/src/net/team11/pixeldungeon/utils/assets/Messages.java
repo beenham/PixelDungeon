@@ -51,8 +51,11 @@ public class Messages {
     public static final String ARROW_RIGHT = ">";
     public static final String BACK_CAMELCASE = "Back";
     public static final String BACK_UPPER = "BACK";
+    public static final String BUY = "Buy";
     public static final String DEATH_MESSAGE_CAMELCASE = "You Died";
     public static final String DONE_CAMELCASE = "Done";
+    public static final String EQUIP = "Equip";
+    public static final String ALREADY_EQUIPPED = "Equipped";
     public static final String GAME_PAUSED_CAMELCASE = "Game Paused";
     public static final String GAME_PAUSED_UPPER = "GAME PAUSED";
     public static final String HOW_TO_PLAY = "HOW TO PLAY";

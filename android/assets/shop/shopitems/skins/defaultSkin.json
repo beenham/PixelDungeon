@@ -2,8 +2,10 @@
   "id":0,
   "name":"default",
   "displayName":"The Default Character Skin!",
-  "description":"Buy the default Character skin.",
+  "description":"A young adventurer setting off on his travels.",
   "amount":1,
   "cost":500,
+  "buyable":false,
+  "unlock":"Unlocked by default. Fool.",
   "image":null
 }

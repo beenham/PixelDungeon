@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class SkinList {
     private float version;
     private HashMap<String, Boolean> skins;
+    private int currentSkin;
 
     public boolean hasSkin(String string) {
         if (skins.containsKey(string)) {
@@ -27,5 +28,9 @@ public class SkinList {
 
     public float getVersion() {
         return version;
+    }
+
+    public int getCurrentSkin() {
+        return currentSkin;
     }
 }
