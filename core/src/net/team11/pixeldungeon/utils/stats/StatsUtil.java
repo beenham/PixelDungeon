@@ -39,6 +39,7 @@ public class StatsUtil {
         for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
             if (file.toString().endsWith(".json") && !levelStats.containsKey(file.nameWithoutExtension())) {
                 LevelStats stats = json.fromJson(LevelStats.class,file);
+                System.out.println(json.toJson(stats));
                 levelStats.put(stats.getFileName(), stats);
                 String filePath = "stats/levels/" + stats.getFileName() + ".json";
                 Gdx.files.local(filePath).writeString(json.toJson(stats),false);

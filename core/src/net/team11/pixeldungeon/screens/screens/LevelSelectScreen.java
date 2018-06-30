@@ -19,7 +19,6 @@ public class LevelSelectScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        //StatisticsUtil.parseGlobalStatistics();
         addActor(setupBackground());
         addActor(setupLeft());
         addActor(setupRight());

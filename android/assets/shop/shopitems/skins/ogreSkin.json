@@ -1,0 +1,9 @@
+{
+  "id":0,
+  "name":"ogre",
+  "displayName":"The Ogre",
+  "description":"Get some layers.",
+  "amount":1,
+  "cost":500,
+  "image":null
+}

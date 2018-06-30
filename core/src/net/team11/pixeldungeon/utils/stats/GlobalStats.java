@@ -6,6 +6,7 @@ public class GlobalStats {
     private int totalAttempts;
     private int totalChestsFound;
     private int totalCoins;
+    private int currentCoins;
     private int totalCompleted;
     private int totalDeaths;
     private int totalItemsFound;
@@ -32,6 +33,10 @@ public class GlobalStats {
 
     public int getTotalCoins() {
         return totalCoins;
+    }
+
+    public int getCurrentCoins() {
+        return currentCoins;
     }
 
     public int getTotalCompleted() {

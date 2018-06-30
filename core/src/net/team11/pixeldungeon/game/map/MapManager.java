@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
@@ -16,15 +17,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapManager {
-    private static MapManager INSTANCE = new MapManager();
+    private static MapManager INSTANCE;
     private EntityEngine engine;
 
-    private HashMap<String, Map> maps = new HashMap<>();
-    private Map currentMap = null;
+    private HashMap<String, Map> maps;
+    private Map currentMap;
     private OrthogonalTiledMapRenderer renderer;
-    private ArrayList<String> mapList = new ArrayList<>();
+    private ArrayList<String> mapList;
 
     private MapManager() {
+        currentMap = null;
+        maps = new HashMap<>();
+        mapList = new ArrayList<>();
+
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
             if (entry.toString().endsWith(".tmx")) {
@@ -145,6 +150,9 @@ public class MapManager {
     }
 
     public static MapManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MapManager();
+        }
         return INSTANCE;
     }
 

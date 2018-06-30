@@ -1,0 +1,9 @@
+{
+  "id":0,
+  "name":"pirate",
+  "displayName":"The Pirate",
+  "description":"Yo Ho Ho\nIt's a pirate life for me.",
+  "amount":1,
+  "cost":500,
+  "image":null
+}

@@ -1,0 +1,9 @@
+{
+  "id":0,
+  "name":"default",
+  "displayName":"The Default Character Skin!",
+  "description":"Buy the default Character skin.",
+  "amount":1,
+  "cost":500,
+  "image":null
+}
