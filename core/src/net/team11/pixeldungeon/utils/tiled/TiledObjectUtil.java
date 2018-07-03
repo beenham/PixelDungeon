@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import net.team11.pixeldungeon.game.entities.beams.BeamGenerator;
+import net.team11.pixeldungeon.game.entities.beams.BeamReflectorMovable;
 import net.team11.pixeldungeon.game.entities.beams.BeamTarget;
 import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.Chest;
@@ -315,8 +316,18 @@ public class TiledObjectUtil {
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
                                     true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
-                            BeamReflector reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(),
-                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                            BeamReflector reflector;
+
+                            if ((boolean)mapObject.getProperties().get(TiledMapProperties.MOVABLE)) {
+                                reflector = new BeamReflectorMovable(rectObject.getRectangle(), rectObject.getName(),
+                                        (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                            } else if ((boolean)mapObject.getProperties().get(TiledMapProperties.ROTATEABLE)) {
+                                reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(),
+                                        (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                            } else {
+                                reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(),
+                                        (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                            }
 
                             puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
                             reflector.setParentPuzzle(engine.getPuzzle(puzzleName));

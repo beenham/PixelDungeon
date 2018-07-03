@@ -215,7 +215,15 @@ public class BodyComponent implements EntityComponent {
         return false;
     }
 
-    public Body getBody() {
-        return body;
+    public void setDensity(float density) {
+        this.density = density;
+    }
+
+    public void setCollision(byte collision) {
+        this.collision = collision;
+    }
+
+    public void setCategory(byte category) {
+        this.category = category;
     }
 }

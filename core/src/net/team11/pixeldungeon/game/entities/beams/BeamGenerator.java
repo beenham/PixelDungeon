@@ -23,6 +23,7 @@ public class BeamGenerator extends PuzzleComponent {
     public BeamGenerator(Rectangle bounds, String name, String direction, Beam beamOut){
         super(name);
         this.beamOut = beamOut;
+        beamOut.setParent(this);
         this.beamDirection = Direction.parseInput(direction);
 
         float posX = bounds.getX() + bounds.getWidth()/2;

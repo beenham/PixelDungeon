@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
+import net.team11.pixeldungeon.game.entity.system.BeamSystem;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 
 import net.team11.pixeldungeon.utils.CollisionUtil;
@@ -18,7 +19,7 @@ import net.team11.pixeldungeon.utils.assets.Assets;
 
 
 public class Beam extends Trap {
-
+    private BeamGenerator generator;
     private Direction beamDirection;
 
     private final int DAMAGE = 100;
@@ -97,4 +98,17 @@ public class Beam extends Trap {
                 + " : " + getComponent(BodyComponent.class).getWidth()
                 + "," + getComponent(BodyComponent.class).getHeight();
     }
+
+    public void setParent(BeamGenerator generator) {
+        this.generator = generator;
+    }
+
+    public float getOriginX() {
+        return generator.getComponent(BodyComponent.class).getX();
+    }
+
+    public float getOriginY() {
+        return generator.getComponent(BodyComponent.class).getY() - BeamSystem.yOffset;
+    }
+
 }

@@ -1757,7 +1757,9 @@
    <properties>
     <property name="direction" value="left"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="false"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="false"/>
    </properties>
   </object>
   <object id="220" name="box_1" x="405.42" y="261.693" width="15" height="10">
@@ -1778,12 +1780,6 @@
     <property name="entity" value="lever"/>
     <property name="target" value="beamGenLeft"/>
     <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="223" name="reflector_01" x="519.693" y="231.614" width="12" height="12">
-   <properties>
-    <property name="direction" value="right"/>
-    <property name="entity" value="reflector"/>
    </properties>
   </object>
   <object id="224" name="beamTarget_01" x="346" y="199" width="8" height="8">
@@ -1816,21 +1812,27 @@
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="true"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="false"/>
    </properties>
   </object>
   <object id="229" name="reflector_01" x="322" y="241" width="12" height="12">
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="false"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="false"/>
    </properties>
   </object>
   <object id="230" name="reflector_01" x="322" y="220" width="12" height="12">
    <properties>
     <property name="direction" value="right"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="false"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
