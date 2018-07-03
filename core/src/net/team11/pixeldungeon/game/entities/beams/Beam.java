@@ -42,7 +42,6 @@ public class Beam extends Trap {
         originX = bounds.getX() + bounds.getWidth()/2;
         originY = bounds.getY() + bounds.getHeight()/2;
 
-        //this.addComponent(new TrapComponent(this));
         this.addComponent(new BodyComponent(WIDTH, DEPTH, originX, originY, 0,
                 (CollisionUtil.TRAP),
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.game.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.system.BeamSystem;
@@ -14,7 +15,7 @@ import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
-public class BeamGenerator extends Entity {
+public class BeamGenerator extends PuzzleComponent {
     protected Direction beamDirection;
     protected Beam beamOut;
     public static float BOX_SIZE = 6f;
@@ -64,6 +65,10 @@ public class BeamGenerator extends Entity {
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
+    }
+
+    public Beam getBeamOut() {
+        return beamOut;
     }
 
     @Override

@@ -221,6 +221,10 @@ public class Puzzle {
 
     public void notifyPressed(PuzzleComponent puzzleComponent) {}
 
+    public ArrayList<PuzzleComponent> getPuzzleComponents() {
+        return puzzleComponents;
+    }
+
     public int getRemainingAttempts() {
         return maxAttempts - attempts;
     }

@@ -86,13 +86,12 @@ public class MapManager {
         currentMap.setLoaded(true);
         System.out.println("Loading new entities in : " + currentMap.getMapName());
 
-        TiledObjectUtil.parseTiledPuzzleLayer(engine, currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
+        TiledObjectUtil.parseTiledPuzzleLayer(engine,PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
         TiledObjectUtil.parseTiledRoomLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.BLOCKS_LAYER));
         TiledObjectUtil.parseTiledEntityLayer(engine, currentMap.getObjects(TiledMapLayers.DOOR_LAYER));
         TiledObjectUtil.parseTiledObjectLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.COLLISION_LAYER));
-        TiledObjectUtil.parseTiledPuzzleLayer(PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
         if (currentMap.hasLayer(TiledMapLayers.TUTORIAL_LAYER)) {
             TiledObjectUtil.parseTiledRoomLayer(engine, currentMap.getObjects(TiledMapLayers.TUTORIAL_LAYER));
         }
