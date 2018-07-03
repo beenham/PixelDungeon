@@ -20,6 +20,7 @@ public class StatsUtil {
 
     private StatsUtil() {
         clearLocal();
+
         if (!Gdx.files.local("stats/").exists()) {
             readInternalLevelFiles();
         } else {

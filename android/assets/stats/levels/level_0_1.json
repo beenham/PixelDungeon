@@ -2,18 +2,16 @@
   "attempts":0,
   "bestTime":0,
   "completed":0,
-  "foundChests": {
-    "chest_1":false,
-    "chest_2":false,
-    "chest_3":false
-  },
-  "foundItems": {
-  },
-  "foundKeys": {
-
-  },
+  "foundChests": {},
+  "foundItems": {},
+  "foundKeys": {},
   "fileName":"level_0_1",
   "levelName":"The Tutorial",
+  "targetTimes": {
+    "Time One": 180,
+    "Time Two": 300,
+    "Time Three": 600
+  },
   "totalChests":0,
   "totalItems":0,
   "totalKeys":0,

@@ -13,6 +13,11 @@
   },
   "fileName":"level_0",
   "levelName":"A Failure",
+  "targetTimes": {
+    "Time One": 180,
+    "Time Two": 300,
+    "Time Three": 600
+  },
   "totalChests":2,
   "totalItems":0,
   "totalKeys":1,

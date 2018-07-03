@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.inventory.skinselect.Skin;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
-import net.team11.pixeldungeon.screens.components.CoinDisplay;
+import net.team11.pixeldungeon.screens.components.coin.CoinDisplay;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;

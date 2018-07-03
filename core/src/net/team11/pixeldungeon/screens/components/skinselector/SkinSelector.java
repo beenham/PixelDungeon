@@ -2,8 +2,6 @@ package net.team11.pixeldungeon.screens.components.skinselector;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -13,7 +11,7 @@ import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.inventory.skinselect.Skin;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
-import net.team11.pixeldungeon.screens.components.CoinDisplay;
+import net.team11.pixeldungeon.screens.components.coin.CoinDisplay;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;

@@ -37,7 +37,7 @@ public class InventoryComponent implements EntityComponent {
                 return item;
             }
         }
-        throw new NoSuchElementException("You don't have this item");
+        return null;
     }
 
     public void removeItem(Item item){

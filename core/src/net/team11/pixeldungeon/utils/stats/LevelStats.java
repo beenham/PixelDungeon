@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class LevelStats {
+    public static final String TARGET_TIME_1 = "Time One";
+    public static final String TARGET_TIME_2 = "Time Two";
+    public static final String TARGET_TIME_3 = "Time Three";
+
     private String fileName;
     private String levelName;
     private int totalChests;
@@ -17,6 +21,7 @@ public class LevelStats {
     private HashMap<String, Boolean> foundChests = new HashMap<>();
     private HashMap<String, Boolean> foundKeys = new HashMap<>();
     private HashMap<String, Boolean> foundItems = new HashMap<>();
+    private HashMap<String, Integer> targetTimes = new HashMap<>();
 
     private boolean tutorial;
 
@@ -87,6 +92,19 @@ public class LevelStats {
     public void submitBestTime(int bestTime) {
         if (bestTime < this.bestTime) {
             this.bestTime = bestTime;
+        }
+    }
+
+    public int getTargetTime(String value) {
+        switch (value) {
+            case TARGET_TIME_1:
+                return targetTimes.get(value);
+            case TARGET_TIME_2:
+                return targetTimes.get(value);
+            case TARGET_TIME_3:
+                return targetTimes.get(value);
+            default:
+                return 0;
         }
     }
 

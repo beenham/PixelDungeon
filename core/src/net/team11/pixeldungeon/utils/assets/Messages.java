@@ -81,6 +81,13 @@ public class Messages {
     public static final String X = "X";
     public static final String YES = "YES";
 
+    public static final String COINS_FOUND_TOTAL = "Coins Found: ";
+    public static final String COINS_TIME_COMPLETED = "Time Completed Bonus: ";
+    public static final String COINS_NO_DEATH_BONUS = "No Death Bonus: ";
+    public static final String COINS_FIRST_TIME = "First Time Bonus: ";
+    public static final String COINS_TOTAL = "Total Coins: ";
+    public static final String COINS_YOUR_TOTAL = "Your Coins: ";
+
     /////   STATS MESSAGES
     public static final String STATS_ATTEMPTED = "Attempted";
     public static final String STATS_LEVELS_ATTEMPTED = "Levels Attempted";

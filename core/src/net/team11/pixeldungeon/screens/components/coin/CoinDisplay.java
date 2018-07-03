@@ -1,4 +1,4 @@
-package net.team11.pixeldungeon.screens.components;
+package net.team11.pixeldungeon.screens.components.coin;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,20 +11,24 @@ import net.team11.pixeldungeon.utils.assets.Assets;
 import java.util.Locale;
 
 public class CoinDisplay extends Table {
+    private int value;
+    private Label valueLabel;
+
     public CoinDisplay(float size, int amount) {
+        value = amount;
         setupCoinDisplay(size,amount);
     }
 
     private void setupCoinDisplay(float size, int amount) {
         Image coin = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
                 .findRegion(AssetName.COIN));
-        Label label = new Label(
+        valueLabel = new Label(
                 numberToString(amount),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
-        label.setFontScale(PixelDungeon.SCALAR);
+        valueLabel.setFontScale(PixelDungeon.SCALAR);
 
         add(coin).size(size).padRight(size/2);
-        add(label);
+        add(valueLabel);
     }
 
     private String numberToString(int value) {
@@ -38,5 +42,14 @@ public class CoinDisplay extends Table {
             return String.format(Locale.UK,
                     "%d", value);
         }
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+        valueLabel.setText(numberToString(value));
     }
 }

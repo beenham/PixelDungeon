@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="490">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="491">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer name="background" width="100" height="100" locked="1">
   <data encoding="csv">
@@ -3324,7 +3324,7 @@
    <polyline points="0,0 0,272 192,272 192,288 224,288 224,272 272,272 272,64 320,64 320,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" name="blocks" visible="0" locked="1">
+ <objectgroup color="#ff9500" name="blocks">
   <object id="23" name="chest_1" x="816" y="328" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
@@ -3399,6 +3399,15 @@
   <object id="186" name="pillar" x="465" y="404" width="14" height="8">
    <properties>
     <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="490" name="chest_5" x="144" y="432" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="200"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="coin"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
@@ -3515,9 +3524,9 @@
    <polyline points="0,0 0,64 32,64 32,96 0,96 0,112 64,112 64,208 0,208 0,224 208,224 208,384 256,384 256,272 384,272 384,320 432,320 432,192 256,192 256,-32 608,-32 608,592 432,592 432,544 304,544 304,432 432,432 432,352 384,352 384,416 224,416 208,416 208,688 320,688 320,672 304,672 304,608 368,608 368,672 352,672 352,688 656,688 656,-80 128,-80 128,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points" visible="0">
+ <objectgroup color="#ffffff" name="points">
   <object id="2" name="playerSpawn" x="200" y="464" width="16" height="16"/>
-  <object id="203" name="mapExitPoint" x="512" y="224" width="32" height="24"/>
+  <object id="203" name="mapExitPoint" x="192" y="352" width="32" height="24"/>
  </objectgroup>
  <objectgroup color="#04ff00" name="puzzle" visible="0" locked="1"/>
 </map>
