@@ -102,13 +102,4 @@ public class Beam extends Trap {
     public void setParent(BeamGenerator generator) {
         this.generator = generator;
     }
-
-    public float getOriginX() {
-        return generator.getComponent(BodyComponent.class).getX();
-    }
-
-    public float getOriginY() {
-        return generator.getComponent(BodyComponent.class).getY() - BeamSystem.yOffset;
-    }
-
 }
