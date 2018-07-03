@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Polygon;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entities.beams.Beam;
 
+import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.PressurePlate;
 
 import net.team11.pixeldungeon.game.entities.blocks.Torch;
@@ -26,6 +27,7 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -35,6 +37,9 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch spriteBatch;
     private Player player;
     private List<Entity> entities;
+    private List<Entity> alwaysBottom;
+    private List<Entity> moveableEntities;
+
     private List<Entity> drawList;
     private MapManager mapManager;
 
@@ -47,9 +52,24 @@ public class RenderSystem extends EntitySystem {
         mapManager = MapManager.getInstance();
 
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
+
+        moveableEntities = new ArrayList<>();
+        alwaysBottom = new ArrayList<>();
         entities = new ArrayList<>();
-        entities = entityEngine.getEntities(AnimationComponent.class);
-        drawList = new ArrayList<>();
+
+        List<Entity> entityList = entityEngine.getEntities(AnimationComponent.class);
+        for (Entity entity : entityList) {
+            if (entity instanceof Player
+                    || entity instanceof Box) {
+                moveableEntities.add(entity);
+            } else if (entity instanceof PressurePlate) {
+                alwaysBottom.add(entity);
+            } else {
+                entities.add(entity);
+            }
+        }
+
+        insertionSort(entities);
     }
 
     @Override
@@ -58,36 +78,49 @@ public class RenderSystem extends EntitySystem {
         mapManager.renderEnvironment();
 
         drawList = new ArrayList<>();
-        ArrayList<Entity> restOfList = sortDrawList();
+        drawList = sortList();
 
         spriteBatch.begin();
-        for (Entity entity : drawList) {
-            if (entity instanceof Torch && ((int)(delta*100000))%6 == 0) {
-                ((Torch) entity).setLightSize(new Random().nextInt(10)+40f);
+        for (Entity entity : sortList()) {
+            if (entity instanceof Torch && ((int) (delta * 100000)) % 6 == 0) {
+                ((Torch) entity).setLightSize(new Random().nextInt(10) + 40f);
             }
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
+            //System.out.println("Entity : " + entity + " y: " + bodyComponent.getY());
             Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
-            float width = currentAnimation.getKeyFrame(0).getRegionWidth();
-            int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
-            if (!(entity instanceof Beam)) {
-                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                        bodyComponent.getX() - width/2,
-                        bodyComponent.getY() - bodyComponent.getHeight()/2,
-                        width,
-                        height);
-            } else {
-                if (((Beam) entity).isOn()) {
+
+            float bleed = 64 * PixelDungeon.SCALAR;
+            Polygon cameraBox = CollisionUtil.createRectangle(
+                    PlayScreen.gameCam.position.x,
+                    PlayScreen.gameCam.position.y,
+                    PlayScreen.gameCam.viewportWidth*0.1f+bleed*2,
+                    PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
+            Polygon entityBox = bodyComponent.getPolygon();
+
+            if (CollisionUtil.isOverlapping(cameraBox,entityBox)) {
+                float width = currentAnimation.getKeyFrame(0).getRegionWidth();
+                int height = currentAnimation.getKeyFrame(0).getRegionHeight();
+
+                if (!(entity instanceof Beam)) {
                     spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                            bodyComponent.getX() - bodyComponent.getWidth()/2,
-                            bodyComponent.getY() - bodyComponent.getHeight()/2,
-                            bodyComponent.getWidth(),
-                            bodyComponent.getHeight());
+                            bodyComponent.getX() - width / 2,
+                            bodyComponent.getY() - bodyComponent.getHeight() / 2,
+                            width,
+                            height);
+                } else {
+                    if (((Beam) entity).isOn()) {
+                        spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                                bodyComponent.getX() - bodyComponent.getWidth() / 2,
+                                bodyComponent.getY() - bodyComponent.getHeight() / 2,
+                                bodyComponent.getWidth(),
+                                bodyComponent.getHeight());
+                    }
                 }
             }
 
-            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
+            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * RenderSystem.FRAME_SPEED));
             if (animationComponent.getCurrentAnimation().getPlayMode() == Animation.PlayMode.NORMAL) {
                 if (animationComponent.getCurrentAnimation().isAnimationFinished(animationComponent.getStateTime())) {
                     animationComponent.setAnimation(animationComponent.getPreviousAnimation());
@@ -95,16 +128,6 @@ public class RenderSystem extends EntitySystem {
             }
         }
         spriteBatch.end();
-
-        for (Entity entity : restOfList) {
-            AnimationComponent animComp = entity.getComponent(AnimationComponent.class);
-            animComp.setStateTime(animComp.getStateTime() + (delta * FRAME_SPEED));
-            if (animComp.getCurrentAnimation().getPlayMode() == Animation.PlayMode.NORMAL) {
-                if (animComp.getCurrentAnimation().isAnimationFinished(animComp.getStateTime())) {
-                    animComp.setAnimation(animComp.getPreviousAnimation());
-                }
-            }
-        }
 
         mapManager.renderWallTop();
     }
@@ -237,5 +260,58 @@ public class RenderSystem extends EntitySystem {
             drawList.add(0,entity);
         }
         return restOfList;
+    }
+
+    private List<Entity> sortList() {
+        List<Entity> drawList = new ArrayList<>(entities);
+        for (Entity entity : moveableEntities) {
+            drawList.add(drawList.size()/2,entity);
+
+
+            // 5 - 4 - 3 - 2 - 1
+
+            int currIndex = drawList.indexOf(entity);
+            float currY = entity.getComponent(BodyComponent.class).getY();
+            float prevY = drawList.get(currIndex-1).getComponent(BodyComponent.class).getY();
+            float nextY = drawList.get(currIndex+1).getComponent(BodyComponent.class).getY();
+
+            while (!(prevY > currY && currY >= nextY)) {
+                if (currY >= prevY) {
+                    Collections.swap(drawList, currIndex, currIndex - 1);
+                    currIndex--;
+                } else if (nextY > currY) {
+                    Collections.swap(drawList, currIndex, currIndex + 1);
+                    currIndex++;
+                }
+                if (currIndex < drawList.size()-1 && currIndex > 0) {
+                    prevY = drawList.get(currIndex - 1).getComponent(BodyComponent.class).getY();
+                    nextY = drawList.get(currIndex + 1).getComponent(BodyComponent.class).getY();
+                } else {
+                    break;
+                }
+            }
+        }
+
+        for (Entity entity : alwaysBottom) {
+            drawList.add(0,entity);
+        }
+        return drawList;
+    }
+
+    private void insertionSort(List<Entity> list) {
+        for (int i=1; i < list.size(); i++) {
+            Entity key = list.get(i);
+            int j = i;
+
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while (j > 0 && list.get(j - 1).getComponent(BodyComponent.class).getY() <=
+                    key.getComponent(BodyComponent.class).getY()) {
+                list.set(j,list.get(j-1));
+                j--;
+            }
+            list.set(j,key);
+        }
     }
 }
