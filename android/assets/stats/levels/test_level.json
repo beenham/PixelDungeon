@@ -17,6 +17,11 @@
   },
   "fileName":"test_level",
   "levelName":"Testing Zone",
+  "targetTimes": {
+    "Time One": 180,
+    "Time Two": 300,
+    "Time Three": 600
+  },
   "totalChests":4,
   "totalItems":0,
   "totalKeys":3,

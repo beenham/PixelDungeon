@@ -21,13 +21,6 @@ public class LevelPuzzle extends Puzzle {
     }
 
     @Override
-    protected void init() {
-        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
-    }
-
-    @Override
     public void addComponent(PuzzleComponent puzzleComponent) {
         super.addComponent(puzzleComponent);
         if (puzzleComponent instanceof CompletedIndicator) {

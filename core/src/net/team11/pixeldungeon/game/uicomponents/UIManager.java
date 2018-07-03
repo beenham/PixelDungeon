@@ -8,6 +8,7 @@ import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.items.Item;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.game.uicomponents.inventory.InventoryUI;
+import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 public class UIManager {
     private DeathMenu deathMenu;
@@ -48,6 +49,7 @@ public class UIManager {
     }
 
     public void showPauseMenu(boolean screenCall) {
+        StatsUtil.getInstance().saveTimer();
         if (screenCall) {
             ScreenManager.getInstance().getScreen().pause();
         }

@@ -12,7 +12,6 @@ public class CoinAwarder {
 
     private final int firstTimeCoins = 500;
     private final int completeCoins = 50;
-    private final int noDeathMultiplier = 2;
 
     private int timeCoins;
     private int foundCoins;
@@ -93,8 +92,6 @@ public class CoinAwarder {
         if (firstTime) {
             totalCoinCount += firstTimeCoins;
         }
-
-        System.out.println("TOTAL : " + totalCoinCount);
     }
 
     public int getTotalCoinCount() {
@@ -103,10 +100,6 @@ public class CoinAwarder {
 
     public int getFirstTimeCoins() {
         return firstTimeCoins;
-    }
-
-    public int getNoDeathMultiplier() {
-        return noDeathMultiplier;
     }
 
     public int getTimeCoins() {

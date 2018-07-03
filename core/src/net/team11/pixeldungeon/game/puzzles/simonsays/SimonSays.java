@@ -55,9 +55,7 @@ public class SimonSays extends Puzzle{
     @Override
     protected void init() {
         if (attempts < maxAttempts) {
-            StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-            StatsUtil.getInstance().saveGlobalStats();
-            StatsUtil.getInstance().saveTimer();
+            super.init();
             updateAssets(AssetName.SS_SWITCH_IDLE,AssetName.PUZZLECONTROLLER_ACTIVATED);
             generateSequence();
             trigger();

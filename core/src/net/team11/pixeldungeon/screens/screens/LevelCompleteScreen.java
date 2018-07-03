@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.map.MapManager;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
@@ -60,7 +61,6 @@ public class LevelCompleteScreen extends AbstractScreen {
         updateLevelStats();
         statsUtil.saveTimer();
         coinAwarder = new CoinAwarderDisplay(inventory);
-        updateCoinStats();
     }
 
     private void updateLevelStats() {
@@ -85,15 +85,10 @@ public class LevelCompleteScreen extends AbstractScreen {
         AchivementStats.updateStats(statsUtil.getCurrentStats(),levelStats);
     }
 
-    private void updateCoinStats() {
-        GlobalStats gStats = statsUtil.getGlobalStats();
-    }
-
     @Override
     public void buildStage() {
         addActor(setupBackground());
         addActor(buildScreen());
-        this.paused = false;
     }
 
     private Image setupBackground() {
@@ -130,7 +125,7 @@ public class LevelCompleteScreen extends AbstractScreen {
                 .pad(padding,padding,padding,padding*4).right();
         mainTable.row();
         mainTable.add(coinAwarder)
-                .pad(padding,padding*4,padding,padding).top().left().expandX().fill();
+                .pad(padding,padding*4,padding,padding).top().left().expand();
         mainTable.add(playerStats())
                 .pad(padding,padding,padding,padding*4).top().right().expandY().fillY();
         mainTable.row();
@@ -150,7 +145,7 @@ public class LevelCompleteScreen extends AbstractScreen {
 
     private Table playerStats() {
         LevelStats stats = statsUtil.getLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
-        float fontSize = PixelDungeon.SCALAR;
+        float fontSize = PixelDungeon.SCALAR * 0.75f;
 
         Table playerStats = new Table();
 
@@ -159,31 +154,31 @@ public class LevelCompleteScreen extends AbstractScreen {
                 chestValue,
                 stats.getTotalChests()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
-        chests.setFontScale(PixelDungeon.SCALAR);
-        chestsVal.setFontScale(PixelDungeon.SCALAR);
+        chests.setFontScale(fontSize);
+        chestsVal.setFontScale(fontSize);
 
         Label keys = new Label(Messages.STATS_KEYS_FOUND+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         keysVal = new Label(String.format(Locale.UK,"%d/%d",
                 keysValue,
                 stats.getTotalKeys()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
-        keys.setFontScale(PixelDungeon.SCALAR);
-        keysVal.setFontScale(PixelDungeon.SCALAR);
+        keys.setFontScale(fontSize);
+        keysVal.setFontScale(fontSize);
 
         Label items = new Label(Messages.STATS_ITEMS_FOUND+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         itemsVal = new Label(String.format(Locale.UK,"%d/%d",
                 itemsValue,
                 stats.getTotalItems()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
-        items.setFontScale(PixelDungeon.SCALAR);
-        itemsVal.setFontScale(PixelDungeon.SCALAR);
+        items.setFontScale(fontSize);
+        itemsVal.setFontScale(fontSize);
 
         Label deaths = new Label(Messages.STATS_DEATHS+":  ", Assets.getInstance().getSkin(Assets.UI_SKIN));
         deathsVal = new Label(String.format(Locale.UK,"%d",
                 deathsValue),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
-        deaths.setFontScale(PixelDungeon.SCALAR);
-        deathsVal.setFontScale(PixelDungeon.SCALAR);
+        deaths.setFontScale(fontSize);
+        deathsVal.setFontScale(fontSize);
 
         playerStats.add(chests).left();
         playerStats.add(chestsVal).right().padLeft(padding);
@@ -224,7 +219,7 @@ public class LevelCompleteScreen extends AbstractScreen {
                                 format(Locale.UK, Messages.STATS_BEST_TIME + ":  %02d:%02d", timeVal / 60, timeVal % 60));
                     }
                     if (statsUtil.getTimer() - timeVal <= 10) {
-                        speed += 0.05f;
+                        speed += 0.025f;
                     }
                     timer = 0;
                 }

@@ -50,6 +50,9 @@ public class Puzzle {
     }
 
     protected void init() {
+        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
+        StatsUtil.getInstance().saveGlobalStats();
+        StatsUtil.getInstance().saveTimer();
     }
 
     public boolean isActivated() {

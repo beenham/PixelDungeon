@@ -2,13 +2,13 @@ package net.team11.pixeldungeon.screens.components.coin;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.sun.nio.sctp.PeerAddressChangeNotification;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.CoinAwarder;
+import net.team11.pixeldungeon.utils.stats.GlobalStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 public class CoinAwarderDisplay extends Table {
@@ -19,7 +19,6 @@ public class CoinAwarderDisplay extends Table {
     private CoinDisplay timedCoins;
     private CoinDisplay deathCoins;
     private CoinDisplay firstTimeCoins;
-    private CoinDisplay totalCoins;
     private CoinDisplay yourTotalCoins;
     private float labelSize;
     private float fontSize;
@@ -30,8 +29,11 @@ public class CoinAwarderDisplay extends Table {
 
         coinAwarder = CoinAwarder.getInstance();
         coinAwarder.init(inventory);
-        yourCoins = StatsUtil.getInstance().getGlobalStats().getCurrentCoins() -
-            coinAwarder.getTotalCoinCount();
+
+        GlobalStats gStats = StatsUtil.getInstance().getGlobalStats();
+        yourCoins = gStats.getCurrentCoins();
+        gStats.addCoinsFound(coinAwarder.getTotalCoinCount());
+        gStats.addCurrentCoins(coinAwarder.getTotalCoinCount());
 
         buildTable();
     }
@@ -53,39 +55,9 @@ public class CoinAwarderDisplay extends Table {
             add(setupFirstTimeValue()).right();
             row().padTop(padding);
         }
-        add(setupTotalLabel()).left();
-        add(setupTotalValue()).right();
         row().padTop(padding*2);
         add(setupYourTotalLabel()).left();
-        add(setupYourTotalValue()).right().expandX();
-    }
-
-    private Label setupTimerLabel() {
-        Label label = new Label(
-                Messages.COINS_TIME_COMPLETED,
-                Assets.getInstance().getSkin(Assets.UI_SKIN)
-        );
-        label.setFontScale(fontSize);
-        return label;
-    }
-
-    private Table setupTimerValue() {
-        timedCoins = new CoinDisplay(labelSize,0);
-        return timedCoins;
-    }
-
-    private Label setupDeathBonusLabel() {
-        Label label = new Label(
-                Messages.COINS_NO_DEATH_BONUS,
-                Assets.getInstance().getSkin(Assets.UI_SKIN)
-        );
-        label.setFontScale(fontSize);
-        return label;
-    }
-
-    private Table setupDeathBonusValue() {
-        deathCoins = new CoinDisplay(labelSize,0);
-        return deathCoins;
+        add(setupYourTotalValue()).right().padLeft(padding*2);
     }
 
     private Label setupFoundLabel() {
@@ -99,36 +71,36 @@ public class CoinAwarderDisplay extends Table {
     }
 
     private Table setupFoundValue() {
-        foundCoins = new CoinDisplay(labelSize,0);
+        foundCoins = new CoinDisplay(labelSize,fontSize,0);
         return foundCoins;
     }
 
-    private Label setupTotalLabel() {
+    private Label setupTimerLabel() {
         Label label = new Label(
-                Messages.COINS_TOTAL,
+                Messages.COINS_TIME_COMPLETED,
                 Assets.getInstance().getSkin(Assets.UI_SKIN)
         );
         label.setFontScale(fontSize);
         return label;
     }
 
-    private Table setupTotalValue() {
-        totalCoins = new CoinDisplay(labelSize,0);
-        return totalCoins;
+    private Table setupTimerValue() {
+        timedCoins = new CoinDisplay(labelSize,fontSize,0);
+        return timedCoins;
     }
 
-    private Label setupYourTotalLabel() {
+    private Label setupDeathBonusLabel() {
         Label label = new Label(
-                Messages.COINS_YOUR_TOTAL,
+                Messages.COINS_NO_DEATH_BONUS,
                 Assets.getInstance().getSkin(Assets.UI_SKIN)
         );
         label.setFontScale(fontSize);
         return label;
     }
 
-    private Table setupYourTotalValue() {
-        yourTotalCoins = new CoinDisplay(labelSize,yourCoins);
-        return yourTotalCoins;
+    private Table setupDeathBonusValue() {
+        deathCoins = new CoinDisplay(labelSize,fontSize,0);
+        return deathCoins;
     }
 
     private Label setupFirstTimeLabel() {
@@ -141,26 +113,37 @@ public class CoinAwarderDisplay extends Table {
     }
 
     private Table setupFirstTimeValue() {
-        firstTimeCoins = new CoinDisplay(labelSize,0);
+        firstTimeCoins = new CoinDisplay(labelSize,fontSize,0);
         return firstTimeCoins;
+    }
+
+    private Label setupYourTotalLabel() {
+        Label label = new Label(
+                Messages.COINS_YOUR_TOTAL,
+                Assets.getInstance().getSkin(Assets.UI_SKIN)
+        );
+        label.setFontScale(fontSize);
+        return label;
+    }
+
+    private Table setupYourTotalValue() {
+        yourTotalCoins = new CoinDisplay(labelSize,fontSize,yourCoins);
+        return yourTotalCoins;
     }
 
     public void update() {
         if (foundCoins.getValue() < coinAwarder.getFoundCoins()) {
             foundCoins.setValue(foundCoins.getValue() + 10);
-            totalCoins.setValue(totalCoins.getValue() + 10);
+            yourTotalCoins.setValue(yourTotalCoins.getValue() + 10);
         } else if (timedCoins.getValue() < coinAwarder.getTimeCoins()) {
             timedCoins.setValue(timedCoins.getValue() + 10);
-            totalCoins.setValue(totalCoins.getValue() + 10);
+            yourTotalCoins.setValue(yourTotalCoins.getValue() + 10);
         } else if (deathCoins.getValue() < coinAwarder.getNoDeathValue()) {
             deathCoins.setValue(deathCoins.getValue() + 10);
-            totalCoins.setValue(totalCoins.getValue() + 10);
+            yourTotalCoins.setValue(yourTotalCoins.getValue() + 10);
         } else if (coinAwarder.isFirstTime() &&
                 (firstTimeCoins.getValue() < coinAwarder.getFirstTimeCoins())) {
             firstTimeCoins.setValue(firstTimeCoins.getValue() + 10);
-            totalCoins.setValue(totalCoins.getValue() + 10);
-        } else if (totalCoins.getValue() > 0) {
-            totalCoins.setValue(totalCoins.getValue() - 10);
             yourTotalCoins.setValue(yourTotalCoins.getValue() + 10);
         }
     }

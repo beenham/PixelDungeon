@@ -11,7 +11,6 @@ import net.team11.pixeldungeon.utils.assets.Messages;
  *  Beam Puzzle : Hit all the targets and watch the magic happen!
  */
 public class BeamPuzzle extends Puzzle {
-
     public BeamPuzzle(String name){
         super(name);
         maxAttempts = 1;
@@ -36,10 +35,8 @@ public class BeamPuzzle extends Puzzle {
     public void onComplete(){
         super.onComplete();
         activated = false;
-        this.completed = true;
-        String message = Messages.BEAM_COMPLETE_01 + ".\n";
-        PlayScreen.uiManager.initTextBox(message);
         completed = true;
+        PlayScreen.uiManager.initTextBox(Messages.BEAM_COMPLETE_01);
         trigger();
     }
 }

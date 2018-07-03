@@ -137,7 +137,7 @@ public class SkinInfo extends Table {
                             InventoryUtil.getInstance().save();
 
                             StatsUtil.getInstance().getGlobalStats()
-                                    .subtractCoins(skins.get(currentSkin).getCost());
+                                    .subtractCurrentCoins(skins.get(currentSkin).getCost());
                             StatsUtil.getInstance().saveGlobalStats();
                             update(currentSkin);
                             return super.touchDown(event, x, y, pointer, button);

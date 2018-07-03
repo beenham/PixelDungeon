@@ -26,13 +26,6 @@ public class BoxPuzzle extends Puzzle {
     }
 
     @Override
-    protected void init() {
-        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
-    }
-
-    @Override
     public void update(float delta) {
         /*
         for (PuzzleComponent component : puzzleComponents) {

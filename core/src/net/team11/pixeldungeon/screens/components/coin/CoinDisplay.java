@@ -16,16 +16,21 @@ public class CoinDisplay extends Table {
 
     public CoinDisplay(float size, int amount) {
         value = amount;
-        setupCoinDisplay(size,amount);
+        setupCoinDisplay(size,PixelDungeon.SCALAR,amount);
     }
 
-    private void setupCoinDisplay(float size, int amount) {
+    public CoinDisplay(float size, float fontSize, int amount) {
+        value = amount;
+        setupCoinDisplay(size,fontSize,amount);
+    }
+
+    private void setupCoinDisplay(float size, float fontSize, int amount) {
         Image coin = new Image(Assets.getInstance().getTextureSet(Assets.ITEMS)
                 .findRegion(AssetName.COIN));
         valueLabel = new Label(
                 numberToString(amount),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
-        valueLabel.setFontScale(PixelDungeon.SCALAR);
+        valueLabel.setFontScale(fontSize);
 
         add(coin).size(size).padRight(size/2);
         add(valueLabel);

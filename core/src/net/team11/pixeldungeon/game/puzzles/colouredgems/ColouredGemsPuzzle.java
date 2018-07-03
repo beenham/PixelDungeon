@@ -46,6 +46,7 @@ public class ColouredGemsPuzzle extends Puzzle {
 
     @Override
     protected void init() {
+        super.init();
         ArrayList<Colour> colours = new ArrayList<>();
         colours.add(Colour.BLUE);
         colours.add(Colour.PURPLE);

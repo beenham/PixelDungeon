@@ -109,13 +109,17 @@ public class GlobalStats {
 
     public void addChestsFound(int chests) {totalChestsFound+=chests;}
 
-    public void addCoinsFound(int coins) {totalChestsFound+=coins;}
+    public void addCoinsFound(int coins) {totalCoins+=coins;}
 
     public void addKeysFound(int keys) {totalKeysFound+=keys;}
 
     public void addItemsFound(int items) {totalItemsFound+=items;}
 
-    public void subtractCoins(int coins) {
+    public void subtractCurrentCoins(int coins) {
         currentCoins -= coins;
+    }
+
+    public void addCurrentCoins(int coins) {
+        currentCoins += coins;
     }
 }
