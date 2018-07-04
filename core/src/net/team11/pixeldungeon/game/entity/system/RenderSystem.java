@@ -38,10 +38,13 @@ public class RenderSystem extends EntitySystem {
     private Player player;
     private List<Entity> entities;
     private List<Entity> alwaysBottom;
-    private List<Entity> moveableEntities;
+    private List<Entity> movableEntities;
 
     private List<Entity> drawList;
     private MapManager mapManager;
+
+    private int loopIterations;
+    private boolean init;
 
     public RenderSystem(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
@@ -53,7 +56,7 @@ public class RenderSystem extends EntitySystem {
 
         player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
 
-        moveableEntities = new ArrayList<>();
+        movableEntities = new ArrayList<>();
         alwaysBottom = new ArrayList<>();
         entities = new ArrayList<>();
 
@@ -61,7 +64,8 @@ public class RenderSystem extends EntitySystem {
         for (Entity entity : entityList) {
             if (entity instanceof Player
                     || entity instanceof Box) {
-                moveableEntities.add(entity);
+                movableEntities.add(entity);
+                entities.add(entity);
             } else if (entity instanceof PressurePlate) {
                 alwaysBottom.add(entity);
             } else {
@@ -69,19 +73,31 @@ public class RenderSystem extends EntitySystem {
             }
         }
 
+        init = true;
+
         insertionSort(entities);
     }
 
     @Override
     public void update(float delta) {
+        System.out.println("FRAMERATE : " + 1 / delta);
+        if (init) {
+            insertionSort(entities);
+            init = false;
+        }
+        loopIterations = 0;
+
         mapManager.renderBackGround();
         mapManager.renderEnvironment();
 
-        drawList = new ArrayList<>();
-        drawList = sortList();
+        drawList = new ArrayList<>(sortList());
+        for (Entity entity : alwaysBottom) {
+            drawList.add(0,entity);
+        }
 
         spriteBatch.begin();
         for (Entity entity : sortList()) {
+            loopIterations++;
             if (entity instanceof Torch && ((int) (delta * 100000)) % 6 == 0) {
                 ((Torch) entity).setLightSize(new Random().nextInt(10) + 40f);
             }
@@ -263,37 +279,67 @@ public class RenderSystem extends EntitySystem {
     }
 
     private List<Entity> sortList() {
-        List<Entity> drawList = new ArrayList<>(entities);
-        for (Entity entity : moveableEntities) {
-            drawList.add(drawList.size()/2,entity);
-
-
+        List<Entity> drawList = entities;
+        for (Entity entity : movableEntities) {
             // 5 - 4 - 3 - 2 - 1
 
+            loopIterations++;
             int currIndex = drawList.indexOf(entity);
-            float currY = entity.getComponent(BodyComponent.class).getY();
-            float prevY = drawList.get(currIndex-1).getComponent(BodyComponent.class).getY();
-            float nextY = drawList.get(currIndex+1).getComponent(BodyComponent.class).getY();
 
-            while (!(prevY > currY && currY >= nextY)) {
-                if (currY >= prevY) {
-                    Collections.swap(drawList, currIndex, currIndex - 1);
-                    currIndex--;
-                } else if (nextY > currY) {
-                    Collections.swap(drawList, currIndex, currIndex + 1);
-                    currIndex++;
+            float currY = entity.getComponent(BodyComponent.class).getY();
+            float prevY;
+            float nextY;
+
+            if (currIndex > 0 && currIndex < drawList.size()-1) {
+                prevY = drawList.get(currIndex - 1).getComponent(BodyComponent.class).getY();
+                nextY = drawList.get(currIndex + 1).getComponent(BodyComponent.class).getY();
+
+                while (!(prevY > currY && currY >= nextY)) {
+                    loopIterations++;
+                    if (currY >= prevY) {
+                        Collections.swap(drawList, currIndex, currIndex - 1);
+                        currIndex--;
+                    } else if (nextY > currY) {
+                        Collections.swap(drawList, currIndex, currIndex + 1);
+                        currIndex++;
+                    }
+                    if (currIndex < drawList.size()-1 && currIndex > 0) {
+                        prevY = drawList.get(currIndex - 1).getComponent(BodyComponent.class).getY();
+                        nextY = drawList.get(currIndex + 1).getComponent(BodyComponent.class).getY();
+                    } else {
+                        break;
+                    }
                 }
-                if (currIndex < drawList.size()-1 && currIndex > 0) {
-                    prevY = drawList.get(currIndex - 1).getComponent(BodyComponent.class).getY();
-                    nextY = drawList.get(currIndex + 1).getComponent(BodyComponent.class).getY();
-                } else {
-                    break;
+            } else if (currIndex == 0) {
+                nextY = drawList.get(currIndex + 1).getComponent(BodyComponent.class).getY();
+
+                while (!(currY >= nextY)) {
+                    loopIterations++;
+                    if (nextY > currY) {
+                        Collections.swap(drawList, currIndex, currIndex + 1);
+                        currIndex++;
+                    }
+                    if (currIndex < drawList.size()-1 && currIndex > 0) {
+                        nextY = drawList.get(currIndex + 1).getComponent(BodyComponent.class).getY();
+                    } else {
+                        break;
+                    }
+                }
+            } else if (currIndex == drawList.size() - 1) {
+                prevY = drawList.get(currIndex - 1).getComponent(BodyComponent.class).getY();
+                while (!(prevY > currY)) {
+                    loopIterations++;
+                    if (currY >= prevY) {
+                        Collections.swap(drawList, currIndex, currIndex - 1);
+                        currIndex--;
+                    }
+                    if (currIndex < drawList.size()-1 && currIndex > 0) {
+                        prevY = drawList.get(currIndex - 1).getComponent(BodyComponent.class).getY();
+                    } else {
+                        break;
+                    }
                 }
             }
-        }
-
-        for (Entity entity : alwaysBottom) {
-            drawList.add(0,entity);
         }
         return drawList;
     }
