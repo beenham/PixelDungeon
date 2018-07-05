@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.game.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.system.BeamSystem;
@@ -14,15 +15,14 @@ import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
-public class BeamGenerator extends Entity {
-    protected Direction beamDirection;
+public class BeamGenerator extends PuzzleComponent {
     protected Beam beamOut;
     public static float BOX_SIZE = 6f;
 
-    public BeamGenerator(Rectangle bounds, String name, String direction, Beam beamOut){
+    public BeamGenerator(Rectangle bounds, String name, Beam beamOut){
         super(name);
         this.beamOut = beamOut;
-        this.beamDirection = Direction.parseInput(direction);
+        beamOut.setParent(this);
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
@@ -42,7 +42,7 @@ public class BeamGenerator extends Entity {
 
     protected void setupBeam(float x, float y) {
         float offset = 0.1f;
-        switch (beamDirection) {
+        switch (beamOut.getBeamDirection()) {
             case UP:
                 y += (BOX_SIZE/2 + Beam.DEPTH/2 + offset);
                 break;
@@ -56,14 +56,24 @@ public class BeamGenerator extends Entity {
                 x += (BOX_SIZE/2 + Beam.DEPTH/2 + offset);
                 break;
         }
+        beamOut.setOn(beamOut.isOn());
         beamOut.getComponent(BodyComponent.class).setCoords(x,y);
+
     }
 
     private void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
+        if (beamOut.isOn()) {
+            animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
+        } else {
+            animationComponent.setAnimation(AssetName.BEAM_GENERATOR_OFF);
+        }
+    }
+
+    public Beam getBeamOut() {
+        return beamOut;
     }
 
     @Override

@@ -93,6 +93,10 @@ com_crashlytics_export_strings.xml
 /ios/nbdist/
 /ios-moe/nbdist/
 
+/release
+/android/release
+*.apk
+
 nbactions.xml
 nb-configuration.xml
 

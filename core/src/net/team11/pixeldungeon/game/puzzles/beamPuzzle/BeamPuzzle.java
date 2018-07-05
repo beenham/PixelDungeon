@@ -1,32 +1,52 @@
 package net.team11.pixeldungeon.game.puzzles.beamPuzzle;
 
+import com.badlogic.gdx.math.Polygon;
+
 import net.team11.pixeldungeon.game.entities.beams.BeamTarget;
+import net.team11.pixeldungeon.game.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  *  Beam Puzzle : Hit all the targets and watch the magic happen!
  */
 public class BeamPuzzle extends Puzzle {
-    public BeamPuzzle(String name){
+    private Polygon bounds;
+    private List<BeamTarget> targets;
+
+    public BeamPuzzle(String name, Polygon bounds){
         super(name);
+        targets = new ArrayList<>();
+        this.bounds = bounds;
         maxAttempts = 1;
         attempts = 0;
         activate();
     }
 
     @Override
+    public void addComponent(PuzzleComponent puzzleComponent) {
+        super.addComponent(puzzleComponent);
+        System.out.println("ADDED : " + puzzleComponent);
+        if (puzzleComponent instanceof BeamTarget) {
+            targets.add((BeamTarget)puzzleComponent);
+        }
+    }
+
+    @Override
     public void update(float delta){
         int targetCount = 0;
-        for (Entity entity : puzzleComponents) {
-            if (entity instanceof BeamTarget && ((BeamTarget) entity).hasBeamIn()) {
+        for (BeamTarget entity : targets) {
+            if (entity.hasBeamIn()) {
                 targetCount++;
             }
         }
-        if (targetCount == puzzleComponents.size()) {
+        if (targetCount == targets.size()) {
             onComplete();
         }
     }
@@ -38,5 +58,9 @@ public class BeamPuzzle extends Puzzle {
         completed = true;
         PlayScreen.uiManager.initTextBox(Messages.BEAM_COMPLETE_01);
         trigger();
+    }
+
+    public Polygon getBounds() {
+        return bounds;
     }
 }

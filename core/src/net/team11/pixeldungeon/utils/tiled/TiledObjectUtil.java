@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import net.team11.pixeldungeon.game.entities.beams.BeamGenerator;
+import net.team11.pixeldungeon.game.entities.beams.BeamReflectorMovable;
+import net.team11.pixeldungeon.game.entities.beams.BeamReflectorRotatable;
 import net.team11.pixeldungeon.game.entities.beams.BeamTarget;
 import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.Chest;
@@ -28,7 +30,7 @@ import net.team11.pixeldungeon.game.entities.door.DungeonDoor;
 import net.team11.pixeldungeon.game.entities.door.LockedDoor;
 import net.team11.pixeldungeon.game.entities.door.MechanicDoor;
 import net.team11.pixeldungeon.game.entities.beams.Beam;
-import net.team11.pixeldungeon.game.entities.beams.Reflector;
+import net.team11.pixeldungeon.game.entities.beams.BeamReflector;
 import net.team11.pixeldungeon.game.entities.puzzle.CompletedIndicator;
 import net.team11.pixeldungeon.game.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.GemPillar;
@@ -67,7 +69,7 @@ public class TiledObjectUtil {
     public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
-                //  What is used to get the information from the entity objects on the map
+                //  What is used to get the information from the entity objects ON the map
                 RectangleMapObject rectObject = new RectangleMapObject();
                 if (mapObject instanceof RectangleMapObject) {
                     rectObject = (RectangleMapObject)mapObject;
@@ -208,8 +210,8 @@ public class TiledObjectUtil {
                         break;
 
                     case TiledMapObjectNames.TORCH: //  Torch entity
-                        if (rectObject.getProperties().containsKey(TiledMapProperties.TORCH_ON)) {
-                            boolean on = (boolean) rectObject.getProperties().get(TiledMapProperties.TORCH_ON);
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.ON)) {
+                            boolean on = (boolean) rectObject.getProperties().get(TiledMapProperties.ON);
                             Torch torch = new Torch(rectObject.getRectangle(), on, rectObject.getName());
                             engine.addEntity(torch);
                         } else {
@@ -311,12 +313,22 @@ public class TiledObjectUtil {
                         indicator.setParentPuzzle(engine.getPuzzle(puzzleName));
                         break;
 
-                    case TiledMapObjectNames.REFLECTOR:
+                    case TiledMapObjectNames.BEAM_REFLECTOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
                                     true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
-                            Reflector reflector = new Reflector(rectObject.getRectangle(), rectObject.getName(),
-                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                            BeamReflector reflector;
+
+                            if ((boolean)mapObject.getProperties().get(TiledMapProperties.MOVABLE)) {
+                                reflector = new BeamReflectorMovable(rectObject.getRectangle(), rectObject.getName(), beamOut);
+                            } else if ((boolean)mapObject.getProperties().get(TiledMapProperties.ROTATABLE)) {
+                                reflector = new BeamReflectorRotatable(rectObject.getRectangle(), rectObject.getName(), beamOut);
+                            } else {
+                                reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(), beamOut);
+                            }
+
+                            puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                            reflector.setParentPuzzle(engine.getPuzzle(puzzleName));
                             engine.addEntity(reflector);
                             engine.addEntity(beamOut);
                         } else {
@@ -326,10 +338,14 @@ public class TiledObjectUtil {
 
                     case TiledMapObjectNames.BEAM_GENERATOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
+                            boolean on = (boolean)mapObject.getProperties().get(TiledMapProperties.ON);
+
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
-                                    true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
-                            BeamGenerator generator = new BeamGenerator(rectObject.getRectangle(), rectObject.getName(),
-                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION),beamOut);
+                                    true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),on);
+
+                            BeamGenerator generator = new BeamGenerator(rectObject.getRectangle(), rectObject.getName(),beamOut);
+                            puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                            generator.setParentPuzzle(engine.getPuzzle(puzzleName));
                             engine.addEntity(generator);
                             engine.addEntity(beamOut);
                         } else {
@@ -338,9 +354,8 @@ public class TiledObjectUtil {
                         break;
 
                     case TiledMapObjectNames.BEAM_TARGET:
-                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
-
                         BeamTarget beamTarget = new BeamTarget(rectObject.getRectangle(), rectObject.getName());
+                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
                         beamTarget.setParentPuzzle(engine.getPuzzle(puzzleName));
                         engine.addEntity(beamTarget);
                         break;
@@ -426,13 +441,16 @@ public class TiledObjectUtil {
      * @param world Game World that holds body entities for collision
      * @param objects The Objects taken from the Tiled Map file
      */
-    public static void parseTiledPuzzleLayer(World world, MapObjects objects) {
+    public static void parseTiledPuzzleLayer(EntityEngine engine, World world, MapObjects objects) {
         for (MapObject mapObject : objects) {
-            Shape shape;
+            ChainShape shape;
+            Polygon bounds;
 
             //  If object is not polyline object, end loop
-            if (mapObject instanceof PolylineMapObject) {
+            if (mapObject instanceof PolylineMapObject
+                    && mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
                 shape = createPolyLine((PolylineMapObject) mapObject);
+                bounds = CollisionUtil.createPolygon(shape);
             } else {
                 continue;
             }
@@ -455,91 +473,84 @@ public class TiledObjectUtil {
             fixtureDef.filter.maskBits = (byte) (CollisionUtil.ENTITY | CollisionUtil.BOUNDARY);
             body.createFixture(fixtureDef);
             shape.dispose();
-        }
-    }
 
-    public static void parseTiledPuzzleLayer (EntityEngine engine, MapObjects mapObjects) {
-        if (mapObjects != null) {
-            for (MapObject mapObject : mapObjects) {
-                if (!mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
-                    continue;
-                }
-                String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
 
-                //  If the entity has any targets to 'trigger'
-                List<String> activateTargets = new ArrayList<>();
-                List<String> completeTargets = new ArrayList<>();
-                List<String> failTargets = new ArrayList<>();
-                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_ACTIVATE)) {
-                    activateTargets = parseTargets(mapObject, TiledMapProperties.TARGET_ACTIVATE);
-                }
-                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_COMPLETE)) {
-                    completeTargets = parseTargets(mapObject, TiledMapProperties.TARGET_COMPLETE);
-                }
-                if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_FAIL)) {
-                    failTargets = parseTargets(mapObject, TiledMapProperties.TARGET_FAIL);
-                }
+            String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
 
-                //  Retrieves the type of entity specified in the tiled map
-                switch (type) {
-                    case TiledMapPuzzleNames.LEVEL_PUZZLE:
-                        LevelPuzzle levelPuzzle = new LevelPuzzle(mapObject.getName());
-                        levelPuzzle.setActivateTargets(activateTargets);
-                        levelPuzzle.setCompleteTargets(completeTargets);
-                        levelPuzzle.setFailTargets(failTargets);
-                        engine.addPuzzle(levelPuzzle);
-                        break;
-
-                    case TiledMapPuzzleNames.SIMON_SAYS:
-                        try {
-                            String name = mapObject.getName();
-                            int difficulty = (int) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
-                            int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
-                            int numStages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
-
-                            SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
-                            simonSays.setActivateTargets(activateTargets);
-                            simonSays.setCompleteTargets(completeTargets);
-                            simonSays.setFailTargets(failTargets);
-                            engine.addPuzzle(simonSays);
-                        } catch (Exception e) {
-                            //e.printStackTrace();
-                        }
-                        break;
-                    case TiledMapPuzzleNames.COLOUR_GEMS:
-                        String name = mapObject.getName();
-                        int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
-                        int numGems = (int) mapObject.getProperties().get(TiledMapProperties.NUM_GEMS);
-
-                        ArrayList<String> chests;
-                        chests = parseTargets(mapObject, TiledMapProperties.CHESTS);
-
-                        ColouredGemsPuzzle colourGems = new ColouredGemsPuzzle(name, numGems, maxAttempts);
-                        colourGems.setActivateTargets(activateTargets);
-                        colourGems.setCompleteTargets(completeTargets);
-                        colourGems.setFailTargets(failTargets);
-                        colourGems.setChests(chests);
-                        engine.addPuzzle(colourGems);
-                        break;
-                    case TiledMapPuzzleNames.BOX_PUZZLE:
-                        ArrayList<String> boxes;
-                        boxes = parseTargets(mapObject, TiledMapProperties.BOXES);
-
-                        BoxPuzzle boxPuzzle = new BoxPuzzle(mapObject.getName());
-                        boxPuzzle.setActivateTargets(activateTargets);
-                        boxPuzzle.setCompleteTargets(completeTargets);
-                        boxPuzzle.setFailTargets(failTargets);
-                        boxPuzzle.setBoxNames(boxes);
-                        engine.addPuzzle(boxPuzzle);
-                        break;
-
-                    case TiledMapPuzzleNames.BEAM_PUZZLE:
-                        BeamPuzzle beamPuzzle = new BeamPuzzle(mapObject.getName());
-
-                        beamPuzzle.setCompleteTargets(completeTargets);
-                        engine.addPuzzle(beamPuzzle);
-                }
+            //  If the entity has any targets to 'trigger'
+            List<String> activateTargets = new ArrayList<>();
+            List<String> completeTargets = new ArrayList<>();
+            List<String> failTargets = new ArrayList<>();
+            if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_ACTIVATE)) {
+                activateTargets = parseTargets(mapObject, TiledMapProperties.TARGET_ACTIVATE);
             }
+            if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_COMPLETE)) {
+                completeTargets = parseTargets(mapObject, TiledMapProperties.TARGET_COMPLETE);
+            }
+            if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_FAIL)) {
+                failTargets = parseTargets(mapObject, TiledMapProperties.TARGET_FAIL);
+            }
+
+            //  Retrieves the type of entity specified in the tiled map
+            switch (type) {
+                case TiledMapPuzzleNames.LEVEL_PUZZLE:
+                    LevelPuzzle levelPuzzle = new LevelPuzzle(mapObject.getName());
+                    levelPuzzle.setActivateTargets(activateTargets);
+                    levelPuzzle.setCompleteTargets(completeTargets);
+                    levelPuzzle.setFailTargets(failTargets);
+                    engine.addPuzzle(levelPuzzle);
+                    break;
+
+                case TiledMapPuzzleNames.SIMON_SAYS:
+                    try {
+                        String name = mapObject.getName();
+                        int difficulty = (int) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
+                        int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                        int numStages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
+
+                        SimonSays simonSays = new SimonSays(name, difficulty, maxAttempts, numStages);
+                        simonSays.setActivateTargets(activateTargets);
+                        simonSays.setCompleteTargets(completeTargets);
+                        simonSays.setFailTargets(failTargets);
+                        engine.addPuzzle(simonSays);
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                    }
+                    break;
+                case TiledMapPuzzleNames.COLOUR_GEMS:
+                    String name = mapObject.getName();
+                    int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
+                    int numGems = (int) mapObject.getProperties().get(TiledMapProperties.NUM_GEMS);
+
+                    ArrayList<String> chests;
+                    chests = parseTargets(mapObject, TiledMapProperties.CHESTS);
+
+                    ColouredGemsPuzzle colourGems = new ColouredGemsPuzzle(name, numGems, maxAttempts);
+                    colourGems.setActivateTargets(activateTargets);
+                    colourGems.setCompleteTargets(completeTargets);
+                    colourGems.setFailTargets(failTargets);
+                    colourGems.setChests(chests);
+                    engine.addPuzzle(colourGems);
+                    break;
+                case TiledMapPuzzleNames.BOX_PUZZLE:
+                    ArrayList<String> boxes;
+                    boxes = parseTargets(mapObject, TiledMapProperties.BOXES);
+
+                    BoxPuzzle boxPuzzle = new BoxPuzzle(mapObject.getName());
+                    boxPuzzle.setActivateTargets(activateTargets);
+                    boxPuzzle.setCompleteTargets(completeTargets);
+                    boxPuzzle.setFailTargets(failTargets);
+                    boxPuzzle.setBoxNames(boxes);
+                    engine.addPuzzle(boxPuzzle);
+                    break;
+
+                case TiledMapPuzzleNames.BEAM_PUZZLE:
+                    BeamPuzzle beamPuzzle = new BeamPuzzle(mapObject.getName(), bounds);
+
+                    beamPuzzle.setCompleteTargets(completeTargets);
+                    engine.addPuzzle(beamPuzzle);
+            }
+
         }
     }
 

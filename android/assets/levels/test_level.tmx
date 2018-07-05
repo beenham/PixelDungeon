@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="232">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="235">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer name="background" width="100" height="100">
   <data encoding="csv">
@@ -1753,10 +1753,13 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="219" name="reflector_01" x="407" y="241" width="12" height="12">
+  <object id="219" name="reflector_02" x="407" y="241" width="12" height="12">
    <properties>
-    <property name="direction" value="left"/>
+    <property name="direction" value="right"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="false"/>
+    <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="220" name="box_1" x="405.42" y="261.693" width="15" height="10">
@@ -1765,10 +1768,12 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="221" name="beamGenLeft" x="348.193" y="266.42" width="6" height="6">
+  <object id="221" name="beamGenLeft" x="347" y="266.42" width="6" height="6">
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="beamGenerator"/>
+    <property name="on" type="bool" value="true"/>
+    <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
   <object id="222" name="lever_01" x="357.443" y="265.852" width="10" height="8">
@@ -1778,28 +1783,24 @@
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="223" name="reflector_01" x="519.693" y="231.614" width="12" height="12">
-   <properties>
-    <property name="direction" value="right"/>
-    <property name="entity" value="reflector"/>
-   </properties>
-  </object>
-  <object id="224" name="beamTarget_01" x="348.892" y="199.466" width="8" height="12">
+  <object id="224" name="beamTarget_01" x="346" y="199" width="8" height="8">
    <properties>
     <property name="entity" value="beamTarget"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
-  <object id="225" name="beamTarget_02" x="408.977" y="199.403" width="8" height="12">
+  <object id="225" name="beamTarget_02" x="409" y="199" width="8" height="8">
    <properties>
     <property name="entity" value="beamTarget"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
-  <object id="226" name="beamGenUp" x="410.738" y="278.42" width="6" height="6">
+  <object id="226" name="beamGenUp" x="410" y="278.42" width="6" height="6">
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="beamGenerator"/>
+    <property name="on" type="bool" value="false"/>
+    <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
   <object id="227" name="lever_01" x="423.079" y="278.398" width="10" height="8">
@@ -1813,18 +1814,41 @@
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="true"/>
+    <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="false"/>
    </properties>
   </object>
   <object id="229" name="reflector_01" x="322" y="241" width="12" height="12">
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="false"/>
+    <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="230" name="reflector_01" x="322" y="220" width="12" height="12">
+  <object id="230" name="reflector_03" x="322" y="220" width="12" height="12">
    <properties>
-    <property name="direction" value="right"/>
+    <property name="direction" value="left"/>
     <property name="entity" value="reflector"/>
+    <property name="moveable" type="bool" value="false"/>
+    <property name="puzzleName" value="beamPuzzle_01"/>
+    <property name="rotateable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="233" name="lever_01" x="320" y="288" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="reflector_03"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="234" name="lever_01" x="352" y="288" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="reflector_02"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
@@ -1963,7 +1987,7 @@
   </object>
   <object id="205" name="mapExitPoint" x="512" y="256" width="32" height="16"/>
  </objectgroup>
- <objectgroup color="#04ff00" name="puzzle">
+ <objectgroup color="#04ff00" name="puzzle" visible="0">
   <object id="20" name="boxPuzzle1" x="192" y="112">
    <properties>
     <property name="boxes" value="box_1"/>
@@ -2004,12 +2028,12 @@
    </properties>
    <polyline points="0,-16 160,-16 160,-96 0,-96 0,-16"/>
   </object>
-  <object id="231" name="beamPuzzle_01" x="342.022" y="192" width="87.0909" height="25.6364">
+  <object id="232" name="beamPuzzle_01" x="304" y="192">
    <properties>
-    <property name="beamTargets" value="beamTarget_01, beamTarget_02"/>
     <property name="onComplete" value="mechanicDoor_1"/>
     <property name="puzzle" value="beamPuzzle"/>
    </properties>
+   <polyline points="0,0 144,0 144,96 0,96 0,0"/>
   </object>
  </objectgroup>
 </map>

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.ScreenEnum;
@@ -17,6 +18,8 @@ import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
+
+import javax.swing.GroupLayout;
 
 public class PlayerInfo extends Table {
     private float padding;
@@ -33,19 +36,24 @@ public class PlayerInfo extends Table {
 
     private void create() {
         // T, L, B, R
-        add(playerLabel()).left().pad(padding*4,padding*4,padding,padding).colspan(2).expandX();
+        add(playerLabel()).left().pad(padding*4,padding*4,padding,padding).colspan(4).expandX();
         add(exitButton()).right().pad(padding*4,padding,padding,padding*4);
         row();
-        add(playerStats()).left().pad(padding,padding*4,padding,padding).colspan(2).expandY();
-        add(gplayServices()).pad(padding,padding,padding,padding*4).right();
+        add(playerStats()).left().pad(padding,padding*4,padding,padding).colspan(1).expandY();
+        add(gplayServices()).pad(padding,padding,padding,padding*4).colspan(4).right().expandX();
         row();
-        add(signoutButton()).left().bottom().pad(padding,padding*4,padding*4,padding);
+        add(signoutButton()).left().bottom().pad(padding,padding*4,padding*4,padding).colspan(5);
     }
 
     private Label playerLabel() {
-        Label username = new Label(androidInterface.getUserName(),
+        String name = androidInterface.getUserName();
+        if (name.length() > 16) {
+            name = name.substring(0,16) + "...";
+        }
+        Label username = new Label(name,
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         username.setFontScale(1.75f * PixelDungeon.SCALAR);
+        username.setAlignment(Align.left);
         return username;
     }
 

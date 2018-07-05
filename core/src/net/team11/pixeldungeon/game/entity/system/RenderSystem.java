@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Polygon;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entities.beams.Beam;
 
+import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.PressurePlate;
 
 import net.team11.pixeldungeon.game.entities.blocks.Torch;
@@ -26,6 +27,7 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -33,10 +35,14 @@ public class RenderSystem extends EntitySystem {
     public static float FRAME_SPEED = 15;
 
     private SpriteBatch spriteBatch;
-    private Player player;
     private List<Entity> entities;
+    private List<Entity> alwaysBottom;
+    private List<Entity> movableEntities;
+
     private List<Entity> drawList;
     private MapManager mapManager;
+
+    private boolean init;
 
     public RenderSystem(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
@@ -46,48 +52,82 @@ public class RenderSystem extends EntitySystem {
     public void init(EntityEngine entityEngine) {
         mapManager = MapManager.getInstance();
 
-        player = (Player) entityEngine.getEntities(PlayerComponent.class).get(0);
+        movableEntities = new ArrayList<>();
+        alwaysBottom = new ArrayList<>();
         entities = new ArrayList<>();
-        entities = entityEngine.getEntities(AnimationComponent.class);
-        drawList = new ArrayList<>();
+
+        List<Entity> entityList = entityEngine.getEntities(AnimationComponent.class);
+        for (Entity entity : entityList) {
+            if (entity instanceof Player
+                    || entity instanceof Box
+                    || entity instanceof Beam) {
+                movableEntities.add(entity);
+                entities.add(entity);
+            } else if (entity instanceof PressurePlate) {
+                alwaysBottom.add(entity);
+            } else {
+                entities.add(entity);
+            }
+        }
+
+        init = true;
     }
 
     @Override
     public void update(float delta) {
+        if (init) {
+            insertionSort(entities);
+            init = false;
+        }
+
         mapManager.renderBackGround();
         mapManager.renderEnvironment();
 
-        drawList = new ArrayList<>();
-        ArrayList<Entity> restOfList = sortDrawList();
+        drawList = new ArrayList<>(sortList());
+        for (Entity entity : alwaysBottom) {
+            drawList.add(0,entity);
+        }
+
+        float bleed = 64 * PixelDungeon.SCALAR;
+        Polygon cameraBox = CollisionUtil.createRectangle(
+                PlayScreen.gameCam.position.x,
+                PlayScreen.gameCam.position.y,
+                PlayScreen.gameCam.viewportWidth*0.1f+bleed*2,
+                PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
 
         spriteBatch.begin();
-        for (Entity entity : drawList) {
-            if (entity instanceof Torch && ((int)(delta*100000))%6 == 0) {
-                ((Torch) entity).setLightSize(new Random().nextInt(10)+40f);
+        for (Entity entity : sortList()) {
+            if (entity instanceof Torch && ((int) (delta * 100000)) % 6 == 0) {
+                ((Torch) entity).setLightSize(new Random().nextInt(10) + 40f);
             }
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
             Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
-            float width = currentAnimation.getKeyFrame(0).getRegionWidth();
-            int height = currentAnimation.getKeyFrame(0).getRegionHeight();
 
-            if (!(entity instanceof Beam)) {
-                spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                        bodyComponent.getX() - width/2,
-                        bodyComponent.getY() - bodyComponent.getHeight()/2,
-                        width,
-                        height);
-            } else {
-                if (((Beam) entity).isOn()) {
+            Polygon entityBox = bodyComponent.getPolygon();
+
+            if (CollisionUtil.isOverlapping(cameraBox,entityBox)) {
+                float width = currentAnimation.getKeyFrame(0).getRegionWidth();
+                int height = currentAnimation.getKeyFrame(0).getRegionHeight();
+
+                if (!(entity instanceof Beam)) {
                     spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                            bodyComponent.getX() - bodyComponent.getWidth()/2,
-                            bodyComponent.getY() - bodyComponent.getHeight()/2,
-                            bodyComponent.getWidth(),
-                            bodyComponent.getHeight());
+                            bodyComponent.getX() - width / 2,
+                            bodyComponent.getY() - bodyComponent.getHeight() / 2,
+                            width,
+                            height);
+                } else {
+                    if (((Beam) entity).isOn()) {
+                        spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                                bodyComponent.getX() - bodyComponent.getWidth() / 2,
+                                bodyComponent.getY() - bodyComponent.getHeight() / 2,
+                                bodyComponent.getWidth(),
+                                bodyComponent.getHeight());
+                    }
                 }
             }
 
-            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * FRAME_SPEED));
+            animationComponent.setStateTime(animationComponent.getStateTime() + (delta * RenderSystem.FRAME_SPEED));
             if (animationComponent.getCurrentAnimation().getPlayMode() == Animation.PlayMode.NORMAL) {
                 if (animationComponent.getCurrentAnimation().isAnimationFinished(animationComponent.getStateTime())) {
                     animationComponent.setAnimation(animationComponent.getPreviousAnimation());
@@ -95,16 +135,6 @@ public class RenderSystem extends EntitySystem {
             }
         }
         spriteBatch.end();
-
-        for (Entity entity : restOfList) {
-            AnimationComponent animComp = entity.getComponent(AnimationComponent.class);
-            animComp.setStateTime(animComp.getStateTime() + (delta * FRAME_SPEED));
-            if (animComp.getCurrentAnimation().getPlayMode() == Animation.PlayMode.NORMAL) {
-                if (animComp.getCurrentAnimation().isAnimationFinished(animComp.getStateTime())) {
-                    animComp.setAnimation(animComp.getPreviousAnimation());
-                }
-            }
-        }
 
         mapManager.renderWallTop();
     }
@@ -138,104 +168,143 @@ public class RenderSystem extends EntitySystem {
         mapManager.renderWallTop();
     }
 
-    private ArrayList<Entity> sortDrawList() {
-        float bleed = 64 * PixelDungeon.SCALAR;
-        Polygon cameraBox = CollisionUtil.createRectangle(
-                PlayScreen.gameCam.position.x,
-                PlayScreen.gameCam.position.y,
-                PlayScreen.gameCam.viewportWidth*0.1f+bleed*2,
-                PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
+    private List<Entity> sortList() {
+        List<Entity> drawList = entities;
+        for (Entity entity : movableEntities) {
+            // 5 - 4 - 3 - 2 - 1
+            int currIndex = drawList.indexOf(entity);
 
-        ArrayList<Entity> restOfList = new ArrayList<>();
-        ArrayList<Entity> alwaysBottom = new ArrayList<>();
-        drawList.add(player);
+            float currY;
+            float prevY;
+            float nextY;
 
-        for (int i = 0 ; i < entities.size() ; i++) {
-            Polygon entityBox = entities.get(i).getComponent(BodyComponent.class).getPolygon();
-            if (CollisionUtil.isOverlapping(cameraBox,entityBox)) {
-                if (entities.get(i).equals(player)) {
-                    continue;
-                }
-                if (entities.get(i) instanceof PressurePlate) {
-                    alwaysBottom.add(entities.get(i));
-                } else if (entities.get(i) instanceof Beam){
-                    float beamY = entities.get(i).getComponent(BodyComponent.class).getY();
-                    float playerY = player.getComponent(BodyComponent.class).getY() - BeamSystem.yOffset;
-                    if (beamY > playerY){
-                        boolean added = false;
-                        int j = drawList.indexOf(player);
-                        while (j > 0){
-                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() - BeamSystem.yOffset){
-                                drawList.add(j+1, entities.get(i));
-                                added = true;
-                                break;
-                            } else{
-                                j--;
-                            }
-                        }
+            if (currIndex > 0 && currIndex < drawList.size()-1) {
+                prevY = getPrevY(entity);
+                currY = getCurrY(entity,true);
 
-                        if (!added){
-                            drawList.add(0, entities.get(i));
-                        }
-                    } else {
-                        boolean added = false;
-                        int j = drawList.size()-1;
-                        while (j > drawList.indexOf(player)){
-                            if (beamY <= drawList.get(j).getComponent(BodyComponent.class).getY() - BeamSystem.yOffset){
-                                drawList.add(j+1, entities.get(i));
-                                added = true;
-                                break;
-                            } else {
-                                j--;
-                            }
-                        }
-                        if (!added){
-                            drawList.add(j+1, entities.get(i));
-                        }
-                    }
-                } else {
-                    float entityY = entities.get(i).getComponent(BodyComponent.class).getY();
-                    if (entityY > player.getComponent(BodyComponent.class).getY()) {
-                        // FILTER LEFT SIDE OF ARRAY
-                        boolean added = false;
-                        int j = drawList.indexOf(player) - 1;
-                        while (j > 0) {
-                            if (entityY <= drawList.get(j).getComponent(BodyComponent.class).getY()) {
-                                drawList.add(j+1,entities.get(i));
-                                added = true;
-                                break;
-                            } else {
-                                j--;
-                            }
-                        }
-                        if (!added) {
-                            drawList.add(0, entities.get(i));
-                        }
-                    } else {
-                        // FILTER RIGHT SIDE OF ARRAY
-                        boolean added = false;
-                        int j = drawList.size()-1;
-                        while (j > drawList.indexOf(player)) {
-                            if (entityY <= drawList.get(j).getComponent(BodyComponent.class).getY()) {
-                                drawList.add(j+1,entities.get(i));
-                                added = true;
-                                break;
-                            } else {
-                                j--;
-                            }
-                        }
-                        if (!added) {
-                            drawList.add(j+1, entities.get(i));
+                if (currY >= prevY) {
+                    while (!(prevY > currY)) {
+                        Collections.swap(drawList, currIndex, currIndex - 1);
+                        currIndex--;
+                        if (currIndex < drawList.size() - 1 && currIndex > 0) {
+                            prevY = getPrevY(entity);
+                            currY = getCurrY(entity, true);
+                        } else {
+                            break;
                         }
                     }
                 }
-            } else {
-                restOfList.add(entities.get(i));
+
+                currY = getCurrY(entity,false);
+                nextY = getNextY(entity);
+
+
+                if (nextY > currY) {
+                    while (!(currY >= nextY)) {
+                        Collections.swap(drawList, currIndex, currIndex + 1);
+                        currIndex++;
+                        if (currIndex < drawList.size() - 1 && currIndex > 0) {
+                            nextY = getNextY(entity);
+                            currY = getCurrY(entity, false);
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            } else if (currIndex == 0) {
+                nextY = getNextY(entity);
+                currY = getCurrY(entity,false);
+
+                while (!(currY >= nextY)) {
+                    if (nextY > currY) {
+                        Collections.swap(drawList, currIndex, currIndex + 1);
+                        currIndex++;
+                    }
+                    if (currIndex < drawList.size()-1 && currIndex > 0) {
+                        nextY = getNextY(entity);
+                        currY = getCurrY(entity,false);
+                    } else {
+                        break;
+                    }
+                }
+            } else if (currIndex == drawList.size() - 1) {
+                prevY = getPrevY(entity);
+                currY = getCurrY(entity,true);
+                while (!(prevY > currY)) {
+                    if (currY >= prevY) {
+                        Collections.swap(drawList, currIndex, currIndex - 1);
+                        currIndex--;
+                    }
+                    if (currIndex < drawList.size()-1 && currIndex > 0) {
+                        prevY = getPrevY(entity);
+                        currY = getCurrY(entity,true);
+                    } else {
+                        break;
+                    }
+                }
             }
         }
-        for (Entity entity : alwaysBottom) {
-            drawList.add(0,entity);
+        return drawList;
+    }
+
+    private float getCurrY(Entity currEntity, boolean prev) {
+        BodyComponent currBody = currEntity.getComponent(BodyComponent.class);
+        float currY = currBody.getY();
+        int currIndex = entities.indexOf(currEntity);
+
+        if (prev) {
+            if (!(currEntity instanceof Beam)) {
+                if (entities.get(currIndex-1) instanceof Beam) {
+                    currY -= BeamSystem.yOffset;
+                }
+            }
+        } else {
+            if (!(currEntity instanceof Beam)) {
+                if (entities.get(currIndex+1) instanceof Beam) {
+                    currY -= BeamSystem.yOffset;
+                }
+            }
         }
-        return restOfList;
+
+        return currY;
+    }
+
+    private float getNextY(Entity currEntity) {
+        int currIndex = entities.indexOf(currEntity);
+        BodyComponent nextBody = entities.get(currIndex+1).getComponent(BodyComponent.class);
+        float nextY = nextBody.getY();
+
+        if (currEntity instanceof Beam && !(entities.get(currIndex+1) instanceof Beam)) {
+            nextY -= BeamSystem.yOffset;
+        }
+
+        return nextY;
+    }
+
+    private float getPrevY(Entity currEntity) {
+        int currIndex = entities.indexOf(currEntity);
+        BodyComponent prevBody = entities.get(currIndex-1).getComponent(BodyComponent.class);
+        float prevY = prevBody.getY();
+
+        if (currEntity instanceof Beam && !(entities.get(currIndex-1) instanceof Beam)) {
+            prevY -= BeamSystem.yOffset;
+        }
+
+        return prevY;
+    }
+
+
+    private void insertionSort(List<Entity> list) {
+        for (int i = 1; i < list.size(); i++) {
+            Entity key = list.get(i);
+            int j = i;
+
+            while (j > 0 && list.get(j - 1).getComponent(BodyComponent.class).getY() <=
+                    key.getComponent(BodyComponent.class).getY()) {
+                list.set(j,list.get(j-1));
+                j--;
+            }
+            list.set(j,key);
+        }
     }
 }

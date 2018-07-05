@@ -3324,7 +3324,7 @@
    <polyline points="0,0 0,272 192,272 192,288 224,288 224,272 272,272 272,64 320,64 320,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" name="blocks">
+ <objectgroup color="#ff9500" name="blocks" visible="0">
   <object id="23" name="chest_1" x="816" y="328" width="16" height="8">
    <properties>
     <property name="amount" type="int" value="1"/>
@@ -3526,7 +3526,7 @@
  </objectgroup>
  <objectgroup color="#ffffff" name="points">
   <object id="2" name="playerSpawn" x="200" y="464" width="16" height="16"/>
-  <object id="203" name="mapExitPoint" x="192" y="352" width="32" height="24"/>
+  <object id="203" name="mapExitPoint" x="512" y="240" width="32" height="24"/>
  </objectgroup>
  <objectgroup color="#04ff00" name="puzzle" visible="0" locked="1"/>
 </map>

@@ -14,11 +14,11 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
-public class Reflector extends BeamGenerator {
+public class BeamReflector extends BeamGenerator {
     private Beam beamIn = null;
     
-    public Reflector(Rectangle bounds, String name, String direction, Beam beam){
-        super(bounds,name,direction,beam);
+    public BeamReflector(Rectangle bounds, String name, Beam beam){
+        super(bounds,name,beam);
         super.beamOut.setOn(false);
         setupAnimations(getComponent(AnimationComponent.class));
     }

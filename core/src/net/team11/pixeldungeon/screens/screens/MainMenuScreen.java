@@ -129,7 +129,6 @@ public class MainMenuScreen extends AbstractScreen {
         brTable.add(label);
 
         brTable.setPosition(PixelDungeon.V_WIDTH,0);
-        brTable.setDebug(true);
         return brTable;
     }
 

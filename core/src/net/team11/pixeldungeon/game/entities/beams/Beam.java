@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
+import net.team11.pixeldungeon.game.entity.system.BeamSystem;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 
 import net.team11.pixeldungeon.utils.CollisionUtil;
@@ -18,7 +19,7 @@ import net.team11.pixeldungeon.utils.assets.Assets;
 
 
 public class Beam extends Trap {
-
+    private BeamGenerator generator;
     private Direction beamDirection;
 
     private final int DAMAGE = 100;
@@ -42,7 +43,6 @@ public class Beam extends Trap {
         originX = bounds.getX() + bounds.getWidth()/2;
         originY = bounds.getY() + bounds.getHeight()/2;
 
-        //this.addComponent(new TrapComponent(this));
         this.addComponent(new BodyComponent(WIDTH, DEPTH, originX, originY, 0,
                 (CollisionUtil.TRAP),
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
@@ -62,6 +62,10 @@ public class Beam extends Trap {
         return beamDirection;
     }
 
+    public void setBeamDirection(Direction beamDirection) {
+        this.beamDirection = beamDirection;
+    }
+
     public boolean hasCurrentClosest() {
         return currentClosest!=null;
     }
@@ -72,11 +76,11 @@ public class Beam extends Trap {
 
     private void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
+        animationComponent.addAnimation(AssetName.BEAM_VERTICAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.BEAM_HORIZONTAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         if (beamDirection == Direction.RIGHT || beamDirection == Direction.LEFT) {
-            animationComponent.addAnimation(AssetName.BEAM_HORIZONTAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
             animationComponent.setAnimation(AssetName.BEAM_HORIZONTAL);
         } else {
-            animationComponent.addAnimation(AssetName.BEAM_VERTICAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
             animationComponent.setAnimation(AssetName.BEAM_VERTICAL);
         }
     }
@@ -90,6 +94,13 @@ public class Beam extends Trap {
         BodyComponent body = getComponent(BodyComponent.class);
         body.setWidth(WIDTH);
         body.setHeight(DEPTH);
+
+        AnimationComponent animationComponent = getComponent(AnimationComponent.class);
+        if (beamDirection == Direction.RIGHT || beamDirection == Direction.LEFT) {
+            animationComponent.setAnimation(AssetName.BEAM_HORIZONTAL);
+        } else {
+            animationComponent.setAnimation(AssetName.BEAM_VERTICAL);
+        }
     }
 
     @Override
@@ -97,5 +108,9 @@ public class Beam extends Trap {
         return this.getName() + " --> " + this.getBeamDirection()
                 + " : " + getComponent(BodyComponent.class).getWidth()
                 + "," + getComponent(BodyComponent.class).getHeight();
+    }
+
+    public void setParent(BeamGenerator generator) {
+        this.generator = generator;
     }
 }
