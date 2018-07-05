@@ -115,7 +115,7 @@ public abstract class DirectedGame extends Game {
 
 	@Override
 	public void pause() {
-		Gdx.app.debug(TAG, "pause() called on screen");
+		Gdx.app.debug(TAG, "pause() called ON screen");
 		if (currScreen != null) {
 			currScreen.setGameCall(true);
 			currScreen.pause();

@@ -65,7 +65,11 @@ public class BeamGenerator extends PuzzleComponent {
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_ON, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.BEAM_GENERATOR_OFF, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
+        if (beamOut.isOn()) {
+            animationComponent.setAnimation(AssetName.BEAM_GENERATOR_ON);
+        } else {
+            animationComponent.setAnimation(AssetName.BEAM_GENERATOR_OFF);
+        }
     }
 
     public Beam getBeamOut() {

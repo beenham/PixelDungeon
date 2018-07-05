@@ -11,7 +11,7 @@ public class TiledMapProperties {
     public static final String ID = "id";
     public static final String ITEM = "item";
     public static final String MOVABLE = "moveable";
-    public static final String ROTATEABLE = "rotateable";
+    public static final String ROTATABLE = "rotateable";
 
     public static final String LOCKED = "locked";
     public static final String NUM_GEMS = "numGems";
@@ -21,7 +21,7 @@ public class TiledMapProperties {
     public static final String PUZZLE_NAME = "puzzleName";
     public static final String PUZZLE_TYPE = "puzzle";
     public static final String ROOM = "room";
-    public static final String TORCH_ON = "on";
+    public static final String ON = "on";
     public static final String TARGET = "target";
     public static final String TARGET_ACTIVATE = "onActivate";
     public static final String TARGET_COMPLETE = "onComplete";

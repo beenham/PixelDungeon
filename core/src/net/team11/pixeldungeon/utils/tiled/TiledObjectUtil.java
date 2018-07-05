@@ -69,7 +69,7 @@ public class TiledObjectUtil {
     public static void parseTiledEntityLayer (EntityEngine engine, MapObjects mapObjects) {
         if (mapObjects != null) {
             for (MapObject mapObject : mapObjects) {
-                //  What is used to get the information from the entity objects on the map
+                //  What is used to get the information from the entity objects ON the map
                 RectangleMapObject rectObject = new RectangleMapObject();
                 if (mapObject instanceof RectangleMapObject) {
                     rectObject = (RectangleMapObject)mapObject;
@@ -210,8 +210,8 @@ public class TiledObjectUtil {
                         break;
 
                     case TiledMapObjectNames.TORCH: //  Torch entity
-                        if (rectObject.getProperties().containsKey(TiledMapProperties.TORCH_ON)) {
-                            boolean on = (boolean) rectObject.getProperties().get(TiledMapProperties.TORCH_ON);
+                        if (rectObject.getProperties().containsKey(TiledMapProperties.ON)) {
+                            boolean on = (boolean) rectObject.getProperties().get(TiledMapProperties.ON);
                             Torch torch = new Torch(rectObject.getRectangle(), on, rectObject.getName());
                             engine.addEntity(torch);
                         } else {
@@ -321,7 +321,7 @@ public class TiledObjectUtil {
 
                             if ((boolean)mapObject.getProperties().get(TiledMapProperties.MOVABLE)) {
                                 reflector = new BeamReflectorMovable(rectObject.getRectangle(), rectObject.getName(), beamOut);
-                            } else if ((boolean)mapObject.getProperties().get(TiledMapProperties.ROTATEABLE)) {
+                            } else if ((boolean)mapObject.getProperties().get(TiledMapProperties.ROTATABLE)) {
                                 reflector = new BeamReflectorRotatable(rectObject.getRectangle(), rectObject.getName(), beamOut);
                             } else {
                                 reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(), beamOut);
@@ -338,8 +338,11 @@ public class TiledObjectUtil {
 
                     case TiledMapObjectNames.BEAM_GENERATOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
+                            boolean on = (boolean)mapObject.getProperties().get(TiledMapProperties.ON);
+
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
-                                    true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
+                                    true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),on);
+
                             BeamGenerator generator = new BeamGenerator(rectObject.getRectangle(), rectObject.getName(),beamOut);
                             puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
                             generator.setParentPuzzle(engine.getPuzzle(puzzleName));

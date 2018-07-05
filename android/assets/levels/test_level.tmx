@@ -1772,6 +1772,7 @@
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="beamGenerator"/>
+    <property name="on" type="bool" value="true"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
@@ -1798,6 +1799,7 @@
    <properties>
     <property name="direction" value="up"/>
     <property name="entity" value="beamGenerator"/>
+    <property name="on" type="bool" value="false"/>
     <property name="puzzleName" value="beamPuzzle_01"/>
    </properties>
   </object>
