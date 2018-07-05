@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.utils.RoundTo;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
@@ -31,6 +32,7 @@ public class Hud extends Stage {
 
     private float timer = 0;
     private Label timeLabel;
+    private Label fps;
 
     public Hud(SpriteBatch batch){
         super(new FitViewport(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT, new OrthographicCamera()), batch);
@@ -189,9 +191,13 @@ public class Hud extends Stage {
             }
         });
 
+        fps = new Label("",Assets.getInstance().getSkin(Assets.UI_SKIN));
+        fps.setFontScale(1.2f * PixelDungeon.SCALAR);
+
         Table pauseTable = new Table();
         pauseTable.setPosition(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
         pauseTable.right().padRight(width/4).top().padTop(height/4);
+        pauseTable.add(fps).padRight(width/4);
         pauseTable.add(pauseImg).size(width,height);
         addActor(pauseTable);}
 
@@ -210,6 +216,7 @@ public class Hud extends Stage {
     }
 
     public void update (float delta) {
+        fps.setText(String.format(Locale.UK,"%02.0f", RoundTo.RoundToNearest(1/delta,1)));
         timer += delta;
         if (timer >= 1) {
             StatsUtil.getInstance().incrementTimer();
