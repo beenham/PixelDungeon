@@ -12,6 +12,7 @@ import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.map.MapManager;
+import net.team11.pixeldungeon.saves.SaveGame;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
@@ -81,6 +82,8 @@ public class LevelCompleteScreen extends AbstractScreen {
         levelStats.submitBestTime(StatsUtil.getInstance().getTimer());
         statsUtil.writeLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
         statsUtil.saveGlobalStats();
+
+        PixelDungeon.getInstance().getAndroidInterface().saveGame(statsUtil.getCurrentSave());
 
         AchivementStats.updateStats(statsUtil.getCurrentStats(),levelStats);
     }

@@ -119,4 +119,9 @@ public class AndroidLauncher extends AndroidApplication {
 	public GoogleSignInAccount getmSignedInAccount() {
 		return mSignedInAccount;
 	}
+
+	private boolean isSaving = false;
+	public void openSave(boolean saving){
+
+	}
 }

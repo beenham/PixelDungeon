@@ -122,4 +122,21 @@ public class GlobalStats {
     public void addCurrentCoins(int coins) {
         currentCoins += coins;
     }
+
+    @Override
+    public String toString() {
+        return "GlobalStats{" +
+                "totalAttempts=" + totalAttempts +
+                ", totalChestsFound=" + totalChestsFound +
+                ", totalCoins=" + totalCoins +
+                ", currentCoins=" + currentCoins +
+                ", totalCompleted=" + totalCompleted +
+                ", totalDeaths=" + totalDeaths +
+                ", totalItemsFound=" + totalItemsFound +
+                ", totalKeysFound=" + totalKeysFound +
+                ", totalPuzzleAttempted=" + totalPuzzleAttempted +
+                ", totalPuzzleCompleted=" + totalPuzzleCompleted +
+                ", totalTime=" + totalTime +
+                '}';
+    }
 }

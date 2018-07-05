@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
+import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.saves.SaveGame;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -12,27 +17,19 @@ public class StatsUtil {
     private String TAG = "FILESTORAGE : ";
     private final String globalFile = "stats/globalStats.json";
 
-    private HashMap<String, LevelStats> levelStats = new HashMap<>();
+    private HashMap<String, LevelStats> levelStats;
     private GlobalStats globalStats;
     private CurrentStats currentStats;
     private int timer = 0;
     private int flaggedTimer = 0;
 
-    private StatsUtil() {
-        clearLocal();
+    private SaveGame currentSave;
 
-        if (!Gdx.files.local("stats/").exists()) {
-            readInternalLevelFiles();
-        } else {
-            for (FileHandle file : Gdx.files.local("stats/levels").list()) {
-                if (file.toString().endsWith(".json")) {
-                    Json json = new Json();
-                    LevelStats stats = json.fromJson(LevelStats.class,file);
-                    levelStats.put(stats.getFileName(), stats);
-                }
-            }
-            readInternalLevelFiles();
-        }
+    private StatsUtil() {
+//        clearLocal();
+        currentSave = PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();
+        this.levelStats = currentSave.getLevelStatsHashMap();
+        this.globalStats = currentSave.getGlobalStats();
     }
 
     private void readInternalLevelFiles() {
@@ -64,11 +61,28 @@ public class StatsUtil {
         LevelStats stats = levelStats.get(file);
         String filePath = "stats/levels/" + stats.getFileName() + ".json";
         Gdx.files.local(filePath).writeString(json.toJson(stats),false);
+        currentSave.setLevelStatsHashMap(levelStats);
+        PixelDungeon.getInstance().getAndroidInterface().saveGame(currentSave);
     }
+
 
     public void saveGlobalStats() {
         Json json = new Json();
         Gdx.files.local(globalFile).writeString(json.toJson(globalStats),false);
+        currentSave.setGlobalStats(globalStats);
+        PixelDungeon.getInstance().getAndroidInterface().saveGame(currentSave);
+    }
+
+    public void setLevelStats(HashMap<String, LevelStats> map){
+        this.levelStats = map;
+    }
+
+    public void setGlobalStats(GlobalStats globalStats){
+        this.globalStats = globalStats;
+    }
+
+    public SaveGame getCurrentSave() {
+        return currentSave;
     }
 
     public void initialiseCurrStats() {

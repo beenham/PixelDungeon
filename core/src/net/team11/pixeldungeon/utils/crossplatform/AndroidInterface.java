@@ -1,5 +1,7 @@
 package net.team11.pixeldungeon.utils.crossplatform;
 
+import net.team11.pixeldungeon.saves.SaveGame;
+
 public interface AndroidInterface {
     ////    User Information
     String getUserName();
@@ -37,4 +39,7 @@ public interface AndroidInterface {
     void earnKeyMaster(int amount);
     void earnLootJunkie(int amount);
     void earnFullInventory();
+
+    void saveGame(SaveGame saveGame);
+    SaveGame loadSaveGame();
 }
