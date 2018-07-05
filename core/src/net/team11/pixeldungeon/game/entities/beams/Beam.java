@@ -62,6 +62,10 @@ public class Beam extends Trap {
         return beamDirection;
     }
 
+    public void setBeamDirection(Direction beamDirection) {
+        this.beamDirection = beamDirection;
+    }
+
     public boolean hasCurrentClosest() {
         return currentClosest!=null;
     }
@@ -72,11 +76,11 @@ public class Beam extends Trap {
 
     private void setupAnimations(AnimationComponent animationComponent){
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.BLOCKS);
+        animationComponent.addAnimation(AssetName.BEAM_VERTICAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.BEAM_HORIZONTAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
         if (beamDirection == Direction.RIGHT || beamDirection == Direction.LEFT) {
-            animationComponent.addAnimation(AssetName.BEAM_HORIZONTAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
             animationComponent.setAnimation(AssetName.BEAM_HORIZONTAL);
         } else {
-            animationComponent.addAnimation(AssetName.BEAM_VERTICAL, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
             animationComponent.setAnimation(AssetName.BEAM_VERTICAL);
         }
     }
@@ -90,6 +94,13 @@ public class Beam extends Trap {
         BodyComponent body = getComponent(BodyComponent.class);
         body.setWidth(WIDTH);
         body.setHeight(DEPTH);
+
+        AnimationComponent animationComponent = getComponent(AnimationComponent.class);
+        if (beamDirection == Direction.RIGHT || beamDirection == Direction.LEFT) {
+            animationComponent.setAnimation(AssetName.BEAM_HORIZONTAL);
+        } else {
+            animationComponent.setAnimation(AssetName.BEAM_VERTICAL);
+        }
     }
 
     @Override

@@ -16,15 +16,13 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class BeamGenerator extends PuzzleComponent {
-    protected Direction beamDirection;
     protected Beam beamOut;
     public static float BOX_SIZE = 6f;
 
-    public BeamGenerator(Rectangle bounds, String name, String direction, Beam beamOut){
+    public BeamGenerator(Rectangle bounds, String name, Beam beamOut){
         super(name);
         this.beamOut = beamOut;
         beamOut.setParent(this);
-        this.beamDirection = Direction.parseInput(direction);
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
@@ -44,7 +42,7 @@ public class BeamGenerator extends PuzzleComponent {
 
     protected void setupBeam(float x, float y) {
         float offset = 0.1f;
-        switch (beamDirection) {
+        switch (beamOut.getBeamDirection()) {
             case UP:
                 y += (BOX_SIZE/2 + Beam.DEPTH/2 + offset);
                 break;
@@ -58,7 +56,9 @@ public class BeamGenerator extends PuzzleComponent {
                 x += (BOX_SIZE/2 + Beam.DEPTH/2 + offset);
                 break;
         }
+        beamOut.setOn(beamOut.isOn());
         beamOut.getComponent(BodyComponent.class).setCoords(x,y);
+
     }
 
     private void setupAnimations(AnimationComponent animationComponent){

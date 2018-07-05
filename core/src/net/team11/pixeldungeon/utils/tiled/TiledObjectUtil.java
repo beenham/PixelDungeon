@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import net.team11.pixeldungeon.game.entities.beams.BeamGenerator;
 import net.team11.pixeldungeon.game.entities.beams.BeamReflectorMovable;
+import net.team11.pixeldungeon.game.entities.beams.BeamReflectorRotatable;
 import net.team11.pixeldungeon.game.entities.beams.BeamTarget;
 import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.Chest;
@@ -312,21 +313,18 @@ public class TiledObjectUtil {
                         indicator.setParentPuzzle(engine.getPuzzle(puzzleName));
                         break;
 
-                    case TiledMapObjectNames.REFLECTOR:
+                    case TiledMapObjectNames.BEAM_REFLECTOR:
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
                                     true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
                             BeamReflector reflector;
 
                             if ((boolean)mapObject.getProperties().get(TiledMapProperties.MOVABLE)) {
-                                reflector = new BeamReflectorMovable(rectObject.getRectangle(), rectObject.getName(),
-                                        (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                                reflector = new BeamReflectorMovable(rectObject.getRectangle(), rectObject.getName(), beamOut);
                             } else if ((boolean)mapObject.getProperties().get(TiledMapProperties.ROTATEABLE)) {
-                                reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(),
-                                        (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                                reflector = new BeamReflectorRotatable(rectObject.getRectangle(), rectObject.getName(), beamOut);
                             } else {
-                                reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(),
-                                        (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION), beamOut);
+                                reflector = new BeamReflector(rectObject.getRectangle(), rectObject.getName(), beamOut);
                             }
 
                             puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
@@ -342,8 +340,7 @@ public class TiledObjectUtil {
                         if (rectObject.getProperties().containsKey(TiledMapProperties.DIRECTION)){
                             Beam beamOut = new Beam(rectObject.getRectangle(), mapObject.getName(),
                                     true,(String)mapObject.getProperties().get(TiledMapProperties.DIRECTION),true);
-                            BeamGenerator generator = new BeamGenerator(rectObject.getRectangle(), rectObject.getName(),
-                                    (String) rectObject.getProperties().get(TiledMapProperties.DIRECTION),beamOut);
+                            BeamGenerator generator = new BeamGenerator(rectObject.getRectangle(), rectObject.getName(),beamOut);
                             puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
                             generator.setParentPuzzle(engine.getPuzzle(puzzleName));
                             engine.addEntity(generator);

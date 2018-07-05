@@ -17,9 +17,7 @@ public class TiledMapObjectNames {
     public static final String LEVER = "lever";
     public static final String QUICKSAND = "quicksand";
 
-    public static final String PRESSURE = "pressurePlate";
-    public static final String BEAM = "beamOut";
-    public static final String REFLECTOR = "reflector";
+    public static final String BEAM_REFLECTOR = "reflector";
     public static final String BEAM_GENERATOR = "beamGenerator";
     public static final String BEAM_TARGET = "beamTarget";
 

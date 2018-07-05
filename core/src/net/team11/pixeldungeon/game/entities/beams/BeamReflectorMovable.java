@@ -9,8 +9,8 @@ import net.team11.pixeldungeon.utils.CollisionUtil;
 public class BeamReflectorMovable extends BeamReflector {
     private final float objectDensity = 10f;
 
-    public BeamReflectorMovable(Rectangle bounds, String name, String direction, Beam beam){
-        super(bounds,name,direction,beam);
+    public BeamReflectorMovable(Rectangle bounds, String name, Beam beam){
+        super(bounds,name,beam);
         setupBody(getComponent(BodyComponent.class));
     }
 
