@@ -3231,9 +3231,9 @@
    <polyline points="-240,0 -240,16 -208,16 -208,0 -240,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points" visible="0" locked="1">
+ <objectgroup color="#ffffff" name="points">
   <object id="2" name="mapExitPoint" x="1168" y="640" width="64" height="32"/>
-  <object id="1" name="playerSpawn" x="1440" y="1184" width="16" height="16"/>
+  <object id="1" name="playerSpawn" x="1192" y="1240" width="16" height="16"/>
  </objectgroup>
  <objectgroup color="#04ff00" name="puzzle" visible="0" locked="1">
   <object id="124" name="boxPuzzle_1" x="1216" y="1520">
