@@ -1,10 +1,9 @@
-package net.team11.pixeldungeon.game.puzzles.beamPuzzle;
+package net.team11.pixeldungeon.game.puzzles.beampuzzle;
 
 import com.badlogic.gdx.math.Polygon;
 
 import net.team11.pixeldungeon.game.entities.beams.BeamTarget;
 import net.team11.pixeldungeon.game.entities.puzzle.PuzzleComponent;
-import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;

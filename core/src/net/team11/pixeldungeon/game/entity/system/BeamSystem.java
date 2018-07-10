@@ -15,7 +15,7 @@ import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
-import net.team11.pixeldungeon.game.puzzles.beamPuzzle.BeamPuzzle;
+import net.team11.pixeldungeon.game.puzzles.beampuzzle.BeamPuzzle;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.RoundTo;
 

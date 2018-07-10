@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Polygon;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entities.beams.Beam;
 
+import net.team11.pixeldungeon.game.entities.beams.BeamReflectorMovable;
 import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.PressurePlate;
 
@@ -60,7 +61,8 @@ public class RenderSystem extends EntitySystem {
         for (Entity entity : entityList) {
             if (entity instanceof Player
                     || entity instanceof Box
-                    || entity instanceof Beam) {
+                    || entity instanceof Beam
+                    || entity instanceof BeamReflectorMovable) {
                 movableEntities.add(entity);
                 entities.add(entity);
             } else if (entity instanceof PressurePlate) {
@@ -96,7 +98,7 @@ public class RenderSystem extends EntitySystem {
                 PlayScreen.gameCam.viewportHeight*0.1f+bleed*2);
 
         spriteBatch.begin();
-        for (Entity entity : sortList()) {
+        for (Entity entity : drawList) {
             if (entity instanceof Torch && ((int) (delta * 100000)) % 6 == 0) {
                 ((Torch) entity).setLightSize(new Random().nextInt(10) + 40f);
             }
@@ -107,8 +109,8 @@ public class RenderSystem extends EntitySystem {
             Polygon entityBox = bodyComponent.getPolygon();
 
             if (CollisionUtil.isOverlapping(cameraBox,entityBox)) {
-                float width = currentAnimation.getKeyFrame(0).getRegionWidth();
-                int height = currentAnimation.getKeyFrame(0).getRegionHeight();
+                float width = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionWidth();
+                int height = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionHeight();
 
                 if (!(entity instanceof Beam)) {
                     spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
@@ -147,8 +149,8 @@ public class RenderSystem extends EntitySystem {
             AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
             Animation<TextureRegion> currentAnimation = animationComponent.getCurrentAnimation();
-            float width = currentAnimation.getKeyFrame(0).getRegionWidth();
-            int height = currentAnimation.getKeyFrame(0).getRegionHeight();
+            float width = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionWidth();
+            int height = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionHeight();
 
             if (!(entity instanceof Beam)) {
                 spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
@@ -178,7 +180,7 @@ public class RenderSystem extends EntitySystem {
             float prevY;
             float nextY;
 
-            if (currIndex > 0 && currIndex < drawList.size()-1) {
+            if (currIndex > 0 && currIndex < drawList.size()-1 && entities.size() > 1) {
                 prevY = getPrevY(entity);
                 currY = getCurrY(entity,true);
 
@@ -211,7 +213,7 @@ public class RenderSystem extends EntitySystem {
                         }
                     }
                 }
-            } else if (currIndex == 0) {
+            } else if (currIndex == 0 && entities.size() > 1) {
                 nextY = getNextY(entity);
                 currY = getCurrY(entity,false);
 
@@ -227,7 +229,7 @@ public class RenderSystem extends EntitySystem {
                         break;
                     }
                 }
-            } else if (currIndex == drawList.size() - 1) {
+            } else if (currIndex == drawList.size() - 1 && entities.size() > 1) {
                 prevY = getPrevY(entity);
                 currY = getCurrY(entity,true);
                 while (!(prevY > currY)) {

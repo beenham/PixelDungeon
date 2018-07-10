@@ -1,89 +1,173 @@
 
 Traps.png
-size: 128,32
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-floorSpikeActivating
+floorSpike2x2Activating
   rotate: false
   xy: 2, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 0
+floorSpike2x2Deactivating
+  rotate: false
+  xy: 2, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 4
+floorSpike2x2Activating
+  rotate: false
+  xy: 36, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 1
+floorSpike2x2Deactivating
+  rotate: false
+  xy: 36, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 3
+floorSpike2x2Activating
+  rotate: false
+  xy: 70, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 2
+floorSpike2x2Deactivating
+  rotate: false
+  xy: 70, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 2
+floorSpike2x2Activating
+  rotate: false
+  xy: 104, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 3
+floorSpike2x2Deactivating
+  rotate: false
+  xy: 104, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 1
+floorSpike2x2Activating
+  rotate: false
+  xy: 138, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 4
+floorSpike2x2Deactivating
+  rotate: false
+  xy: 138, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 0
+floorSpike2x2Triggered
+  rotate: false
+  xy: 138, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 0
+floorSpike2x2Idle
+  rotate: false
+  xy: 172, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: 0
+floorSpikeActivating
+  rotate: false
+  xy: 206, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
   index: 0
 floorSpikeDeactivating
   rotate: false
-  xy: 2, 2
+  xy: 206, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
   index: 4
 floorSpikeActivating
   rotate: false
-  xy: 20, 2
+  xy: 240, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
   index: 1
 floorSpikeDeactivating
   rotate: false
-  xy: 20, 2
+  xy: 240, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
   index: 3
 floorSpikeActivating
   rotate: false
-  xy: 38, 2
+  xy: 274, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 2
+  index: 3
 floorSpikeDeactivating
   rotate: false
-  xy: 38, 2
-  size: 16, 26
-  orig: 16, 26
-  offset: 0, 0
-  index: 2
-floorSpikeDeactivating
-  rotate: false
-  xy: 56, 2
-  size: 16, 26
-  orig: 16, 26
-  offset: 0, 0
-  index: 0
-floorSpikeActivating
-  rotate: false
-  xy: 56, 2
-  size: 16, 26
-  orig: 16, 26
-  offset: 0, 0
-  index: 4
-floorSpikeTriggered
-  rotate: false
-  xy: 56, 2
-  size: 16, 26
-  orig: 16, 26
-  offset: 0, 0
-  index: 0
-floorSpikeDeactivating
-  rotate: false
-  xy: 74, 2
+  xy: 274, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
   index: 1
-floorSpikeActivating
+floorSpikeDeactivating
   rotate: false
-  xy: 74, 2
+  xy: 308, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0
-  index: 3
+  index: 2
+floorSpikeActivating
+  rotate: false
+  xy: 308, 2
+  size: 16, 26
+  orig: 16, 26
+  offset: 0, 0
+  index: 2
 floorSpikeIdle
   rotate: false
-  xy: 92, 2
+  xy: 342, 2
+  size: 16, 26
+  orig: 16, 26
+  offset: 0, 0
+  index: 0
+floorSpikeTriggered
+  rotate: false
+  xy: 376, 2
+  size: 16, 26
+  orig: 16, 26
+  offset: 0, 0
+  index: 0
+floorSpikeActivating
+  rotate: false
+  xy: 376, 2
+  size: 16, 26
+  orig: 16, 26
+  offset: 0, 0
+  index: 4
+floorSpikeDeactivating
+  rotate: false
+  xy: 376, 2
   size: 16, 26
   orig: 16, 26
   offset: 0, 0

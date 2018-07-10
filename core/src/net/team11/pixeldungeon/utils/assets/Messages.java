@@ -13,20 +13,24 @@ public class Messages {
     public static final String DOOR_NEED_DUNGEON_KEY = "You need the Dungeon Key to open this door";
 
     public static final String ITEM_FIND_ONE = "You found a %s";
-    public static final String ITEM_FIND_MULTIPLE = "You found %d %s's";
+    public static final String ITEM_FIND_MULTIPLE = "You found %d %ss";
     public static final String ITEM_RECEIVE_ONE = "You got a %s";
-    public static final String ITEM_RECEIVE_MULTIPLE = "You found %d %s's";
+    public static final String ITEM_RECEIVE_MULTIPLE = "You found %d %ss";
 
     public static final String WALL_UNREADABLE_TEXT = "The text on the wall is unreadable";
+
+    public static final String TRAP_ROOM_ACTIVATED = "Room activated";
+    public static final String TRAP_ROOM_DEACTIVATED = "Room deactivated";
 
     /////   PUZZLE MESSAGES
     public static final String PUZZLE_ATTEMPTS_REMAINING = "You have %d attempts remaining";
     public static final String PUZZLE_FAILED = "You have no attempts remaining and have failed this puzzle";
     public static final String PUZZLE_NO_ATTEMPTS = "You have no attempts left. The puzzle is locked";
-    public static final String PUZZLE_COMPLETE = "Puzzle onComplete";
+    public static final String PUZZLE_COMPLETE = "Puzzle Completed";
     public static final String PUZZLE_OUT_OF_TIME = "You ran out of time. Terminating puzzle";
 
     public static final String LEVEL_PART_COMPLETE = "Part completed";
+    public static final String LEVEL_PART_DISABLED = "Part disabled";
     public static final String LEVEL_PART_REMAINING = "There are %d parts remaining";
     public static final String LEVEL_PUZZLE_COMPLETE = "All parts completed";
 

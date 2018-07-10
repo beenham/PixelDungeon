@@ -1,74 +1,57 @@
 package net.team11.pixeldungeon.game.puzzles.boxpuzzle;
 
-import net.team11.pixeldungeon.game.entities.blocks.Box;
-import net.team11.pixeldungeon.game.entity.component.entitycomponent.BoxComponent;
-import net.team11.pixeldungeon.game.entitysystem.Entity;
-import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
+import net.team11.pixeldungeon.game.entities.puzzle.CompletedIndicator;
+import net.team11.pixeldungeon.game.entities.puzzle.PuzzleComponent;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
-
-import java.util.ArrayList;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 public class BoxPuzzle extends Puzzle {
-    private ArrayList<Box> boxes;
-    private ArrayList<String> boxNames;
+    private int completedParts;
+    private int maxParts;
 
     public BoxPuzzle(String name) {
         super(name);
+        completedParts = 0;
+        maxParts = 0;
         timed = false;
         maxAttempts = 100;
         attempts = 0;
-
-        boxNames = new ArrayList<>();
-        boxes = new ArrayList<>();
 
         activate();
     }
 
     @Override
-    public void update(float delta) {
-        /*
-        for (PuzzleComponent component : puzzleComponents) {
-            if (component instanceof BoxDock) {
-                if (!((BoxDock)component).isDocked()) {
-                    for (Box box : boxes) {
-                        if (CollisionUtil.isSubmerged(component.getComponent(BodyComponent.class).getPolygon(),
-                                box.getComponent(BodyComponent.class).getPolygon())) {
-                            System.out.print("BOX SUBMERGED");
-                            ((BoxDock) component).setBox(box);
-                            component.doInteraction(false);
-                        }
+    public void notifyPressed(PuzzleComponent puzzleComponent) {
+        if (!completed && activated) {
+            if (puzzleComponent instanceof CompletedIndicator) {
+                if (((CompletedIndicator) puzzleComponent).isOn()) {
+                    completedParts++;
+                    if (completedParts == maxParts) {
+                        onComplete();
                     }
+                } else {
+                    completedParts--;
                 }
             }
         }
-        */
     }
 
     @Override
-    public void setupEntities(EntityEngine engine) {
-        while (!boxNames.isEmpty()) {
-            String boxName = boxNames.get(0);
-            for (Entity entity : engine.getEntities(BoxComponent.class)) {
-                if (entity instanceof Box) {
-                    if (entity.getName().equals(boxName)) {
-                        boxes.add((Box)entity);
-                        System.out.println("BOX ADDED TO PUZZLE");
-                        boxNames.remove(boxName);
-                        break;
-                    }
-                }
-            }
-            boxNames.remove(boxName);
+    public void addComponent(PuzzleComponent puzzleComponent) {
+        super.addComponent(puzzleComponent);
+        if (puzzleComponent instanceof CompletedIndicator) {
+            maxParts++;
         }
     }
 
     @Override
     protected void onComplete() {
         super.onComplete();
-    }
-
-    public void setBoxNames(ArrayList<String> boxNames) {
-        this.boxNames = boxNames;
+        completed = true;
+        activated = false;
+        trigger();
+        String message = Messages.PUZZLE_COMPLETE;
+        PlayScreen.uiManager.initTextBox(message);
     }
 }

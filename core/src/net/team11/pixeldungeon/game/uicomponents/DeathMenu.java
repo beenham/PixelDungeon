@@ -35,8 +35,8 @@ public class DeathMenu extends Stage {
     private EntityEngine engine;
     private Player player;
 
-    private boolean visible = false;
-    private boolean loaded = false;
+    private boolean visible;
+    private boolean loaded;
 
     private Table deathTable;
     private Image deathImage;
@@ -54,6 +54,7 @@ public class DeathMenu extends Stage {
         player = (Player) engine.getEntities(PlayerComponent.class).get(0);
         darken = 0.4f;
         delta = 0;
+        visible = false;
         loaded = false;
         deathAnimationName = AssetName.DEATH_FIRE;
         setupTable();

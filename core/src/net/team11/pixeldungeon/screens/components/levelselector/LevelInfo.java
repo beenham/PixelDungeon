@@ -58,7 +58,7 @@ public class LevelInfo extends Table {
         Table table = new Table();
         table.add(levelName).bottom().padTop(getHeight()/5);
 
-        add(levelName).expand();
+        add(levelName).expandX().fillX();
     }
 
     private void setupInfo() {
@@ -125,7 +125,7 @@ public class LevelInfo extends Table {
         table.add(items).left();
         table.add(itemsVal).right();
 
-        add(table).pad(PixelDungeon.V_HEIGHT/10,padding,padding,padding).expand();
+        add(table).pad(PixelDungeon.V_HEIGHT/10,padding,padding,padding).expandY().bottom();
     }
 
     private void setupPlay() {
@@ -154,7 +154,7 @@ public class LevelInfo extends Table {
         Table table = new Table();
         table.add(playButton).top();
 
-        add(table).padBottom(PixelDungeon.V_HEIGHT/10).pad(20f * PixelDungeon.SCALAR).expand();
+        add(table).padBottom(PixelDungeon.V_HEIGHT/10).pad(20f * PixelDungeon.SCALAR).bottom();
     }
 
     public void update() {

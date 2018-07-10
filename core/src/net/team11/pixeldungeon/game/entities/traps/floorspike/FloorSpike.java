@@ -1,24 +1,61 @@
-package net.team11.pixeldungeon.game.entities.traps;
+package net.team11.pixeldungeon.game.entities.traps.floorspike;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
+import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.HealthComponent;
 import net.team11.pixeldungeon.game.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.game.entity.component.TrapComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.CollisionUtil;
-import net.team11.pixeldungeon.utils.assets.AssetName;
-import net.team11.pixeldungeon.utils.assets.Assets;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class FloorSpike extends Trap {
+    public enum SpikeSize {
+        oneXone {
+            @Override
+            public String toString() {
+                return "1x1";
+            }
+        },
+        oneXtwo {
+            @Override
+            public String toString() {
+                return "1x2";
+            }
+        },
+        twoXone {
+            @Override
+            public String toString() {
+                return "2x1";
+            }
+        },
+        twoXtwo {
+            @Override
+            public String toString() {
+                return "2x2";
+            }
+        },
+        twoXthree {
+            @Override
+            public String toString() {
+                return "2x3";
+            }
+        },
+        threeXtwo {
+            @Override
+            public String toString() {
+                return "3x2";
+            }
+        }
+    }
+
+    protected SpikeSize size;
+
     public FloorSpike(Rectangle bounds, boolean enabled, String name, float timer) {
         this(bounds,enabled,name);
         this.timed = true;
@@ -32,26 +69,13 @@ public class FloorSpike extends Trap {
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;
-        AnimationComponent animationComponent;
         this.addComponent(new TrapComponent(this));
         this.addComponent(new BodyComponent(bounds.getWidth(), bounds.getHeight(), posX, posY, 0f,
                 (CollisionUtil.TRAP),
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
-        this.addComponent(animationComponent = new AnimationComponent(0));
         this.addComponent(new InteractionComponent(this));
-        setupAnimations(animationComponent);
     }
-
-    private void setupAnimations(AnimationComponent animationComponent) {
-        TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.TRAPS);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_ACTIVATING, textureAtlas, 0.3f, Animation.PlayMode.NORMAL);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_DEACTIVATING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_TRIGGERED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AssetName.FLOORSPIKE_IDLE);
-    }
-
 
     @Override
     public void trigger() {
@@ -70,16 +94,14 @@ public class FloorSpike extends Trap {
         }
         if (enabled) {
             if (!triggered) {
-                getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_ACTIVATING);
-                getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_TRIGGERED);
+                setActivatedAnim();
                 triggered = true;
                 if (contactEntity != null) {
                     contactEntity.getComponent(HealthComponent.class)
                             .setHealth(contactEntity.getComponent(HealthComponent.class).getHealth() - damage,this);
                 }
             } else {
-                getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_DEACTIVATING);
-                getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_IDLE);
+                setDeactivatedAnim();
                 triggered = false;
             }
             if (timed) {
@@ -87,4 +109,8 @@ public class FloorSpike extends Trap {
             }
         }
     }
+
+    protected void setActivatedAnim() {}
+
+    protected void setDeactivatedAnim() {}
 }

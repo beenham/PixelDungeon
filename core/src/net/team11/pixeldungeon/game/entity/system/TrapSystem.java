@@ -43,11 +43,12 @@ public class TrapSystem extends EntitySystem {
         timer -= delta * RenderSystem.FRAME_SPEED;
         Polygon playerBox = player.getComponent(BodyComponent.class).getPolygon();
 
-        for (Entity trapRoomEntity : trapRooms) {
-            Polygon trapRoomBox = trapRoomEntity.getComponent(BodyComponent.class).getPolygon();
-            boolean updateTraps = CollisionUtil.isOverlapping(trapRoomBox,playerBox);
-            if (trapRoomEntity instanceof TrapRoom && updateTraps) {
-                for (Entity trapEntity : ((TrapRoom) trapRoomEntity).getTraps()) {
+        for (Entity trapRoom : trapRooms) {
+            Polygon trapRoomBox = trapRoom.getComponent(BodyComponent.class).getPolygon();
+            boolean updateTraps = CollisionUtil.isOverlapping(trapRoomBox,playerBox)
+                    && ((TrapRoom)trapRoom).isOn();
+            if (trapRoom instanceof TrapRoom && updateTraps) {
+                for (Entity trapEntity : ((TrapRoom) trapRoom).getTraps()) {
                     if (trapEntity instanceof PressurePlate) {
                         PressurePlate plate = (PressurePlate) trapEntity;
                         Polygon plateBox = plate.getComponent(BodyComponent.class).getPolygon();

@@ -52,8 +52,13 @@ public class CompletedIndicator extends PuzzleComponent {
             }
         } else {
             if (!on) {
+                on = true;
                 parentPuzzle.notifyPressed(this);
                 getComponent(AnimationComponent.class).setAnimation(AssetName.COMPLETED_INDICATOR_ON);
+            } else {
+                on = false;
+                parentPuzzle.notifyPressed(this);
+                getComponent(AnimationComponent.class).setAnimation(AssetName.COMPLETED_INDICATOR_OFF);
             }
         }
     }

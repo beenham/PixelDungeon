@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.game.entity.component;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entitysystem.EntityComponent;
+import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.items.Item;
 
 import java.util.ArrayList;
@@ -18,6 +19,18 @@ public class InventoryComponent implements EntityComponent {
 
     public boolean addItem(Item item) {
         if (item != null) {
+            if (item instanceof Coin) {
+                for (Item myItems : items) {
+                    if (myItems instanceof Coin) {
+                        ((Coin) myItems).addAmount(item.getAmount());
+                        return true;
+                    }
+                }
+                if (isFull()) {
+                    return false;
+                }
+            }
+
             if (items.size() < MAX_SIZE) {
                 items.add(item);
                 if (isFull()) {

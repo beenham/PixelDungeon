@@ -53,7 +53,8 @@ public class MapManager {
 
     public void renderEnvironment() {
         renderer.setView(PlayScreen.gameCam);
-        int[] layers = {currentMap.getMap().getLayers().getIndex(TiledMapLayers.FLOOR_LAYER),
+        int[] layers = {currentMap.getMap().getLayers().getIndex(TiledMapLayers.TRAP_FLOOR_LAYER),
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.FLOOR_LAYER),
                 currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALL_LAYER)};
         renderer.render(layers);
     }

@@ -1,6 +1,6 @@
 package net.team11.pixeldungeon.game.entity.component;
 
-import net.team11.pixeldungeon.game.entities.traps.FloorSpike;
+import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityComponent;
 import net.team11.pixeldungeon.utils.assets.AssetName;

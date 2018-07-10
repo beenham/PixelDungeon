@@ -36,9 +36,13 @@ import net.team11.pixeldungeon.game.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.GemPillar;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.WallScribe;
 import net.team11.pixeldungeon.game.entities.puzzle.simonsays.SimonSaysSwitch;
-import net.team11.pixeldungeon.game.entities.traps.FloorSpike;
+import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike;
 import net.team11.pixeldungeon.game.entities.traps.Quicksand;
 import net.team11.pixeldungeon.game.entities.traps.TrapRoom;
+import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike1x1;
+import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike1x2;
+import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike2x1;
+import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike2x2;
 import net.team11.pixeldungeon.game.entity.component.entitycomponent.TrapRoomComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
@@ -48,7 +52,7 @@ import net.team11.pixeldungeon.game.items.keys.ChestKey;
 import net.team11.pixeldungeon.game.items.keys.DoorKey;
 import net.team11.pixeldungeon.game.items.keys.DungeonKey;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
-import net.team11.pixeldungeon.game.puzzles.beamPuzzle.BeamPuzzle;
+import net.team11.pixeldungeon.game.puzzles.beampuzzle.BeamPuzzle;
 import net.team11.pixeldungeon.game.puzzles.boxpuzzle.BoxPuzzle;
 import net.team11.pixeldungeon.game.puzzles.levelpuzzle.LevelPuzzle;
 import net.team11.pixeldungeon.game.puzzles.simonsays.SimonSays;
@@ -174,14 +178,56 @@ public class TiledObjectUtil {
                             boolean enabled = (boolean) rectObject.getProperties().get(TiledMapProperties.ENABLED);
                             boolean timed = (boolean) rectObject.getProperties().get(TiledMapProperties.TIMED);
                             String room = (String) rectObject.getProperties().get(TiledMapProperties.ROOM);
+                            String size = (String) rectObject.getProperties().get(TiledMapProperties.SIZE);
 
-                            if (timed) {
-                                float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
-                                floorSpike = new FloorSpike(rectObject.getRectangle(), enabled,
-                                        rectObject.getName(), timer);
-                            } else {
-                                floorSpike = new FloorSpike(rectObject.getRectangle(), enabled, rectObject.getName());
+                            switch (size) {
+                                case "1x1":
+                                    if (timed) {
+                                        float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
+                                        floorSpike = new FloorSpike1x1(rectObject.getRectangle(), enabled,
+                                                rectObject.getName(), timer);
+                                    } else {
+                                        floorSpike = new FloorSpike1x1(rectObject.getRectangle(), enabled, rectObject.getName());
+                                    }
+                                    break;
+                                case "1x2":
+                                    if (timed) {
+                                        float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
+                                        floorSpike = new FloorSpike1x2(rectObject.getRectangle(), enabled,
+                                                rectObject.getName(), timer);
+                                    } else {
+                                        floorSpike = new FloorSpike1x2(rectObject.getRectangle(), enabled, rectObject.getName());
+                                    }
+                                    break;
+                                case "2x1":
+                                    if (timed) {
+                                        float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
+                                        floorSpike = new FloorSpike2x1(rectObject.getRectangle(), enabled,
+                                                rectObject.getName(), timer);
+                                    } else {
+                                        floorSpike = new FloorSpike2x1(rectObject.getRectangle(), enabled, rectObject.getName());
+                                    }
+                                    break;
+                                case "2x2":
+                                    if (timed) {
+                                        float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
+                                        floorSpike = new FloorSpike2x2(rectObject.getRectangle(), enabled,
+                                                rectObject.getName(), timer);
+                                    } else {
+                                        floorSpike = new FloorSpike2x2(rectObject.getRectangle(), enabled, rectObject.getName());
+                                    }
+                                    break;
+
+                                    default:
+                                        if (timed) {
+                                            float timer = (float) rectObject.getProperties().get(TiledMapProperties.TIMER);
+                                            floorSpike = new FloorSpike1x1(rectObject.getRectangle(), enabled,
+                                                    rectObject.getName(), timer);
+                                        } else {
+                                            floorSpike = new FloorSpike1x1(rectObject.getRectangle(), enabled, rectObject.getName());
+                                        }
                             }
+
                             List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
                             for (Entity entity : trapRooms) {
                                 if (entity instanceof TrapRoom && entity.getName().equals(room)) {
@@ -533,14 +579,10 @@ public class TiledObjectUtil {
                     engine.addPuzzle(colourGems);
                     break;
                 case TiledMapPuzzleNames.BOX_PUZZLE:
-                    ArrayList<String> boxes;
-                    boxes = parseTargets(mapObject, TiledMapProperties.BOXES);
-
                     BoxPuzzle boxPuzzle = new BoxPuzzle(mapObject.getName());
                     boxPuzzle.setActivateTargets(activateTargets);
                     boxPuzzle.setCompleteTargets(completeTargets);
                     boxPuzzle.setFailTargets(failTargets);
-                    boxPuzzle.setBoxNames(boxes);
                     engine.addPuzzle(boxPuzzle);
                     break;
 

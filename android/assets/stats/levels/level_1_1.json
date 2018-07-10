@@ -1,0 +1,30 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "chest_3":false,
+    "chest_4":false,
+    "chest_5":false,
+    "chest_6":false
+  },
+  "foundItems": {},
+  "foundKeys": {
+    "Small Key":false,
+    "Door Key":false,
+    "Dungeon Key":false
+  },
+  "fileName":"level_1_1",
+  "levelName":"Humble Beginnings",
+  "targetTimes": {
+    "Time One": 180,
+    "Time Two": 300,
+    "Time Three": 600
+  },
+  "totalChests":6,
+  "totalItems":0,
+  "totalKeys":3,
+  "tutorial":false
+}

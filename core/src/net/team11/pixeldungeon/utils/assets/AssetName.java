@@ -163,6 +163,18 @@ public class AssetName {
     public static final String FLOORSPIKE_ACTIVATING = "floorSpikeActivating";
     public static final String FLOORSPIKE_DEACTIVATING = "floorSpikeDeactivating";
     public static final String FLOORSPIKE_TRIGGERED = "floorSpikeTriggered";
+    public static final String FLOORSPIKE_1x2_IDLE = "floorSpike1x2Idle";
+    public static final String FLOORSPIKE_1x2_ACTIVATING = "floorSpike1x2Activating";
+    public static final String FLOORSPIKE_1x2_DEACTIVATING = "floorSpike1x2Deactivating";
+    public static final String FLOORSPIKE_1x2_TRIGGERED = "floorSpike1x2Triggered";
+    public static final String FLOORSPIKE_2x1_IDLE = "floorSpike2x1Idle";
+    public static final String FLOORSPIKE_2x1_ACTIVATING = "floorSpike2x1Activating";
+    public static final String FLOORSPIKE_2x1_DEACTIVATING = "floorSpike2x1Deactivating";
+    public static final String FLOORSPIKE_2x1_TRIGGERED = "floorSpike2x1Triggered";
+    public static final String FLOORSPIKE_2x2_IDLE = "floorSpike2x2Idle";
+    public static final String FLOORSPIKE_2x2_ACTIVATING = "floorSpike2x2Activating";
+    public static final String FLOORSPIKE_2x2_DEACTIVATING = "floorSpike2x2Deactivating";
+    public static final String FLOORSPIKE_2x2_TRIGGERED = "floorSpike2x2Triggered";
 
     public static final String TMP_ON = "Tmp_Asset_On_16x16";
     public static final String TMP_OFF = "Tmp_Asset_Off_16x16";

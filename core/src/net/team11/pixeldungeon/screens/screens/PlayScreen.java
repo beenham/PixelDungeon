@@ -136,7 +136,7 @@ public class PlayScreen extends AbstractScreen {
         rayHandler.update();
         rayHandler.setCombinedMatrix(gameCam);
         game.batch.setProjectionMatrix(gameCam.combined);
-        world.step(1 / 60f, 6, 2);
+        world.step(deltaTime, 6, 2);
         uiManager.update(deltaTime,paused);
     }
 
