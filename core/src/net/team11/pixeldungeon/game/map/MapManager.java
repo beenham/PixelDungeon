@@ -62,10 +62,10 @@ public class MapManager {
     public void renderWallTop() {
         renderer.setView(PlayScreen.gameCam);
         int[] layers = {
-                currentMap.getMap().getLayers().getIndex(TiledMapLayers.DECOR_LAYER),
                 currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP1_LAYER),
                 currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP2_LAYER),
-                currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP3_LAYER)
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.WALLTOP3_LAYER),
+                currentMap.getMap().getLayers().getIndex(TiledMapLayers.DECOR_LAYER)
         };
 
         renderer.render(layers);

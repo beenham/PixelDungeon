@@ -105,8 +105,8 @@ public class PlayScreen extends AbstractScreen {
 
     private void setupPlayer(String mapName) {
         RectangleMapObject mapObject = mapManager.getMap(mapName).getRectangleObject(TiledMapLayers.POINTS_LAYER, TiledMapObjectNames.SPAWN_POINT);
-        float posX = mapObject.getRectangle().getX();
-        float posY = mapObject.getRectangle().getY();
+        float posX = mapObject.getRectangle().getX() + mapObject.getRectangle().getWidth()/2;
+        float posY = mapObject.getRectangle().getY() + mapObject.getRectangle().getHeight()/2;
         engine.addEntity(player = new Player(posX, posY));
     }
 
