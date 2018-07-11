@@ -4,7 +4,10 @@ Google Play game services IDs.
 Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
+    <!-- App Name  -->
     <string name="app_name">Pixel Dungeon</string>
+    <!-- admob : app_id -->
+    <string name="admob_id" translatable="false">ca-app-pub-4312256355419469~1459674107</string>
     <!-- app_id -->
     <string name="app_id" translatable="false">1022168830802</string>
     <!-- package_name -->
@@ -45,6 +48,4 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="achievement_i_cant_carry_any_more" translatable="false">CgkI0qaK8N8dEAIQEg</string>
     <!-- achievement Puzzle Master -->
     <string name="achievement_puzzle_master" translatable="false">CgkI0qaK8N8dEAIQFg</string>
-    <!-- leaderboard Best Times -->
-    <string name="leaderboard_best_times" translatable="false">CgkI0qaK8N8dEAIQAg</string>
 </resources>
