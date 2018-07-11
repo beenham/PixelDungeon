@@ -6,7 +6,13 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import net.team11.pixeldungeon.playservices.AdmobClient;
+import net.team11.pixeldungeon.screens.AbstractScreen;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.components.dialog.RewardDialog;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RewardAdListener implements RewardedVideoAdListener {
     private static final String TAG = "RewardAdListener";
@@ -26,6 +32,7 @@ public class RewardAdListener implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdOpened() {
+        loaded = false;
         Log.i(TAG,"Video opened..");
     }
 
@@ -36,14 +43,16 @@ public class RewardAdListener implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdClosed() {
-        admobClient.loadRewardAd();
         Log.i(TAG,"Video closed..");
+        admobClient.loadRewardAd();
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
         Log.i(TAG,"Video rewarded.. " + rewardItem.getType() + ": " + rewardItem.getAmount());
         StatsUtil.getInstance().getGlobalStats().addCurrentCoins(rewardItem.getAmount());
+        RewardDialog dialog = new RewardDialog(rewardItem.getAmount());
+        dialog.show((AbstractScreen)ScreenManager.getInstance().getScreen());
     }
 
     @Override

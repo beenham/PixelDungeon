@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.games.SnapshotsClient;
+import com.google.android.gms.games.snapshot.Snapshot;
 
 import net.team11.pixeldungeon.crossplatform.CrossPlatformSystem;
 import net.team11.pixeldungeon.playservices.AdmobClient;

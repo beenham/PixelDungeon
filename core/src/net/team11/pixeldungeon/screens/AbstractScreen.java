@@ -40,6 +40,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void resize(int width, int height) {
         getViewport().update(width,height,true);
+        PixelDungeon.V_WIDTH = width;
+        PixelDungeon.V_HEIGHT = height;
     }
 
     @Override

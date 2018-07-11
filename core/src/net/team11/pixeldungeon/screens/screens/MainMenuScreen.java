@@ -151,7 +151,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     private Table setupBottomLeftTable(float padding) {
         rewardAdded = true;
-        Table tlTable = new Table();
+        final Table tlTable = new Table();
         tlTable.bottom().padBottom(padding*3).left().padLeft(padding*3);
 
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.HUD);
@@ -162,6 +162,8 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 PixelDungeon.getInstance().getAndroidInterface().showRewardAd();
+                rewardAdded = false;
+                tlTable.remove();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

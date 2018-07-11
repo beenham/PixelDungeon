@@ -14,13 +14,19 @@ public class Messages {
 
     public static final String ITEM_FIND_ONE = "You found a %s";
     public static final String ITEM_FIND_MULTIPLE = "You found %d %ss";
-    public static final String ITEM_RECEIVE_ONE = "You got a %s";
-    public static final String ITEM_RECEIVE_MULTIPLE = "You found %d %ss";
+    public static final String ITEM_RECEIVE_ONE = "You received a %s";
+    public static final String ITEM_RECEIVE_MULTIPLE = "You received %d %ss";
 
     public static final String WALL_UNREADABLE_TEXT = "The text on the wall is unreadable";
 
     public static final String TRAP_ROOM_ACTIVATED = "Room activated";
     public static final String TRAP_ROOM_DEACTIVATED = "Room deactivated";
+
+    public static final String AD_CONGRATS = "WOO-HOO!";
+    public static final String AD_DONE = "AWESOME!";
+    public static final String AD_THANKS = "Thanks for watching! Don't forget to keep watching " +
+            "more videos for coins!";
+    public static final String AD_REWATCH = "WATCH ANOTHER?";
 
     /////   PUZZLE MESSAGES
     public static final String PUZZLE_ATTEMPTS_REMAINING = "You have %d attempts remaining";
@@ -77,6 +83,7 @@ public class Messages {
     public static final String PLAY_UPPER = "PLAY";
     public static final String RESUME = "RESUME";
     public static final String RETRY = "RETRY";
+    public static final String REWATCH = "Watch Another?";
     public static final String SIGN_IN = "SIGN IN";
     public static final String SIGN_OUT = "SIGN OUT";
     public static final String SKIN_SELECT = "SKIN SELECTION";
