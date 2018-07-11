@@ -43,7 +43,9 @@ public class MainMenuScreen extends AbstractScreen {
         addActor(setupTopRightTable(padding));
         addActor(setupBottomRightTable(padding));
         //addActor(setupBottomLeftTable(padding));
-        //addActor(setupTopLeftTable(padding));
+        if (PixelDungeon.getInstance().getAndroidInterface().isRewardAvailable()) {
+            addActor(setupTopLeftTable(padding));
+        }
     }
 
     private Table setupMainTable(float padding) {
@@ -149,9 +151,19 @@ public class MainMenuScreen extends AbstractScreen {
         Table tlTable = new Table();
         tlTable.top().padTop(padding).left().padLeft(padding);
 
-        Label label = new Label("TL",
+        Label label = new Label("REWARD",
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         label.setFontScale(1.2f * PixelDungeon.SCALAR);
+
+        label.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("PRESSED");
+                PixelDungeon.getInstance().getAndroidInterface().showRewardAd();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
         tlTable.add(label);
 
         tlTable.setPosition(0,PixelDungeon.V_HEIGHT);

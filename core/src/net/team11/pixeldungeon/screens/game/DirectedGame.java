@@ -12,8 +12,6 @@ import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
 
 public abstract class DirectedGame extends Game {
-	protected System crossPlatform;
-
 	private boolean init;
 	private AbstractScreen currScreen;
 	private AbstractScreen nextScreen;
@@ -23,6 +21,8 @@ public abstract class DirectedGame extends Game {
 	private float t;
 	private ScreenTransition screenTransition;
 	private static final String TAG = DirectedGame.class.getName();
+
+	private Runnable runnable;
 
 	public void setScreen(AbstractScreen screen) {
 		setScreen(screen, null);
@@ -84,6 +84,8 @@ public abstract class DirectedGame extends Game {
 				currScreen = nextScreen;
 				nextScreen = null;
 				screenTransition = null;
+
+				initRunnable();
 			} else {
 				// render screens to FBOs
 				currFbo.begin();
@@ -155,4 +157,13 @@ public abstract class DirectedGame extends Game {
 		return currScreen;
 	}
 
+	private void initRunnable() {
+		if (runnable != null) {
+			runnable.run();
+		}
+	}
+
+	public void setRunnable(Runnable runnable) {
+		this.runnable = runnable;
+	}
 }

@@ -111,6 +111,7 @@ public class LevelCompleteScreen extends AbstractScreen {
         doneButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                PixelDungeon.getInstance().getAndroidInterface().showEndLevelAd();
                 ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
                         ScreenTransitionFade.init(1f));
                 return super.touchDown(event, x, y, pointer, button);
@@ -287,30 +288,8 @@ public class LevelCompleteScreen extends AbstractScreen {
     }
 
     @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-    }
-
-    @Override
     public void pause() {
         this.paused = true;
-        super.pause();
-    }
-
-    @Override
-    public void resume() {
-        this.paused = false;
-        super.resume();
-    }
-
-    @Override
-    public void hide() {
-        super.hide();
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
     }
 
     @Override

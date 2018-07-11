@@ -41,6 +41,13 @@ public class ScreenManager {
         game.setScreen(newScreen, screenTransition);
     }
 
+    public void changeScreen(ScreenEnum screenEnum, ScreenTransition screenTransition, Runnable onComplete) {
+        AbstractScreen newScreen = screenEnum.getScreen();
+        newScreen.buildStage();
+        game.setScreen(newScreen, screenTransition);
+        game.setRunnable(onComplete);
+    }
+
     public Screen getScreen() {
         return game.getScreen();
     }
