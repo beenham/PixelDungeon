@@ -57,30 +57,36 @@ public class AdmobClient {
     }
 
     public void loadRewardAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                        new AdRequest.Builder().build());
+            }
+        });
     }
 
     public void showEndLevelAd() {
-        System.out.println("SHOWING METHOD");
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mInterstitialAd.isLoaded()) {
-                    System.out.println("SHOWING");
                     mInterstitialAd.show();
+                } else {
+                    loadEndLevelAd();
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    }
                 }
             }
         });
     }
 
     public void showRewardAd() {
-        System.out.println("SHOWING METHOD");
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mRewardedVideoAd.isLoaded()) {
-                    System.out.println("SHOWING");
                     mRewardedVideoAd.show();
                 }
             }

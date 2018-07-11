@@ -64,6 +64,9 @@ public class RewardAdListener implements RewardedVideoAdListener {
 
     public boolean isLoaded() {
         Log.i(TAG,"Is loaded? " + loaded);
+        if (!loaded) {
+            admobClient.loadRewardAd();
+        }
         return loaded;
     }
 }

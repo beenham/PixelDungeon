@@ -11,6 +11,7 @@ public class AssetName {
     public static final String PAUSE_BUTTON = "pauseButton";
 
     public static final String PLAYER_ICON = "playerButton";
+    public static final String COIN_BUTTON = "freeCoin";
 
     public static final String UI_SLOT = "itemSlot";
     public static final String DARKEN_0 = "darken0";
