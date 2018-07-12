@@ -9,10 +9,6 @@ public class ScreenManager {
     private static ScreenManager INSTANCE;
     private DirectedGame game;
 
-    private ScreenManager() {
-        super();
-    }
-
     public static ScreenManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ScreenManager();
@@ -39,13 +35,6 @@ public class ScreenManager {
         AbstractScreen newScreen = screenEnum.getScreen(params);
         newScreen.buildStage();
         game.setScreen(newScreen, screenTransition);
-    }
-
-    public void changeScreen(ScreenEnum screenEnum, ScreenTransition screenTransition, Runnable onComplete) {
-        AbstractScreen newScreen = screenEnum.getScreen();
-        newScreen.buildStage();
-        game.setScreen(newScreen, screenTransition);
-        game.setRunnable(onComplete);
     }
 
     public Screen getScreen() {

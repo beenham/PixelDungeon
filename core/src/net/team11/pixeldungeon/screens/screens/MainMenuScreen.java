@@ -1,8 +1,6 @@
 package net.team11.pixeldungeon.screens.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,9 +24,6 @@ import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 public class MainMenuScreen extends AbstractScreen {
-    private Image backgroundImage;
-    private float panH = .2f * PixelDungeon.SCALAR;
-    private float panV = .15f * PixelDungeon.SCALAR;
     private float padding;
     private boolean rewardAdded;
 
@@ -60,8 +55,11 @@ public class MainMenuScreen extends AbstractScreen {
         playButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_SELECT,
-                        ScreenTransitionSplit.init(1.5f,true,Interpolation.pow2));
+                if (!paused) {
+                    System.out.println("PLAYING PRESSED");
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_SELECT,
+                            ScreenTransitionSplit.init(1.5f, true, Interpolation.pow2));
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -69,16 +67,16 @@ public class MainMenuScreen extends AbstractScreen {
         TextButton skinButton = new TextButton(Messages.SKIN_SELECT, Assets.getInstance().getSkin(Assets.UI_SKIN));
         skinButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
 
-        //*
         skinButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.SKIN_SELECT,
-                        ScreenTransitionPush.init(1.5f,ScreenTransitionPush.LEFT,Interpolation.pow2));
+                if (!paused) {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.SKIN_SELECT,
+                            ScreenTransitionPush.init(1.5f, ScreenTransitionPush.LEFT, Interpolation.pow2));
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-        //*/
 
         mainTable.add(playButton).pad(padding);
         mainTable.row();
@@ -112,8 +110,10 @@ public class MainMenuScreen extends AbstractScreen {
         playerButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.PLAYER_INFO,
-                        ScreenTransitionFade.init(0.25f));
+                if (!paused) {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.PLAYER_INFO,
+                            ScreenTransitionFade.init(0.25f));
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -161,9 +161,11 @@ public class MainMenuScreen extends AbstractScreen {
         coinButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                PixelDungeon.getInstance().getAndroidInterface().showRewardAd();
-                rewardAdded = false;
-                tlTable.remove();
+                if (!paused) {
+                    PixelDungeon.getInstance().getAndroidInterface().showRewardAd();
+                    rewardAdded = false;
+                    tlTable.remove();
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -174,7 +176,7 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     private Image setupBackground() {
-        backgroundImage = new Image(
+        Image backgroundImage = new Image(
                 Assets.getInstance().getTextureSet(Assets.BACKGROUND).findRegion(ScreenEnum.MAIN_MENU.toString())
         );
         backgroundImage.setSize(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);

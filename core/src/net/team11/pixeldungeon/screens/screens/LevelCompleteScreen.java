@@ -47,7 +47,6 @@ public class LevelCompleteScreen extends AbstractScreen {
 
     private float timer;
     private float speed;
-    private boolean paused;
 
     public LevelCompleteScreen(InventoryComponent inventory) {
         chestValue = 0;

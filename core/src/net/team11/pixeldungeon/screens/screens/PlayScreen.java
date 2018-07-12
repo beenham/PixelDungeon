@@ -44,8 +44,6 @@ public class PlayScreen extends AbstractScreen {
     private Box2DDebugRenderer b2dr;
     private Player player;
 
-    private boolean paused;
-
     private float ambientLight = 0f;
 
     public PlayScreen(String levelName) {

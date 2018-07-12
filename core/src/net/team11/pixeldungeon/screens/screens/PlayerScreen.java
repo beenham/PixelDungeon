@@ -58,7 +58,9 @@ public class PlayerScreen extends AbstractScreen {
         signInButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.signIn();
+                if (!paused) {
+                    androidInterface.signIn();
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -69,8 +71,10 @@ public class PlayerScreen extends AbstractScreen {
         backButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
-                        ScreenTransitionFade.init(0.25f));
+                if (!paused) {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
+                            ScreenTransitionFade.init(0.25f));
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

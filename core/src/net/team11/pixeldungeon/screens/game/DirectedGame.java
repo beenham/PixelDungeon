@@ -22,8 +22,6 @@ public abstract class DirectedGame extends Game {
 	private ScreenTransition screenTransition;
 	private static final String TAG = DirectedGame.class.getName();
 
-	private Runnable runnable;
-
 	public void setScreen(AbstractScreen screen) {
 		setScreen(screen, null);
 	}
@@ -84,8 +82,6 @@ public abstract class DirectedGame extends Game {
 				currScreen = nextScreen;
 				nextScreen = null;
 				screenTransition = null;
-
-				initRunnable();
 			} else {
 				// render screens to FBOs
 				currFbo.begin();
@@ -155,15 +151,5 @@ public abstract class DirectedGame extends Game {
 	@Override
 	public Screen getScreen() {
 		return currScreen;
-	}
-
-	private void initRunnable() {
-		if (runnable != null) {
-			runnable.run();
-		}
-	}
-
-	public void setRunnable(Runnable runnable) {
-		this.runnable = runnable;
 	}
 }
