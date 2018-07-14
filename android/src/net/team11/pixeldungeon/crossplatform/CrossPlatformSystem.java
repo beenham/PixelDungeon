@@ -255,13 +255,18 @@ public class CrossPlatformSystem implements AndroidInterface {
     }
 
     @Override
-    public void saveGame(SaveGame saveGame){
-
+    public void showCloudSaves(){
+        mActivity.showSavedGamesUI();
     }
 
     @Override
-    public SaveGame loadSaveGame(){
-            return null;
+    public void saveGame(SaveGame saveGame){
+//        mActivity.saveGame(saveGame);
+    }
+
+    @Override
+    public void loadSaveGame(){
+//            mActivity.loadSnapshot();
     }
 
 }

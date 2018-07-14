@@ -38,9 +38,8 @@ public class Util {
 
     private Util() {
         SaveGame loadedSave = loadGame();
-        statsUtil = new StatsUtil(loadedSave.getLevelStatsHashMap(), loadedSave.getGlobalStats());
-        inventoryUtil = InventoryUtil.getInstance();
-        inventoryUtil.setSkinList(loadedSave.getSkinList());
+
+
         System.out.println("LOADED SAVE: " + loadedSave);
     }
 
@@ -48,7 +47,7 @@ public class Util {
     //////////////////////
     //  Saving/Loading  //
     //////////////////////
-    private static SaveGame loadGame() {
+    public static SaveGame loadGame() {
 
         String playerName;
         Json json = new Json();
@@ -63,7 +62,7 @@ public class Util {
             playerName = "Player";
         }
 
-        saveLocation = Gdx.files.local("saves/" + playerName + "/" + "saveGame.json");
+        saveLocation = Gdx.files.local("saves/" + "null/" + "/" + "saveGame.json");
 
 
         //Have a save game for the currently signed in player
@@ -94,6 +93,9 @@ public class Util {
 
                 saveGame.setSkinList(skinList);
             }
+            currentSave = saveGame;
+
+            statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
 
             return saveGame;
         } else {
@@ -115,12 +117,15 @@ public class Util {
             SaveGame saveGame = new SaveGame(levelStats, globalStats, skinList, getTimeStamp());
 
             saveGame(saveGame);
+            statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
+            inventoryUtil = InventoryUtil.getInstance();
+            inventoryUtil.setSkinList(saveGame.getSkinList());
             return saveGame;
 
         }
     }
 
-    private static void saveGame(SaveGame saveGame) {
+    public static void saveGame(SaveGame saveGame) {
         Json json = new Json();
         System.out.println("Saving the game");
         saveLocation.writeString(json.toJson(saveGame), false);

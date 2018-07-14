@@ -154,25 +154,36 @@ public class PlayerInfo extends Table {
             }
         });
 
-        TextButton saveToCloud = new TextButton(Messages.SAVE_TO, Assets.getInstance().getSkin(Assets.UI_SKIN));
-        saveToCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
+//        TextButton saveToCloud = new TextButton(Messages.SAVE_TO, Assets.getInstance().getSkin(Assets.UI_SKIN));
+//        saveToCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
+//
+//        saveToCloud.addListener(new ClickListener(){
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                Json json = new Json();
+//
+//                androidInterface.saveGame(json.fromJson(SaveGame.class, json.toJson(Util.currentSave)));
+//                return super.touchDown(event, x, y, pointer, button);
+//            }
+//        });
+//
+//        TextButton loadFromCloud = new TextButton(Messages.LOAD_FROM, Assets.getInstance().getSkin(Assets.UI_SKIN));
+//        loadFromCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
+//
+//        loadFromCloud.addListener(new ClickListener(){
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                androidInterface.loadSaveGame();
+//                return super.touchDown(event, x, y, pointer, button);
+//            }
+//        });
 
-        saveToCloud.addListener(new ClickListener(){
+        TextButton cloud = new TextButton("ClOUD SAVES", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        cloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
+        cloud.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Json json = new Json();
-                androidInterface.saveGame(json.fromJson(SaveGame.class, json.toJson(Util.currentSave)));
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
-        TextButton loadFromCloud = new TextButton(Messages.LOAD_FROM, Assets.getInstance().getSkin(Assets.UI_SKIN));
-        loadFromCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
-
-        loadFromCloud.addListener(new ClickListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.loadSaveGame();
+                androidInterface.showCloudSaves();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -181,9 +192,11 @@ public class PlayerInfo extends Table {
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
         gplayServices.row();
-        gplayServices.add(saveToCloud).bottom().pad(padding).fillX();
-        gplayServices.row();
-        gplayServices.add(loadFromCloud).bottom().pad(padding).fillX();
+//        gplayServices.add(saveToCloud).bottom().pad(padding).fillX();
+//        gplayServices.row();
+//        gplayServices.add(loadFromCloud).bottom().pad(padding).fillX();
+//        gplayServices.row();
+        gplayServices.add(cloud).bottom().pad(padding).fillX();
 
         return gplayServices;
     }

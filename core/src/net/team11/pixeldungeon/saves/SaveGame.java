@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class SaveGame{
 
-    public static final String SAVE_NAME = "Pixel Dungeon Save Game";
+    public static final String SAVE_NAME = "pixelDungeonSaveGame";
 
     public static final String DESC = "Pixel Dungeon Save Game";
 

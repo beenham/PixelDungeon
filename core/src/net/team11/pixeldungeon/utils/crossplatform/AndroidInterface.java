@@ -40,6 +40,7 @@ public interface AndroidInterface {
     void earnLootJunkie(int amount);
     void earnFullInventory();
 
+    void showCloudSaves();
     void saveGame(SaveGame saveGame);
-    SaveGame loadSaveGame();
+    void loadSaveGame();
 }
