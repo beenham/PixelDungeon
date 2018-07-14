@@ -21,6 +21,7 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
@@ -33,7 +34,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        StatsUtil.getInstance().clearCurrStats();
+        Util.getStatsUtil().clearCurrStats();
         float padding = 25 * PixelDungeon.SCALAR;
 
         addActor(setupBackground());

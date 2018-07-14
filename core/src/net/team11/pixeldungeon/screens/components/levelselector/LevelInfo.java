@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.game.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
@@ -23,7 +25,7 @@ import java.util.Locale;
 
 public class LevelInfo extends Table {
     private LevelSelector selector;
-    private StatsUtil statsUtil;
+    private StatsUtil statsUtil = Util.getStatsUtil();
 
     private Label levelName;
     private Label attemptsVal;
@@ -35,7 +37,6 @@ public class LevelInfo extends Table {
 
     public LevelInfo(LevelSelector levelSelector) {
         this.selector = levelSelector;
-        this.statsUtil = StatsUtil.getInstance();
         setupLayout();
         setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
                 Assets.HUD).createPatch(AssetName.DARKEN_60)));
@@ -134,10 +135,7 @@ public class LevelInfo extends Table {
         playButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                statsUtil.getLevelStats(selector.getMap().getMapName()).incrementAttempts();
-                statsUtil.writeLevelStats(selector.getMap().getMapName());
-                statsUtil.getGlobalStats().incrementAttempts();
-                statsUtil.saveGlobalStats();
+                Util.updateAttempts(MapManager.getInstance().getCurrentMap().getMapName());
                 ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                         null,
                         selector.getMap().getMapName());

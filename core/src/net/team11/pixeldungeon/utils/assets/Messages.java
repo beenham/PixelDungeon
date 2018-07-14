@@ -93,6 +93,9 @@ public class Messages {
     public static final String COINS_TOTAL = "Total Coins: ";
     public static final String COINS_YOUR_TOTAL = "Your Coins: ";
 
+    public static final String SAVE_TO = "SAVE TO CLOUD";
+    public static final String LOAD_FROM = "LOAD FROM CLOUD";
+
     /////   STATS MESSAGES
     public static final String STATS_ATTEMPTED = "Attempted";
     public static final String STATS_LEVELS_ATTEMPTED = "Levels Attempted";

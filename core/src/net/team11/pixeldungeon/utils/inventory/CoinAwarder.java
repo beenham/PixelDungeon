@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.utils.inventory;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.map.MapManager;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.stats.CurrentStats;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
@@ -27,7 +28,7 @@ public class CoinAwarder {
         noDeaths = false;
         firstTime = false;
 
-        StatsUtil statsUtil = StatsUtil.getInstance();
+        StatsUtil statsUtil = Util.getStatsUtil();
         LevelStats levelStats = statsUtil.getLevelStats(MapManager.getInstance()
                 .getCurrentMap().getMapName());
         CurrentStats currStats = statsUtil.getCurrentStats();

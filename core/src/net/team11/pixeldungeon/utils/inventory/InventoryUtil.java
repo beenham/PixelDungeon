@@ -17,9 +17,9 @@ public class InventoryUtil {
     private HashMap<Integer,Skin> skins;
 
     private InventoryUtil() {
-        clearLocal();
+//        clearLocal();
         skins = readSkins();
-        skinList = parseSkinList();
+//        skinList = parseSkinList();
     }
 
     private HashMap<Integer,Skin> readSkins() {
@@ -32,6 +32,10 @@ public class InventoryUtil {
             }
         }
         return list;
+    }
+
+    public void setSkinList(SkinList skinList){
+        this.skinList = skinList;
     }
 
     private SkinList parseSkinList() {

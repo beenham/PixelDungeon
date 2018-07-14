@@ -23,6 +23,7 @@ import net.team11.pixeldungeon.game.entity.system.VelocitySystem;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.game.uicomponents.UIManager;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
@@ -55,7 +56,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        StatsUtil.getInstance().initialiseCurrStats();
+        Util.getStatsUtil().initialiseCurrStats();
         setupCamera();
         setupViewport();
         setupEngine();

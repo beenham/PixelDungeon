@@ -8,6 +8,7 @@ import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class HealthSystem extends EntitySystem {
     public void update(float delta) {
         if (playerHealthComponent.getHealth() <= 0 && !deathDisplayed) {
             PixelDungeon.getInstance().getAndroidInterface().earnLetsTryAgain();
-            StatsUtil statsUtil = StatsUtil.getInstance();
+            StatsUtil statsUtil = Util.getStatsUtil();
             statsUtil.getGlobalStats().incrementDeaths();
             statsUtil.saveTimer();
             PlayScreen.uiManager.showDeathMenu(playerHealthComponent.getKillingAnimation());

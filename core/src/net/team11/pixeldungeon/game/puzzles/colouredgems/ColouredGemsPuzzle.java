@@ -12,6 +12,7 @@ import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.items.puzzleitems.ColouredGem;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
@@ -196,8 +197,6 @@ public class ColouredGemsPuzzle extends Puzzle {
 
     private void incrementAttempts() {
         attempts++;
-        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
+        Util.updatePuzzleAttempts();
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.CoinAwarder;
@@ -30,7 +31,7 @@ public class CoinAwarderDisplay extends Table {
         coinAwarder = CoinAwarder.getInstance();
         coinAwarder.init(inventory);
 
-        GlobalStats gStats = StatsUtil.getInstance().getGlobalStats();
+        GlobalStats gStats = Util.getStatsUtil().getGlobalStats();
         yourCoins = gStats.getCurrentCoins();
         gStats.addCoinsFound(coinAwarder.getTotalCoinCount());
         gStats.addCurrentCoins(coinAwarder.getTotalCoinCount());

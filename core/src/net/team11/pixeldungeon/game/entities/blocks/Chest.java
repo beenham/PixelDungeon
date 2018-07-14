@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.game.items.Item;
 import net.team11.pixeldungeon.game.items.keys.ChestKey;
 import net.team11.pixeldungeon.game.items.keys.Key;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.CurrentStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
@@ -232,28 +233,18 @@ public class Chest extends Entity {
     }
 
     private void updateStatsLooted() {
-        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
+//        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
         if (item != null) {
             if (item instanceof Key) {
-                StatsUtil.getInstance().getCurrentStats().incrementKeys();
-                StatsUtil.getInstance().getGlobalStats().incrementKeysFound();
-                stats.addKey(item.getName());
+                Util.updateKeys((Key)item);
             } else if (!(item instanceof Coin)) {
-                StatsUtil.getInstance().getCurrentStats().incrementItems();
-                StatsUtil.getInstance().getGlobalStats().incrementItemsFound();
-                stats.addItem(item.getName());
+                Util.updateItems(item);
             }
         }
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
     }
 
     private void updateStatsOpened() {
-        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
-        stats.addChest(getName());
-        stats.incrementChests();
-        StatsUtil.getInstance().getGlobalStats().incrementChestsFound();
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
+//        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
+        Util.updateChests(this);
     }
 }
