@@ -1,11 +1,8 @@
 package net.team11.pixeldungeon.screens.components.dialog;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -14,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.coin.CoinDisplay;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
@@ -105,9 +103,11 @@ public class RewardDialog extends Table {
 
     private void close() {
         remove();
+        ScreenManager.getInstance().getScreen().resume();
     }
 
     public void show(Stage stage) {
         stage.addActor(this);
+        ScreenManager.getInstance().getScreen().pause();
     }
 }

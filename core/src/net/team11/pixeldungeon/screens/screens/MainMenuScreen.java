@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.screens.screens;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,6 +16,7 @@ import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.components.dialog.RewardDialog;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
@@ -56,7 +58,6 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!paused) {
-                    System.out.println("PLAYING PRESSED");
                     ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_SELECT,
                             ScreenTransitionSplit.init(1.5f, true, Interpolation.pow2));
                 }
@@ -187,6 +188,17 @@ public class MainMenuScreen extends AbstractScreen {
         if (!rewardAdded && PixelDungeon.getInstance().getAndroidInterface().isRewardAvailable()) {
             addActor(setupBottomLeftTable(padding));
         }
+    }
+
+    @Override
+    public void resume() {
+        for (Actor actor : getActors()) {
+            System.out.println(actor);
+            if (actor instanceof RewardDialog) {
+                return;
+            }
+        }
+        super.resume();
     }
 
     @Override
