@@ -8,6 +8,7 @@ import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.items.PuzzleItem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.AchivementStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
@@ -242,6 +243,7 @@ public class Puzzle {
         StatsUtil.getInstance().getGlobalStats().incrementPuzzleCompleted();
         StatsUtil.getInstance().saveGlobalStats();
         StatsUtil.getInstance().saveTimer();
+        AchivementStats.completePuzzle(this);
     }
 
     @Override
