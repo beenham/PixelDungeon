@@ -48,6 +48,8 @@ public class Messages {
     public static final String BEAM_COMPLETE_01 = "Oh look, the door opened";
     public static final String BEAM_ROTATE_INTERACT = "It turns.. But not by hand";
 
+    public static final String PORTAL_COMPLETE = "Congratulations, you found the path";
+
     /////   UI MESSAGES
     public static final String ACHIEVEMENTS_CAMELCASE = "Achievements";
     public static final String ACHIEVEMENTS_UPPER = "ACHIEVEMENTS";

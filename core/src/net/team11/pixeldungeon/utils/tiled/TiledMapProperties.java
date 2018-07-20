@@ -13,6 +13,7 @@ public class TiledMapProperties {
     public static final String MOVABLE = "moveable";
     public static final String ROTATABLE = "rotateable";
 
+    public static final String LINKABLE = "linkable";
     public static final String LOCKED = "locked";
     public static final String NUM_GEMS = "numGems";
     public static final String MAP = "map";

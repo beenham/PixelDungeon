@@ -41,6 +41,13 @@ public class Puzzle {
     protected Puzzle(String name) {
         this.name = name;
         uuid = UUID.randomUUID();
+        completed = false;
+        activated = false;
+        timed = false;
+        attempts = 0;
+        maxAttempts = 1;
+        timer = 0;
+        timerReset = 0;
     }
 
     public void activate() {

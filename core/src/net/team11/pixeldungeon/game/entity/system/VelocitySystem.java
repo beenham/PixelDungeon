@@ -44,6 +44,9 @@ public class VelocitySystem extends EntitySystem {
             VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
 
+            bodyComponent.moveX(1 * velocityComponent.getxDirection() * velocityComponent.getMovementSpeed());
+            bodyComponent.moveY(1 * velocityComponent.getyDirection() * velocityComponent.getMovementSpeed());
+
             //Paralyzing handling
             if (velocityComponent.isParalyzed()) {
                 velocityComponent.setParalyzedTime(velocityComponent.getParalyzedTime() - (delta * RenderSystem.FRAME_SPEED));
@@ -53,8 +56,6 @@ public class VelocitySystem extends EntitySystem {
                 }
                 continue;
             }
-            bodyComponent.moveX(1 * velocityComponent.getxDirection() * velocityComponent.getMovementSpeed());
-            bodyComponent.moveY(1 * velocityComponent.getyDirection() * velocityComponent.getMovementSpeed());
 
             isOverlapping(bodyComponent.getPolygon());
             for (TutorialZone zone : tutorials) {

@@ -35,6 +35,8 @@ import net.team11.pixeldungeon.game.entities.puzzle.CompletedIndicator;
 import net.team11.pixeldungeon.game.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.GemPillar;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.WallScribe;
+import net.team11.pixeldungeon.game.entities.puzzle.randomportals.Portal;
+import net.team11.pixeldungeon.game.entities.puzzle.randomportals.PortalExit;
 import net.team11.pixeldungeon.game.entities.puzzle.simonsays.SimonSaysSwitch;
 import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike;
 import net.team11.pixeldungeon.game.entities.traps.Quicksand;
@@ -55,6 +57,7 @@ import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.game.puzzles.beampuzzle.BeamPuzzle;
 import net.team11.pixeldungeon.game.puzzles.boxpuzzle.BoxPuzzle;
 import net.team11.pixeldungeon.game.puzzles.levelpuzzle.LevelPuzzle;
+import net.team11.pixeldungeon.game.puzzles.randomportals.RandomPortalsPuzzle;
 import net.team11.pixeldungeon.game.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.game.puzzles.colouredgems.ColouredGemsPuzzle;
 import net.team11.pixeldungeon.game.tutorial.TutorialZone;
@@ -411,6 +414,22 @@ public class TiledObjectUtil {
                         engine.addEntity(new FloorPiston(rectObject.getRectangle(), activated, rectObject.getName()));
                         break;
 
+                    case  TiledMapObjectNames.PORTAL:
+                        int stage = (int) rectObject.getProperties().get(TiledMapProperties.STAGES);
+                        boolean linkable = (boolean) rectObject.getProperties().get(TiledMapProperties.LINKABLE);
+                        Portal portal = new Portal(rectObject.getRectangle(), rectObject.getName(),stage,linkable);
+                        engine.addEntity(portal);
+                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        portal.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        break;
+
+                    case  TiledMapObjectNames.PORTAL_EXIT:
+                        PortalExit portalExit = new PortalExit(rectObject.getRectangle(), rectObject.getName());
+                        engine.addEntity(portalExit);
+                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        portalExit.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        break;
+
                     default:
                         //throw new IllegalArgumentException("This isn't a valid entity! " + type);
                 }
@@ -591,6 +610,14 @@ public class TiledObjectUtil {
 
                     beamPuzzle.setCompleteTargets(completeTargets);
                     engine.addPuzzle(beamPuzzle);
+                    break;
+
+                case TiledMapPuzzleNames.RANDOM_PORTALS:
+                    int stages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
+
+                    RandomPortalsPuzzle portalsPuzzle = new RandomPortalsPuzzle(mapObject.getName(), stages);
+                    engine.addPuzzle(portalsPuzzle);
+                    break;
             }
 
         }
@@ -619,7 +646,7 @@ public class TiledObjectUtil {
      * @param mapObject Object to retrieve targets
      * @return List of String of target names
      */
-    public static ArrayList<String> parseTargets(MapObject mapObject, String property) {
+    private static ArrayList<String> parseTargets(MapObject mapObject, String property) {
         String targetString = (String)mapObject.getProperties().get(property);
         List<String> parsedTargets = Arrays.asList(targetString.split(","));
         return new ArrayList<>(parsedTargets);

@@ -23,8 +23,6 @@ public class BeamPuzzle extends Puzzle {
         super(name);
         targets = new ArrayList<>();
         this.bounds = bounds;
-        maxAttempts = 1;
-        attempts = 0;
         activate();
     }
 

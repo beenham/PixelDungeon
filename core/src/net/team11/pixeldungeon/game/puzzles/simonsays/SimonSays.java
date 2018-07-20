@@ -45,9 +45,6 @@ public class SimonSays extends Puzzle{
         this.numStages = numStages;
 
         pauseTime = 0.5f;
-        attempts = 0;
-        activated = false;
-        completed = false;
         timerReset = 15 / difficulty;
         timer = timerReset;
     }
