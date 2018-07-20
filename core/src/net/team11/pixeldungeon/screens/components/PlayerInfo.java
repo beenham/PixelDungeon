@@ -22,8 +22,9 @@ import java.util.Locale;
 import javax.swing.GroupLayout;
 
 public class PlayerInfo extends Table {
-    private float padding;
     private AndroidInterface androidInterface;
+    private Label username;
+    private float padding;
 
     public PlayerInfo() {
         super();
@@ -50,7 +51,7 @@ public class PlayerInfo extends Table {
         if (name.length() > 16) {
             name = name.substring(0,16) + "...";
         }
-        Label username = new Label(name,
+        username = new Label(name,
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         username.setFontScale(1.75f * PixelDungeon.SCALAR);
         username.setAlignment(Align.left);
@@ -185,5 +186,13 @@ public class PlayerInfo extends Table {
             }
         });
         return signOutButton;
+    }
+
+    public void update() {
+        String name = androidInterface.getUserName();
+        if (name.length() > 16) {
+            name = name.substring(0,16) + "...";
+        }
+        username.setText(name);
     }
 }

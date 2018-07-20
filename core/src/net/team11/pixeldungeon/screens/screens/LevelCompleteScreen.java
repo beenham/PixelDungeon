@@ -10,9 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
-import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.map.MapManager;
-import net.team11.pixeldungeon.saves.SaveGame;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
@@ -21,7 +19,6 @@ import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.AchivementStats;
-import net.team11.pixeldungeon.utils.stats.GlobalStats;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
@@ -199,11 +196,6 @@ public class LevelCompleteScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
-        super.show();
-    }
-
-    @Override
     public void render(float delta) {
         super.render(delta);
         update(delta);
@@ -284,11 +276,6 @@ public class LevelCompleteScreen extends AbstractScreen {
                 }
             }
         }
-    }
-
-    @Override
-    public void pause() {
-        this.paused = true;
     }
 
     @Override

@@ -27,9 +27,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     public abstract void buildStage();
 
     @Override
-    public void show() {
-        Gdx.input.setInputProcessor(this);
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
