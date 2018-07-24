@@ -2,6 +2,7 @@ package net.team11.pixeldungeon.game.entities.blocks;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
@@ -9,10 +10,13 @@ import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.TrapComponent;
+import net.team11.pixeldungeon.game.entity.system.RenderSystem;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+
+import java.util.List;
 
 /**
  * Class to handle pressure plates in game
@@ -66,6 +70,38 @@ public class PressurePlate extends Trap {
                     triggered = false;
                 }
             }
+        }
+    }
+
+    @Override
+    public void update(float delta, List<Entity> entityList, float timer) {
+        TrapComponent trapComponent = getComponent(TrapComponent.class);
+
+        Polygon hitBox = getComponent(BodyComponent.class).getPolygon();
+        for (Entity entity : entityList) {
+            Polygon entityBox = entity.getComponent(BodyComponent.class).getPolygon();
+            boolean overlapping = CollisionUtil.isOverlapping(hitBox,entityBox);
+
+            if (isContacting()) {
+                if (entity == contactEntity) {
+                    if (overlapping) {
+                        break;
+                    } else {
+                        setContactingEntity(null);
+                    }
+                } else if (overlapping) {
+                    setContactingEntity(entity);
+                } else if (super.timer >= 0) {
+                    trigger();
+                }
+            } else if (overlapping) {
+                setContactingEntity(entity);
+            }
+        }
+        setTimer(super.timer - delta);
+
+        if (isContacting() && !triggered && !trapComponent.isInteracting()) {
+            trapComponent.trigger();
         }
     }
 

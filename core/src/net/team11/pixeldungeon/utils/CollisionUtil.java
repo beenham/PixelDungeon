@@ -54,7 +54,10 @@ public class CollisionUtil {
                 booleans.add(true);
             }
         }
-        return booleans.size() / vertices.length/2;
+        float submergedPoints = booleans.size();
+        float totalPoints = vertices.length/2;
+
+        return submergedPoints / totalPoints;
     }
 
     public static Polygon createRectangle(float x, float y, float width, float height) {

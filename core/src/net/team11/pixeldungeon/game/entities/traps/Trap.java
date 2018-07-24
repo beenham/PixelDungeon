@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.game.entities.traps;
 
+import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 
 import java.util.List;
@@ -79,5 +80,11 @@ public class Trap extends Entity {
         return damage;
     }
 
-    public void update (float delta, List<Entity> entityList) {}
+    public void update (float delta, List<Entity> entityList, float timer) {
+
+    }
+
+    public void update (float delta, Player player, float timer) {
+
+    }
 }

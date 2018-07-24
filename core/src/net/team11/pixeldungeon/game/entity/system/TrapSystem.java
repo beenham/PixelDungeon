@@ -50,115 +50,15 @@ public class TrapSystem extends EntitySystem {
             if (trapRoom instanceof TrapRoom && updateTraps) {
                 for (Entity trapEntity : ((TrapRoom) trapRoom).getTraps()) {
                     if (trapEntity instanceof PressurePlate) {
-                        PressurePlate plate = (PressurePlate) trapEntity;
-                        Polygon plateBox = plate.getComponent(BodyComponent.class).getPolygon();
-
-                        for (Entity entity : entities) {
-                            Polygon entityBox = entity.getComponent(BodyComponent.class).getPolygon();
-                            boolean overLapping = CollisionUtil.isOverlapping(plateBox, entityBox);
-
-                            if (plate.isContacting()) {
-                                if (entity == plate.getContactEntity()) {
-                                    if (overLapping) {
-                                        break;
-                                    } else {
-                                        plate.setContactingEntity(null);
-                                    }
-                                }
-                            } else if (overLapping) {
-                                plate.setContactingEntity(entity);
-                            } else if (plate.getTimer() >= 0) {
-                                plate.trigger();
-                            }
-                        }
-                        plate.setTimer(plate.getTimer() - delta);
+                        ((Trap) trapEntity).update(delta,entities,timer);
                     } else {
-                        Trap trap = (Trap) trapEntity;
-                        TrapComponent trapComponent = trap.getComponent(TrapComponent.class);
-                        Polygon trapBox = trap.getComponent(BodyComponent.class).getPolygon();
-                        boolean overLapping = CollisionUtil.isOverlapping(trapBox, playerBox);
-                        boolean submerged = CollisionUtil.isSubmerged(trapBox, playerBox);
-
-                        if (!trap.isEnabled()) {
-                            if (submerged) {
-                                trap.setContactingEntity(player);
-                                trap.setEnabled(true);
-                            }
-                        }
-
-                        if (trap.isEnabled()) {
-                            if (trapComponent.isInteracting()) {
-                                trapComponent.setInteractTime(trapComponent.getInteractTime() - delta);
-                                if (trapComponent.getInteractTime() <= 0f) {
-                                    trapComponent.setInteracting(false);
-                                    trapComponent.setInteractTime(0);
-                                }
-                                continue;
-                            }
-                            if (trap.isTimed()) {
-                                trap.setTimer(trap.getTimer() - delta);
-                                if (!overLapping && !submerged) {
-                                    trap.setContactingEntity(null);
-                                } else if (trap.requireSubmerged() && !submerged) {
-                                    trap.setContactingEntity(null);
-                                } else if (overLapping) {
-                                    trap.setContactingEntity(player);
-                                    if (trap.isTriggered()) {
-                                        HealthComponent health = player.getComponent(HealthComponent.class);
-                                        health.setHealth(health.getHealth() - trap.getDamage(),trap);
-                                    }
-                                }
-                                if (trap.getTimer() <= 0f) {
-                                    trap.trigger();
-                                }
-                            } else if (trap.hasTrigger()) {
-                                if (overLapping) {
-                                    trap.setContactingEntity(player);
-                                    if (trap.isTriggered()) {
-                                        HealthComponent health = player.getComponent(HealthComponent.class);
-                                        health.setHealth(health.getHealth() - trap.getDamage(),trap);
-                                    }
-                                } else {
-                                    trap.setContactingEntity(null);
-                                }
-                            } else {
-                                if ((trap.requireSubmerged() && submerged)
-                                        || (!trap.requireSubmerged() && overLapping)) {
-                                    trap.setContactingEntity(player);
-                                    if (!trap.isTriggered() && !trapComponent.isInteracting()) {
-                                        trapComponent.trigger();
-                                    }
-                                } else if (trap.isTriggered() && timer <= 0) {
-                                    trap.setContactingEntity(null);
-                                    trap.trigger();
-                                }
-                            }
-                        }
+                        ((Trap) trapEntity).update(delta,player,timer);
                     }
-                }
-
-                for (Entity trapEntity : trapRooms) {
-                    if (trapEntity instanceof PressurePlate && ((Trap) trapEntity).isEnabled()) {
-                        PressurePlate plate = (PressurePlate) trapEntity;
-                        for (Entity entity : entities) {
-                            TrapComponent trapComponent = plate.getComponent(TrapComponent.class);
-                            Polygon trapBox = plate.getComponent(BodyComponent.class).getPolygon();
-                            Polygon entityBox = entity.getComponent(BodyComponent.class).getPolygon();
-                            boolean overLapping = CollisionUtil.isOverlapping(trapBox, entityBox);
-
-                            if (overLapping) {
-                                plate.setContactingEntity(entity);
-                                if (!plate.isTriggered() && !trapComponent.isInteracting()) {
-                                    trapComponent.trigger();
-                                }
-                            }
-                        }
-                    }
-                }
-                if (timer <= 0) {
-                    timer = timerReset;
                 }
             }
+        }
+        if (timer <= 0) {
+            timer = timerReset;
         }
     }
 }

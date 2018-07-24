@@ -133,10 +133,10 @@ public class RenderSystem extends EntitySystem {
                 } else {
                     if (((Beam) entity).isOn()) {
                         spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                                bodyComponent.getX() - width/ 2,
+                                bodyComponent.getX() - bodyComponent.getWidth() / 2,
                                 bodyComponent.getY() - bodyComponent.getHeight() / 2,
-                                width,
-                                height);
+                                bodyComponent.getWidth(),
+                                bodyComponent.getHeight());
                     }
                 }
             }

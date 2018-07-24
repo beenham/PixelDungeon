@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.game.entities.traps;
 
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 
@@ -11,6 +12,8 @@ import net.team11.pixeldungeon.game.entity.component.TrapComponent;
 import net.team11.pixeldungeon.game.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+
+import java.util.List;
 
 public class Quicksand extends Trap {
     private float speedMod; //The speed which to set the players speed to. Make it less then 100 to slow down
@@ -62,6 +65,36 @@ public class Quicksand extends Trap {
                 ((Player)contactEntity).setDepth(Player.PlayerDepth.FOUR_QUART);
                 contactEntity.getComponent(VelocityComponent.class).setMovementSpeed(100);
                 contactEntity = null;
+            }
+        }
+    }
+
+    @Override
+    public void update(float delta, Player player, float timer) {
+        Polygon hitBox = getComponent(BodyComponent.class).getPolygon();
+        Polygon entityBox = player.getComponent(BodyComponent.class).getPolygon();
+
+        boolean submerged = CollisionUtil.isSubmerged(hitBox, entityBox);
+
+        if (!enabled) {
+            if (submerged) {
+                setContactingEntity(player);
+                setEnabled(true);
+            }
+        } else {
+            setTimer(super.timer - delta);
+            if (!submerged) {
+                setContactingEntity(null);
+            }
+            if (super.timer <= 0f) {
+                trigger();
+            }
+        }
+
+        if (CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .5f) {
+            setContactingEntity(player);
+            if (!triggered) {
+                trigger();
             }
         }
     }

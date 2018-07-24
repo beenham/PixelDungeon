@@ -1,8 +1,10 @@
 package net.team11.pixeldungeon.game.entities.traps.floorspike;
 
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.HealthComponent;
@@ -15,48 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class FloorSpike extends Trap {
-    public enum SpikeSize {
-        oneXone {
-            @Override
-            public String toString() {
-                return "1x1";
-            }
-        },
-        oneXtwo {
-            @Override
-            public String toString() {
-                return "1x2";
-            }
-        },
-        twoXone {
-            @Override
-            public String toString() {
-                return "2x1";
-            }
-        },
-        twoXtwo {
-            @Override
-            public String toString() {
-                return "2x2";
-            }
-        },
-        twoXthree {
-            @Override
-            public String toString() {
-                return "2x3";
-            }
-        },
-        threeXtwo {
-            @Override
-            public String toString() {
-                return "3x2";
-            }
-        }
-    }
-
-    protected SpikeSize size;
-
-    public FloorSpike(Rectangle bounds, boolean enabled, String name) {
+    protected FloorSpike(Rectangle bounds, boolean enabled, String name) {
         super(name, enabled);
 
         float posX = bounds.getX() + bounds.getWidth()/2;
@@ -67,6 +28,53 @@ public class FloorSpike extends Trap {
                 (byte)(CollisionUtil.PUZZLE_AREA | CollisionUtil.BOUNDARY),
                 BodyDef.BodyType.StaticBody));
         this.addComponent(new InteractionComponent(this));
+    }
+
+    @Override
+    public void update(float delta, Player player, float timer) {
+        TrapComponent trapComponent = getComponent(TrapComponent.class);
+
+        Polygon hitBox = getComponent(BodyComponent.class).getPolygon();
+        Polygon playerBox = player.getComponent(BodyComponent.class).getPolygon();
+        boolean overlapping = CollisionUtil.isOverlapping(hitBox,playerBox);
+
+        if (enabled) {
+            if (timed) {
+                setTimer(super.timer - delta);
+                if (overlapping) {
+                    setContactingEntity(player);
+                    if (triggered) {
+                        HealthComponent health = player.getComponent(HealthComponent.class);
+                        health.setHealth(health.getHealth() - damage,this);
+                    }
+                } else {
+                    setContactingEntity(null);
+                }
+                if (super.timer <= 0f) {
+                    trigger();
+                }
+            } else if (hasTrigger()) {
+                if (overlapping) {
+                    setContactingEntity(player);
+                    if (triggered) {
+                        HealthComponent health = player.getComponent(HealthComponent.class);
+                        health.setHealth(health.getHealth() - damage,this);
+                    }
+                } else {
+                    setContactingEntity(null);
+                }
+            } else {
+                if (overlapping) {
+                    setContactingEntity(player);
+                    if (!triggered && !trapComponent.isInteracting()) {
+                        trapComponent.trigger();
+                    }
+                } else if (triggered && timer <= 0){
+                    setContactingEntity(null);
+                    trigger();
+                }
+            }
+        }
     }
 
     @Override
