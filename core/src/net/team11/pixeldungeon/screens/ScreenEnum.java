@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.screens;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.screens.screens.LevelCompleteScreen;
 import net.team11.pixeldungeon.screens.screens.LevelSelectScreen;
+import net.team11.pixeldungeon.screens.screens.LoadingScreen;
 import net.team11.pixeldungeon.screens.screens.MainMenuScreen;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.screens.screens.PlayerScreen;
@@ -32,6 +33,16 @@ public enum ScreenEnum {
 
         public AbstractScreen getScreen(Object... params) {
             return new LevelCompleteScreen((InventoryComponent)params[0]);
+        }
+    },
+    LOADING {
+        @Override
+        public String toString() {
+            return "loadingScreen";
+        }
+
+        public AbstractScreen getScreen(Object... params) {
+            return new LoadingScreen();
         }
     },
     MAIN_MENU {

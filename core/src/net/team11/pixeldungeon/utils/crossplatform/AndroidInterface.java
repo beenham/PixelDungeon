@@ -40,6 +40,11 @@ public interface AndroidInterface {
     void earnLootJunkie(int amount);
     void earnFullInventory();
 
+    ////    Admob Calling Ads
+    void showEndLevelAd();
+    void showRewardAd();
+    boolean isRewardAvailable();
+
     void saveGame(SaveGame saveGame);
     SaveGame loadSaveGame();
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Google Play game services IDs.
+Google Play services IDs.
 Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
@@ -8,6 +8,10 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="app_name">Pixel Dungeon</string>
     <!-- admob : app_id -->
     <string name="admob_id" translatable="false">ca-app-pub-4312256355419469~1459674107</string>
+    <!-- admob : level complete id -->
+    <string name="admob_level_complete" translatable="false">ca-app-pub-4312256355419469/8111862304</string>
+    <!-- admob : watch for coin -->
+    <string name="admob_watch_for_coin" translatable="false">ca-app-pub-4312256355419469/7780689812</string>
     <!-- app_id -->
     <string name="app_id" translatable="false">1022168830802</string>
     <!-- package_name -->

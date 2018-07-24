@@ -1,13 +1,12 @@
 package net.team11.pixeldungeon.screens.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.AbstractScreen;
@@ -21,6 +20,7 @@ import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class PlayerScreen extends AbstractScreen {
     private AndroidInterface androidInterface;
+    private PlayerInfo playerInfo;
     private boolean signedIn = false;
     private float padding;
 
@@ -32,7 +32,7 @@ public class PlayerScreen extends AbstractScreen {
         addActor(setupBackground());
         if (androidInterface.isSignedIn()) {
             signedIn = true;
-            addActor(new PlayerInfo());
+            addActor(playerInfo = new PlayerInfo());
         } else {
             signedIn = false;
             addActor(buildLogin());
@@ -58,7 +58,9 @@ public class PlayerScreen extends AbstractScreen {
         signInButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.signIn();
+                if (!paused) {
+                    androidInterface.signIn();
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -69,8 +71,10 @@ public class PlayerScreen extends AbstractScreen {
         backButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
-                        ScreenTransitionFade.init(0.25f));
+                if (!paused) {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
+                            ScreenTransitionFade.init(0.25f));
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -97,46 +101,26 @@ public class PlayerScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
-        super.show();
+    public void resume() {
+        super.resume();
+        new Timer().scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                recreate();
+            }
+        },3,0,0);
+    }
+
+    private void update() {
+        if (playerInfo != null) {
+            playerInfo.update();
+        }
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl.glClearColor(0,0,0,1);
-        draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-    }
-
-    @Override
-    public void pause() {
-        super.pause();
-    }
-
-    @Override
-    public void resume() {
-        super.resume();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        recreate();
-    }
-
-    @Override
-    public void hide() {
-        super.hide();
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
+        super.render(delta);
+        update();
     }
 
     @Override

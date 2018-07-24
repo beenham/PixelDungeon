@@ -32,6 +32,7 @@ public class ScreenTransitionFade implements ScreenTransition {
 		batch.draw(currScreen, 0, 0, 0, 0, w, h, 1, 1, 0, 0, 0, currScreen.getWidth(), currScreen.getHeight(), false, true);
 		batch.setColor(1, 1, 1, alpha);
 		batch.draw(nextScreen, 0, 0, 0, 0, w, h, 1, 1, 0, 0, 0, nextScreen.getWidth(), nextScreen.getHeight(), false, true);
+		batch.setColor(1, 1, 1, 1);
 		batch.end();
 	}
 

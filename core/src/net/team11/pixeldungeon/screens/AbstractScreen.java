@@ -17,22 +17,22 @@ public abstract class AbstractScreen extends Stage implements Screen {
     public static OrthographicCamera gameCam;
 
     protected boolean gameCall = false;
+    protected boolean paused;
 
     protected AbstractScreen() {
         super(viewport = new FitViewport(PixelDungeon.V_WIDTH, PixelDungeon.V_HEIGHT, gameCam = new OrthographicCamera()));
+        paused = true;
     }
 
     public abstract void buildStage();
 
     @Override
-    public void show() {
-        Gdx.input.setInputProcessor(this);
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0,0,0,0);
         super.act(delta);
         super.draw();
     }
@@ -40,16 +40,18 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void resize(int width, int height) {
         getViewport().update(width,height,true);
+        PixelDungeon.V_WIDTH = width;
+        PixelDungeon.V_HEIGHT = height;
     }
 
     @Override
     public void pause() {
-
+        paused = true;
     }
 
     @Override
     public void resume() {
-
+        paused = false;
     }
 
     @Override

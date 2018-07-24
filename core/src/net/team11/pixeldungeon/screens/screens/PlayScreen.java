@@ -44,8 +44,6 @@ public class PlayScreen extends AbstractScreen {
     private Box2DDebugRenderer b2dr;
     private Player player;
 
-    private boolean paused;
-
     private float ambientLight = 0f;
 
     public PlayScreen(String levelName) {
@@ -164,7 +162,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void pause() {
-        paused = true;
+        super.pause();
         engine.pause();
         if (!uiManager.getDeathMenu().isVisible() && !engine.isFinished()) {
             uiManager.showPauseMenu(false);
@@ -174,19 +172,14 @@ public class PlayScreen extends AbstractScreen {
     @Override
     public void resume() {
         if (super.gameCall && paused) {
-            paused = false;
+            super.resume();
             uiManager.hidePauseMenu(false);
             engine.resume();
         } else if (paused && uiManager.getPauseMenu().isResumePressed()) {
-            paused = false;
+            super.resume();
             uiManager.hidePauseMenu(false);
             engine.resume();
         }
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override
