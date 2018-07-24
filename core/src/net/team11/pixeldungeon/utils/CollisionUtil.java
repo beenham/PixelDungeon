@@ -23,7 +23,6 @@ public class CollisionUtil {
             }
         }
 
-
         vertices = polygonOne.getVertices();
         for (int i = 0 ; i < vertices.length/2 ; i++) {
             Vector2 vector2 = new Vector2(vertices[i*2], vertices[i * 2 + 1]);
@@ -46,8 +45,19 @@ public class CollisionUtil {
         return booleans.size() == vertices.length/2;
     }
 
-    public static Polygon createRectangle(float x, float y, float width, float height) {
+    public static float getAmountSubmerged(Polygon biggerPolygon, Polygon smallerPolygon) {
+        ArrayList<Boolean> booleans = new ArrayList<>();
+        float[] vertices = smallerPolygon.getVertices();
+        for (int i = 0 ; i < vertices.length/2 ; i++) {
+            Vector2 vector2 = new Vector2(vertices[i*2], vertices[i * 2 + 1]);
+            if (biggerPolygon.contains(vector2)) {
+                booleans.add(true);
+            }
+        }
+        return booleans.size() / vertices.length/2;
+    }
 
+    public static Polygon createRectangle(float x, float y, float width, float height) {
         return new Polygon(new float[] {
                 //Top left to before top right
                 x - width/2, y - height/2,

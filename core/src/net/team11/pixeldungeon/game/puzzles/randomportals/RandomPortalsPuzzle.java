@@ -38,38 +38,6 @@ public class RandomPortalsPuzzle extends Puzzle {
     }
 
     @Override
-    public void update(float delta) {
-        super.update(delta);
-        BodyComponent playerBody = player.getComponent(BodyComponent.class);
-        VelocityComponent playerVel = player.getComponent(VelocityComponent.class);
-        Vector2 exitCoords = portalExit.getComponent(BodyComponent.class).getCoords();
-
-        for (int i = 0 ; i < stages ; i++)  {
-            HashMap<Integer,Portal> currPortals = portals.get(i);
-            for (int j = 0 ; j < currPortals.size() ; j++) {
-                Portal currPortal = currPortals.get(j);
-                if (currPortal.isLinkable() && !playerVel.isParalyzed()) {
-                    Polygon portalBox = currPortal.getComponent(BodyComponent.class).getPolygon();
-                    if (CollisionUtil.isSubmerged(portalBox,playerBody.getPolygon())) {
-                        playerBody.setCoords(currPortal.getTargetCoords());
-                        if (currPortal.getTargetCoords().equals(exitCoords)) {
-                            playerVel.setDirection(Direction.UP);
-                            playerVel.setyDirection(1);
-                            onComplete();
-                        } else {
-                            playerVel.setDirection(Direction.DOWN);
-                            playerVel.setyDirection(-1);
-                        }
-                        playerBody.move(0, 2);
-                        playerVel.paralyze(4f);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
     protected void init() {
         super.init();
         HashMap<Integer, Portal> forwardPortals = new HashMap<>();
@@ -118,6 +86,38 @@ public class RandomPortalsPuzzle extends Puzzle {
                     currPortal.setTargetCoords(portals.get(randomPortalSet)
                             .get(random.nextInt(portals.get(randomPortalSet).size()))
                                     .getComponent(BodyComponent.class).getCoords());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        BodyComponent playerBody = player.getComponent(BodyComponent.class);
+        VelocityComponent playerVel = player.getComponent(VelocityComponent.class);
+        Vector2 exitCoords = portalExit.getComponent(BodyComponent.class).getCoords();
+
+        for (int i = 0 ; i < stages ; i++)  {
+            HashMap<Integer,Portal> currPortals = portals.get(i);
+            for (int j = 0 ; j < currPortals.size() ; j++) {
+                Portal currPortal = currPortals.get(j);
+                if (currPortal.isLinkable() && !playerVel.isParalyzed()) {
+                    Polygon portalBox = currPortal.getComponent(BodyComponent.class).getPolygon();
+                    if (CollisionUtil.isSubmerged(portalBox,playerBody.getPolygon())) {
+                        playerBody.setCoords(currPortal.getTargetCoords());
+                        if (currPortal.getTargetCoords().equals(exitCoords)) {
+                            playerVel.setDirection(Direction.UP);
+                            playerVel.setyDirection(1);
+                            onComplete();
+                        } else {
+                            playerVel.setDirection(Direction.DOWN);
+                            playerVel.setyDirection(-1);
+                        }
+                        playerBody.move(0, 2);
+                        playerVel.paralyze(4f);
+                        return;
+                    }
                 }
             }
         }

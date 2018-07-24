@@ -38,6 +38,7 @@ import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.WallScribe;
 import net.team11.pixeldungeon.game.entities.puzzle.randomportals.Portal;
 import net.team11.pixeldungeon.game.entities.puzzle.randomportals.PortalExit;
 import net.team11.pixeldungeon.game.entities.puzzle.simonsays.SimonSaysSwitch;
+import net.team11.pixeldungeon.game.entities.traps.floorhole.FloorHole;
 import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike;
 import net.team11.pixeldungeon.game.entities.traps.Quicksand;
 import net.team11.pixeldungeon.game.entities.traps.TrapRoom;
@@ -315,8 +316,25 @@ public class TiledObjectUtil {
                                     if (entity instanceof TrapRoom && entity.getName().equals(room)) {
                                         ((TrapRoom) entity).addTrap(quicksand);
                                         engine.addEntity(quicksand);
-                                        engine.addEntity(quicksand);
                                     }
+                                }
+                            }
+                        } else {
+                            System.err.println("QUICKSAND: " + rectObject.getName() + " was not setup correctly!");
+                        }
+                        break;
+
+                    case TiledMapObjectNames.FLOOR_HOLE:
+                        if (mapObject instanceof PolylineMapObject) {
+                            String room = (String) mapObject.getProperties().get(TiledMapProperties.ROOM);
+                            ChainShape shape = createPolyLine(((PolylineMapObject) mapObject));
+                            FloorHole floorHole = new FloorHole(mapObject.getName(),shape);
+                            List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
+
+                            for (Entity entity : trapRooms) {
+                                if (entity instanceof TrapRoom && entity.getName().equals(room)) {
+                                    ((TrapRoom) entity).addTrap(floorHole);
+                                    engine.addEntity(floorHole);
                                 }
                             }
                         } else {

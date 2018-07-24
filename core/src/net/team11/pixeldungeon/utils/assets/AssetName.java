@@ -70,6 +70,7 @@ public class AssetName {
     /////   DEATH SPRITE NAMES
     public static final String DEATH_FIRE = "deathFire";
     public static final String DEATH_FLOOR_SPIKE = "deathFloorSpike";
+    public static final String DEATH_DEFAULT = "deathDefault";
 
     /////   ENTITY SPRITE NAMES     /////
     public static final String BOX_IDLE = "box";

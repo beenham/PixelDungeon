@@ -56,16 +56,8 @@ public class FloorSpike extends Trap {
 
     protected SpikeSize size;
 
-    public FloorSpike(Rectangle bounds, boolean enabled, String name, float timer) {
-        this(bounds,enabled,name);
-        this.timed = true;
-        this.timerReset = timer;
-        this.timer = timerReset;
-    }
     public FloorSpike(Rectangle bounds, boolean enabled, String name) {
         super(name, enabled);
-        this.timed = false;
-        this.damage = 1;
 
         float posX = bounds.getX() + bounds.getWidth()/2;
         float posY = bounds.getY() + bounds.getHeight()/2;

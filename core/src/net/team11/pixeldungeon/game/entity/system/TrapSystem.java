@@ -122,7 +122,8 @@ public class TrapSystem extends EntitySystem {
                                     trap.setContactingEntity(null);
                                 }
                             } else {
-                                if (overLapping) {
+                                if ((trap.requireSubmerged() && submerged)
+                                        || (!trap.requireSubmerged() && overLapping)) {
                                     trap.setContactingEntity(player);
                                     if (!trap.isTriggered() && !trapComponent.isInteracting()) {
                                         trapComponent.trigger();

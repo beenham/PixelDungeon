@@ -3,8 +3,10 @@ package net.team11.pixeldungeon.game.entities.player;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.utils.Timer;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.game.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.game.map.Map;
@@ -55,11 +57,13 @@ public class Player extends Entity {
     }
     private float spawnX, spawnY;
     private PlayerDepth depth;
+    private float scale;
 
     public Player(float posX, float posY) {
         super("Player");
         spawnX = posX; spawnY = posY;
         depth = FOUR_QUART;
+        scale = 1f;
 
         VelocityComponent velocityComponent;
         AnimationComponent animationComponent;
@@ -138,5 +142,37 @@ public class Player extends Entity {
                 currentMap.getMapName()
                 );
         PixelDungeon.getInstance().getAndroidInterface().earnLetsTryAgain();
+    }
+
+    public void startFalling(final Trap entity) {
+        getComponent(BodyComponent.class).move(0,0);
+        final VelocityComponent velComp = getComponent(VelocityComponent.class);
+        velComp.paralyze(10);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                if (scale > 0) {
+                    scale -= 0.05f;
+                }
+                if (scale < 0.3f) {
+                    velComp.setyDirection(0);
+                    velComp.setxDirection(0);
+                }
+                if (scale <= 0f) {
+                    scale = 0f;
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            HealthComponent health = getComponent(HealthComponent.class);
+                            health.setHealth(health.getHealth() - entity.getDamage(),entity);
+                        }
+                    },0.5f,0,0);
+                }
+            }
+        },0.01f,0.01f,20);
+    }
+
+    public float getScale() {
+        return scale;
     }
 }

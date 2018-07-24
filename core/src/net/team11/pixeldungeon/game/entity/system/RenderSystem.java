@@ -110,21 +110,33 @@ public class RenderSystem extends EntitySystem {
 
             if (CollisionUtil.isOverlapping(cameraBox,entityBox)) {
                 float width = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionWidth();
-                int height = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionHeight();
+                float height = currentAnimation.getKeyFrame(animationComponent.getStateTime()).getRegionHeight();
 
                 if (!(entity instanceof Beam)) {
-                    spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                            bodyComponent.getX() - width / 2,
-                            bodyComponent.getY() - bodyComponent.getHeight() / 2,
-                            width,
-                            height);
+                    if (entity instanceof Player) {
+                        if (((Player) entity).getScale() > 0f) {
+                            spriteBatch.setColor(1, 1, 1, ((Player) entity).getScale());
+                            spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                                    bodyComponent.getX() - ((width * ((Player) entity).getScale()) / 2),
+                                    bodyComponent.getY() - ((bodyComponent.getHeight() * ((Player) entity).getScale()) / 2),
+                                    width * ((Player) entity).getScale(),
+                                    height * ((Player) entity).getScale());
+                            spriteBatch.setColor(1, 1, 1, 1);
+                        }
+                    } else {
+                        spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                                bodyComponent.getX() - width / 2,
+                                bodyComponent.getY() - bodyComponent.getHeight() / 2,
+                                width,
+                                height);
+                    }
                 } else {
                     if (((Beam) entity).isOn()) {
                         spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
-                                bodyComponent.getX() - bodyComponent.getWidth() / 2,
+                                bodyComponent.getX() - width/ 2,
                                 bodyComponent.getY() - bodyComponent.getHeight() / 2,
-                                bodyComponent.getWidth(),
-                                bodyComponent.getHeight());
+                                width,
+                                height);
                     }
                 }
             }

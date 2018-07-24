@@ -18,12 +18,11 @@ public class Quicksand extends Trap {
     public Quicksand(ChainShape bounds, String name, float speedMod, float timeBeforeDeath) {
         super(name, false);
         this.speedMod = speedMod;
-        super.requireSubmerged = true;
-        triggered = false;
+        requireSubmerged = true;
         timed = true;
         timerReset = timeBeforeDeath;
         timer = timeBeforeDeath;
-        damage = 100;
+
         addComponent(new TrapComponent(this));
         addComponent(new BodyComponent(bounds, 0f,
                 (CollisionUtil.TRAP),
@@ -34,7 +33,6 @@ public class Quicksand extends Trap {
     @Override
     public void setTimer(float timer) {
         super.setTimer(timer);
-        System.out.println("");
         if (contactEntity instanceof Player) {
             Player player = (Player) contactEntity;
             if (timer / timerReset <= .8f) {

@@ -16,6 +16,7 @@ public class TiledMapObjectNames {
     public static final String TUTORIAL_ZONE = "tutorialZone";
     public static final String LEVER = "lever";
     public static final String QUICKSAND = "quicksand";
+    public static final String FLOOR_HOLE = "floorHole";
 
     public static final String BEAM_REFLECTOR = "reflector";
     public static final String BEAM_GENERATOR = "beamGenerator";

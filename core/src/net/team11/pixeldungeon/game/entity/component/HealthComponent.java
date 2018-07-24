@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.game.entity.component;
 
+import net.team11.pixeldungeon.game.entities.traps.floorhole.FloorHole;
 import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityComponent;
@@ -35,6 +36,8 @@ public class HealthComponent implements EntityComponent {
     public String getKillingAnimation() {
         if (latestDamageEntity instanceof FloorSpike) {
             return AssetName.DEATH_FLOOR_SPIKE;
+        } else if (latestDamageEntity instanceof FloorHole) {
+            return AssetName.DEATH_DEFAULT;
         }
 
         return AssetName.DEATH_FIRE;
