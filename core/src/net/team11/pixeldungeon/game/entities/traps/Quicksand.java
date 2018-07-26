@@ -8,12 +8,9 @@ import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.HealthComponent;
 import net.team11.pixeldungeon.game.entity.component.TrapComponent;
-
 import net.team11.pixeldungeon.game.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.CollisionUtil;
-
-import java.util.List;
 
 public class Quicksand extends Trap {
     private float speedMod; //The speed which to set the players speed to. Make it less then 100 to slow down
@@ -74,7 +71,7 @@ public class Quicksand extends Trap {
         Polygon hitBox = getComponent(BodyComponent.class).getPolygon();
         Polygon entityBox = player.getComponent(BodyComponent.class).getPolygon();
 
-        boolean submerged = CollisionUtil.isSubmerged(hitBox, entityBox);
+        boolean submerged = CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .5f;
 
         if (!enabled) {
             if (submerged) {
@@ -87,13 +84,6 @@ public class Quicksand extends Trap {
                 setContactingEntity(null);
             }
             if (super.timer <= 0f) {
-                trigger();
-            }
-        }
-
-        if (CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .5f) {
-            setContactingEntity(player);
-            if (!triggered) {
                 trigger();
             }
         }

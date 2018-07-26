@@ -193,7 +193,6 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void resume() {
         for (Actor actor : getActors()) {
-            System.out.println(actor);
             if (actor instanceof RewardDialog) {
                 return;
             }
