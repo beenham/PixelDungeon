@@ -28,7 +28,7 @@ public class CoinAwarder {
         noDeaths = false;
         firstTime = false;
 
-        StatsUtil statsUtil = Util.getStatsUtil();
+        StatsUtil statsUtil = Util.getInstance().getStatsUtil();
         LevelStats levelStats = statsUtil.getLevelStats(MapManager.getInstance()
                 .getCurrentMap().getMapName());
         CurrentStats currStats = statsUtil.getCurrentStats();

@@ -51,7 +51,7 @@ public class Puzzle {
     }
 
     protected void init() {
-        Util.updatePuzzleAttempts();
+        Util.getInstance().getStatsUtil().updatePuzzleAttempts();
     }
 
     public boolean isActivated() {
@@ -231,7 +231,7 @@ public class Puzzle {
     public void setupEntities(EntityEngine engine){}
 
     protected void onComplete() {
-        Util.updatePuzzleCompleted();
+        Util.getInstance().getStatsUtil().updatePuzzleCompleted();
     }
 
     @Override

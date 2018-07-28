@@ -128,8 +128,8 @@ public class Player extends Entity {
 //        CurrentStats currStats = statsUtil.getCurrentStats();
 //        LevelStats levelStats = statsUtil.getLevelStats(currentMap.getMapName());
 
-        Util.respawn(currentMap.getMapName());
-        Util.updateAttempts(currentMap.getMapName());
+        Util.getInstance().getStatsUtil().respawn(currentMap.getMapName());
+        Util.getInstance().getStatsUtil().updateAttempts(currentMap.getMapName());
 
         ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                 null,

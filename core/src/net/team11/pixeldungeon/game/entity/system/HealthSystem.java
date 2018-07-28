@@ -36,7 +36,7 @@ public class HealthSystem extends EntitySystem {
     public void update(float delta) {
         if (playerHealthComponent.getHealth() <= 0 && !deathDisplayed) {
             PixelDungeon.getInstance().getAndroidInterface().earnLetsTryAgain();
-            StatsUtil statsUtil = Util.getStatsUtil();
+            StatsUtil statsUtil = Util.getInstance().getStatsUtil();
             statsUtil.getGlobalStats().incrementDeaths();
             statsUtil.saveTimer();
             PlayScreen.uiManager.showDeathMenu(playerHealthComponent.getKillingAnimation());

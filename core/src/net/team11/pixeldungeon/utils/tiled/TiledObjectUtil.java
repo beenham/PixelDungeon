@@ -274,6 +274,7 @@ public class TiledObjectUtil {
 
                         PuzzleController pController = new PuzzleController(
                                 rectObject.getRectangle(),mapObject.getName());
+                        System.out.println("Puzzle: " + puzzleName);
                         pController.setParentPuzzle(engine.getPuzzle(puzzleName));
                         engine.addEntity(pController);
                         break;
@@ -488,18 +489,28 @@ public class TiledObjectUtil {
      * @param objects The Objects taken from the Tiled Map file
      */
     public static void parseTiledPuzzleLayer(EntityEngine engine, World world, MapObjects objects) {
+        System.out.println("Parsing puzzles");
+        System.out.println(objects.getCount());
         for (MapObject mapObject : objects) {
+            System.out.println("object " + mapObject.getName());
             ChainShape shape;
             Polygon bounds;
+
+            System.out.println("Polyline: " + mapObject.getClass().equals(PolylineMapObject.class));
+            System.out.println("Contains: " + mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE));
 
             //  If object is not polyline object, end loop
             if (mapObject instanceof PolylineMapObject
                     && mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
+                System.out.println("Is polyline");
                 shape = createPolyLine((PolylineMapObject) mapObject);
                 bounds = CollisionUtil.createPolygon(shape);
             } else {
+                System.out.println("Continuing");
                 continue;
             }
+
+            System.out.println("At 1");
 
             Body body;
             BodyDef bdef = new BodyDef();
@@ -519,9 +530,10 @@ public class TiledObjectUtil {
             fixtureDef.filter.maskBits = (byte) (CollisionUtil.ENTITY | CollisionUtil.BOUNDARY);
             body.createFixture(fixtureDef);
             shape.dispose();
-
+            System.out.println("At 2" );
 
             String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
+            System.out.println("Type: " + type);
 
             //  If the entity has any targets to 'trigger'
             List<String> activateTargets = new ArrayList<>();
@@ -532,6 +544,7 @@ public class TiledObjectUtil {
             }
             if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_COMPLETE)) {
                 completeTargets = parseTargets(mapObject, TiledMapProperties.TARGET_COMPLETE);
+                System.out.println("Complete Targets " + completeTargets);
             }
             if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_FAIL)) {
                 failTargets = parseTargets(mapObject, TiledMapProperties.TARGET_FAIL);
@@ -550,6 +563,7 @@ public class TiledObjectUtil {
                 case TiledMapPuzzleNames.SIMON_SAYS:
                     try {
                         String name = mapObject.getName();
+                        System.out.println("simons says");
                         int difficulty = (int) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
                         int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
                         int numStages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
@@ -559,8 +573,9 @@ public class TiledObjectUtil {
                         simonSays.setCompleteTargets(completeTargets);
                         simonSays.setFailTargets(failTargets);
                         engine.addPuzzle(simonSays);
+                        System.out.println("Success creating simon says");
                     } catch (Exception e) {
-                        //e.printStackTrace();
+                        e.printStackTrace();
                     }
                     break;
                 case TiledMapPuzzleNames.COLOUR_GEMS:

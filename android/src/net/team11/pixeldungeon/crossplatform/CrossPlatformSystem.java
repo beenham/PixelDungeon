@@ -4,35 +4,19 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.SnapshotsClient;
 import com.google.android.gms.games.snapshot.Snapshot;
-import com.google.android.gms.games.snapshot.SnapshotMetadata;
-import com.google.android.gms.games.snapshot.SnapshotMetadataChange;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import net.team11.pixeldungeon.AndroidLauncher;
 import net.team11.pixeldungeon.R;
 import net.team11.pixeldungeon.saves.SaveGame;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
-import net.team11.pixeldungeon.utils.stats.GlobalStats;
-import net.team11.pixeldungeon.utils.stats.LevelStats;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
 
 public class CrossPlatformSystem implements AndroidInterface {
     private String TAG = "PixelDungeon";
@@ -41,7 +25,7 @@ public class CrossPlatformSystem implements AndroidInterface {
 
     private Snapshot currentSnapshot;
 
-    public CrossPlatformSystem(AndroidLauncher mActivity){
+    public CrossPlatformSystem(AndroidLauncher mActivity) {
         this.mActivity = mActivity;
     }
 
@@ -255,18 +239,35 @@ public class CrossPlatformSystem implements AndroidInterface {
     }
 
     @Override
-    public void showCloudSaves(){
-        mActivity.showSavedGamesUI();
+    public void showCloudSaves() {
+//        mActivity.showSavedGamesUI();
     }
 
     @Override
-    public void saveGame(SaveGame saveGame){
-//        mActivity.saveGame(saveGame);
+    public void saveGame() {
+        mActivity.saveGame();
     }
 
     @Override
-    public void loadSaveGame(){
-//            mActivity.loadSnapshot();
+    public void loadSaveGame() {
+
+        //Open loading menu
+
+        mActivity.loadSnapshot().addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Json json = new Json();
+                SaveGame saveGame = json.fromJson(SaveGame.class, new String(bytes));
+                System.out.println(saveGame);
+                Util.getInstance().saveGame(saveGame);
+                Util.getInstance().loadGame();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+            @Override
+            public void onComplete(@NonNull Task<byte[]> task) {
+                // Close loading menu
+            }
+        });
     }
 
 }

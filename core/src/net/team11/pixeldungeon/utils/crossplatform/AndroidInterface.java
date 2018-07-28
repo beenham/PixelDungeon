@@ -41,6 +41,6 @@ public interface AndroidInterface {
     void earnFullInventory();
 
     void showCloudSaves();
-    void saveGame(SaveGame saveGame);
+    void saveGame();
     void loadSaveGame();
 }

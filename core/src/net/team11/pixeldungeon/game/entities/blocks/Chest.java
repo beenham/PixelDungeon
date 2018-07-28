@@ -18,8 +18,6 @@ import net.team11.pixeldungeon.game.items.keys.Key;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Messages;
-import net.team11.pixeldungeon.utils.stats.CurrentStats;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.assets.Assets;
@@ -233,18 +231,16 @@ public class Chest extends Entity {
     }
 
     private void updateStatsLooted() {
-//        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
         if (item != null) {
             if (item instanceof Key) {
-                Util.updateKeys((Key)item);
+                Util.getInstance().getStatsUtil().updateKeys((Key)item);
             } else if (!(item instanceof Coin)) {
-                Util.updateItems(item);
+                Util.getInstance().getStatsUtil().updateItems(item);
             }
         }
     }
 
     private void updateStatsOpened() {
-//        CurrentStats stats = StatsUtil.getInstance().getCurrentStats();
-        Util.updateChests(this);
+        Util.getInstance().getStatsUtil().updateChests(this);
     }
 }

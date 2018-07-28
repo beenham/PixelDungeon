@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class LevelInfo extends Table {
     private LevelSelector selector;
-    private StatsUtil statsUtil = Util.getStatsUtil();
+    private StatsUtil statsUtil ;
 
     private Label levelName;
     private Label attemptsVal;
@@ -51,6 +51,7 @@ public class LevelInfo extends Table {
     }
 
     private void setupTitle() {
+        statsUtil = Util.getInstance().getStatsUtil();
         levelName = new Label(statsUtil.getLevelStats(selector.getMap().getMapName()).getLevelName(), Assets.getInstance().getSkin(Assets.UI_SKIN),"title");
         levelName.setFontScale(1.25f * PixelDungeon.SCALAR);
         levelName.setWrap(true);
@@ -135,7 +136,7 @@ public class LevelInfo extends Table {
         playButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Util.updateAttempts(MapManager.getInstance().getCurrentMap().getMapName());
+                Util.getInstance().getStatsUtil().updateAttempts(MapManager.getInstance().getCurrentMap().getMapName());
                 ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                         null,
                         selector.getMap().getMapName());

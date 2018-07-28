@@ -8,8 +8,6 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.game.DirectedGame;
 import net.team11.pixeldungeon.utils.Util;
-import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class PixelDungeon extends DirectedGame {
@@ -37,8 +35,6 @@ public class PixelDungeon extends DirectedGame {
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
-//		StatsUtil.getInstance();
-//		InventoryUtil.getInstance();
 		MapManager.getInstance();
 	}
 

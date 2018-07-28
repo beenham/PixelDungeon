@@ -127,7 +127,7 @@ public class SkinInfo extends Table {
             }
         } else {
             if (skins.get(currentSkin).isBuyable()) {
-                if (Util.getStatsUtil().getGlobalStats().getCurrentCoins() >=
+                if (Util.getInstance().getStatsUtil().getGlobalStats().getCurrentCoins() >=
                         skins.get(currentSkin).getCost()) {
                     button = new TextButton(Messages.BUY, Assets.getInstance().getSkin(Assets.UI_SKIN));
                     button.addListener(new ClickListener() {
@@ -137,9 +137,9 @@ public class SkinInfo extends Table {
                             skinList.setCurrentSkin(currentSkin);
 //                            InventoryUtil.getInstance().save();
 
-                            Util.getStatsUtil().getGlobalStats()
+                            Util.getInstance().getStatsUtil().getGlobalStats()
                                     .subtractCurrentCoins(skins.get(currentSkin).getCost());
-                            Util.saveGame();
+                            Util.getInstance().saveGame();
                             update(currentSkin);
                             return super.touchDown(event, x, y, pointer, button);
                         }

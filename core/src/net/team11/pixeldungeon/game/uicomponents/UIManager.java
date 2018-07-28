@@ -50,7 +50,7 @@ public class UIManager {
     }
 
     public void showPauseMenu(boolean screenCall) {
-        Util.getStatsUtil().saveTimer();
+        Util.getInstance().getStatsUtil().saveTimer();
         if (screenCall) {
             ScreenManager.getInstance().getScreen().pause();
         }

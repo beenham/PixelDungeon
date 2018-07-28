@@ -77,7 +77,7 @@ public class VelocitySystem extends EntitySystem {
                     collision.width,collision.height);
             if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 engine.finish();
-                if (Util.getStatsUtil()
+                if (Util.getInstance().getStatsUtil()
                         .getLevelStats(MapManager.getInstance().getCurrentMap().getMapName())
                         .isTutorial()) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,

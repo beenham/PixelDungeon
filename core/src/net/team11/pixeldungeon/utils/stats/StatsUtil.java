@@ -1,21 +1,16 @@
 package net.team11.pixeldungeon.utils.stats;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 
-import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.saves.SaveGame;
+import net.team11.pixeldungeon.game.entities.blocks.Chest;
+import net.team11.pixeldungeon.game.items.Item;
+import net.team11.pixeldungeon.game.items.keys.Key;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import net.team11.pixeldungeon.utils.Util;
 
 public class StatsUtil {
-//    private static StatsUtil INSTANCE = new StatsUtil();
-    private String TAG = "FILESTORAGE : ";
-    private final String globalFile = "stats/globalStats.json";
 
     private HashMap<String, LevelStats> levelStats;
     private GlobalStats globalStats;
@@ -90,10 +85,67 @@ public class StatsUtil {
         return globalStats;
     }
 
-//    public static StatsUtil getInstance() {
-//        if (INSTANCE == null) {
-//            INSTANCE = new StatsUtil();
-//        }
-//        return INSTANCE;
-//    }
+    public void updateLevelStats(String mapName, LevelStats stats) {
+        this.getLevelStats().put(mapName, stats);
+    }
+
+    public void updateChests(Chest chest) {
+        this.getCurrentStats().incrementChests();
+        this.getCurrentStats().addChest(chest.getName());
+        this.getGlobalStats().incrementChestsFound();
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateKeys(Key key) {
+        System.out.println("Updating key stats");
+        this.getCurrentStats().incrementKeys();
+        this.getGlobalStats().incrementKeysFound();
+        this.getCurrentStats().addKey(key.getName());
+        System.out.println(this.getCurrentStats());
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateItems(Item item) {
+        this.getCurrentStats().incrementItems();
+        this.getGlobalStats().incrementItemsFound();
+        this.getCurrentStats().addItem(item.getName());
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateAttempts(String mapName) {
+        this.getLevelStats(mapName).incrementAttempts();
+        this.getGlobalStats().incrementAttempts();
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateDeaths() {
+        this.getCurrentStats().incrementDeaths();
+        this.getGlobalStats().incrementDeaths();
+        Util.getInstance().saveGame();
+    }
+
+    public void updatePuzzleAttempts() {
+        this.getGlobalStats().incrementPuzzleAttempted();
+        Util.getInstance().saveGame();
+    }
+
+    public void updatePuzzleCompleted() {
+        this.getGlobalStats().incrementPuzzleCompleted();
+        Util.getInstance().saveGame();
+    }
+
+
+    public void updateGlobal() {
+        saveTimer();
+    }
+
+    public void respawn(String mapName) {
+        this.getCurrentStats().respawn();
+        updateAttempts(mapName);
+        Util.getInstance().saveGame();
+    }
 }

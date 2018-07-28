@@ -47,7 +47,7 @@ public class SkinSelector extends Table {
         });
 
         add(coinDisplay = new CoinDisplay(backButton.getHeight(),
-                Util.getStatsUtil().getGlobalStats().getCurrentCoins()))
+                Util.getInstance().getStatsUtil().getGlobalStats().getCurrentCoins()))
                 .pad(padding).expandX().left();
         add(backButton).right().pad(padding);
         row();
@@ -83,7 +83,7 @@ public class SkinSelector extends Table {
 
     public void update() {
         getCell(coinDisplay).setActor(coinDisplay = new CoinDisplay(coinDisplay.getHeight(),
-                Util.getStatsUtil().getGlobalStats().getCurrentCoins()));
+                Util.getInstance().getStatsUtil().getGlobalStats().getCurrentCoins()));
 
         for (SkinDisplay display : skinDisplays) {
             display.update();

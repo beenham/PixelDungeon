@@ -24,7 +24,7 @@ import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.game.uicomponents.UIManager;
 import net.team11.pixeldungeon.utils.Util;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
+
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 import net.team11.pixeldungeon.game.map.MapManager;
@@ -56,7 +56,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        Util.getStatsUtil().initialiseCurrStats();
+        Util.getInstance().getStatsUtil().initialiseCurrStats();
         setupCamera();
         setupViewport();
         setupEngine();
@@ -148,7 +148,7 @@ public class PlayScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0,0,0,0);
         engine.update(delta);
 
-        //b2dr.render(world, gameCam.combined);
+        b2dr.render(world, gameCam.combined);
         if (ambientLight < 0.75f && !paused) {
             ambientLight += 0.01f;
             rayHandler.setAmbientLight(ambientLight);

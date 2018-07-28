@@ -6,9 +6,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.game.entities.blocks.Chest;
-import net.team11.pixeldungeon.game.items.Item;
-import net.team11.pixeldungeon.game.items.keys.Key;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
 import net.team11.pixeldungeon.saves.SaveGame;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
@@ -25,21 +22,24 @@ import java.util.HashMap;
  */
 public class Util {
 
-    private static StatsUtil statsUtil;
-    private static InventoryUtil inventoryUtil;
+    private StatsUtil statsUtil;
+    private InventoryUtil inventoryUtil;
 
-    private static FileHandle saveLocation;
+    private FileHandle saveLocation;
+    private SaveGame currentSave;
 
-    public static SaveGame currentSave;
+    private static Util instance;
 
     public static Util getInstance(){
-        return new Util();
+        if (instance == null){
+            return  instance = new Util();
+        } else {
+            return instance;
+        }
     }
 
     private Util() {
         SaveGame loadedSave = loadGame();
-
-
         System.out.println("LOADED SAVE: " + loadedSave);
     }
 
@@ -47,7 +47,7 @@ public class Util {
     //////////////////////
     //  Saving/Loading  //
     //////////////////////
-    public static SaveGame loadGame() {
+    public SaveGame loadGame() {
 
         String playerName;
         Json json = new Json();
@@ -62,7 +62,7 @@ public class Util {
             playerName = "Player";
         }
 
-        saveLocation = Gdx.files.local("saves/" + "null/" + "/" + "saveGame.json");
+        saveLocation = Gdx.files.local("saves/saveGame.json");
 
 
         //Have a save game for the currently signed in player
@@ -72,14 +72,20 @@ public class Util {
             SaveGame saveGame = json.fromJson(SaveGame.class, saveLocation);
 
             HashMap<String, LevelStats> levelStats = saveGame.getLevelStatsHashMap();
+
             //Check to see if any more levels have been added
             for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
-
                 if (!levelStats.containsKey(file.nameWithoutExtension())) {
+                    System.out.println("Stats doesn't contain key: " + file.nameWithoutExtension());
+                    System.out.println("New level stat information founds");
                     LevelStats stats = json.fromJson(LevelStats.class, file);
+                    System.out.println(stats);
                     levelStats.put(stats.getFileName(), stats);
                 }
             }
+
+            saveGame.setLevelStatsHashMap(levelStats);
+            System.out.println(levelStats);
 
             //Check to see if any more skins have been added
             SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal("shop/shopitems/skinList.json"));
@@ -93,10 +99,22 @@ public class Util {
 
                 saveGame.setSkinList(skinList);
             }
-            currentSave = saveGame;
 
-            statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
 
+            statsUtil = new StatsUtil(saveGame.getLevelStatsHashMap(), saveGame.getGlobalStats());
+            inventoryUtil = InventoryUtil.getInstance();
+            inventoryUtil.setSkinList(saveGame.getSkinList());
+
+            SaveGame save = new SaveGame(statsUtil.getLevelStats(), statsUtil.getGlobalStats(), inventoryUtil.getSkinList(), getTimeStamp());
+
+            currentSave = save;
+
+            saveGame(save);
+            if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()){
+                PixelDungeon.getInstance().getAndroidInterface().saveGame();
+            }
+
+            System.out.println("New Save Info" + save);
             return saveGame;
         } else {
             //Otherwise create a new empty save for them
@@ -125,22 +143,28 @@ public class Util {
         }
     }
 
-    public static void saveGame(SaveGame saveGame) {
+    public void saveGame(SaveGame saveGame) {
         Json json = new Json();
         System.out.println("Saving the game");
         saveLocation.writeString(json.toJson(saveGame), false);
         System.out.println("Finished saving");
         currentSave = saveGame;
+        if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()){
+            PixelDungeon.getInstance().getAndroidInterface().saveGame();
+        }
+
     }
 
-    public static void saveGame() {
+    public void saveGame() {
         Json json = new Json();
         statsUtil.saveTimer();
         SaveGame saveGame = new SaveGame(statsUtil.getLevelStats(), statsUtil.getGlobalStats(), inventoryUtil.getSkinList(), getTimeStamp());
         saveLocation.writeString(json.toJson(saveGame), false);
-        System.out.println(saveGame);
-        System.out.println("SAVED GAME");
+
         currentSave = saveGame;
+        if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()){
+            PixelDungeon.getInstance().getAndroidInterface().saveGame();
+        }
     }
 
     public static String getTimeStamp() {
@@ -151,75 +175,8 @@ public class Util {
     //  Statistics Utils //
     ///////////////////////
 
-    public static StatsUtil getStatsUtil() {
-        return statsUtil;
-    }
-
-    public static void updateLevelStats(String mapName, LevelStats stats) {
-        statsUtil.getLevelStats().put(mapName, stats);
-    }
-
-    public static void updateChests(Chest chest) {
-        statsUtil.getCurrentStats().incrementChests();
-        statsUtil.getCurrentStats().addChest(chest.getName());
-        statsUtil.getGlobalStats().incrementChestsFound();
-        saveGame();
-    }
-
-    //
-    public static void updateKeys(Key key) {
-        System.out.println("Updating key stats");
-        statsUtil.getCurrentStats().incrementKeys();
-        statsUtil.getGlobalStats().incrementKeysFound();
-        statsUtil.getCurrentStats().addKey(key.getName());
-        System.out.println(statsUtil.getCurrentStats());
-        saveGame();
-    }
-
-    //
-    public static void updateItems(Item item) {
-        statsUtil.getCurrentStats().incrementItems();
-        statsUtil.getGlobalStats().incrementItemsFound();
-        statsUtil.getCurrentStats().addItem(item.getName());
-        saveGame();
-    }
-
-    //
-    public static void updateAttempts(String mapName) {
-        statsUtil.getLevelStats(mapName).incrementAttempts();
-        statsUtil.getGlobalStats().incrementAttempts();
-        saveGame();
-    }
-
-    //
-    public static void updateDeaths() {
-        statsUtil.getCurrentStats().incrementDeaths();
-        statsUtil.getGlobalStats().incrementDeaths();
-        saveGame();
-    }
-
-    public static void updatePuzzleAttempts() {
-        statsUtil.getGlobalStats().incrementPuzzleAttempted();
-        saveGame();
-    }
-
-    public static void updatePuzzleCompleted() {
-        statsUtil.getGlobalStats().incrementPuzzleCompleted();
-        saveGame();
-    }
-
-    public static void saveTimer() {
-        statsUtil.saveTimer();
-    }
-
-    public static void updateGlobal() {
-        saveTimer();
-    }
-
-    public static void respawn(String mapName) {
-        statsUtil.getCurrentStats().respawn();
-        updateAttempts(mapName);
-        saveGame();
+    public StatsUtil getStatsUtil() {
+        return this.statsUtil;
     }
 
 }

@@ -8,10 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Json;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.saves.SaveGame;
+
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
@@ -19,7 +18,6 @@ import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
 
@@ -69,42 +67,42 @@ public class PlayerInfo extends Table {
         Label attempts = new Label(Messages.STATS_LEVELS_ATTEMPTED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         attempts.setFontScale(fontScale);
         Label attemptsVal = new Label(String.format(Locale.UK, "%d",
-                Util.getStatsUtil().getGlobalStats().getTotalAttempts()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalAttempts()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         attemptsVal.setFontScale(fontScale);
 
         Label completed = new Label(Messages.STATS_LEVELS_COMPLETED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         completed.setFontScale(fontScale);
         Label completedVal = new Label(String.format(Locale.UK, "%d",
-                Util.getStatsUtil().getGlobalStats().getTotalCompleted()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalCompleted()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         completedVal.setFontScale(fontScale);
 
         Label bestTime = new Label(Messages.STATS_TOTAL_TIME, Assets.getInstance().getSkin(Assets.UI_SKIN));
         bestTime.setFontScale(fontScale);
         Label bestTimeVal = new Label(String.format(Locale.UK,"%s",
-                Util.getStatsUtil().getGlobalStats().getTime()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTime()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         bestTimeVal.setFontScale(fontScale);
 
         Label chests = new Label(Messages.STATS_CHESTS_OPENED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         chests.setFontScale(fontScale);
         Label chestsVal = new Label(String.format(Locale.UK,"%d",
-                Util.getStatsUtil().getGlobalStats().getTotalChestsFound()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalChestsFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         chestsVal.setFontScale(fontScale);
 
         Label keys = new Label(Messages.STATS_KEYS_FOUND, Assets.getInstance().getSkin(Assets.UI_SKIN));
         keys.setFontScale(fontScale);
         Label keysVal = new Label(String.format(Locale.UK,"%d",
-                Util.getStatsUtil().getGlobalStats().getTotalKeysFound()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalKeysFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         keysVal.setFontScale(fontScale);
 
         Label deaths = new Label(Messages.STATS_TOTAL_DEATHS, Assets.getInstance().getSkin(Assets.UI_SKIN));
         deaths.setFontScale(fontScale);
         Label deathVal = new Label(String.format(Locale.UK,"%d",
-                Util.getStatsUtil().getGlobalStats().getTotalDeaths()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalDeaths()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         deathVal.setFontScale(fontScale);
 
@@ -154,36 +152,14 @@ public class PlayerInfo extends Table {
             }
         });
 
-//        TextButton saveToCloud = new TextButton(Messages.SAVE_TO, Assets.getInstance().getSkin(Assets.UI_SKIN));
-//        saveToCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
-//
-//        saveToCloud.addListener(new ClickListener(){
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                Json json = new Json();
-//
-//                androidInterface.saveGame(json.fromJson(SaveGame.class, json.toJson(Util.currentSave)));
-//                return super.touchDown(event, x, y, pointer, button);
-//            }
-//        });
-//
-//        TextButton loadFromCloud = new TextButton(Messages.LOAD_FROM, Assets.getInstance().getSkin(Assets.UI_SKIN));
-//        loadFromCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
-//
-//        loadFromCloud.addListener(new ClickListener(){
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                androidInterface.loadSaveGame();
-//                return super.touchDown(event, x, y, pointer, button);
-//            }
-//        });
 
-        TextButton cloud = new TextButton("ClOUD SAVES", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        cloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
-        cloud.addListener(new ClickListener(){
+        TextButton loadFromCloud = new TextButton(Messages.LOAD_FROM, Assets.getInstance().getSkin(Assets.UI_SKIN));
+        loadFromCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
+
+        loadFromCloud.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.showCloudSaves();
+                androidInterface.loadSaveGame();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -192,11 +168,7 @@ public class PlayerInfo extends Table {
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
         gplayServices.row();
-//        gplayServices.add(saveToCloud).bottom().pad(padding).fillX();
-//        gplayServices.row();
-//        gplayServices.add(loadFromCloud).bottom().pad(padding).fillX();
-//        gplayServices.row();
-        gplayServices.add(cloud).bottom().pad(padding).fillX();
+        gplayServices.add(loadFromCloud).bottom().pad(padding).fillX();
 
         return gplayServices;
     }
