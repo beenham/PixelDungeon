@@ -1,21 +1,16 @@
 package net.team11.pixeldungeon.utils.stats;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 
-import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.saves.SaveGame;
+import net.team11.pixeldungeon.game.entities.blocks.Chest;
+import net.team11.pixeldungeon.game.items.Item;
+import net.team11.pixeldungeon.game.items.keys.Key;
+import net.team11.pixeldungeon.utils.Util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
 public class StatsUtil {
-    private static StatsUtil INSTANCE = new StatsUtil();
-    private String TAG = "FILESTORAGE : ";
-    private final String globalFile = "stats/globalStats.json";
 
     private HashMap<String, LevelStats> levelStats;
     private GlobalStats globalStats;
@@ -23,54 +18,13 @@ public class StatsUtil {
     private int timer = 0;
     private int flaggedTimer = 0;
 
-    private SaveGame currentSave;
-
-    private StatsUtil() {
-//        clearLocal();
-        currentSave = PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();
-        this.levelStats = currentSave.getLevelStatsHashMap();
-        this.globalStats = currentSave.getGlobalStats();
+    public StatsUtil(HashMap<String, LevelStats> levelStats, GlobalStats globalStats) {
+        this.levelStats = levelStats;
+        this.globalStats = globalStats;
     }
 
-    private void readInternalLevelFiles() {
-        Json json = new Json();
-        for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
-            if (file.toString().endsWith(".json") && !levelStats.containsKey(file.nameWithoutExtension())) {
-                LevelStats stats = json.fromJson(LevelStats.class,file);
-                System.out.println(json.toJson(stats));
-                levelStats.put(stats.getFileName(), stats);
-                String filePath = "stats/levels/" + stats.getFileName() + ".json";
-                Gdx.files.local(filePath).writeString(json.toJson(stats),false);
-            }
-        }
-        readGlobalStats();
-        saveGlobalStats();
-    }
-
-    private void readGlobalStats() {
-        try {
-            globalStats = new Json().fromJson(GlobalStats.class,Gdx.files.local(globalFile));
-        } catch (Exception e) {
-            System.out.println(TAG + " generating new global");
-            globalStats = new Json().fromJson(GlobalStats.class,Gdx.files.internal(globalFile));
-        }
-    }
-
-    public void writeLevelStats(String file) {
-        Json json = new Json();
-        LevelStats stats = levelStats.get(file);
-        String filePath = "stats/levels/" + stats.getFileName() + ".json";
-        Gdx.files.local(filePath).writeString(json.toJson(stats),false);
-        currentSave.setLevelStatsHashMap(levelStats);
-        PixelDungeon.getInstance().getAndroidInterface().saveGame(currentSave);
-    }
-
-
-    public void saveGlobalStats() {
-        Json json = new Json();
-        Gdx.files.local(globalFile).writeString(json.toJson(globalStats),false);
-        currentSave.setGlobalStats(globalStats);
-        PixelDungeon.getInstance().getAndroidInterface().saveGame(currentSave);
+    public HashMap<String, LevelStats> getLevelStats() {
+        return this.levelStats;
     }
 
     public void setLevelStats(HashMap<String, LevelStats> map){
@@ -81,9 +35,7 @@ public class StatsUtil {
         this.globalStats = globalStats;
     }
 
-    public SaveGame getCurrentSave() {
-        return currentSave;
-    }
+
 
     public void initialiseCurrStats() {
         if (currentStats == null) {
@@ -111,7 +63,6 @@ public class StatsUtil {
     public void saveTimer() {
         globalStats.addTime(timer-flaggedTimer);
         flaggedTimer = timer;
-        saveGlobalStats();
     }
 
     public int getTimer() {
@@ -134,10 +85,67 @@ public class StatsUtil {
         return globalStats;
     }
 
-    public static StatsUtil getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new StatsUtil();
-        }
-        return INSTANCE;
+    public void updateLevelStats(String mapName, LevelStats stats) {
+        getLevelStats().put(mapName, stats);
+    }
+
+    public void updateChests(Chest chest) {
+        currentStats.incrementChests();
+        currentStats.addChest(chest.getName());
+        globalStats.incrementChestsFound();
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateKeys(Key key) {
+        System.out.println("Updating key stats");
+        currentStats.incrementKeys();
+        currentStats.addKey(key.getName());
+        globalStats.incrementKeysFound();
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateItems(Item item) {
+        currentStats.incrementItems();
+        currentStats.addItem(item.getName());
+        globalStats.incrementItemsFound();
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateAttempts(String mapName) {
+        getLevelStats(mapName).incrementAttempts();
+        globalStats.incrementAttempts();
+        Util.getInstance().saveGame();
+    }
+
+    //
+    public void updateDeaths() {
+        currentStats.incrementDeaths();
+        globalStats.incrementDeaths();
+        Util.getInstance().saveGame();
+    }
+
+    public void updatePuzzleAttempts() {
+        globalStats.incrementPuzzleAttempted();
+        Util.getInstance().saveGame();
+    }
+
+    public void updatePuzzleCompleted() {
+        this.getGlobalStats().incrementPuzzleCompleted();
+        Util.getInstance().saveGame();
+    }
+
+
+    public void updateGlobal() {
+        saveTimer();
+    }
+
+    public void respawn(String mapName) {
+        currentStats.respawn();
+        globalStats.incrementDeaths();
+        updateAttempts(mapName);
+        Util.getInstance().saveGame();
     }
 }

@@ -7,6 +7,7 @@ import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.items.PuzzleItem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.AchivementStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
@@ -58,9 +59,7 @@ public class Puzzle {
     }
 
     protected void init() {
-        StatsUtil.getInstance().getGlobalStats().incrementPuzzleAttempted();
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
+        Util.getInstance().getStatsUtil().updatePuzzleAttempts();
     }
 
     public boolean isActivated() {
@@ -240,10 +239,8 @@ public class Puzzle {
     public void setupEntities(EntityEngine engine){}
 
     protected void onComplete() {
-        StatsUtil.getInstance().getGlobalStats().incrementPuzzleCompleted();
-        StatsUtil.getInstance().saveGlobalStats();
-        StatsUtil.getInstance().saveTimer();
         AchivementStats.completePuzzle(this);
+        Util.getInstance().getStatsUtil().updatePuzzleCompleted();
     }
 
     @Override

@@ -13,6 +13,7 @@ import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.inventory.skinselect.Skin;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
 import net.team11.pixeldungeon.screens.components.coin.CoinDisplay;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
@@ -126,7 +127,7 @@ public class SkinInfo extends Table {
             }
         } else {
             if (skins.get(currentSkin).isBuyable()) {
-                if (StatsUtil.getInstance().getGlobalStats().getCurrentCoins() >=
+                if (Util.getInstance().getStatsUtil().getGlobalStats().getCurrentCoins() >=
                         skins.get(currentSkin).getCost()) {
                     button = new TextButton(Messages.BUY, Assets.getInstance().getSkin(Assets.UI_SKIN));
                     button.addListener(new ClickListener() {
@@ -134,11 +135,11 @@ public class SkinInfo extends Table {
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                             skinList.unlockSkin(skins.get(currentSkin).getName());
                             skinList.setCurrentSkin(currentSkin);
-                            InventoryUtil.getInstance().save();
+//                            InventoryUtil.getInstance().save();
 
-                            StatsUtil.getInstance().getGlobalStats()
+                            Util.getInstance().getStatsUtil().getGlobalStats()
                                     .subtractCurrentCoins(skins.get(currentSkin).getCost());
-                            StatsUtil.getInstance().saveGlobalStats();
+                            Util.getInstance().saveGame();
                             update(currentSkin);
                             return super.touchDown(event, x, y, pointer, button);
                         }

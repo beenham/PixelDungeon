@@ -12,14 +12,12 @@ import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
-
-import javax.swing.GroupLayout;
 
 public class PlayerInfo extends Table {
     private AndroidInterface androidInterface;
@@ -36,6 +34,8 @@ public class PlayerInfo extends Table {
     }
 
     private void create() {
+        Util.getInstance().saveGame();
+
         // T, L, B, R
         add(playerLabel()).left().pad(padding*4,padding*4,padding,padding).colspan(4).expandX();
         add(exitButton()).right().pad(padding*4,padding,padding,padding*4);
@@ -66,42 +66,42 @@ public class PlayerInfo extends Table {
         Label attempts = new Label(Messages.STATS_LEVELS_ATTEMPTED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         attempts.setFontScale(fontScale);
         Label attemptsVal = new Label(String.format(Locale.UK, "%d",
-                StatsUtil.getInstance().getGlobalStats().getTotalAttempts()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalAttempts()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         attemptsVal.setFontScale(fontScale);
 
         Label completed = new Label(Messages.STATS_LEVELS_COMPLETED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         completed.setFontScale(fontScale);
         Label completedVal = new Label(String.format(Locale.UK, "%d",
-                StatsUtil.getInstance().getGlobalStats().getTotalCompleted()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalCompleted()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         completedVal.setFontScale(fontScale);
 
         Label bestTime = new Label(Messages.STATS_TOTAL_TIME, Assets.getInstance().getSkin(Assets.UI_SKIN));
         bestTime.setFontScale(fontScale);
         Label bestTimeVal = new Label(String.format(Locale.UK,"%s",
-                StatsUtil.getInstance().getGlobalStats().getTime()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTime()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         bestTimeVal.setFontScale(fontScale);
 
         Label chests = new Label(Messages.STATS_CHESTS_OPENED, Assets.getInstance().getSkin(Assets.UI_SKIN));
         chests.setFontScale(fontScale);
         Label chestsVal = new Label(String.format(Locale.UK,"%d",
-                StatsUtil.getInstance().getGlobalStats().getTotalChestsFound()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalChestsFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         chestsVal.setFontScale(fontScale);
 
         Label keys = new Label(Messages.STATS_KEYS_FOUND, Assets.getInstance().getSkin(Assets.UI_SKIN));
         keys.setFontScale(fontScale);
         Label keysVal = new Label(String.format(Locale.UK,"%d",
-                StatsUtil.getInstance().getGlobalStats().getTotalKeysFound()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalKeysFound()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         keysVal.setFontScale(fontScale);
 
         Label deaths = new Label(Messages.STATS_TOTAL_DEATHS, Assets.getInstance().getSkin(Assets.UI_SKIN));
         deaths.setFontScale(fontScale);
         Label deathVal = new Label(String.format(Locale.UK,"%d",
-                StatsUtil.getInstance().getGlobalStats().getTotalDeaths()),
+                Util.getInstance().getStatsUtil().getGlobalStats().getTotalDeaths()),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         deathVal.setFontScale(fontScale);
 
@@ -154,6 +154,7 @@ public class PlayerInfo extends Table {
         gplayServices.add(achievements).top().pad(padding).fillX();
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
+
         return gplayServices;
     }
 

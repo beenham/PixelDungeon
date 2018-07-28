@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.drive.Drive;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.Player;
 import com.google.android.gms.games.PlayersClient;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import net.team11.pixeldungeon.AndroidLauncher;
 
 public class GoogleClient {
+    private final String TAG = "GoogleClient";
     public static int RC_SIGN_IN = 9001;
     public static int RC_ACHIEVEMENT_UI = 9003;
     public static int RC_LEADERBOARD_UI = 9004;
@@ -30,11 +32,20 @@ public class GoogleClient {
 
     public GoogleClient(AndroidLauncher mActivity) {
         this.mActivity = mActivity;
-        setupGoogleClient();
+        setupGoogleClient(true);
     }
 
-    private void setupGoogleClient() {
-        mGoogleSignInClient = GoogleSignIn.getClient(mActivity, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+    private void setupGoogleClient(boolean withDrive) {
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                .build();
+        if (withDrive) {gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                    .requestScopes(Drive.SCOPE_APPFOLDER)
+                    .build();
+        }
+
+        mGoogleSignInClient = GoogleSignIn.getClient(mActivity, gso);
+
         signInSilently();
     }
 
@@ -50,6 +61,10 @@ public class GoogleClient {
                     public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
                         if (task.isSuccessful()) {
                             onConnected(task.getResult());
+                            Log.e(TAG, "Signed in");
+                        } else {
+                            setupGoogleClient(false);
+                            Log.e(TAG,"Couldn't Sign in");
                         }
                     }
                 });
@@ -79,6 +94,10 @@ public class GoogleClient {
     }
 
     private void onConnected(GoogleSignInAccount googleSignInAccount) {
+        if (!GoogleSignIn.hasPermissions(googleSignInAccount,Drive.SCOPE_APPFOLDER)) {
+            Log.e(TAG,"REQUESTING PERMISSION FOR DRIVE");
+            GoogleSignIn.requestPermissions(mActivity,0,googleSignInAccount,Drive.SCOPE_APPFOLDER);
+        }
         if (mSignedInAccount != googleSignInAccount) {
             mSignedInAccount = googleSignInAccount;
 

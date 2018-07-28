@@ -1,8 +1,6 @@
 package net.team11.pixeldungeon.saves;
 
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
 import net.team11.pixeldungeon.utils.stats.GlobalStats;
@@ -13,7 +11,7 @@ import java.util.HashMap;
 
 public class SaveGame{
 
-    public static final String TAG = "PixelDungeon";
+    public static final String SAVE_NAME = "pixelDungeonSaveGame";
 
     public static final String DESC = "Pixel Dungeon Save Game";
 
@@ -26,27 +24,17 @@ public class SaveGame{
 
     public SaveGame(){}
 
-    public SaveGame(String levelData, String globalData/*, byte[] skinData*/, String timeStamp){
-        loadFromJson(levelData, globalData/*, new String(skinData)*/);
+    public SaveGame(HashMap<String, LevelStats> levelStats, GlobalStats globalStats, SkinList skinList, String timeStamp){
+        this.levelStatsHashMap = levelStats;
+        this.globalStats = globalStats;
+        this.skinList = skinList;
         this.timeStamp = timeStamp;
         System.out.println("Finished Creating Save Game");
-        System.out.println(this);
     }
 
-
-    @SuppressWarnings("unchecked")
-    private void loadFromJson(String levelData, String globalData/*, String skinData*/){
+    public byte[] getBytes(){
         Json json = new Json();
-
-        JsonValue levelValue = new JsonReader().parse(levelData);
-        this.levelStatsHashMap = json.readValue(HashMap.class, levelValue);
-
-        JsonValue globalValue = new JsonReader().parse(globalData);
-        this.globalStats = json.readValue(GlobalStats.class, globalValue);
-
-//        this.skinList = json.fromJson(SkinList.class, skinData);
-        this.totalTime = this.globalStats.getTime();
-
+        return json.toJson(this).getBytes();
     }
 
     public HashMap<String, LevelStats> getLevelStatsHashMap() {
@@ -91,6 +79,6 @@ public class SaveGame{
 
     @Override
     public String toString(){
-        return this.levelStatsHashMap + "\n" +  this.globalStats + "\n" + this.totalTime + "\n" + this.timeStamp;
+        return this.levelStatsHashMap + "\n" +  this.globalStats + "\n" + this.skinList.getSkinList() + "\n" + this.totalTime + "\n" + this.timeStamp;
     }
 }

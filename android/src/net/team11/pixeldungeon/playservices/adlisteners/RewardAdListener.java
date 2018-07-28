@@ -9,10 +9,7 @@ import net.team11.pixeldungeon.playservices.AdmobClient;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.dialog.RewardDialog;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import net.team11.pixeldungeon.utils.Util;
 
 public class RewardAdListener implements RewardedVideoAdListener {
     private static final String TAG = "RewardAdListener";
@@ -50,7 +47,8 @@ public class RewardAdListener implements RewardedVideoAdListener {
     @Override
     public void onRewarded(RewardItem rewardItem) {
         Log.i(TAG,"Video rewarded.. " + rewardItem.getType() + ": " + rewardItem.getAmount());
-        StatsUtil.getInstance().getGlobalStats().addCurrentCoins(rewardItem.getAmount());
+        Util.getInstance().getStatsUtil().getGlobalStats().addCurrentCoins(rewardItem.getAmount());
+        Util.getInstance().saveGame();
         RewardDialog dialog = new RewardDialog(rewardItem.getAmount());
         dialog.show((AbstractScreen)ScreenManager.getInstance().getScreen());
     }

@@ -16,6 +16,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.coin.CoinAwarderDisplay;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.AchivementStats;
@@ -25,7 +26,7 @@ import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import java.util.Locale;
 
 public class LevelCompleteScreen extends AbstractScreen {
-    private StatsUtil statsUtil;
+    private StatsUtil statsUtil = Util.getInstance().getStatsUtil();
     private LevelStats levelStats;
     private CoinAwarderDisplay coinAwarder;
 
@@ -54,7 +55,6 @@ public class LevelCompleteScreen extends AbstractScreen {
         speed = 0.02f;
 
         padding = 25 * PixelDungeon.SCALAR;
-        statsUtil = StatsUtil.getInstance();
         updateLevelStats();
         statsUtil.saveTimer();
         coinAwarder = new CoinAwarderDisplay(inventory);
@@ -75,11 +75,8 @@ public class LevelCompleteScreen extends AbstractScreen {
         for (String item : statsUtil.getCurrentStats().getItems()) {
             levelStats.setItemFound(item);
         }
-        levelStats.submitBestTime(StatsUtil.getInstance().getTimer());
-        statsUtil.writeLevelStats(MapManager.getInstance().getCurrentMap().getMapName());
-        statsUtil.saveGlobalStats();
-
-        PixelDungeon.getInstance().getAndroidInterface().saveGame(statsUtil.getCurrentSave());
+        levelStats.submitBestTime(statsUtil.getTimer());
+        Util.getInstance().saveGame();
 
         AchivementStats.updateStats(statsUtil.getCurrentStats(),levelStats);
     }

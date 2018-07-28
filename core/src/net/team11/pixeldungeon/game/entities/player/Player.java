@@ -13,6 +13,7 @@ import net.team11.pixeldungeon.game.map.Map;
 import net.team11.pixeldungeon.game.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
@@ -127,15 +128,12 @@ public class Player extends Entity {
     public void respawn() {
         Map currentMap = MapManager.getInstance().getCurrentMap();
 
-        StatsUtil statsUtil = StatsUtil.getInstance();
-        CurrentStats currStats = statsUtil.getCurrentStats();
-        LevelStats levelStats = statsUtil.getLevelStats(currentMap.getMapName());
+//        StatsUtil statsUtil = StatsUtil.getInstance();
+//        CurrentStats currStats = statsUtil.getCurrentStats();
+//        LevelStats levelStats = statsUtil.getLevelStats(currentMap.getMapName());
 
-        currStats.respawn();
-        levelStats.incrementAttempts();
-        statsUtil.writeLevelStats(currentMap.getMapName());
-        statsUtil.getGlobalStats().incrementAttempts();
-        statsUtil.saveTimer();
+        Util.getInstance().getStatsUtil().respawn(currentMap.getMapName());
+        Util.getInstance().getStatsUtil().updateAttempts(currentMap.getMapName());
 
         ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                 null,

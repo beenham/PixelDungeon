@@ -13,6 +13,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.coin.CoinDisplay;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
@@ -46,7 +47,7 @@ public class SkinSelector extends Table {
         });
 
         add(coinDisplay = new CoinDisplay(backButton.getHeight(),
-                StatsUtil.getInstance().getGlobalStats().getCurrentCoins()))
+                Util.getInstance().getStatsUtil().getGlobalStats().getCurrentCoins()))
                 .pad(padding).expandX().left();
         add(backButton).right().pad(padding);
         row();
@@ -82,7 +83,7 @@ public class SkinSelector extends Table {
 
     public void update() {
         getCell(coinDisplay).setActor(coinDisplay = new CoinDisplay(coinDisplay.getHeight(),
-                StatsUtil.getInstance().getGlobalStats().getCurrentCoins()));
+                Util.getInstance().getStatsUtil().getGlobalStats().getCurrentCoins()));
 
         for (SkinDisplay display : skinDisplays) {
             display.update();

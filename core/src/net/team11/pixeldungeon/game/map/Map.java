@@ -29,6 +29,7 @@ public class Map {
     }
 
     public MapObjects getObjects(String layer) {
+        System.out.println("Layer: " + layer);
         return map.getLayers().get(layer).getObjects();
     }
 

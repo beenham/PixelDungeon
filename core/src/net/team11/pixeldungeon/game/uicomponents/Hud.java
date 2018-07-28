@@ -1,9 +1,9 @@
 package net.team11.pixeldungeon.game.uicomponents;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,9 +18,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.utils.RoundTo;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
 
@@ -202,8 +202,8 @@ public class Hud extends Stage {
         addActor(pauseTable);}
 
     private void setupTimer(float width, float height) {
-        StatsUtil.getInstance().startTimer();
-        timeLabel = new Label(StatsUtil.getInstance().getTimerString(),
+        Util.getInstance().getStatsUtil().startTimer();
+        timeLabel = new Label(Util.getInstance().getStatsUtil().getTimerString(),
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         timeLabel.setFontScale(1.2f * PixelDungeon.SCALAR);
 
@@ -219,9 +219,9 @@ public class Hud extends Stage {
         fps.setText(String.format(Locale.UK,"%02.0f", RoundTo.RoundToNearest(1/delta,1)));
         timer += delta;
         if (timer >= 1) {
-            StatsUtil.getInstance().incrementTimer();
+            Util.getInstance().getStatsUtil().incrementTimer();
             timer = 0;
-            timeLabel.setText(StatsUtil.getInstance().getTimerString());
+            timeLabel.setText(Util.getInstance().getStatsUtil().getTimerString());
         }
         if (interactPressed) {
             interactPressed = false;

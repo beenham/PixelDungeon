@@ -20,10 +20,10 @@ import net.team11.pixeldungeon.screens.components.dialog.RewardDialog;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionPush;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionSplit;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 public class MainMenuScreen extends AbstractScreen {
     private float padding;
@@ -31,9 +31,9 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        StatsUtil.getInstance().clearCurrStats();
         padding = 25 * PixelDungeon.SCALAR;
         rewardAdded = false;
+        Util.getInstance().getStatsUtil().clearCurrStats();
 
         addActor(setupBackground());
 

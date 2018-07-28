@@ -17,6 +17,7 @@ import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.game.tutorial.TutorialZone;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
@@ -77,7 +78,7 @@ public class VelocitySystem extends EntitySystem {
                     collision.width,collision.height);
             if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
                 engine.finish();
-                if (StatsUtil.getInstance()
+                if (Util.getInstance().getStatsUtil()
                         .getLevelStats(MapManager.getInstance().getCurrentMap().getMapName())
                         .isTutorial()) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,

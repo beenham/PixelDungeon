@@ -12,10 +12,10 @@ import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.Locale;
 import java.util.Random;
@@ -59,7 +59,8 @@ public class LoadingScreen extends AbstractScreen {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    StatsUtil.getInstance();
+                    PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();
+                    Util.getInstance();
                     InventoryUtil.getInstance();
                     MapManager.getInstance();
                     new Timer();
