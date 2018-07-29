@@ -41,7 +41,8 @@ public class PlayerInfo extends Table {
         add(exitButton()).right().pad(padding*4,padding,padding,padding*4);
         row();
         add(playerStats()).left().pad(padding,padding*4,padding,padding).colspan(1).expandY();
-        add(gplayServices()).pad(padding,padding,padding,padding*4).colspan(4).right().expandX();
+        add().pad(padding,padding,padding,padding*4).colspan(4).right().expandX();
+        //add(gplayServices()).pad(padding,padding,padding,padding*4).colspan(4).right().expandX();
         row();
         add(signoutButton()).left().bottom().pad(padding,padding*4,padding*4,padding).colspan(5);
     }
@@ -191,7 +192,9 @@ public class PlayerInfo extends Table {
 
     public void update() {
         String name = androidInterface.getUserName();
-        if (name.length() > 16) {
+        if (name == null) {
+            name = "...";
+        } else if (name.length() > 16) {
             name = name.substring(0,16) + "...";
         }
         username.setText(name);

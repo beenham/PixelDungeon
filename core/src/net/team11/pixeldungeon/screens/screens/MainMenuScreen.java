@@ -81,7 +81,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         mainTable.add(playButton).pad(padding);
         mainTable.row();
-        mainTable.add(skinButton).pad(padding);
+        //mainTable.add(skinButton).pad(padding);
         mainTable.setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
         return mainTable;
     }

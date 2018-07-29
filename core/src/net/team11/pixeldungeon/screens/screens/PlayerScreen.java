@@ -112,7 +112,7 @@ public class PlayerScreen extends AbstractScreen {
     }
 
     private void update() {
-        if (playerInfo != null) {
+        if (playerInfo != null && signedIn) {
             playerInfo.update();
         }
     }

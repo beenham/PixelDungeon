@@ -12,6 +12,8 @@ import net.team11.pixeldungeon.playservices.adlisteners.RewardAdListener;
 
 public class AdmobClient {
     private static final String TAG = "AdmobClient";
+    private static final String INTER_TEST_AD = "ca-app-pub-3940256099942544/1033173712";
+    private static final String REWARD_TEST_AD = "ca-app-pub-3940256099942544/5224354917";
 
     private AndroidLauncher mActivity;
 
@@ -32,8 +34,8 @@ public class AdmobClient {
     private void setupInterAd() {
         mInterstitialAd = new InterstitialAd(mActivity);
         // USING TEMP AD FOR TESTING
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        // mInterstitialAd.setAdUnitId(getString(R.string.admob_level_complete));
+        //mInterstitialAd.setAdUnitId(INTER_TEST_AD);
+        mInterstitialAd.setAdUnitId(mActivity.getString(R.string.admob_level_complete));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         mInterstitialAd.setAdListener(new AdListener(){
@@ -60,7 +62,9 @@ public class AdmobClient {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                mRewardedVideoAd.loadAd(mActivity.getString(R.string.admob_watch_for_coin),
+                //        new AdRequest.Builder().build());
+                //mRewardedVideoAd.loadAd(REWARD_TEST_AD,
                         new AdRequest.Builder().build());
             }
         });
