@@ -34,13 +34,11 @@ public class ColouredGemsPuzzle extends Puzzle {
     private boolean ready;
     public ColouredGemsPuzzle(String name, int numGems, int maxAttempts) {
         super(name);
-        super.timed = false;
         gems = new HashMap<>();
         placed = new HashMap<>();
-        this.ready = false;
+        ready = false;
         this.maxAttempts = maxAttempts;
         this.numGems = numGems;
-        this.attempts = 0;
         activate();
     }
 

@@ -26,22 +26,22 @@ public class FloorSpike2x1 extends FloorSpike {
 
     private void setupAnimations(AnimationComponent animationComponent) {
         TextureAtlas textureAtlas = Assets.getInstance().getTextureSet(Assets.TRAPS);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_ACTIVATING, textureAtlas, 0.3f, Animation.PlayMode.NORMAL);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_DEACTIVATING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
-        animationComponent.addAnimation(AssetName.FLOORSPIKE_TRIGGERED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
-        animationComponent.setAnimation(AssetName.FLOORSPIKE_IDLE);
+        animationComponent.addAnimation(AssetName.FLOORSPIKE_2x1_IDLE, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.addAnimation(AssetName.FLOORSPIKE_2x1_ACTIVATING, textureAtlas, 0.3f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.FLOORSPIKE_2x1_DEACTIVATING, textureAtlas, 1f, Animation.PlayMode.NORMAL);
+        animationComponent.addAnimation(AssetName.FLOORSPIKE_2x1_TRIGGERED, textureAtlas, 1.75f, Animation.PlayMode.LOOP);
+        animationComponent.setAnimation(AssetName.FLOORSPIKE_2x1_IDLE);
     }
 
     @Override
     protected void setActivatedAnim() {
-        getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_ACTIVATING);
-        getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_TRIGGERED);
+        getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_2x1_ACTIVATING);
+        getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_2x1_TRIGGERED);
     }
 
     @Override
     protected void setDeactivatedAnim() {
-        getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_DEACTIVATING);
-        getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_IDLE);
+        getComponent(AnimationComponent.class).setAnimation(AssetName.FLOORSPIKE_2x1_DEACTIVATING);
+        getComponent(AnimationComponent.class).setNextAnimation(AssetName.FLOORSPIKE_2x1_IDLE);
     }
 }

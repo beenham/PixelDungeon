@@ -8,8 +8,6 @@ import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Messages;
-import net.team11.pixeldungeon.utils.stats.AchivementStats;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +43,6 @@ public class SimonSays extends Puzzle{
         this.numStages = numStages;
 
         pauseTime = 0.5f;
-        attempts = 0;
-        activated = false;
-        completed = false;
         timerReset = 15 / difficulty;
         timer = timerReset;
     }
@@ -258,7 +253,6 @@ public class SimonSays extends Puzzle{
         resetTimer();
         trigger();
         updateAssets(AssetName.SS_SWITCH_IDLE,AssetName.PUZZLECONTROLLER_COMPLETED);
-        AchivementStats.completePuzzle(this);
     }
 
     private void updateAssets(String puzzleComp, String puzzleCont) {

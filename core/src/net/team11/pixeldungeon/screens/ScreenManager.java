@@ -9,10 +9,6 @@ public class ScreenManager {
     private static ScreenManager INSTANCE;
     private DirectedGame game;
 
-    private ScreenManager() {
-        super();
-    }
-
     public static ScreenManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ScreenManager();

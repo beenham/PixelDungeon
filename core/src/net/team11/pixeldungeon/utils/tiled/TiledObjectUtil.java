@@ -35,7 +35,10 @@ import net.team11.pixeldungeon.game.entities.puzzle.CompletedIndicator;
 import net.team11.pixeldungeon.game.entities.puzzle.PuzzleController;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.GemPillar;
 import net.team11.pixeldungeon.game.entities.puzzle.colouredgems.WallScribe;
+import net.team11.pixeldungeon.game.entities.puzzle.randomportals.Portal;
+import net.team11.pixeldungeon.game.entities.puzzle.randomportals.PortalExit;
 import net.team11.pixeldungeon.game.entities.puzzle.simonsays.SimonSaysSwitch;
+import net.team11.pixeldungeon.game.entities.traps.floorhole.FloorHole;
 import net.team11.pixeldungeon.game.entities.traps.floorspike.FloorSpike;
 import net.team11.pixeldungeon.game.entities.traps.Quicksand;
 import net.team11.pixeldungeon.game.entities.traps.TrapRoom;
@@ -55,6 +58,7 @@ import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.game.puzzles.beampuzzle.BeamPuzzle;
 import net.team11.pixeldungeon.game.puzzles.boxpuzzle.BoxPuzzle;
 import net.team11.pixeldungeon.game.puzzles.levelpuzzle.LevelPuzzle;
+import net.team11.pixeldungeon.game.puzzles.randomportals.RandomPortalsPuzzle;
 import net.team11.pixeldungeon.game.puzzles.simonsays.SimonSays;
 import net.team11.pixeldungeon.game.puzzles.colouredgems.ColouredGemsPuzzle;
 import net.team11.pixeldungeon.game.tutorial.TutorialZone;
@@ -274,7 +278,6 @@ public class TiledObjectUtil {
 
                         PuzzleController pController = new PuzzleController(
                                 rectObject.getRectangle(),mapObject.getName());
-                        System.out.println("Puzzle: " + puzzleName);
                         pController.setParentPuzzle(engine.getPuzzle(puzzleName));
                         engine.addEntity(pController);
                         break;
@@ -313,8 +316,25 @@ public class TiledObjectUtil {
                                     if (entity instanceof TrapRoom && entity.getName().equals(room)) {
                                         ((TrapRoom) entity).addTrap(quicksand);
                                         engine.addEntity(quicksand);
-                                        engine.addEntity(quicksand);
                                     }
+                                }
+                            }
+                        } else {
+                            System.err.println("QUICKSAND: " + rectObject.getName() + " was not setup correctly!");
+                        }
+                        break;
+
+                    case TiledMapObjectNames.FLOOR_HOLE:
+                        if (mapObject instanceof PolylineMapObject) {
+                            String room = (String) mapObject.getProperties().get(TiledMapProperties.ROOM);
+                            ChainShape shape = createPolyLine(((PolylineMapObject) mapObject));
+                            FloorHole floorHole = new FloorHole(mapObject.getName(),shape);
+                            List<Entity> trapRooms = engine.getEntities(TrapRoomComponent.class);
+
+                            for (Entity entity : trapRooms) {
+                                if (entity instanceof TrapRoom && entity.getName().equals(room)) {
+                                    ((TrapRoom) entity).addTrap(floorHole);
+                                    engine.addEntity(floorHole);
                                 }
                             }
                         } else {
@@ -412,6 +432,22 @@ public class TiledObjectUtil {
                         engine.addEntity(new FloorPiston(rectObject.getRectangle(), activated, rectObject.getName()));
                         break;
 
+                    case  TiledMapObjectNames.PORTAL:
+                        int stage = (int) rectObject.getProperties().get(TiledMapProperties.STAGES);
+                        boolean linkable = (boolean) rectObject.getProperties().get(TiledMapProperties.LINKABLE);
+                        Portal portal = new Portal(rectObject.getRectangle(), rectObject.getName(),stage,linkable);
+                        engine.addEntity(portal);
+                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        portal.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        break;
+
+                    case  TiledMapObjectNames.PORTAL_EXIT:
+                        PortalExit portalExit = new PortalExit(rectObject.getRectangle(), rectObject.getName());
+                        engine.addEntity(portalExit);
+                        puzzleName = (String)mapObject.getProperties().get(TiledMapProperties.PUZZLE_NAME);
+                        portalExit.setParentPuzzle(engine.getPuzzle(puzzleName));
+                        break;
+
                     default:
                         //throw new IllegalArgumentException("This isn't a valid entity! " + type);
                 }
@@ -489,28 +525,18 @@ public class TiledObjectUtil {
      * @param objects The Objects taken from the Tiled Map file
      */
     public static void parseTiledPuzzleLayer(EntityEngine engine, World world, MapObjects objects) {
-        System.out.println("Parsing puzzles");
-        System.out.println(objects.getCount());
         for (MapObject mapObject : objects) {
-            System.out.println("object " + mapObject.getName());
             ChainShape shape;
             Polygon bounds;
-
-            System.out.println("Polyline: " + mapObject.getClass().equals(PolylineMapObject.class));
-            System.out.println("Contains: " + mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE));
 
             //  If object is not polyline object, end loop
             if (mapObject instanceof PolylineMapObject
                     && mapObject.getProperties().containsKey(TiledMapProperties.PUZZLE_TYPE)) {
-                System.out.println("Is polyline");
                 shape = createPolyLine((PolylineMapObject) mapObject);
                 bounds = CollisionUtil.createPolygon(shape);
             } else {
-                System.out.println("Continuing");
                 continue;
             }
-
-            System.out.println("At 1");
 
             Body body;
             BodyDef bdef = new BodyDef();
@@ -530,10 +556,9 @@ public class TiledObjectUtil {
             fixtureDef.filter.maskBits = (byte) (CollisionUtil.ENTITY | CollisionUtil.BOUNDARY);
             body.createFixture(fixtureDef);
             shape.dispose();
-            System.out.println("At 2" );
+
 
             String type = (String) mapObject.getProperties().get(TiledMapProperties.PUZZLE_TYPE);
-            System.out.println("Type: " + type);
 
             //  If the entity has any targets to 'trigger'
             List<String> activateTargets = new ArrayList<>();
@@ -544,7 +569,6 @@ public class TiledObjectUtil {
             }
             if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_COMPLETE)) {
                 completeTargets = parseTargets(mapObject, TiledMapProperties.TARGET_COMPLETE);
-                System.out.println("Complete Targets " + completeTargets);
             }
             if (mapObject.getProperties().containsKey(TiledMapProperties.TARGET_FAIL)) {
                 failTargets = parseTargets(mapObject, TiledMapProperties.TARGET_FAIL);
@@ -563,7 +587,6 @@ public class TiledObjectUtil {
                 case TiledMapPuzzleNames.SIMON_SAYS:
                     try {
                         String name = mapObject.getName();
-                        System.out.println("simons says");
                         int difficulty = (int) mapObject.getProperties().get(TiledMapProperties.DIFFICULTY);
                         int maxAttempts = (int) mapObject.getProperties().get(TiledMapProperties.MAX_ATTEMPTS);
                         int numStages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
@@ -573,9 +596,8 @@ public class TiledObjectUtil {
                         simonSays.setCompleteTargets(completeTargets);
                         simonSays.setFailTargets(failTargets);
                         engine.addPuzzle(simonSays);
-                        System.out.println("Success creating simon says");
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                     break;
                 case TiledMapPuzzleNames.COLOUR_GEMS:
@@ -606,6 +628,14 @@ public class TiledObjectUtil {
 
                     beamPuzzle.setCompleteTargets(completeTargets);
                     engine.addPuzzle(beamPuzzle);
+                    break;
+
+                case TiledMapPuzzleNames.RANDOM_PORTALS:
+                    int stages = (int) mapObject.getProperties().get(TiledMapProperties.STAGES);
+
+                    RandomPortalsPuzzle portalsPuzzle = new RandomPortalsPuzzle(mapObject.getName(), stages);
+                    engine.addPuzzle(portalsPuzzle);
+                    break;
             }
 
         }
@@ -634,7 +664,7 @@ public class TiledObjectUtil {
      * @param mapObject Object to retrieve targets
      * @return List of String of target names
      */
-    public static ArrayList<String> parseTargets(MapObject mapObject, String property) {
+    private static ArrayList<String> parseTargets(MapObject mapObject, String property) {
         String targetString = (String)mapObject.getProperties().get(property);
         List<String> parsedTargets = Arrays.asList(targetString.split(","));
         return new ArrayList<>(parsedTargets);

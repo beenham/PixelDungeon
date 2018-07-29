@@ -33,9 +33,7 @@ public class PixelDungeon extends DirectedGame {
 		SCALAR = (V_HEIGHT / 1080f);
 		Util.getInstance();
 		ScreenManager.getInstance().initialize(this);
-		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-
-		MapManager.getInstance();
+		ScreenManager.getInstance().showScreen(ScreenEnum.LOADING);
 	}
 
 	public AndroidInterface getAndroidInterface() {

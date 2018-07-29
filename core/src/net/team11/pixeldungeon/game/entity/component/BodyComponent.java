@@ -1,6 +1,7 @@
 package net.team11.pixeldungeon.game.entity.component;
 
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
@@ -183,8 +184,16 @@ public class BodyComponent implements EntityComponent {
         body.setLinearVelocity(body.getLinearVelocity().x,y);
     }
 
+    public void move(float x, float y) {
+        body.setLinearVelocity(x,y);
+    }
+
     public void setCoords(float x, float y) {
         body.setTransform(this.x = x,this.y = y,body.getAngle());
+    }
+
+    public void setCoords(Vector2 coords) {
+        body.setTransform(this.x = coords.x,this.y = coords.y,body.getAngle());
     }
 
     public float getX() {
@@ -201,6 +210,10 @@ public class BodyComponent implements EntityComponent {
         } else {
             return y = body.getPosition().y;
         }
+    }
+
+    public Vector2 getCoords() {
+        return new Vector2(x,y);
     }
 
     public boolean isPushing() {

@@ -17,7 +17,7 @@ public class FloorSpike1x1 extends FloorSpike{
     }
 
     public FloorSpike1x1(Rectangle bounds, boolean enabled, String name) {
-        super(bounds, enabled,name);
+        super(bounds,enabled,name);
 
         AnimationComponent animationComponent;
         this.addComponent(animationComponent = new AnimationComponent(0));

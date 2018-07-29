@@ -4,37 +4,44 @@ size: 3846,3248
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-howToScreen
-  rotate: false
-  xy: 1924, 2166
-  size: 1920, 1080
-  orig: 1920, 1080
-  offset: 0, 0
-  index: -1
-levelSelectScreen
+howtoScreen
   rotate: false
   xy: 2, 2
   size: 1920, 1080
   orig: 1920, 1080
   offset: 0, 0
   index: -1
-mainScreen
+levelSelectScreen
   rotate: false
-  xy: 2, 2166
+  xy: 1924, 2
   size: 1920, 1080
   orig: 1920, 1080
   offset: 0, 0
   index: -1
-playerInfoScreen
+loadingScreen
+  rotate: false
+  xy: 2, 1084
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: -1
+mainScreen
   rotate: false
   xy: 1924, 1084
   size: 1920, 1080
   orig: 1920, 1080
   offset: 0, 0
   index: -1
+playerInfoScreen
+  rotate: false
+  xy: 1924, 2166
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: -1
 skinSelect
   rotate: false
-  xy: 2, 1084
+  xy: 2, 2166
   size: 1920, 1080
   orig: 1920, 1080
   offset: 0, 0

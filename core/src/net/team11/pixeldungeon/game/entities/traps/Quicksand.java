@@ -1,5 +1,6 @@
 package net.team11.pixeldungeon.game.entities.traps;
 
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 
@@ -7,7 +8,6 @@ import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.HealthComponent;
 import net.team11.pixeldungeon.game.entity.component.TrapComponent;
-
 import net.team11.pixeldungeon.game.entity.component.VelocityComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.CollisionUtil;
@@ -18,12 +18,11 @@ public class Quicksand extends Trap {
     public Quicksand(ChainShape bounds, String name, float speedMod, float timeBeforeDeath) {
         super(name, false);
         this.speedMod = speedMod;
-        super.requireSubmerged = true;
-        triggered = false;
+        requireSubmerged = true;
         timed = true;
         timerReset = timeBeforeDeath;
         timer = timeBeforeDeath;
-        damage = 100;
+
         addComponent(new TrapComponent(this));
         addComponent(new BodyComponent(bounds, 0f,
                 (CollisionUtil.TRAP),
@@ -34,7 +33,6 @@ public class Quicksand extends Trap {
     @Override
     public void setTimer(float timer) {
         super.setTimer(timer);
-        System.out.println("");
         if (contactEntity instanceof Player) {
             Player player = (Player) contactEntity;
             if (timer / timerReset <= .8f) {
@@ -64,6 +62,29 @@ public class Quicksand extends Trap {
                 ((Player)contactEntity).setDepth(Player.PlayerDepth.FOUR_QUART);
                 contactEntity.getComponent(VelocityComponent.class).setMovementSpeed(100);
                 contactEntity = null;
+            }
+        }
+    }
+
+    @Override
+    public void update(float delta, Player player, float timer) {
+        Polygon hitBox = getComponent(BodyComponent.class).getPolygon();
+        Polygon entityBox = player.getComponent(BodyComponent.class).getPolygon();
+
+        boolean submerged = CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .5f;
+
+        if (!enabled) {
+            if (submerged) {
+                setContactingEntity(player);
+                setEnabled(true);
+            }
+        } else {
+            setTimer(super.timer - delta);
+            if (!submerged) {
+                setContactingEntity(null);
+            }
+            if (super.timer <= 0f) {
+                trigger();
             }
         }
     }

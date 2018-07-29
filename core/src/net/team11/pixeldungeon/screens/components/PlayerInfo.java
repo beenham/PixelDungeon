@@ -1,6 +1,5 @@
 package net.team11.pixeldungeon.screens.components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import net.team11.pixeldungeon.PixelDungeon;
-
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
@@ -21,11 +19,10 @@ import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 import java.util.Locale;
 
-import javax.swing.GroupLayout;
-
 public class PlayerInfo extends Table {
-    private float padding;
     private AndroidInterface androidInterface;
+    private Label username;
+    private float padding;
 
     public PlayerInfo() {
         super();
@@ -37,6 +34,8 @@ public class PlayerInfo extends Table {
     }
 
     private void create() {
+        Util.getInstance().saveGame();
+
         // T, L, B, R
         add(playerLabel()).left().pad(padding*4,padding*4,padding,padding).colspan(4).expandX();
         add(exitButton()).right().pad(padding*4,padding,padding,padding*4);
@@ -52,7 +51,7 @@ public class PlayerInfo extends Table {
         if (name.length() > 16) {
             name = name.substring(0,16) + "...";
         }
-        Label username = new Label(name,
+        username = new Label(name,
                 Assets.getInstance().getSkin(Assets.UI_SKIN));
         username.setFontScale(1.75f * PixelDungeon.SCALAR);
         username.setAlignment(Align.left);
@@ -152,23 +151,9 @@ public class PlayerInfo extends Table {
             }
         });
 
-
-        TextButton loadFromCloud = new TextButton(Messages.LOAD_FROM, Assets.getInstance().getSkin(Assets.UI_SKIN));
-        loadFromCloud.getLabel().setFontScale(1.2f * PixelDungeon.SCALAR);
-
-        loadFromCloud.addListener(new ClickListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.loadSaveGame();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
         gplayServices.add(achievements).top().pad(padding).fillX();
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
-        gplayServices.row();
-        gplayServices.add(loadFromCloud).bottom().pad(padding).fillX();
 
         return gplayServices;
     }
@@ -202,5 +187,13 @@ public class PlayerInfo extends Table {
             }
         });
         return signOutButton;
+    }
+
+    public void update() {
+        String name = androidInterface.getUserName();
+        if (name.length() > 16) {
+            name = name.substring(0,16) + "...";
+        }
+        username.setText(name);
     }
 }

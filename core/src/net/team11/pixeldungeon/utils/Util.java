@@ -21,7 +21,6 @@ import java.util.HashMap;
  * The mother of all utils
  */
 public class Util {
-
     private StatsUtil statsUtil;
     private InventoryUtil inventoryUtil;
 
@@ -40,7 +39,6 @@ public class Util {
 
     private Util() {
         SaveGame loadedSave = loadGame();
-        System.out.println("LOADED SAVE: " + loadedSave);
     }
 
 
@@ -48,7 +46,6 @@ public class Util {
     //  Saving/Loading  //
     //////////////////////
     public SaveGame loadGame() {
-
         String playerName;
         Json json = new Json();
 
@@ -76,16 +73,12 @@ public class Util {
             //Check to see if any more levels have been added
             for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
                 if (!levelStats.containsKey(file.nameWithoutExtension())) {
-                    System.out.println("Stats doesn't contain key: " + file.nameWithoutExtension());
-                    System.out.println("New level stat information founds");
                     LevelStats stats = json.fromJson(LevelStats.class, file);
-                    System.out.println(stats);
                     levelStats.put(stats.getFileName(), stats);
                 }
             }
 
             saveGame.setLevelStatsHashMap(levelStats);
-            System.out.println(levelStats);
 
             //Check to see if any more skins have been added
             SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal("shop/shopitems/skinList.json"));
@@ -110,11 +103,7 @@ public class Util {
             currentSave = save;
 
             saveGame(save);
-            if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()){
-                PixelDungeon.getInstance().getAndroidInterface().saveGame();
-            }
-
-            System.out.println("New Save Info" + save);
+            PixelDungeon.getInstance().getAndroidInterface().saveGame();
             return saveGame;
         } else {
             //Otherwise create a new empty save for them
@@ -125,8 +114,6 @@ public class Util {
                 LevelStats stats = json.fromJson(LevelStats.class, file);
                 levelStats.put(stats.getFileName(), stats);
             }
-
-            System.out.println(levelStats);
 
             GlobalStats globalStats = json.fromJson(GlobalStats.class, Gdx.files.internal("stats/globalStats.json"));
 
@@ -149,10 +136,7 @@ public class Util {
         saveLocation.writeString(json.toJson(saveGame), false);
         System.out.println("Finished saving");
         currentSave = saveGame;
-        if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()){
-            PixelDungeon.getInstance().getAndroidInterface().saveGame();
-        }
-
+        PixelDungeon.getInstance().getAndroidInterface().saveGame();
     }
 
     public void saveGame() {
@@ -162,13 +146,15 @@ public class Util {
         saveLocation.writeString(json.toJson(saveGame), false);
 
         currentSave = saveGame;
-        if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()){
-            PixelDungeon.getInstance().getAndroidInterface().saveGame();
-        }
+        PixelDungeon.getInstance().getAndroidInterface().saveGame();
     }
 
-    public static String getTimeStamp() {
+    private static String getTimeStamp() {
         return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+    }
+
+    private void printSaveDetails(SaveGame save) {
+        System.out.println("New Save Info" + save);
     }
 
     ///////////////////////

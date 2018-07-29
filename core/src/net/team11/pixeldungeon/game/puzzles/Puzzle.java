@@ -9,6 +9,7 @@ import net.team11.pixeldungeon.game.items.PuzzleItem;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Messages;
+import net.team11.pixeldungeon.utils.stats.AchivementStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
@@ -42,6 +43,13 @@ public class Puzzle {
     protected Puzzle(String name) {
         this.name = name;
         uuid = UUID.randomUUID();
+        completed = false;
+        activated = false;
+        timed = false;
+        attempts = 0;
+        maxAttempts = 1;
+        timer = 0;
+        timerReset = 0;
     }
 
     public void activate() {
@@ -231,6 +239,7 @@ public class Puzzle {
     public void setupEntities(EntityEngine engine){}
 
     protected void onComplete() {
+        AchivementStats.completePuzzle(this);
         Util.getInstance().getStatsUtil().updatePuzzleCompleted();
     }
 

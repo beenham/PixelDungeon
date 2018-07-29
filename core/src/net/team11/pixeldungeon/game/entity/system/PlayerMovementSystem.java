@@ -153,28 +153,44 @@ public class PlayerMovementSystem extends EntitySystem {
             bodyComponent.moveY(0);
             uiManager.showPauseMenu(true);
         } else {
-            velocityComponent.setxDirection(0);
-            velocityComponent.setyDirection(0);
-            bodyComponent.moveX(0);
-            bodyComponent.moveY(0);
-
             if (!velocityComponent.isParalyzed()) {
                 interactionComponent.setInteracting(false);
+                velocityComponent.setxDirection(0);
+                velocityComponent.setyDirection(0);
+                bodyComponent.moveX(0);
+                bodyComponent.moveY(0);
             }
             if (depth == Player.PlayerDepth.FOUR_QUART) {
-                switch (velocityComponent.getDirection()) {
-                    case UP:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_UP);
-                        break;
-                    case DOWN:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
-                        break;
-                    case RIGHT:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_RIGHT);
-                        break;
-                    case LEFT:
-                        animationComponent.setAnimation(AssetName.PLAYER_IDLE_LEFT);
-                        break;
+                if (!velocityComponent.isParalyzed()) {
+                    switch (velocityComponent.getDirection()) {
+                        case UP:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_UP);
+                            break;
+                        case DOWN:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_DOWN);
+                            break;
+                        case RIGHT:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_RIGHT);
+                            break;
+                        case LEFT:
+                            animationComponent.setAnimation(AssetName.PLAYER_IDLE_LEFT);
+                            break;
+                    }
+                } else {
+                    switch (velocityComponent.getDirection()) {
+                        case UP:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_UP);
+                            break;
+                        case DOWN:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_DOWN);
+                            break;
+                        case LEFT:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_LEFT);
+                            break;
+                        case RIGHT:
+                            animationComponent.setAnimation(AssetName.PLAYER_MOVING_RIGHT);
+                            break;
+                    }
                 }
             }
         }

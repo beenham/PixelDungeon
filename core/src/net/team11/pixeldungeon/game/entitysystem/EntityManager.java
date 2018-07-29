@@ -44,7 +44,9 @@ public class EntityManager {
         if (entity.hasComponent(PlayerComponent.class)) {
             player = entity;
         }
-        this.entities.add(entity);
+        if (!entities.contains(entity)) {
+            this.entities.add(entity);
+        }
     }
 
     public void storeEntities(String name) {

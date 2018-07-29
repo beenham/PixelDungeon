@@ -12,8 +12,6 @@ import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransition;
 
 public abstract class DirectedGame extends Game {
-	protected System crossPlatform;
-
 	private boolean init;
 	private AbstractScreen currScreen;
 	private AbstractScreen nextScreen;
@@ -154,5 +152,4 @@ public abstract class DirectedGame extends Game {
 	public Screen getScreen() {
 		return currScreen;
 	}
-
 }

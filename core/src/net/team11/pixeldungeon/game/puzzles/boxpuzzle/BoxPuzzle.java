@@ -14,10 +14,6 @@ public class BoxPuzzle extends Puzzle {
         super(name);
         completedParts = 0;
         maxParts = 0;
-        timed = false;
-        maxAttempts = 100;
-        attempts = 0;
-
         activate();
     }
 

@@ -4,7 +4,7 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-BulkyPixels
+PixelFont
   rotate: false
   xy: 1, 1
   size: 512, 512
@@ -17,7 +17,7 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-PixelFont
+PixelFont_Outlined
   rotate: false
   xy: 1, 1
   size: 512, 512
@@ -30,7 +30,7 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-PixelFont_Outlined
+BulkyPixels
   rotate: false
   xy: 1, 213
   size: 512, 512

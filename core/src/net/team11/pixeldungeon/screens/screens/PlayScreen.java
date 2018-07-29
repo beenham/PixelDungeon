@@ -45,8 +45,6 @@ public class PlayScreen extends AbstractScreen {
     private Box2DDebugRenderer b2dr;
     private Player player;
 
-    private boolean paused;
-
     private float ambientLight = 0f;
 
     public PlayScreen(String levelName) {
@@ -148,7 +146,7 @@ public class PlayScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0,0,0,0);
         engine.update(delta);
 
-        b2dr.render(world, gameCam.combined);
+//        b2dr.render(world, gameCam.combined);
         if (ambientLight < 0.75f && !paused) {
             ambientLight += 0.01f;
             rayHandler.setAmbientLight(ambientLight);
@@ -165,7 +163,7 @@ public class PlayScreen extends AbstractScreen {
 
     @Override
     public void pause() {
-        paused = true;
+        super.pause();
         engine.pause();
         if (!uiManager.getDeathMenu().isVisible() && !engine.isFinished()) {
             uiManager.showPauseMenu(false);
@@ -175,19 +173,14 @@ public class PlayScreen extends AbstractScreen {
     @Override
     public void resume() {
         if (super.gameCall && paused) {
-            paused = false;
+            super.resume();
             uiManager.hidePauseMenu(false);
             engine.resume();
         } else if (paused && uiManager.getPauseMenu().isResumePressed()) {
-            paused = false;
+            super.resume();
             uiManager.hidePauseMenu(false);
             engine.resume();
         }
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override

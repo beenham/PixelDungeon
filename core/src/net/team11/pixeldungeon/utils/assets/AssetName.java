@@ -11,8 +11,10 @@ public class AssetName {
     public static final String PAUSE_BUTTON = "pauseButton";
 
     public static final String PLAYER_ICON = "playerButton";
+    public static final String COIN_BUTTON = "freeCoin";
 
     public static final String UI_SLOT = "itemSlot";
+    public static final String UI_SCROLLPANE = "scrollPane";
     public static final String DARKEN_0 = "darken0";
     public static final String DARKEN_20 = "darken20";
     public static final String DARKEN_40 = "darken40";
@@ -70,6 +72,7 @@ public class AssetName {
     /////   DEATH SPRITE NAMES
     public static final String DEATH_FIRE = "deathFire";
     public static final String DEATH_FLOOR_SPIKE = "deathFloorSpike";
+    public static final String DEATH_DEFAULT = "deathDefault";
 
     /////   ENTITY SPRITE NAMES     /////
     public static final String BOX_IDLE = "box";

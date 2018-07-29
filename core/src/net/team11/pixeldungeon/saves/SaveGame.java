@@ -1,8 +1,6 @@
 package net.team11.pixeldungeon.saves;
 
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
 import net.team11.pixeldungeon.utils.stats.GlobalStats;
@@ -32,7 +30,6 @@ public class SaveGame{
         this.skinList = skinList;
         this.timeStamp = timeStamp;
         System.out.println("Finished Creating Save Game");
-        System.out.println(this);
     }
 
     public byte[] getBytes(){

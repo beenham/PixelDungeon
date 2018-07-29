@@ -1,6 +1,9 @@
 package net.team11.pixeldungeon.game.entities.traps;
 
+import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
+
+import java.util.List;
 
 public class Trap extends Entity {
     protected boolean enabled;
@@ -14,10 +17,15 @@ public class Trap extends Entity {
 
     protected Entity contactEntity;
 
-    public Trap(String name, Boolean enabled) {
+    protected Trap(String name, Boolean enabled) {
         super(name);
         this.enabled = enabled;
+        triggered = false;
+        timed = false;
         requireSubmerged = false;
+        damage = 5;
+        timer = 0;
+        timerReset = 0;
     }
 
     public void setContactingEntity(Entity entity) {
@@ -70,5 +78,13 @@ public class Trap extends Entity {
 
     public int getDamage() {
         return damage;
+    }
+
+    public void update (float delta, List<Entity> entityList, float timer) {
+
+    }
+
+    public void update (float delta, Player player, float timer) {
+
     }
 }
