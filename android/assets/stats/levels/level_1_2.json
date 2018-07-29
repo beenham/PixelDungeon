@@ -1,6 +1,6 @@
 {
   "attempts":0,
-  "bestTime":3599,
+  "bestTime":4804,
   "completed":0,
   "foundChests": {
     "chest_1":false,
@@ -8,7 +8,6 @@
     "chest_3":false,
     "chest_4":false,
     "chest_5":false,
-    "chest_6":false
   },
   "foundItems": {},
   "foundKeys": {
@@ -17,14 +16,14 @@
     "Dungeon Key":false
   },
   "fileName":"level_1_2",
-  "levelName":"Beta",
+  "levelName":"The Next Challenge",
   "targetTimes": {
-    "Time One": 180,
-    "Time Two": 300,
-    "Time Three": 600
+    "Time One": 250,
+    "Time Two": 450,
+    "Time Three": 750
   },
   "totalChests":5,
   "totalItems":0,
-  "totalKeys":3,
+  "totalKeys":1,
   "tutorial":false
 }
