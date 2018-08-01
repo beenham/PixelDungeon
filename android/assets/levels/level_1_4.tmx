@@ -865,7 +865,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" name="traps" visible="0">
+ <objectgroup color="#ff0000" name="traps">
   <object id="3" name="room_01" x="816" y="1088">
    <properties>
     <property name="entity" value="trapRoom"/>
@@ -2390,7 +2390,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_02"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap0"/>
     <property name="timed" type="bool" value="true"/>
@@ -2402,7 +2402,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_02"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
@@ -2414,7 +2414,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_02"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
@@ -2426,7 +2426,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_02"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap2"/>
     <property name="timed" type="bool" value="true"/>
@@ -2438,7 +2438,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_02"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap4"/>
     <property name="timed" type="bool" value="true"/>
@@ -2450,7 +2450,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_02"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
@@ -2462,7 +2462,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap3"/>
     <property name="timed" type="bool" value="false"/>
@@ -2474,7 +2474,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap5"/>
     <property name="timed" type="bool" value="false"/>
@@ -2486,7 +2486,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap5"/>
     <property name="timed" type="bool" value="false"/>
@@ -2498,7 +2498,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2510,7 +2510,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room11_trap1"/>
     <property name="timed" type="bool" value="false"/>
@@ -2522,7 +2522,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2534,7 +2534,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2546,7 +2546,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2558,7 +2558,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2570,7 +2570,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2582,7 +2582,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2594,7 +2594,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_04"/>
+    <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
