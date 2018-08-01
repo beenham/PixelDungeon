@@ -26,6 +26,7 @@ public class CrossPlatformSystem implements AndroidInterface {
 
     private boolean earnAchievements = false;
     private boolean watchAds = true;
+    private boolean savingEnabled = false;
 
     private Snapshot currentSnapshot;
 
@@ -275,24 +276,28 @@ public class CrossPlatformSystem implements AndroidInterface {
 
     @Override
     public void saveGame() {
-        if (googleClient.isSignedIn() && !savesClient.isSaving()) {
-            savesClient.saveGame();
+        if (savingEnabled) {
+            if (googleClient.isSignedIn() && !savesClient.isSaving()) {
+                savesClient.saveGame();
+            }
         }
     }
 
     @Override
     public void loadSaveGame() {
-        if (googleClient.isSignedIn() && !savesClient.isLoading()) {
-            savesClient.loadSnapshot().addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Json json = new Json();
-                    SaveGame saveGame = json.fromJson(SaveGame.class, new String(bytes));
-                    //System.out.println(saveGame);
-                    Util.getInstance().saveGame(saveGame);
-                    Util.getInstance().loadGame();
-                }
-            });
+        if (savingEnabled) {
+            if (googleClient.isSignedIn() && !savesClient.isLoading()) {
+                savesClient.loadSnapshot().addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Json json = new Json();
+                        SaveGame saveGame = json.fromJson(SaveGame.class, new String(bytes));
+                        //System.out.println(saveGame);
+                        Util.getInstance().saveGame(saveGame);
+                        Util.getInstance().loadGame();
+                    }
+                });
+            }
         }
     }
 }
