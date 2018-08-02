@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="96" height="92" tilewidth="16" tileheight="16" infinite="0" nextobjectid="194">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="96" height="92" tilewidth="16" tileheight="16" infinite="0" nextobjectid="239">
  <tileset firstgid="1" source="../tilesets/PixelDungeonTileset.tsx"/>
  <layer name="floorplan" width="96" height="92">
   <data encoding="csv">
@@ -222,8 +222,8 @@
 0,43,43,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,43,43,0,0,43,43,0,
 0,0,0,0,0,0,0,43,43,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,43,43,43,43,43,43,0,0,43,43,0,
 0,0,0,0,0,0,0,43,43,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,43,43,43,43,43,43,0,0,43,43,0,
-0,43,43,43,43,43,43,43,43,0,0,43,43,66,67,67,68,43,43,66,67,0,0,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,
-0,43,43,43,43,43,43,43,43,0,0,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,
+0,43,43,43,43,43,43,43,43,0,0,43,43,66,67,67,68,43,43,66,67,0,0,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,
+0,43,43,43,43,43,43,43,43,0,0,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,0,0,0,0,0,0,0,0,0,
 0,43,43,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,43,43,0,0,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,
 0,43,43,0,0,0,0,0,0,0,0,87,87,87,87,87,87,87,2147483726,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,43,43,0,0,43,43,43,43,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,
 0,43,43,43,43,43,43,43,43,0,0,43,43,43,43,43,43,43,76,43,43,0,0,43,43,43,43,43,43,0,0,0,0,0,0,43,43,0,0,43,43,0,0,0,0,0,0,0,0,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,0,0,43,43,0,0,0,0,43,43,0,0,43,43,0,0,43,43,0,0,43,43,0,0,43,43,0,0,43,43,0,
@@ -316,22 +316,22 @@
 0,91,91,0,0,0,0,0,0,0,0,91,91,91,91,76,2147483724,91,91,91,91,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,92,92,92,0,0,0,0,0,0,0,0,0,
 0,0,0,91,91,91,91,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,91,91,91,91,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,91,91,0,0,92,92,92,92,0,92,92,92,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,91,91,0,0,92,92,92,92,92,92,92,92,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,91,91,0,0,92,92,92,0,92,92,92,92,92,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,91,91,0,0,92,92,92,92,92,92,0,0,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,91,91,91,91,0,0,0,0,0,92,87,87,87,87,91,91,87,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,91,91,91,91,0,0,0,0,92,92,92,92,0,0,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,91,91,91,91,0,0,0,0,92,92,92,92,0,0,92,92,0,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,91,91,0,0,0,0,0,0,0,0,92,92,92,92,92,92,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,91,91,0,0,0,0,0,0,0,0,67,67,67,67,67,67,67,68,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,91,91,91,91,0,0,0,0,92,92,92,92,92,92,0,2147483724,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,91,91,91,91,0,0,0,0,92,92,0,92,92,92,92,2147483724,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,91,91,0,0,92,92,92,92,92,92,92,2147483724,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,91,91,0,0,92,92,92,92,92,92,92,76,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,91,91,0,0,92,92,92,92,92,92,92,76,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,91,91,91,91,0,0,0,0,0,92,92,92,92,2147483724,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,66,68,0,0,0,0,0,0,0,0,0,0,66,68,0,0,0,0,0,
-0,0,0,91,91,91,91,0,0,0,0,92,92,92,92,92,2147483724,92,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,76,2147483724,0,0,0,0,0,0,0,0,0,0,76,2147483724,0,0,0,0,0,
-0,91,91,0,0,0,0,0,0,0,0,92,92,92,92,92,88,68,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,66,67,2147483736,88,67,67,67,68,0,0,66,67,67,67,2147483736,88,67,68,91,91,0,
+0,0,0,91,91,91,91,0,0,0,0,92,92,92,92,92,2147483724,0,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,76,2147483724,0,0,0,0,0,0,0,0,0,0,76,2147483724,0,0,0,0,0,
+0,91,91,0,0,0,0,0,0,0,0,92,92,92,92,92,88,68,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,66,67,2147483736,88,67,67,67,68,0,0,66,67,67,67,2147483736,88,67,68,91,91,0,
 0,91,91,0,0,0,0,0,0,0,0,92,92,0,92,92,0,2147483724,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,2684354647,1610612823,0,0,86,87,2147483726,1610612823,0,0,76,78,1610612812,2147483734,0,0,76,3221225548,91,91,0,
-0,0,0,0,0,0,0,0,0,0,0,92,92,92,92,0,0,2147483724,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,2684354647,1610612823,0,0,0,0,2684354647,1610612823,0,0,76,3221225548,0,0,0,0,76,3221225548,91,91,0,
-0,0,0,0,0,0,0,0,0,0,0,92,92,92,92,0,0,2147483724,92,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,2684354647,1610612823,0,0,0,0,2684354647,1610612823,0,0,76,3221225548,0,0,0,0,76,3221225548,91,91,0,
+0,0,0,0,0,0,0,0,0,0,0,92,92,92,92,0,0,2147483724,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,2684354647,1610612823,0,0,0,0,2684354647,1610612823,0,0,76,3221225548,0,0,0,0,76,3221225548,91,91,0,
+0,0,0,0,0,0,0,0,0,0,0,92,92,92,92,0,0,2147483724,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,2684354647,1610612823,0,0,0,0,2684354647,1610612823,0,0,76,3221225548,0,0,0,0,76,3221225548,91,91,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,2684354647,88,67,68,91,91,2684354647,1610612823,0,0,76,3221225548,91,91,66,67,2147483736,3221225548,91,91,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,86,87,87,2147483734,91,91,2684354647,1610612823,0,0,76,3221225548,91,91,86,1610612812,1610612812,2147483734,91,91,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,91,91,91,0,0,2684354647,1610612823,0,0,76,3221225548,0,0,91,91,91,91,0,0,0,
@@ -865,7 +865,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" name="traps">
+ <objectgroup color="#ff0000" name="traps" visible="0" locked="1">
   <object id="3" name="room_01" x="816" y="1088">
    <properties>
     <property name="entity" value="trapRoom"/>
@@ -1116,7 +1116,7 @@
     <property name="speedMod" type="float" value="40"/>
     <property name="timer" type="float" value="3"/>
    </properties>
-   <polyline points="0,0 0,32 -160,32 -160,48 -128,48 -128,64 -96,64 -96,48 -32,48 -32,96 -48,96 -48,112 -32,112 -32,256 -80,256 -80,208 -64,208 -64,192 -96,192 -96,160 -112,160 -112,224 -128,224 -128,256 -192,256 -192,224 -144,224 -144,208 -160,208 -160,224 -192,224 -192,176 -176,176 -176,160 -192,160 -192,96 -160,96 -160,128 -144,128 -144,112 -160,112 -160,96 -96,96 -96,112 -80,112 -80,160 -64,160 -64,80 -192,80 -192,48 -176,48 -176,32 -192,32 -192,0 -128,0 -128,16 -112,16 -112,0 0,0"/>
+   <polyline points="0,0 0,32 -64,32 -64,16 -96,16 -96,32 -160,32 -160,48 -128,48 -128,64 -96,64 -96,48 -64,48 -64,64 -48,64 -48,48 -32,48 -32,96 -48,96 -48,112 -32,112 -32,144 -48,144 -48,160 -32,160 -32,224 -48,224 -48,240 -64,240 -64,240 -80,240 -80,208 -80,192 -80,176 -96,176 -96,160 -112,160 -112,224 -128,224 -128,256 -192,256 -192,224 -144,224 -144,208 -160,208 -160,224 -192,224 -192,176 -176,176 -176,160 -192,160 -192,96 -160,96 -160,128 -144,128 -144,112 -160,112 -160,96 -96,96 -96,112 -80,112 -80,160 -64,160 -64,80 -192,80 -192,48 -176,48 -176,32 -192,32 -192,0 -144,0 -144,16 -128,16 -128,0 -48,0 -48,16 -32,16 -32,0 0,0"/>
   </object>
   <object id="26" name="floorhole" x="176" y="480">
    <properties>
@@ -1147,7 +1147,7 @@
     <property name="size" value="1x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="1.5"/>
+    <property name="timer" type="float" value="1"/>
     <property name="trigger" type="bool" value="false"/>
    </properties>
   </object>
@@ -1593,11 +1593,11 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room6_trap1"/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
+    <property name="timer" type="float" value="1.5"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
@@ -1605,11 +1605,11 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
+    <property name="timer" type="float" value="1.5"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
@@ -1617,11 +1617,11 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
+    <property name="timer" type="float" value="1.5"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
@@ -1629,11 +1629,11 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
+    <property name="timer" type="float" value="1.5"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
@@ -1641,7 +1641,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room6_trap2"/>
     <property name="timed" type="bool" value="false"/>
@@ -1653,7 +1653,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room6_trap3"/>
     <property name="timed" type="bool" value="false"/>
@@ -1665,7 +1665,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value="room6_trap4"/>
     <property name="timed" type="bool" value="false"/>
@@ -1677,7 +1677,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1689,7 +1689,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1701,7 +1701,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1713,7 +1713,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1725,7 +1725,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1737,7 +1737,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1749,7 +1749,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1761,7 +1761,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1773,7 +1773,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1785,7 +1785,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1797,7 +1797,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -1809,7 +1809,7 @@
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_05"/>
+    <property name="room" value="room_06"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
@@ -2215,7 +2215,7 @@
     <property name="entity" value="quicksand"/>
     <property name="room" value="room_12"/>
     <property name="speedMod" type="float" value="40"/>
-    <property name="timer" type="float" value="3"/>
+    <property name="timer" type="float" value="6.25"/>
    </properties>
    <polyline points="0,0 0,32 64,32 64,-96 32,-96 32,0 0,0"/>
   </object>
@@ -2224,7 +2224,7 @@
     <property name="entity" value="quicksand"/>
     <property name="room" value="room_09"/>
     <property name="speedMod" type="float" value="40"/>
-    <property name="timer" type="float" value="5"/>
+    <property name="timer" type="float" value="11"/>
    </properties>
    <polyline points="0,0 0,96 32,96 32,128 0,128 0,192 32,192 32,160 64,160 64,64 32,64 32,0 0,0"/>
   </object>
@@ -2395,7 +2395,7 @@
     <property name="target" value="room11_trap0"/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
-    <property name="trigger" type="bool" value="false"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="143" name="floorspike" x="1328" y="1008" width="32" height="32">
@@ -2407,7 +2407,7 @@
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
-    <property name="trigger" type="bool" value="false"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="144" name="floorspike" x="1328" y="912" width="32" height="32">
@@ -2419,7 +2419,7 @@
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
-    <property name="trigger" type="bool" value="false"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="145" name="floorspike" x="1264" y="912" width="32" height="32">
@@ -2431,7 +2431,7 @@
     <property name="target" value="room11_trap2"/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
-    <property name="trigger" type="bool" value="false"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="146" name="floorspike" x="1200" y="816" width="32" height="32">
@@ -2443,7 +2443,7 @@
     <property name="target" value="room11_trap4"/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
-    <property name="trigger" type="bool" value="false"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="147" name="floorspike" x="1392" y="816" width="32" height="32">
@@ -2455,7 +2455,7 @@
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
-    <property name="trigger" type="bool" value="false"/>
+    <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
   <object id="148" name="room11_trap2" x="1264" y="880" width="32" height="32">
@@ -2488,7 +2488,7 @@
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_11"/>
     <property name="size" value="2x2"/>
-    <property name="target" value="room11_trap5"/>
+    <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
     <property name="timer" type="float" value="1.5"/>
     <property name="trigger" type="bool" value="true"/>
@@ -2648,13 +2648,222 @@
    <properties>
     <property name="amount" type="int" value="1"/>
     <property name="entity" value="chest"/>
-    <property name="item" value="chest_key"/>
+    <property name="item" value="chestKey"/>
     <property name="locked" type="bool" value="false"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
+  <object id="195" name="chest_3" x="320" y="627" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="200"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="coin"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="196" name="chest_5" x="1432" y="611" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="100"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="coin"/>
+    <property name="locked" type="bool" value="true"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="197" name="chest_6" x="1240.25" y="610.75" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="1"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="doorKey"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="204" name="chest_4" x="1048" y="18" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="100"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="coin"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="205" name="lever" x="1499" y="404" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="mechanicDoor_1"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="209" name="lever" x="1051" y="693" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="mechanicDoor_2"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="210" name="chest_7" x="633" y="188" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="100"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="coin"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="214" name="chest_8" x="696" y="445" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="1"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="doorKey"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="215" name="lever" x="315" y="700" width="10" height="8">
+   <properties>
+    <property name="entity" value="lever"/>
+    <property name="target" value="mechanicDoor_3"/>
+    <property name="trigger" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="216" name="torch" x="636" y="125" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="217" name="torch" x="380" y="381" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="218" name="torch" x="380" y="445" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="219" name="torch" x="572" y="637" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="220" name="pillar" x="921" y="604" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="221" name="pillar" x="857" y="604" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="222" name="pillar" x="857" y="636" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="223" name="pillar" x="921" y="636" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="224" name="torch" x="380" y="861" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="225" name="torch" x="92" y="1437" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="226" name="torch" x="28" y="1437" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="227" name="torch" x="92" y="1021" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="228" name="torch" x="92" y="957" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="229" name="torch" x="92" y="893" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="230" name="torch" x="92" y="829" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="231" name="torch" x="92" y="765" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="232" name="chest_10" x="408" y="1190" width="16" height="8">
+   <properties>
+    <property name="amount" type="int" value="150"/>
+    <property name="entity" value="chest"/>
+    <property name="item" value="coin"/>
+    <property name="locked" type="bool" value="false"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="233" name="pillar" x="409" y="1180" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="234" name="pillar" x="697" y="1308" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
+  <object id="235" name="torch" x="1436" y="1341" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="236" name="torch" x="1308" y="1149" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="237" name="torch" x="1340" y="1213" width="8" height="6">
+   <properties>
+    <property name="entity" value="torch"/>
+    <property name="on" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="238" name="pillar" x="1017" y="1084" width="14" height="8">
+   <properties>
+    <property name="entity" value="pillar"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#002eff" name="doors">
+ <objectgroup color="#002eff" name="doors" visible="0" locked="1">
   <object id="184" name="dungeonDoor" x="883" y="656" width="26" height="16">
    <properties>
     <property name="doorType" value="DUNGEON"/>
@@ -2674,13 +2883,89 @@
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
+  <object id="198" name="mechanicDoor_1" x="1075" y="96" width="26" height="16">
+   <properties>
+    <property name="doorType" value="MECHANIC"/>
+    <property name="entity" value="door"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="199" name="doorPillarRight" x="1101" y="96" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameRight"/>
+   </properties>
+  </object>
+  <object id="200" name="doorPillarLeft" x="1072" y="96" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameLeft"/>
+   </properties>
+  </object>
+  <object id="201" name="doorPillarLeft" x="1424" y="208" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameLeft"/>
+   </properties>
+  </object>
+  <object id="202" name="lockedDoor_1" x="1427" y="208" width="26" height="16">
+   <properties>
+    <property name="doorType" value="LOCKED"/>
+    <property name="entity" value="door"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="203" name="doorPillarRight" x="1453" y="208" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameRight"/>
+   </properties>
+  </object>
+  <object id="206" name="mechanicDoor_2" x="1075" y="976" width="26" height="16">
+   <properties>
+    <property name="doorType" value="MECHANIC"/>
+    <property name="entity" value="door"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="207" name="doorPillarRight" x="1101" y="976" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameRight"/>
+   </properties>
+  </object>
+  <object id="208" name="doorPillarLeft" x="1072" y="976" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameLeft"/>
+   </properties>
+  </object>
+  <object id="211" name="doorPillarLeft" x="976" y="672" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameLeft"/>
+   </properties>
+  </object>
+  <object id="212" name="mechanicDoor_3" x="979" y="672" width="26" height="16">
+   <properties>
+    <property name="doorType" value="MECHANIC"/>
+    <property name="entity" value="door"/>
+    <property name="opened" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="213" name="doorPillarRight" x="1005" y="672" width="3" height="16">
+   <properties>
+    <property name="entity" value="doorPillar"/>
+    <property name="texture" value="doorFrameRight"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#2ecbbe" name="collision">
+ <objectgroup color="#2ecbbe" name="collision" visible="0" locked="1">
   <object id="161" x="16" y="304">
    <polyline points="0,0 160,0 160,-96 320,-96 320,0 448,0 448,32 640,32 640,64 736,64 736,-32 688,-32 672,-32 672,-64 608,-64 608,-128 640,-128 640,-96 672,-96 672,-192 640,-192 640,-160 608,-160 608,-192 576,-192 576,-32 640,-32 640,0 544,0 544,-224 704,-224 704,-160 720,-160 736,-160 736,-224 768,-224 768,-288 992,-288 992,-192 1024,-192 1024,-128 1216,-128 1216,-64 1280,-64 1280,128 1088,128 1088,288 992,288 992,480 912,480 896,480 896,576 832,576 832,608 896,608 896,640 928,640 928,512 1024,512 1024,448 1056,448 1056,544 960,544 960,640 992,640 992,576 1088,576 1088,768 1280,768 1280,736 1216,736 1216,640 1248,640 1248,624 1248,608 1184,608 1184,576 1152,576 1152,704 1184,704 1184,736 1120,736 1120,544 1088,544 1088,352 1056,352 1056,416 1024,416 1024,320 1120,320 1120,512 1152,512 1152,544 1184,544 1184,512 1280,512 1280,480 1152,480 1152,448 1312,448 1312,416 1152,416 1152,160 1312,160 1312,32 1344,32 1344,0 1312,0 1312,-96 1248,-96 1248,-144 1248,-160 1216,-160 1216,-224 1152,-224 1152,-160 1056,-160 1056,-224 1024,-224 1024,-288 1056,-288 1056,-256 1088,-256 1088,-192 1120,-192 1120,-288 1152,-288 1152,-256 1248,-256 1248,-192 1280,-192 1280,-288 1440,-288 1440,-160 1344,-160 1344,-224 1376,-224 1376,-192 1408,-192 1408,-256 1312,-256 1312,-160 1280,-160 1280,-128 1472,-128 1472,-288 1504,-288 1504,-96 1440,-96 1440,-48 1440,-32 1504,-32 1504,128 1472,128 1472,0 1408,0 1408,-96 1344,-96 1344,-32 1376,-32 1376,64 1344,64 1344,96 1408,96 1408,32 1440,32 1440,128 1344,128 1344,144 1344,160 1504,160 1504,416 1344,416 1344,448 1504,448 1504,512 1472,512 1472,480 1312,480 1312,512 1408,512 1408,544 1472,544 1472,672 1472,672 1440,672 1440,704 1504,704 1504,1120 1392,1120 1376,1120 1376,1152 1344,1152 1344,992 1328,992 1312,992 1312,1152 1184,1152 1184,1056 1216,1056 1216,992 1184,992 1184,896 1216,896 1248,896 1248,864 1152,864 1152,1152 928,1152 928,992 992,992 992,928 1088,928 1088,1088 992,1088 992,1056 1056,1056 1056,976 1056,960 1024,960 1024,1024 960,1024 960,1104 960,1120 1120,1120 1120,864 1088,864 1088,896 960,896 960,944 944,944 944,960 896,960 896,1152 128,1152 128,992 112,992 96,992 96,1024 64,1024 64,1120 96,1120 96,1152 0,1152 0,1120 32,1120 32,1024 0,1024 0,384 64,384 64,352 0,352 0,256 96,256 96,224 0,224 0,128 96,128 96,96 0,96 0,0"/>
   </object>
   <object id="163" x="816" y="48">
-   <polyline points="0,0 0,64 -32,64 -32,128 -96,128 -96,192 0,192 0,128 64,128 64,96 32,96 32,32 128,32 128,96 96,96 96,128 160,128 160,192 352,192 352,288 368,288 384,288 384,256 400,256 416,256 416,320 320,320 320,224 160,224 160,288 96,288 96,320 224,320 224,480 0,480 0,640 64,640 64,608 32,608 32,544 64,544 64,512 96,512 96,544 128,544 128,608 112,608 96,608 96,672 -32,672 -32,448 192,448 192,352 64,352 64,288 0,288 0,224 -32,224 -32,320 16,320 32,320 32,352 -160,352 -160,384 -192,384 -192,336 -192,320 -384,320 -384,288 -480,288 -480,320 -640,320 -640,288 -768,288 -768,320 -672,320 -672,416 -768,416 -768,448 -672,448 -672,544 -768,544 -768,576 -704,576 -704,640 -640,640 -640,1120 -704,1120 -704,1216 -640,1216 -640,1376 -544,1376 -544,1344 -608,1344 -608,832 -576,832 -576,608 -640,608 -640,352 -448,352 -448,320 -416,320 -416,352 -224,352 -224,544 -128,544 -128,576 -96,576 -96,512 -192,512 -192,416 -128,416 -128,384 160,384 160,416 -96,416 -96,448 -160,448 -160,480 -64,480 -64,608 -160,608 -160,576 -224,576 -224,608 -256,608 -256,512 -384,512 -384,480 -416,480 -416,640 -320,640 -320,576 -352,576 -352,608 -384,608 -384,544 -288,544 -288,640 -64,640 -64,704 160,704 160,512 256,512 256,288 192,288 192,256 288,256 288,352 448,352 448,224 384,224 384,160 192,160 192,96 160,96 160,0 0,0"/>
+   <polyline points="0,0 0,64 -32,64 -32,128 -96,128 -96,192 0,192 0,128 64,128 64,96 32,96 32,32 128,32 128,96 96,96 96,128 160,128 160,192 352,192 352,288 368,288 384,288 384,256 400,256 416,256 416,320 320,320 320,224 160,224 160,288 96,288 96,320 224,320 224,480 0,480 0,640 64,640 64,608 32,608 32,544 64,544 64,512 96,512 96,544 128,544 128,608 112,608 96,608 96,672 -32,672 -32,448 192,448 192,352 64,352 64,288 0,288 0,224 -32,224 -32,320 16,320 32,320 32,352 -160,352 -160,384 -192,384 -192,336 -192,320 -384,320 -384,288 -480,288 -480,320 -640,320 -640,288 -768,288 -768,320 -672,320 -672,416 -768,416 -768,448 -672,448 -672,544 -768,544 -768,576 -704,576 -704,640 -640,640 -640,1120 -704,1120 -704,1216 -640,1216 -640,1376 -544,1376 -544,1344 -608,1344 -608,832 -576,832 -576,608 -640,608 -640,352 -448,352 -448,320 -416,320 -416,352 -224,352 -224,544 -128,544 -128,576 -96,576 -96,512 -192,512 -192,416 -128,416 -128,384 -96,384 -96,416 -96,416 -96,448 -160,448 -160,480 -64,480 -64,608 -160,608 -160,576 -224,576 -224,608 -256,608 -256,512 -384,512 -384,480 -416,480 -416,640 -320,640 -320,576 -352,576 -352,608 -384,608 -384,544 -288,544 -288,640 -64,640 -64,704 160,704 160,512 256,512 256,288 192,288 192,256 288,256 288,352 448,352 448,224 384,224 384,160 192,160 192,96 160,96 160,0 0,0"/>
   </object>
   <object id="164" x="336" y="432">
    <polyline points="0,0 0,224 -64,224 -64,480 -80,480 -96,480 -96,928 224,928 224,992 544,992 544,960 416,960 416,832 320,832 320,928 352,928 352,864 384,864 384,960 288,960 288,800 448,800 448,928 544,928 544,832 496,832 496,816 480,816 480,768 256,768 256,736 192,736 192,640 288,640 288,608 160,608 160,640 128,640 128,576 352,576 352,544 512,544 512,640 480,640 480,576 384,576 384,608 320,608 320,640 352,640 352,672 416,672 416,608 448,608 448,704 320,704 320,672 224,672 224,704 288,704 288,736 480,736 480,688 496,688 496,672 528,672 544,672 544,576 576,576 576,672 624,672 624,688 640,688 640,736 672,736 672,640 704,640 704,736 736,736 736,704 992,704 992,736 960,736 960,800 896,800 896,832 928,832 928,960 896,960 896,992 960,992 960,832 1088,832 1088,704 1120,704 1120,864 1056,864 1056,960 1152,960 1152,928 1088,928 1088,896 1152,896 1152,608 1120,608 1120,672 1056,672 1056,800 992,800 992,768 1024,768 1024,640 1088,640 1088,512 1120,512 1120,448 1088,448 1088,480 1024,480 1024,512 1056,512 1056,608 992,608 992,672 736,672 736,608 608,608 608,576 736,576 736,480 704,480 704,544 544,544 544,512 480,512 480,416 544,416 544,352 352,352 352,320 384,320 384,288 320,288 320,384 448,384 448,512 320,512 320,544 96,544 96,672 160,672 160,768 224,768 224,896 -64,896 -64,768 0,768 0,672 64,672 64,544 32,544 32,416 64,416 64,512 288,512 288,448 320,448 320,480 416,480 416,416 288,416 288,288 64,288 64,320 -32,320 -32,256 0,256 0,288 32,288 32,64 96,64 96,32 128,32 128,96 224,96 224,0 192,0 192,64 160,64 160,0 64,0 64,32 32,32 32,0 0,0"/>
@@ -2734,9 +3019,9 @@
    <polyline points="0,0 0,32 32,32 32,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points">
+ <objectgroup color="#ffffff" name="points" visible="0" locked="1">
   <object id="1" name="mapExitPoint" x="864" y="544" width="64" height="32"/>
   <object id="2" name="playerSpawn" x="888" y="1176" width="16" height="16"/>
  </objectgroup>
- <objectgroup color="#04ff00" name="puzzle"/>
+ <objectgroup color="#04ff00" name="puzzle" visible="0" locked="1"/>
 </map>
