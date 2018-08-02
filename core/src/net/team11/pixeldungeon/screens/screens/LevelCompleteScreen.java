@@ -110,7 +110,7 @@ public class LevelCompleteScreen extends AbstractScreen {
                     public void run() {
                         PixelDungeon.getInstance().getAndroidInterface().showEndLevelAd();
                     }
-                },1f,0f,0).run();
+                },1f,0f,0);
                 ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
                         ScreenTransitionFade.init(1f));
                 return super.touchDown(event, x, y, pointer, button);

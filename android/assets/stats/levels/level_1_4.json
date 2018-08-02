@@ -11,6 +11,7 @@
     "chest_6":false,
     "chest_7":false,
     "chest_8":false,
+    "chest_9":false,
     "dungeonChest":false,
   },
   "foundItems": {},
@@ -26,7 +27,7 @@
     "Time Two": 450,
     "Time Three": 750
   },
-  "totalChests":9,
+  "totalChests":10,
   "totalItems":0,
   "totalKeys":3,
   "tutorial":false
