@@ -27,16 +27,6 @@ public class StatsUtil {
         return this.levelStats;
     }
 
-    public void setLevelStats(HashMap<String, LevelStats> map){
-        this.levelStats = map;
-    }
-
-    public void setGlobalStats(GlobalStats globalStats){
-        this.globalStats = globalStats;
-    }
-
-
-
     public void initialiseCurrStats() {
         if (currentStats == null) {
             currentStats = new CurrentStats();
@@ -73,8 +63,8 @@ public class StatsUtil {
         return String.format(Locale.UK,"%02d:%02d",timer/60,timer%60);
     }
 
-    private void clearLocal() {
-        Gdx.files.local("stats").deleteDirectory();
+    public static void clearLocal() {
+        Gdx.files.local("").deleteDirectory();
     }
 
     public LevelStats getLevelStats(String name) {
@@ -83,10 +73,6 @@ public class StatsUtil {
 
     public GlobalStats getGlobalStats() {
         return globalStats;
-    }
-
-    public void updateLevelStats(String mapName, LevelStats stats) {
-        getLevelStats().put(mapName, stats);
     }
 
     public void updateChests(Chest chest) {
@@ -120,13 +106,6 @@ public class StatsUtil {
         Util.getInstance().saveGame();
     }
 
-    //
-    public void updateDeaths() {
-        currentStats.incrementDeaths();
-        globalStats.incrementDeaths();
-        Util.getInstance().saveGame();
-    }
-
     public void updatePuzzleAttempts() {
         globalStats.incrementPuzzleAttempted();
         Util.getInstance().saveGame();
@@ -135,11 +114,6 @@ public class StatsUtil {
     public void updatePuzzleCompleted() {
         this.getGlobalStats().incrementPuzzleCompleted();
         Util.getInstance().saveGame();
-    }
-
-
-    public void updateGlobal() {
-        saveTimer();
     }
 
     public void respawn(String mapName) {

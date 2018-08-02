@@ -12,7 +12,7 @@
     "chest_7":false,
     "chest_8":false,
     "chest_9":false,
-    "dungeonChest":false,
+    "dungeonChest":false
   },
   "foundItems": {},
   "foundKeys": {
@@ -30,5 +30,6 @@
   "totalChests":10,
   "totalItems":0,
   "totalKeys":3,
-  "tutorial":false
+  "tutorial":false,
+  "versionNumber":1
 }

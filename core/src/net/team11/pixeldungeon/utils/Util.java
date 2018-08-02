@@ -38,6 +38,7 @@ public class Util {
     }
 
     private Util() {
+        StatsUtil.clearLocal();
         SaveGame loadedSave = loadGame();
     }
 
@@ -65,16 +66,20 @@ public class Util {
         //Have a save game for the currently signed in player
         if (saveLocation.exists()) {
             System.out.println("Save file exists, loading");
-
             SaveGame saveGame = json.fromJson(SaveGame.class, saveLocation);
 
             HashMap<String, LevelStats> levelStats = saveGame.getLevelStatsHashMap();
 
             //Check to see if any more levels have been added
             for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
+                LevelStats internalStats = json.fromJson(LevelStats.class, file);
                 if (!levelStats.containsKey(file.nameWithoutExtension())) {
-                    LevelStats stats = json.fromJson(LevelStats.class, file);
-                    levelStats.put(stats.getFileName(), stats);
+                    levelStats.put(internalStats.getFileName(), internalStats);
+                } else {
+                    LevelStats localStats = levelStats.get(internalStats.getFileName());
+                    if (internalStats.getVersionNumber() > localStats.getVersionNumber()) {
+                        localStats.update(internalStats);
+                    }
                 }
             }
 

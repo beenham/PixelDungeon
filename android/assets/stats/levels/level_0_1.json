@@ -15,5 +15,6 @@
   "totalChests":0,
   "totalItems":0,
   "totalKeys":0,
-  "tutorial":true
+  "tutorial":true,
+  "versionNumber":1
 }

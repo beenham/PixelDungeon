@@ -1,13 +1,13 @@
 {
   "attempts":0,
-  "bestTime":4804,
+  "bestTime":3599,
   "completed":0,
   "foundChests": {
     "chest_1":false,
     "chest_2":false,
     "chest_3":false,
     "chest_4":false,
-    "chest_5":false,
+    "chest_5":false
   },
   "foundItems": {},
   "foundKeys": {
@@ -25,5 +25,6 @@
   "totalChests":5,
   "totalItems":0,
   "totalKeys":1,
-  "tutorial":false
+  "tutorial":false,
+  "versionNumber":1
 }

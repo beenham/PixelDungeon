@@ -8,6 +8,7 @@ public class LevelStats {
     public static final String TARGET_TIME_2 = "Time Two";
     public static final String TARGET_TIME_3 = "Time Three";
 
+    private float versionNumber;
     private String fileName;
     private String levelName;
     private int totalChests;
@@ -139,6 +140,41 @@ public class LevelStats {
 
     public boolean isTutorial() {
         return tutorial;
+    }
+
+    public float getVersionNumber() {
+        return versionNumber;
+    }
+
+    public void update(LevelStats newStats) {
+        this.versionNumber = newStats.versionNumber;
+        this.levelName = newStats.levelName;
+        this.totalChests = newStats.totalChests;
+        this.totalKeys = newStats.totalKeys;
+        this.totalItems = newStats.totalItems;
+        this.bestTime = newStats.bestTime;
+
+        for (String key : newStats.foundChests.keySet()) {
+            if (this.foundChests.containsKey(key)) {
+                newStats.foundChests.put(key,this.foundChests.get(key));
+            }
+        }
+        for (String key : newStats.foundKeys.keySet()) {
+            if (this.foundKeys.containsKey(key)) {
+                newStats.foundKeys.put(key,this.foundKeys.get(key));
+            }
+        }
+        for (String key : newStats.foundItems.keySet()) {
+            if (this.foundItems.containsKey(key)) {
+                newStats.foundItems.put(key,this.foundItems.get(key));
+            }
+        }
+
+        this.foundChests = newStats.foundChests;
+        this.foundKeys = newStats.foundKeys;
+        this.foundItems = newStats.foundItems;
+        this.targetTimes = newStats.targetTimes;
+        this.tutorial = newStats.tutorial;
     }
 
     @Override
