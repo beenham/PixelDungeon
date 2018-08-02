@@ -71,7 +71,7 @@ public class Quicksand extends Trap {
         Polygon hitBox = getComponent(BodyComponent.class).getPolygon();
         Polygon entityBox = player.getComponent(BodyComponent.class).getPolygon();
 
-        boolean submerged = CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .5f;
+        boolean submerged = CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .6f;
 
         if (!enabled) {
             if (submerged) {

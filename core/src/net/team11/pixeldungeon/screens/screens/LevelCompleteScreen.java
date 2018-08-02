@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
@@ -104,7 +105,12 @@ public class LevelCompleteScreen extends AbstractScreen {
         doneButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                PixelDungeon.getInstance().getAndroidInterface().showEndLevelAd();
+                new Timer().scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        PixelDungeon.getInstance().getAndroidInterface().showEndLevelAd();
+                    }
+                },1f,0f,0);
                 ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
                         ScreenTransitionFade.init(1f));
                 return super.touchDown(event, x, y, pointer, button);

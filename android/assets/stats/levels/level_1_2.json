@@ -1,0 +1,29 @@
+{
+  "attempts":0,
+  "bestTime":4804,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "chest_3":false,
+    "chest_4":false,
+    "chest_5":false,
+  },
+  "foundItems": {},
+  "foundKeys": {
+    "Small Key":false,
+    "Door Key":false,
+    "Dungeon Key":false
+  },
+  "fileName":"level_1_2",
+  "levelName":"The Next Challenge",
+  "targetTimes": {
+    "Time One": 250,
+    "Time Two": 450,
+    "Time Three": 750
+  },
+  "totalChests":5,
+  "totalItems":0,
+  "totalKeys":1,
+  "tutorial":false
+}
