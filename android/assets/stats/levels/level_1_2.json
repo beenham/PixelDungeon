@@ -6,7 +6,8 @@
     "chest_1":false,
     "chest_2":false,
     "chest_3":false,
-    "chest_4":false
+    "chest_4":false,
+    "chest_5":false,
   },
   "foundItems": {},
   "foundKeys": {
@@ -21,7 +22,7 @@
     "Time Two": 450,
     "Time Three": 750
   },
-  "totalChests":4,
+  "totalChests":5,
   "totalItems":0,
   "totalKeys":1,
   "tutorial":false
