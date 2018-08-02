@@ -7,7 +7,7 @@
     "chest_2":false,
     "chest_3":false,
     "chest_4":false,
-    "chest_5":false,
+    "chest_5":false
   },
   "foundItems": {},
   "foundKeys": {
@@ -16,7 +16,7 @@
     "Dungeon Key":false
   },
   "fileName":"level_1_2",
-  "levelName":"The Next Challenge",
+  "levelName":"beta 2",
   "targetTimes": {
     "Time One": 250,
     "Time Two": 450,

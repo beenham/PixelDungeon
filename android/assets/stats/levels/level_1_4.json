@@ -12,7 +12,7 @@
     "chest_7":false,
     "chest_8":false,
     "chest_9":false,
-    "dungeonChest":false,
+    "dungeonChest":false
   },
   "foundItems": {},
   "foundKeys": {
@@ -21,7 +21,7 @@
     "Dungeon Key":false
   },
   "fileName":"level_1_4",
-  "levelName":"level 3",
+  "levelName":"beta 3",
   "targetTimes": {
     "Time One": 120,
     "Time Two": 240,

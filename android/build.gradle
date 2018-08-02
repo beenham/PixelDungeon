@@ -22,7 +22,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "Pixel Dungeon - Beta-0.1"
     }
     buildTypes {
         release {
