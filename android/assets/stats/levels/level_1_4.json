@@ -21,11 +21,11 @@
     "Dungeon Key":false
   },
   "fileName":"level_1_4",
-  "levelName":"level_1_4",
+  "levelName":"level 3",
   "targetTimes": {
-    "Time One": 250,
-    "Time Two": 450,
-    "Time Three": 750
+    "Time One": 120,
+    "Time Two": 240,
+    "Time Three": 480
   },
   "totalChests":10,
   "totalItems":0,
