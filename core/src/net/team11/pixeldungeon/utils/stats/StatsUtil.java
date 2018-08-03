@@ -60,13 +60,6 @@ public class StatsUtil {
         return String.format(Locale.UK,"%02d:%02d",timer/60,timer%60);
     }
 
-<<<<<<< HEAD
-=======
-    public static void clearLocal() {
-        Gdx.files.local("saves").deleteDirectory();
-    }
-
->>>>>>> release-branch
     public LevelStats getLevelStats(String name) {
         return levelStats.get(name);
     }
