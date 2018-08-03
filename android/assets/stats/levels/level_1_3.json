@@ -8,6 +8,11 @@
     "chest_3":false,
     "chest_4":false,
     "chest_5":false,
+    "dungeonChest":false,
+    "puzzleChest_1":false,
+    "puzzleChest_2":false,
+    "puzzleChest_3":false,
+    "puzzleChest_4":false,
   },
   "foundItems": {},
   "foundKeys": {
@@ -22,7 +27,7 @@
     "Time Two": 390,
     "Time Three": 450
   },
-  "totalChests":5,
+  "totalChests":10,
   "totalItems":0,
   "totalKeys":3,
   "tutorial":false
