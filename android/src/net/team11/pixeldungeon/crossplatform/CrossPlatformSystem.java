@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.playservices.AdmobClient;
 import net.team11.pixeldungeon.playservices.GoogleClient;
 import net.team11.pixeldungeon.playservices.SavesClient;
 import net.team11.pixeldungeon.saves.SaveGame;
+import net.team11.pixeldungeon.utils.T11Log;
 import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
@@ -26,7 +27,7 @@ public class CrossPlatformSystem implements AndroidInterface {
 
     private boolean earnAchievements = false;
     private boolean watchAds = true;
-    private boolean savingEnabled = false;
+    private boolean savingEnabled = true;
 
     private Snapshot currentSnapshot;
 
@@ -292,12 +293,29 @@ public class CrossPlatformSystem implements AndroidInterface {
                     public void onSuccess(byte[] bytes) {
                         Json json = new Json();
                         SaveGame saveGame = json.fromJson(SaveGame.class, new String(bytes));
-                        //System.out.println(saveGame);
                         Util.getInstance().saveGame(saveGame);
                         Util.getInstance().loadGame();
                     }
                 });
             }
+        }
+    }
+
+    @Override
+    public void debugCall(int type, String tag, String message) {
+        switch (type) {
+            case T11Log.ERROR:
+                Log.e(tag,message);
+                break;
+            case T11Log.INFO:
+                Log.i(tag,message);
+                break;
+            case T11Log.DEBUG:
+                Log.d(tag,message);
+                break;
+            case T11Log.VERBOSE:
+                Log.v(tag,message);
+                break;
         }
     }
 }

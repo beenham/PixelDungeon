@@ -20,7 +20,7 @@ public class SaveGame{
     private SkinList skinList;
 
     private String timeStamp;
-    private String totalTime;
+    private int totalTime;
 
     public SaveGame(){}
 
@@ -29,7 +29,7 @@ public class SaveGame{
         this.globalStats = globalStats;
         this.skinList = skinList;
         this.timeStamp = timeStamp;
-        System.out.println("Finished Creating Save Game");
+        totalTime = globalStats.getTotalTime();
     }
 
     public byte[] getBytes(){
@@ -49,10 +49,6 @@ public class SaveGame{
         return globalStats;
     }
 
-    public void setGlobalStats(GlobalStats globalStats) {
-        this.globalStats = globalStats;
-    }
-
     public SkinList getSkinList() {
         return skinList;
     }
@@ -65,16 +61,8 @@ public class SaveGame{
         return timeStamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public String getTotalTime() {
+    public int getTotalTime() {
         return totalTime;
-    }
-
-    public void setTotalTime(String totalTime) {
-        this.totalTime = totalTime;
     }
 
     @Override

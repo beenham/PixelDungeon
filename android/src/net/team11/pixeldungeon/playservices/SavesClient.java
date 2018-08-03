@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import net.team11.pixeldungeon.AndroidLauncher;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.saves.SaveGame;
+import net.team11.pixeldungeon.utils.Util;
 
 import java.io.IOException;
 
@@ -48,13 +49,13 @@ public class SavesClient {
             public void onSuccess(SnapshotsClient.DataOrConflict<Snapshot> snapshotDataOrConflict) {
                 Log.e(TAG,"Success Opening Snapshot");
                 Json json = new Json();
-                final SaveGame saveGame = json.fromJson(SaveGame.class, Gdx.files.local("saves/saveGame.json"));
+                final SaveGame localSave = json.fromJson(SaveGame.class, Gdx.files.local(Util.PLAYER_SAVE_PATH));
 
                 processSnapshotOpenResult(snapshotDataOrConflict, 5).addOnSuccessListener(new OnSuccessListener<Snapshot>() {
                     @Override
                     public void onSuccess(Snapshot snapshot) {
-                        if (getPlayTime(saveGame.getBytes()) >= snapshot.getMetadata().getPlayedTime()) {
-                            writeSnapshot(snapshot, saveGame.getBytes());
+                        if (getPlayTime(localSave.getBytes()) >= snapshot.getMetadata().getPlayedTime()) {
+                            writeSnapshot(snapshot, localSave.getBytes());
                             Log.e(TAG,"Current local version has more or equal play time - Saving");
                         } else {
                             Log.e(TAG,"Current local version has less play time - Not saving");

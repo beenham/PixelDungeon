@@ -5,7 +5,7 @@ public interface AndroidInterface {
     String getUserName();
     String getUserEmail();
 
-    ////    Google Play Log in
+    ////    Google Play Login
     boolean isSignedIn();
     void signIn();
     void signInSilently();
@@ -46,4 +46,7 @@ public interface AndroidInterface {
     void showCloudSaves();
     void saveGame();
     void loadSaveGame();
+
+    ////    Debug Calls
+    void debugCall(int type, String tag, String message);
 }

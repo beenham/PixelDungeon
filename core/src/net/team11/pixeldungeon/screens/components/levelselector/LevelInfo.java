@@ -11,15 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 
 import net.team11.pixeldungeon.PixelDungeon;
-import net.team11.pixeldungeon.game.map.MapManager;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.utils.Util;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.stats.StatsUtil;
-import net.team11.pixeldungeon.utils.assets.AssetName;
-import net.team11.pixeldungeon.utils.assets.Assets;
 
 import java.util.Locale;
 
@@ -136,16 +135,10 @@ public class LevelInfo extends Table {
         playButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Util.getInstance().getStatsUtil().updateAttempts(MapManager.getInstance().getCurrentMap().getMapName());
+                Util.getInstance().getStatsUtil().updateAttempts(selector.getMap().getMapName());
                 ScreenManager.getInstance().changeScreen(ScreenEnum.GAME,
                         null,
                         selector.getMap().getMapName());
-                
-                PixelDungeon.getInstance().getAndroidInterface().earnNewAdventurer();
-                PixelDungeon.getInstance().getAndroidInterface().earn10Attempts();
-                PixelDungeon.getInstance().getAndroidInterface().earn100Attempts();
-                PixelDungeon.getInstance().getAndroidInterface().earn500Attempts();
-                PixelDungeon.getInstance().getAndroidInterface().earn1000Attempts();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

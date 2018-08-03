@@ -16,11 +16,21 @@ import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * The mother of all utils
  */
 public class Util {
+    private static final String TAG = "Util";
+
+    private static final String SKIN_LIST_PATH = "shop/shopitems/skinList.json";
+    private static final String GLOBAL_STATS_PATH = "stats/globalStats.json";
+    private static final String LEVEL_STATS_PATH = "stats/levels";
+
+    public static final String PLAYER_SAVE_PATH = "saves/player/SaveGame.json";
+    private static final String LOCAL_SAVE_PATH = "saves/local/SaveGame.json";
+
     private StatsUtil statsUtil;
     private InventoryUtil inventoryUtil;
 
@@ -38,40 +48,31 @@ public class Util {
     }
 
     private Util() {
-        StatsUtil.clearLocal();
-        SaveGame loadedSave = loadGame();
+        loadGame();
     }
-
 
     //////////////////////
     //  Saving/Loading  //
     //////////////////////
-    public SaveGame loadGame() {
-        String playerName;
+    public void loadGame() {
         Json json = new Json();
 
-        //If we're signed in using google play then we have a player name
-        //Use that as the directory to look for a save game
-        //Otherwise use default "player"
-
         if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()) {
-            playerName = PixelDungeon.getInstance().getAndroidInterface().getUserName();
+            T11Log.error(TAG,"Using player save");
+            saveLocation = Gdx.files.local(PLAYER_SAVE_PATH);
         } else {
-            playerName = "Player";
+            T11Log.error(TAG,"Using local save");
+            saveLocation = Gdx.files.local(LOCAL_SAVE_PATH);
         }
 
-        saveLocation = Gdx.files.local("saves/saveGame.json");
-
-
-        //Have a save game for the currently signed in player
+        //  Checking if save directory exists
         if (saveLocation.exists()) {
-            System.out.println("Save file exists, loading");
-            SaveGame saveGame = json.fromJson(SaveGame.class, saveLocation);
-
-            HashMap<String, LevelStats> levelStats = saveGame.getLevelStatsHashMap();
+            T11Log.error(TAG,"Save file exists, Loading");
+            currentSave = json.fromJson(SaveGame.class, saveLocation);
+            HashMap<String, LevelStats> levelStats = currentSave.getLevelStatsHashMap();
 
             //Check to see if any more levels have been added
-            for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
+            for (FileHandle file : Gdx.files.internal(LEVEL_STATS_PATH).list()) {
                 LevelStats internalStats = json.fromJson(LevelStats.class, file);
                 if (!levelStats.containsKey(file.nameWithoutExtension())) {
                     levelStats.put(internalStats.getFileName(), internalStats);
@@ -83,83 +84,59 @@ public class Util {
                 }
             }
 
-            saveGame.setLevelStatsHashMap(levelStats);
+            currentSave.setLevelStatsHashMap(levelStats);
 
             //Check to see if any more skins have been added
-            SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal("shop/shopitems/skinList.json"));
-            SkinList savedSkinList = saveGame.getSkinList();
+            SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal(SKIN_LIST_PATH));
+            SkinList savedSkinList = currentSave.getSkinList();
 
             if (savedSkinList.getVersion() < skinList.getVersion()) {
-
                 for (String skin : skinList.getSkinList()) {
                     skinList.setSkin(skin, savedSkinList.hasSkin(skin));
                 }
-
-                saveGame.setSkinList(skinList);
+                currentSave.setSkinList(skinList);
             }
 
-
-            statsUtil = new StatsUtil(saveGame.getLevelStatsHashMap(), saveGame.getGlobalStats());
-            inventoryUtil = InventoryUtil.getInstance();
-            inventoryUtil.setSkinList(saveGame.getSkinList());
-
-            SaveGame save = new SaveGame(statsUtil.getLevelStats(), statsUtil.getGlobalStats(), inventoryUtil.getSkinList(), getTimeStamp());
-
-            currentSave = save;
-
-            saveGame(save);
+            saveGame(currentSave);
             PixelDungeon.getInstance().getAndroidInterface().saveGame();
-            return saveGame;
-        } else {
-            //Otherwise create a new empty save for them
-            System.out.println("No save file exists for " + playerName + ", creating and loading new save");
-            HashMap<String, LevelStats> levelStats = new HashMap<>();
+        } else {    //  Create new save directory
+            T11Log.error(TAG,"No save file");
 
-            for (FileHandle file : Gdx.files.internal("stats/levels").list()) {
+            HashMap<String, LevelStats> levelStats = new HashMap<>();
+            for (FileHandle file : Gdx.files.internal(LEVEL_STATS_PATH).list()) {
                 LevelStats stats = json.fromJson(LevelStats.class, file);
                 levelStats.put(stats.getFileName(), stats);
             }
 
-            GlobalStats globalStats = json.fromJson(GlobalStats.class, Gdx.files.internal("stats/globalStats.json"));
+            GlobalStats globalStats = json.fromJson(GlobalStats.class, Gdx.files.internal(GLOBAL_STATS_PATH));
+            SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal(SKIN_LIST_PATH));
 
-            SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal("shop/shopitems/skinList.json"));
-
-            SaveGame saveGame = new SaveGame(levelStats, globalStats, skinList, getTimeStamp());
-
-            saveGame(saveGame);
-            statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
-            inventoryUtil = InventoryUtil.getInstance();
-            inventoryUtil.setSkinList(saveGame.getSkinList());
-            return saveGame;
-
+            currentSave = new SaveGame(levelStats, globalStats, skinList, getTimeStamp());
+            saveGame(currentSave);
         }
+
+        inventoryUtil = InventoryUtil.getInstance();
+        statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
+        inventoryUtil.setSkinList(currentSave.getSkinList());
     }
 
     public void saveGame(SaveGame saveGame) {
         Json json = new Json();
-        System.out.println("Saving the game");
+        T11Log.error(TAG,"Initiating save");
         saveLocation.writeString(json.toJson(saveGame), false);
-        System.out.println("Finished saving");
-        currentSave = saveGame;
+        T11Log.error(TAG,"Saving finished");
         PixelDungeon.getInstance().getAndroidInterface().saveGame();
     }
 
     public void saveGame() {
-        Json json = new Json();
         statsUtil.saveTimer();
-        SaveGame saveGame = new SaveGame(statsUtil.getLevelStats(), statsUtil.getGlobalStats(), inventoryUtil.getSkinList(), getTimeStamp());
-        saveLocation.writeString(json.toJson(saveGame), false);
-
-        currentSave = saveGame;
-        PixelDungeon.getInstance().getAndroidInterface().saveGame();
+        currentSave = new SaveGame(statsUtil.getLevelStats(), statsUtil.getGlobalStats(),
+                inventoryUtil.getSkinList(), getTimeStamp());
+        saveGame(currentSave);
     }
 
     private static String getTimeStamp() {
-        return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    }
-
-    private void printSaveDetails(SaveGame save) {
-        System.out.println("New Save Info" + save);
+        return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.UK).format(new Date());
     }
 
     ///////////////////////
@@ -170,4 +147,39 @@ public class Util {
         return this.statsUtil;
     }
 
+    public void signOut() {
+        saveGame();
+        clearPlayerDirectory();
+        PixelDungeon.getInstance().getAndroidInterface().signOut();
+        loadGame();
+    }
+
+    public void signIn() {
+        saveLocation = Gdx.files.local(PLAYER_SAVE_PATH);
+        SaveGame localSave = currentSave;
+        T11Log.info(TAG,currentSave.getTimeStamp() + " " + currentSave.getTotalTime());
+        PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();
+        T11Log.info(TAG,currentSave.getTimeStamp() + " " + currentSave.getTotalTime());
+        if (localSave.getTotalTime() > currentSave.getTotalTime()) {
+            saveGame(localSave);
+            loadGame();
+            T11Log.error(TAG,"Local total time is greater than player total time");
+            T11Log.error(TAG,currentSave.toString());
+        } else {
+            T11Log.error(TAG,"Local total time is less than player total time, using cloud save");
+            saveGame();
+        }
+    }
+
+    public static void clearLocal() {
+        Gdx.files.local("").deleteDirectory();
+    }
+
+    private static void clearPlayerDirectory() {
+        Gdx.files.local("saves/player").deleteDirectory();
+    }
+
+    private static void clearLocalDirectory() {
+        Gdx.files.local("saves/local").deleteDirectory();
+    }
 }

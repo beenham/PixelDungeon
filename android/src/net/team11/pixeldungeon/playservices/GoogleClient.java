@@ -90,7 +90,7 @@ public class GoogleClient {
         if (mGooglePlayer != null) {
             return mGooglePlayer.getDisplayName();
         }
-        return null;
+        return "";
     }
 
     private void onConnected(GoogleSignInAccount googleSignInAccount) {

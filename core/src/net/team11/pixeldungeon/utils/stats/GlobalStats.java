@@ -23,6 +23,10 @@ public class GlobalStats {
         return String.format(Locale.UK,"%02d:%02d", totalTime/60,totalTime%60);
     }
 
+    public int getTotalTime() {
+        return this.totalTime;
+    }
+
     public int getTotalAttempts() {
         return totalAttempts;
     }

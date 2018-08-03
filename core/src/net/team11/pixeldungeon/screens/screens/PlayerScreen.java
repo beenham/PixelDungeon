@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.PlayerInfo;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
+import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
@@ -91,6 +92,7 @@ public class PlayerScreen extends AbstractScreen {
         if (androidInterface.isSignedIn() != signedIn) {
             getActors().removeIndex(1);
             if (androidInterface.isSignedIn()) {
+                Util.getInstance().signIn();
                 signedIn = true;
                 addActor(new PlayerInfo());
             } else {
@@ -113,7 +115,11 @@ public class PlayerScreen extends AbstractScreen {
 
     private void update() {
         if (playerInfo != null) {
-            playerInfo.update();
+            if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()) {
+                playerInfo.update();
+            } else {
+                playerInfo = null;
+            }
         }
     }
 

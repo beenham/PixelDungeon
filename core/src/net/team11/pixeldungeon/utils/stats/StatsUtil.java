@@ -1,7 +1,5 @@
 package net.team11.pixeldungeon.utils.stats;
 
-import com.badlogic.gdx.Gdx;
-
 import net.team11.pixeldungeon.game.entities.blocks.Chest;
 import net.team11.pixeldungeon.game.items.Item;
 import net.team11.pixeldungeon.game.items.keys.Key;
@@ -63,10 +61,6 @@ public class StatsUtil {
         return String.format(Locale.UK,"%02d:%02d",timer/60,timer%60);
     }
 
-    public static void clearLocal() {
-        Gdx.files.local("").deleteDirectory();
-    }
-
     public LevelStats getLevelStats(String name) {
         return levelStats.get(name);
     }
@@ -101,9 +95,12 @@ public class StatsUtil {
 
     //
     public void updateAttempts(String mapName) {
-        getLevelStats(mapName).incrementAttempts();
-        globalStats.incrementAttempts();
-        Util.getInstance().saveGame();
+        if (!levelStats.get(mapName).isTutorial()) {
+            getLevelStats(mapName).incrementAttempts();
+            globalStats.incrementAttempts();
+            AchivementStats.incrementAttempts();
+            Util.getInstance().saveGame();
+        }
     }
 
     public void updatePuzzleAttempts() {

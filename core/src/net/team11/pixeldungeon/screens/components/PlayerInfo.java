@@ -181,7 +181,7 @@ public class PlayerInfo extends Table {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ScreenManager.getInstance().getScreen().pause();
-                androidInterface.signOut();
+                Util.getInstance().signOut();
                 ScreenManager.getInstance().getScreen().resume();
                 return super.touchDown(event, x, y, pointer, button);
             }

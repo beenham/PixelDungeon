@@ -7,16 +7,17 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
+import net.team11.pixeldungeon.screens.screens.PlayScreen;
+import net.team11.pixeldungeon.utils.T11Log;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
-import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapManager {
+    private static final String TAG = "MapManager";
     private static MapManager INSTANCE;
     private EntityEngine engine;
 
@@ -33,7 +34,7 @@ public class MapManager {
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
             if (entry.toString().endsWith(".tmx")) {
-                System.err.println("LOADING FILE: " + entry.toString());
+                T11Log.error(TAG,"LOADING FILE: " + entry.toString());
                 Map map = new Map(entry.toString());
                 maps.put(map.getMapName(), map);
                 mapList.add(map.getMapName());
@@ -85,7 +86,7 @@ public class MapManager {
 
     private void loadEntities() {
         currentMap.setLoaded(true);
-        System.out.println("Loading new entities in : " + currentMap.getMapName());
+        T11Log.info(TAG,"Loading new entities in : " + currentMap.getMapName());
 
         TiledObjectUtil.parseTiledPuzzleLayer(engine,PlayScreen.world,currentMap.getObjects(TiledMapLayers.PUZZLE_LAYER));
         TiledObjectUtil.parseTiledRoomLayer(engine, currentMap.getObjects(TiledMapLayers.TRAP_LAYER));
