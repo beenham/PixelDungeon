@@ -4,6 +4,7 @@ package net.team11.pixeldungeon.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Timer;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
@@ -48,6 +49,7 @@ public class Util {
     }
 
     private Util() {
+        //clearLocal();
         loadGame();
     }
 
@@ -149,9 +151,14 @@ public class Util {
 
     public void signOut() {
         saveGame();
-        clearPlayerDirectory();
-        PixelDungeon.getInstance().getAndroidInterface().signOut();
-        loadGame();
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                PixelDungeon.getInstance().getAndroidInterface().signOut();
+                clearPlayerDirectory();
+                loadGame();
+            }
+        },0.5f,0,0);
     }
 
     public void signIn() {

@@ -1,22 +1,15 @@
 package net.team11.pixeldungeon.screens.screens;
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
-import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.components.PlayerInfo;
-import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
 import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Assets;
-import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class PlayerScreen extends AbstractScreen {
@@ -31,13 +24,8 @@ public class PlayerScreen extends AbstractScreen {
         androidInterface = PixelDungeon.getInstance().getAndroidInterface();
 
         addActor(setupBackground());
-        if (androidInterface.isSignedIn()) {
-            signedIn = true;
-            addActor(playerInfo = new PlayerInfo());
-        } else {
-            signedIn = false;
-            addActor(buildLogin());
-        }
+        signedIn = androidInterface.isSignedIn();
+        addActor(playerInfo = new PlayerInfo());
     }
 
     private Image setupBackground() {
@@ -49,56 +37,16 @@ public class PlayerScreen extends AbstractScreen {
         return backgroundImage;
     }
 
-    private Table buildLogin() {
-        Table mainTable = new Table();
-        mainTable.center().pad(padding);
-
-        TextButton signInButton = new TextButton(Messages.SIGN_IN, Assets.getInstance().getSkin(Assets.UI_SKIN));
-        signInButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-
-        signInButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (!paused) {
-                    androidInterface.signIn();
-                }
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
-        TextButton backButton = new TextButton(Messages.BACK_UPPER, Assets.getInstance().getSkin(Assets.UI_SKIN));
-        backButton.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-
-        backButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (!paused) {
-                    ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
-                            ScreenTransitionFade.init(0.25f));
-                }
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
-        mainTable.add(signInButton).pad(padding);
-        mainTable.row();
-        mainTable.add(backButton).pad(padding);
-
-        mainTable.setPosition(PixelDungeon.V_WIDTH/2, PixelDungeon.V_HEIGHT/2);
-        return mainTable;
-    }
-
     private void recreate() {
         if (androidInterface.isSignedIn() != signedIn) {
             getActors().removeIndex(1);
             if (androidInterface.isSignedIn()) {
                 Util.getInstance().signIn();
                 signedIn = true;
-                addActor(new PlayerInfo());
             } else {
                 signedIn = false;
-                addActor(buildLogin());
             }
+            addActor(playerInfo = new PlayerInfo());
         }
     }
 

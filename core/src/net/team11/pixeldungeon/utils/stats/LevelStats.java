@@ -152,7 +152,6 @@ public class LevelStats {
         this.totalChests = newStats.totalChests;
         this.totalKeys = newStats.totalKeys;
         this.totalItems = newStats.totalItems;
-        this.bestTime = newStats.bestTime;
 
         for (String key : newStats.foundChests.keySet()) {
             if (this.foundChests.containsKey(key)) {

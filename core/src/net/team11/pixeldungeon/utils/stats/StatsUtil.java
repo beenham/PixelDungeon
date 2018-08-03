@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class StatsUtil {
-
     private HashMap<String, LevelStats> levelStats;
     private GlobalStats globalStats;
     private CurrentStats currentStats;

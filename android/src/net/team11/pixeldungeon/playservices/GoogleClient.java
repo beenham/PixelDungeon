@@ -61,10 +61,10 @@ public class GoogleClient {
                     public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
                         if (task.isSuccessful()) {
                             onConnected(task.getResult());
-                            Log.e(TAG, "Signed in");
+                            //Log.e(TAG, "Signed in");
                         } else {
                             setupGoogleClient(false);
-                            Log.e(TAG,"Couldn't Sign in");
+                            //Log.e(TAG,"Couldn't Sign in");
                         }
                     }
                 });
