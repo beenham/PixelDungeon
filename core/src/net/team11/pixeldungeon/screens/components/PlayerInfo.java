@@ -66,7 +66,6 @@ public class PlayerInfo extends Table {
             row();
             add(signinButton()).left().bottom().pad(padding,padding*4,padding*4,padding).colspan(5);
         }
-
     }
 
     private Label playerLabel() {

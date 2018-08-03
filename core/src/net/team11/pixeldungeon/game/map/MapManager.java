@@ -41,7 +41,7 @@ public class MapManager {
             }
         }
 
-        loadMap(TiledMapNames.TEST_LEVEL);
+        loadMap(TiledMapNames.LEVEL_TUTORIAL);
         renderer = new OrthogonalTiledMapRenderer(currentMap.getMap());
         renderer.setView(PlayScreen.gameCam);
     }

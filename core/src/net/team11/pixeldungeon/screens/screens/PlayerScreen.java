@@ -62,12 +62,17 @@ public class PlayerScreen extends AbstractScreen {
     }
 
     private void update() {
+<<<<<<< HEAD
         if (playerInfo != null) {
             if (PixelDungeon.getInstance().getAndroidInterface().isSignedIn()) {
                 playerInfo.update();
             } else {
                 playerInfo = null;
             }
+=======
+        if (playerInfo != null && signedIn) {
+            playerInfo.update();
+>>>>>>> release-branch
         }
     }
 
