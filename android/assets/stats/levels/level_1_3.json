@@ -1,6 +1,6 @@
 {
   "attempts":0,
-  "bestTime":4808,
+  "bestTime":3599,
   "completed":0,
   "foundChests": {
     "chest_1":false,
@@ -12,7 +12,7 @@
     "puzzleChest_1":false,
     "puzzleChest_2":false,
     "puzzleChest_3":false,
-    "puzzleChest_4":false,
+    "puzzleChest_4":false
   },
   "foundItems": {},
   "foundKeys": {
@@ -30,5 +30,6 @@
   "totalChests":10,
   "totalItems":0,
   "totalKeys":3,
-  "tutorial":false
+  "tutorial":false,
+  "versionNumber":1
 }
