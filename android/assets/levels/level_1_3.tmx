@@ -2722,7 +2722,7 @@
   <object id="156" name="colourGem1" x="112" y="464">
    <properties>
     <property name="chests" value="puzzleChest_1,puzzleChest_2,puzzleChest_3,puzzleChest_4"/>
-    <property name="maxAttempts" type="int" value="0"/>
+    <property name="maxAttempts" type="int" value="5"/>
     <property name="numGems" type="int" value="4"/>
     <property name="onComplete" value="mechanicDoor_5,dungeonRoomSpike"/>
     <property name="onFailure" value=""/>
@@ -2732,13 +2732,13 @@
   </object>
   <object id="201" name="simonSays_1" x="693.75" y="213.75">
    <properties>
-    <property name="difficulty" type="int" value="3"/>
+    <property name="difficulty" type="int" value="1"/>
     <property name="maxAttempts" type="int" value="5"/>
     <property name="onActivate" value=""/>
     <property name="onComplete" value="mechanicDoor_3"/>
     <property name="onFailure" value="simonSaysSpike_1"/>
     <property name="puzzle" value="simonSays"/>
-    <property name="stages" type="int" value="2"/>
+    <property name="stages" type="int" value="3"/>
    </properties>
    <polyline points="-53.4583,-21.5417 -53.4583,107.708 106.917,107.708 106.917,-21.5417 -53.4583,-21.5417"/>
   </object>
