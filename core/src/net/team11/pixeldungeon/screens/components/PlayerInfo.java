@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import net.team11.pixeldungeon.PixelDungeon;
+import net.team11.pixeldungeon.screens.AbstractScreen;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
@@ -156,7 +157,9 @@ public class PlayerInfo extends Table {
         achievements.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.openAchievements();
+                if (!((AbstractScreen)ScreenManager.getInstance().getScreen()).isPaused()) {
+                    androidInterface.openAchievements();
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -167,29 +170,9 @@ public class PlayerInfo extends Table {
         leaderboards.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.openLeaderboards();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
-        TextButton deleteSave = new TextButton("delete save", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        deleteSave.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-
-        deleteSave.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.deleteSave();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
-        TextButton overwriteSave = new TextButton("overwrite save", Assets.getInstance().getSkin(Assets.UI_SKIN));
-        overwriteSave.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
-
-        overwriteSave.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                androidInterface.overwriteSave(Util.LOCAL_SAVE_PATH);
+                if (!((AbstractScreen)ScreenManager.getInstance().getScreen()).isPaused()) {
+                    androidInterface.openLeaderboards();
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -197,10 +180,6 @@ public class PlayerInfo extends Table {
         gplayServices.add(achievements).top().pad(padding).fillX();
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
-        gplayServices.row();
-        gplayServices.add(deleteSave).bottom().pad(padding).fillX();
-        gplayServices.row();
-        gplayServices.add(overwriteSave).bottom().pad(padding).fillX();
 
         return gplayServices;
     }
@@ -212,8 +191,10 @@ public class PlayerInfo extends Table {
         backButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
-                        ScreenTransitionFade.init(.2f));
+                if (!((AbstractScreen)ScreenManager.getInstance().getScreen()).isPaused()) {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
+                            ScreenTransitionFade.init(.2f));
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -227,9 +208,11 @@ public class PlayerInfo extends Table {
         signOutButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().getScreen().pause();
-                Util.getInstance().signOut();
-                ScreenManager.getInstance().getScreen().resume();
+                if (!((AbstractScreen)ScreenManager.getInstance().getScreen()).isPaused()) {
+                    ScreenManager.getInstance().getScreen().pause();
+                    Util.getInstance().signOut();
+                    ScreenManager.getInstance().getScreen().resume();
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

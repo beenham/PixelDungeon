@@ -9,6 +9,9 @@ import com.badlogic.gdx.utils.Timer;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
 import net.team11.pixeldungeon.saves.SaveGame;
+import net.team11.pixeldungeon.screens.AbstractScreen;
+import net.team11.pixeldungeon.screens.ScreenManager;
+import net.team11.pixeldungeon.screens.components.dialog.SavesDialog;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
 import net.team11.pixeldungeon.utils.stats.GlobalStats;
 import net.team11.pixeldungeon.utils.stats.LevelStats;
@@ -163,8 +166,8 @@ public class Util {
 
     public void signIn() {
         saveLocation = Gdx.files.local(PLAYER_SAVE_PATH);
-        SaveGame localSave = currentSave;
-        PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();=
+        final SaveGame localSave = currentSave;
+        PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();
         if (currentSave.getTotalTime() == 0) {
             T11Log.error(TAG,"CloudSave time: 0, using local dir save");
             saveGame(localSave);
@@ -175,6 +178,13 @@ public class Util {
             loadGame();
         } else {
             T11Log.error(TAG,"Both saves have play time. Asking user.");
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    new SavesDialog(localSave,currentSave).show((AbstractScreen) ScreenManager
+                            .getInstance().getScreen());
+                }
+            },1.5f);
         }
     }
 

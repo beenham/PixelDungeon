@@ -49,8 +49,7 @@ public class RewardAdListener implements RewardedVideoAdListener {
         Log.i(TAG,"Video rewarded.. " + rewardItem.getType() + ": " + rewardItem.getAmount());
         Util.getInstance().getStatsUtil().getGlobalStats().addCurrentCoins(rewardItem.getAmount());
         Util.getInstance().saveGame();
-        RewardDialog dialog = new RewardDialog(rewardItem.getAmount());
-        dialog.show((AbstractScreen)ScreenManager.getInstance().getScreen());
+        new RewardDialog(rewardItem.getAmount()).show((AbstractScreen)ScreenManager.getInstance().getScreen());
     }
 
     @Override

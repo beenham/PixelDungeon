@@ -67,4 +67,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
     }
 
     public abstract InputProcessor getInputProcessor();
+
+    public boolean isPaused() {
+        return paused;
+    }
 }

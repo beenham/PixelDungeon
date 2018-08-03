@@ -318,10 +318,10 @@ public class CrossPlatformSystem implements AndroidInterface {
     }
 
     @Override
-    public void overwriteSave(String saveDir) {
+    public void overwriteSave(SaveGame save) {
         if (savingEnabled) {
             if (googleClient.isSignedIn() && !savesClient.isSaving()) {
-                savesClient.overwriteSnapshot(saveDir);
+                savesClient.overwriteSnapshot(save);
             }
         }
     }

@@ -104,6 +104,10 @@ public class Messages {
 
     public static final String SAVE_TO = "SAVE TO CLOUD";
     public static final String LOAD_FROM = "LOAD FROM CLOUD";
+    public static final String USE_SAVE_ONE = "Use Save One";
+    public static final String USE_SAVE_TWO = "Use Save Two";
+    public static final String SAVE_CONFLICT_TITLE = "SAVE CONFLICT!";
+    public static final String SAVE_CONFLICT_MESSAGE = "Choose the save you wish to use.";
 
     /////   STATS MESSAGES
     public static final String STATS_ATTEMPTED = "Attempted";

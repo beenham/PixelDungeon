@@ -1,5 +1,7 @@
 package net.team11.pixeldungeon.utils.crossplatform;
 
+import net.team11.pixeldungeon.saves.SaveGame;
+
 public interface AndroidInterface {
     ////    User Information
     String getUserName();
@@ -47,7 +49,7 @@ public interface AndroidInterface {
     void saveGame();
     void loadSaveGame();
     void deleteSave();
-    void overwriteSave(String saveDir);
+    void overwriteSave(SaveGame saveGame);
 
     ////    Debug Calls
     void debugCall(int type, String tag, String message);
