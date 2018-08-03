@@ -1,12 +1,15 @@
 package net.team11.pixeldungeon.crossplatform;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.badlogic.gdx.utils.Json;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.snapshot.Snapshot;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import net.team11.pixeldungeon.AndroidLauncher;
 import net.team11.pixeldungeon.R;
@@ -288,15 +291,37 @@ public class CrossPlatformSystem implements AndroidInterface {
     public void loadSaveGame() {
         if (savingEnabled) {
             if (googleClient.isSignedIn() && !savesClient.isLoading()) {
-                savesClient.loadSnapshot().addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                savesClient.loadSnapshot().addOnCompleteListener(new OnCompleteListener<byte[]>() {
                     @Override
-                    public void onSuccess(byte[] bytes) {
-                        Json json = new Json();
-                        SaveGame saveGame = json.fromJson(SaveGame.class, new String(bytes));
-                        Util.getInstance().saveGame(saveGame);
-                        Util.getInstance().loadGame();
+                    public void onComplete(@NonNull Task<byte[]> task) {
+                        if (task.isSuccessful()) {
+                            Json json = new Json();
+                            SaveGame saveGame = json.fromJson(SaveGame.class, new String(task.getResult()));
+                            Util.getInstance().saveGame(saveGame);
+                            Util.getInstance().loadGame();
+                        } else {
+                            Util.getInstance().loadGame();
+                        }
                     }
                 });
+            }
+        }
+    }
+
+    @Override
+    public void deleteSave() {
+        if (savingEnabled) {
+            if (googleClient.isSignedIn() && !savesClient.isSaving()) {
+                savesClient.deleteSnapshot();
+            }
+        }
+    }
+
+    @Override
+    public void overwriteSave(String saveDir) {
+        if (savingEnabled) {
+            if (googleClient.isSignedIn() && !savesClient.isSaving()) {
+                savesClient.overwriteSnapshot(saveDir);
             }
         }
     }

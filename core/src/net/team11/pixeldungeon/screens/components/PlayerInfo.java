@@ -172,9 +172,35 @@ public class PlayerInfo extends Table {
             }
         });
 
+        TextButton deleteSave = new TextButton("delete save", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        deleteSave.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
+
+        deleteSave.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                androidInterface.deleteSave();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        TextButton overwriteSave = new TextButton("overwrite save", Assets.getInstance().getSkin(Assets.UI_SKIN));
+        overwriteSave.getLabel().setFontScale(1.25f * PixelDungeon.SCALAR);
+
+        overwriteSave.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                androidInterface.overwriteSave(Util.LOCAL_SAVE_PATH);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
         gplayServices.add(achievements).top().pad(padding).fillX();
         gplayServices.row();
         gplayServices.add(leaderboards).bottom().pad(padding).fillX();
+        gplayServices.row();
+        gplayServices.add(deleteSave).bottom().pad(padding).fillX();
+        gplayServices.row();
+        gplayServices.add(overwriteSave).bottom().pad(padding).fillX();
 
         return gplayServices;
     }

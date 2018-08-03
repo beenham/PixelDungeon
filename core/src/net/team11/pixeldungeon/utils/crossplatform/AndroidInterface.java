@@ -46,6 +46,8 @@ public interface AndroidInterface {
     void showCloudSaves();
     void saveGame();
     void loadSaveGame();
+    void deleteSave();
+    void overwriteSave(String saveDir);
 
     ////    Debug Calls
     void debugCall(int type, String tag, String message);

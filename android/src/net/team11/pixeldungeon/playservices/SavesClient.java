@@ -70,7 +70,75 @@ public class SavesClient {
                 saving = false;
             }
         });
+    }
 
+    public void deleteSnapshot() {
+        saving = true;
+        final SnapshotsClient snapshotsClient = Games.getSnapshotsClient(mActivity, GoogleSignIn.getLastSignedInAccount(mActivity));
+        snapshotsClient.open(SaveGame.SAVE_NAME, true).addOnSuccessListener(new OnSuccessListener<SnapshotsClient.DataOrConflict<Snapshot>>() {
+            @Override
+            public void onSuccess(SnapshotsClient.DataOrConflict<Snapshot> snapshotDataOrConflict) {
+                processSnapshotOpenResult(snapshotDataOrConflict, 5).addOnSuccessListener(new OnSuccessListener<Snapshot>() {
+                    @Override
+                    public void onSuccess(Snapshot snapshot) {
+                        snapshotsClient.delete(snapshot.getMetadata()).addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                Log.e(TAG,"Completed.");
+                                if (task.isSuccessful()) {
+                                    Log.e(TAG,"Delete Successful.");
+                                    Util.clearLocal();
+                                    Util.getInstance().loadGame();
+                                } else {
+                                    Log.e(TAG,"Delete Failed.");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }).addOnCompleteListener(new OnCompleteListener<SnapshotsClient.DataOrConflict<Snapshot>>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SnapshotsClient.DataOrConflict<Snapshot>> task) {
+                        saving = false;
+                    }
+                });
+    }
+
+    public void overwriteSnapshot(final String saveDir) {
+        saving = true;
+        final SnapshotsClient snapshotsClient = Games.getSnapshotsClient(mActivity, GoogleSignIn.getLastSignedInAccount(mActivity));
+        snapshotsClient.open(SaveGame.SAVE_NAME, true).addOnSuccessListener(new OnSuccessListener<SnapshotsClient.DataOrConflict<Snapshot>>() {
+            @Override
+            public void onSuccess(SnapshotsClient.DataOrConflict<Snapshot> snapshotDataOrConflict) {
+                Log.e(TAG,"Success Opening Snapshot");
+                Json json = new Json();
+                final SaveGame localSave = json.fromJson(SaveGame.class, Gdx.files.local(saveDir));
+                processSnapshotOpenResult(snapshotDataOrConflict, 5).addOnSuccessListener(new OnSuccessListener<Snapshot>() {
+                    @Override
+                    public void onSuccess(Snapshot snapshot) {
+                        snapshotsClient.delete(snapshot.getMetadata()).addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                Log.e(TAG,"Completed.");
+                                if (task.isSuccessful()) {
+                                    Log.e(TAG,"Delete Successful.");
+                                    Util.getInstance().saveGame(localSave);
+                                    Util.getInstance().loadGame();
+                                } else {
+                                    Log.e(TAG,"Delete Failed.");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }).addOnCompleteListener(new OnCompleteListener<SnapshotsClient.DataOrConflict<Snapshot>>() {
+            @Override
+            public void onComplete(@NonNull Task<SnapshotsClient.DataOrConflict<Snapshot>> task) {
+                saving = false;
+            }
+        });
     }
 
     private void writeSnapshot(Snapshot snapshot, byte[] data) {

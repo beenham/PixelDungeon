@@ -30,7 +30,7 @@ public class Util {
     private static final String LEVEL_STATS_PATH = "stats/levels";
 
     public static final String PLAYER_SAVE_PATH = "saves/player/SaveGame.json";
-    private static final String LOCAL_SAVE_PATH = "saves/local/SaveGame.json";
+    public static final String LOCAL_SAVE_PATH = "saves/local/SaveGame.json";
 
     private StatsUtil statsUtil;
     private InventoryUtil inventoryUtil;
@@ -49,7 +49,7 @@ public class Util {
     }
 
     private Util() {
-        //clearLocal();
+        //PixelDungeon.getInstance().getAndroidInterface().deleteSave();
         loadGame();
     }
 
@@ -164,17 +164,17 @@ public class Util {
     public void signIn() {
         saveLocation = Gdx.files.local(PLAYER_SAVE_PATH);
         SaveGame localSave = currentSave;
-        T11Log.info(TAG,currentSave.getTimeStamp() + " " + currentSave.getTotalTime());
-        PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();
-        T11Log.info(TAG,currentSave.getTimeStamp() + " " + currentSave.getTotalTime());
-        if (localSave.getTotalTime() > currentSave.getTotalTime()) {
+        PixelDungeon.getInstance().getAndroidInterface().loadSaveGame();=
+        if (currentSave.getTotalTime() == 0) {
+            T11Log.error(TAG,"CloudSave time: 0, using local dir save");
             saveGame(localSave);
             loadGame();
-            T11Log.error(TAG,"Local total time is greater than player total time");
-            T11Log.error(TAG,currentSave.toString());
+        } else if (localSave.getTotalTime() == 0) {
+            T11Log.error(TAG,"Local time: 0, using cloud save");
+            saveGame(currentSave);
+            loadGame();
         } else {
-            T11Log.error(TAG,"Local total time is less than player total time, using cloud save");
-            saveGame();
+            T11Log.error(TAG,"Both saves have play time. Asking user.");
         }
     }
 
