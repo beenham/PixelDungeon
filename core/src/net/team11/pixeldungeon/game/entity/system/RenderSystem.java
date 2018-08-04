@@ -7,25 +7,19 @@ import com.badlogic.gdx.math.Polygon;
 
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.entities.beams.Beam;
-
 import net.team11.pixeldungeon.game.entities.beams.BeamReflectorMovable;
 import net.team11.pixeldungeon.game.entities.blocks.Box;
 import net.team11.pixeldungeon.game.entities.blocks.PressurePlate;
-
 import net.team11.pixeldungeon.game.entities.blocks.Torch;
 import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
-
-import net.team11.pixeldungeon.game.entity.component.playercomponent.PlayerComponent;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.game.map.MapManager;
-
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.CollisionUtil;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,11 +110,26 @@ public class RenderSystem extends EntitySystem {
                     if (entity instanceof Player) {
                         if (((Player) entity).getScale() > 0f) {
                             spriteBatch.setColor(1, 1, 1, ((Player) entity).getScale());
-                            spriteBatch.draw(currentAnimation.getKeyFrame(animationComponent.getStateTime(), true),
+                            TextureRegion texture = new TextureRegion(currentAnimation.getKeyFrame(animationComponent.getStateTime(),true));
+                            switch (((Player)entity).getDepth()) {
+                                case ONE_QUART:
+                                    texture.setRegionHeight((int)(height * 1/3));
+                                    break;
+                                case TWO_QUART:
+                                    texture.setRegionHeight((int)(height * 2/5));
+                                    break;
+                                case THREE_QUART:
+                                    texture.setRegionHeight((int)(height * 3/4));
+                                    break;
+                                case FOUR_QUART:
+                                    texture.setRegionHeight((int)(height));
+                                    break;
+                            }
+                            spriteBatch.draw(texture,
                                     bodyComponent.getX() - ((width * ((Player) entity).getScale()) / 2),
                                     bodyComponent.getY() - ((bodyComponent.getHeight() * ((Player) entity).getScale()) / 2),
                                     width * ((Player) entity).getScale(),
-                                    height * ((Player) entity).getScale());
+                                    height * ((Player) entity).getScale() - (height-texture.getRegionHeight()));
                             spriteBatch.setColor(1, 1, 1, 1);
                         }
                     } else {

@@ -1,7 +1,6 @@
 package net.team11.pixeldungeon.utils.assets;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -17,6 +16,7 @@ public class Assets {
     public static final String UI_SKIN = "uiskin";
 
     public static final String PLAYER_DEFAULT = "default";
+    public static final String PLAYER_MUSKETEER_RED = "musketeerRed";
     public static final String PLAYER_DEATH = "deaths";
 
     private static Assets INSTANCE = new Assets();
@@ -40,6 +40,7 @@ public class Assets {
         textures.put(TRAPS, new TextureAtlas(Gdx.files.internal("texturepacks/entities/Traps.atlas")));
 
         playerTextures.put(PLAYER_DEFAULT, new TextureAtlas(Gdx.files.internal("texturepacks/player/Player_Default.atlas")));
+        playerTextures.put(PLAYER_MUSKETEER_RED, new TextureAtlas(Gdx.files.internal("texturepacks/player/Player_Musketeer_Red.atlas")));
         playerTextures.put(PLAYER_DEATH, new TextureAtlas(Gdx.files.internal("texturepacks/player/Player_Deaths.atlas")));
 
         skins.put(UI_SKIN, new Skin(Gdx.files.internal("skin/uiskin/ui_skin.json")));
