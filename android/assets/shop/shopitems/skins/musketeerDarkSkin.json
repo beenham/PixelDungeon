@@ -1,0 +1,11 @@
+{
+  "id":4,
+  "name":"musketeerDark",
+  "displayName":"The Dark Musketeer!",
+  "description":"A young adventurer setting off on his travels.",
+  "amount":1,
+  "cost":4000,
+  "buyable":true,
+  "unlock":"Unlocked by default. Fool.",
+  "image":null
+}

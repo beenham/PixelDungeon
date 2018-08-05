@@ -120,8 +120,8 @@ public class Util {
             saveGame(currentSave);
         }
 
-        inventoryUtil = InventoryUtil.getInstance();
         statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
+        inventoryUtil = InventoryUtil.getInstance();
         inventoryUtil.setSkinList(currentSave.getSkinList());
     }
 
@@ -136,7 +136,7 @@ public class Util {
     public void saveGame() {
         statsUtil.saveTimer();
         currentSave = new SaveGame(statsUtil.getLevelStats(), statsUtil.getGlobalStats(),
-                inventoryUtil.getSkinList(), getTimeStamp());
+                inventoryUtil.getSkinSet(), getTimeStamp());
         saveGame(currentSave);
     }
 

@@ -1,0 +1,11 @@
+{
+  "id":1,
+  "name":"musketeerRed",
+  "displayName":"The Crimson Musketeer!",
+  "description":"A young adventurer setting off on his travels.",
+  "amount":1,
+  "cost":2500,
+  "buyable":true,
+  "unlock":"Unlocked by default. Fool.",
+  "image":null
+}

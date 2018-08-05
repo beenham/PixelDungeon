@@ -18,7 +18,6 @@ import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.HashMap;
 
@@ -36,7 +35,7 @@ public class SkinInfo extends Table {
 
     public SkinInfo(float size) {
         skins = InventoryUtil.getInstance().getSkins();
-        skinList = InventoryUtil.getInstance().getSkinList();
+        skinList = InventoryUtil.getInstance().getSkinSet();
         currentSkin = skinList.getCurrentSkin();
 
         setupLayout(size);

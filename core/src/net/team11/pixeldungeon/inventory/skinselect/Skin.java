@@ -14,7 +14,7 @@ public class Skin extends Item {
     public Image getImage() {
         if (image == null) {
             image = new Image(
-                    Assets.getInstance().getPlayerTexture(Assets.PLAYER_DEFAULT)
+                    Assets.getInstance().getPlayerTexture(name)
                     .findRegion(AssetName.PLAYER_IDLE_DOWN));
         }
         return image;

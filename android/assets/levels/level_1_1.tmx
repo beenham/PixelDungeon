@@ -2061,7 +2061,7 @@
     <property name="room" value="room_01"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
-    <property name="timed" type="bool" value="false"/>
+    <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="1.333333"/>
     <property name="trigger" type="bool" value="false"/>
    </properties>
@@ -2073,7 +2073,7 @@
     <property name="room" value="room_01"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
-    <property name="timed" type="bool" value="false"/>
+    <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="1.333333"/>
     <property name="trigger" type="bool" value="false"/>
    </properties>
@@ -2085,7 +2085,7 @@
     <property name="room" value="room_01"/>
     <property name="size" value="2x2"/>
     <property name="target" value=""/>
-    <property name="timed" type="bool" value="false"/>
+    <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="1.333333"/>
     <property name="trigger" type="bool" value="false"/>
    </properties>

@@ -1,0 +1,11 @@
+{
+  "id":2,
+  "name":"musketeerBlue",
+  "displayName":"The Sapphire Musketeer!",
+  "description":"A young adventurer setting off on his travels.",
+  "amount":1,
+  "cost":2500,
+  "buyable":true,
+  "unlock":"Unlocked by default. Fool.",
+  "image":null
+}

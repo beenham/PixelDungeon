@@ -30,7 +30,7 @@ public class SkinDisplay extends Table {
         iconTable.add(icon).size(width,size);
         Stack skinStack = new Stack();
         skinStack.add(iconTable);
-        if (!InventoryUtil.getInstance().getSkinList().hasSkin(skin.getName())) {
+        if (!InventoryUtil.getInstance().getSkinSet().hasSkin(skin.getName())) {
             Image lock = new Image(Assets.getInstance().getTextureSet(Assets.HUD).findRegion("itemLock"));
             Table lockTable = new Table();
             lockTable.add(lock).size(size/2).expand().fill().bottom().right();

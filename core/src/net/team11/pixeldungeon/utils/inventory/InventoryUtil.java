@@ -6,10 +6,9 @@ import com.badlogic.gdx.utils.Json;
 
 import net.team11.pixeldungeon.inventory.skinselect.Skin;
 import net.team11.pixeldungeon.inventory.skinselect.SkinList;
+import net.team11.pixeldungeon.utils.T11Log;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class InventoryUtil {
     private static InventoryUtil INSTANCE;
@@ -17,9 +16,7 @@ public class InventoryUtil {
     private HashMap<Integer,Skin> skins;
 
     private InventoryUtil() {
-//        clearLocal();
         skins = readSkins();
-//        skinList = parseSkinList();
     }
 
     private HashMap<Integer,Skin> readSkins() {
@@ -29,6 +26,7 @@ public class InventoryUtil {
             if (file.toString().endsWith(".json")) {
                 Skin skin = json.fromJson(Skin.class,file);
                 list.put(skin.getId(),skin);
+                T11Log.error("InvenUtil","Added " + skin.getDisplayName() + " (" + skin.getName() + "), at " + skin.getId());
             }
         }
         return list;
@@ -75,12 +73,8 @@ public class InventoryUtil {
         return skins;
     }
 
-    public SkinList getSkinList() {
+    public SkinList getSkinSet() {
         return skinList;
-    }
-
-    private void clearLocal() {
-        Gdx.files.local("shop").deleteDirectory();
     }
 
     public static InventoryUtil getInstance() {

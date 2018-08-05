@@ -26,6 +26,7 @@ import net.team11.pixeldungeon.utils.Direction;
 import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
 
 import static net.team11.pixeldungeon.game.entities.player.Player.PlayerDepth.FOUR_QUART;
 
@@ -73,7 +74,9 @@ public class Player extends Entity {
         this.addComponent(new InteractionComponent(this));
         this.addComponent(new InventoryComponent());
 
-        TextureAtlas textureAtlas = Assets.getInstance().getPlayerTexture(Assets.PLAYER_MUSKETEER_RED);
+        InventoryUtil invenUtil = InventoryUtil.getInstance();
+        TextureAtlas textureAtlas = Assets.getInstance().getPlayerTexture(
+                invenUtil.getSkins().get(invenUtil.getSkinSet().getCurrentSkin()).getName());
         animationComponent.addAnimation(AssetName.PLAYER_MOVING_UP, textureAtlas, 2f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PLAYER_MOVING_DOWN, textureAtlas, 2f, Animation.PlayMode.LOOP);
         animationComponent.addAnimation(AssetName.PLAYER_MOVING_LEFT, textureAtlas, 2f, Animation.PlayMode.LOOP);
