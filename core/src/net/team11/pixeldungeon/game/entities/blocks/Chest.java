@@ -11,21 +11,19 @@ import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.game.entity.component.entitycomponent.ChestComponent;
+import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.items.Item;
 import net.team11.pixeldungeon.game.items.keys.ChestKey;
 import net.team11.pixeldungeon.game.items.keys.Key;
-import net.team11.pixeldungeon.game.map.Map;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.Util;
-import net.team11.pixeldungeon.utils.assets.Messages;
-import net.team11.pixeldungeon.utils.assets.AssetName;
-import net.team11.pixeldungeon.game.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+import net.team11.pixeldungeon.utils.Util;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 import java.util.Locale;
-import java.util.Random;
 
 public class Chest extends Entity {
     private boolean opened;
@@ -187,23 +185,7 @@ public class Chest extends Entity {
                 if (isEmpty()) {
                     updateStatsOpened();
                     looted = true;
-                    int randomInt = (int)(Math.round(Math.random()));
-
-                    String message;
-                    switch (randomInt){
-                        case (0):
-                            message = Messages.CHEST_IS_EMPTY_1;
-                            break;
-
-                        case (1):
-                            message = Messages.CHEST_IS_EMPTY_2;
-                            break;
-
-                        default:
-                            message = Messages.CHEST_IS_EMPTY_1;
-                            break;
-                    }
-
+                    String message = Messages.CHEST_IS_EMPTY;
                     PlayScreen.uiManager.initTextBox(message);
                     animationComponent.setAnimation(AssetName.CHEST_EMPTY_OPENING);
                     animationComponent.setNextAnimation(AssetName.CHEST_LOOTED);
