@@ -12,13 +12,12 @@ import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.game.map.MapManager;
+import net.team11.pixeldungeon.game.tutorial.TutorialZone;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.game.tutorial.TutorialZone;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Util;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 
@@ -76,17 +75,18 @@ public class VelocitySystem extends EntitySystem {
             Polygon collisionBox = CollisionUtil.createRectangle(
                     collision.x+collision.width/2,collision.y+collision.height/2,
                     collision.width,collision.height);
-            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
+            if (CollisionUtil.isSubmerged(collisionBox,entityBox)) {
                 engine.finish();
                 if (Util.getInstance().getStatsUtil()
                         .getLevelStats(MapManager.getInstance().getCurrentMap().getMapName())
                         .isTutorial()) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
                             ScreenTransitionFade.init(1f));
+                } else {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,
+                            ScreenTransitionFade.init(1f),
+                            players.get(0).getComponent(InventoryComponent.class));
                 }
-                ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,
-                        ScreenTransitionFade.init(1f),
-                        players.get(0).getComponent(InventoryComponent.class));
             }
         } catch (Exception e) {
             //e.printStackTrace();

@@ -944,264 +944,108 @@
    </properties>
    <polyline points="52,162.667 212,162.667 212,482.667 52,482.667 52,162.667"/>
   </object>
-  <object id="233" name="02_spike_0" x="784" y="816" width="16" height="16">
+  <object id="233" name="02_spike_0" x="784" y="816" width="16" height="32">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="2x1"/>
     <property name="target" value="02_spike_1"/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="3"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="234" name="02_spike_0" x="784" y="832" width="16" height="16">
+  <object id="235" name="02_spike_1" x="768" y="816" width="16" height="32">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="false"/>
-    <property name="timer" type="float" value="50"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="235" name="02_spike_1" x="768" y="816" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="2x1"/>
     <property name="target" value="02_spike_2"/>
     <property name="timed" type="bool" value="false"/>
     <property name="timer" type="float" value="50"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="236" name="02_spike_1" x="768" y="832" width="16" height="16">
+  <object id="238" name="02_spike_2" x="752" y="816" width="16" height="32">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="2x1"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="false"/>
     <property name="timer" type="float" value="50"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="237" name="02_spike_2" x="752" y="832" width="16" height="16">
+  <object id="242" name="02_spike" x="784" y="896" width="32" height="32">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="false"/>
-    <property name="timer" type="float" value="50"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="238" name="02_spike_2" x="752" y="816" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="false"/>
-    <property name="timer" type="float" value="50"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="239" name="02_spike" x="784" y="912" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="2"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="240" name="02_spike" x="800" y="912" width="16" height="16">
+  <object id="246" name="02_spike" x="816" y="864" width="32" height="32">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="2x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="2"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="241" name="02_spike" x="800" y="896" width="16" height="16">
+  <object id="248" name="02_spike" x="848" y="848" width="32" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="1x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="2"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="242" name="02_spike" x="784" y="896" width="16" height="16">
+  <object id="250" name="02_spike" x="848" y="800" width="32" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="1x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="2"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="243" name="02_spike" x="816" y="880" width="16" height="16">
+  <object id="252" name="02_spike" x="800" y="800" width="32" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="1x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="2"/>
     <property name="trigger" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="244" name="02_spike" x="832" y="880" width="16" height="16">
+  <object id="254" name="02_spike" x="720" y="800" width="32" height="16">
    <properties>
     <property name="enabled" type="bool" value="true"/>
     <property name="entity" value="floorSpike"/>
     <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="245" name="02_spike" x="832" y="864" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="246" name="02_spike" x="816" y="864" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="247" name="02_spike" x="864" y="848" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="248" name="02_spike" x="848" y="848" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="249" name="02_spike" x="864" y="800" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="250" name="02_spike" x="848" y="800" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="251" name="02_spike" x="816" y="800" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="252" name="02_spike" x="800" y="800" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="253" name="02_spike" x="736" y="800" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
-    <property name="target" value=""/>
-    <property name="timed" type="bool" value="true"/>
-    <property name="timer" type="float" value="2"/>
-    <property name="trigger" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="254" name="02_spike" x="720" y="800" width="16" height="16">
-   <properties>
-    <property name="enabled" type="bool" value="true"/>
-    <property name="entity" value="floorSpike"/>
-    <property name="room" value="room_01"/>
-    <property name="size" value="1x1"/>
+    <property name="size" value="1x2"/>
     <property name="target" value=""/>
     <property name="timed" type="bool" value="true"/>
     <property name="timer" type="float" value="2"/>
@@ -1541,14 +1385,14 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#000000" name="collision" visible="0">
+ <objectgroup color="#000000" name="collision">
   <object id="255" x="784" y="272">
-   <polyline points="0,48 32,48 32,128 64,128 64,160 32,160 32,176 96,176 96,272 80,272 80,288 96,288 96,416 0,416 0,528 -32,528 -32,544 16,544 16,448 96,448 96,624 32,624 32,688 80,688 80,784 32,784 32,848 96,848 96,976 -64,976 -64,848 0,848 0,784 -48,784 -48,688 0,688 0,592 64,592 64,528 48,528 48,576 -64,576 -64,496 -32,496 -32,416 -64,416 -64,288 0,288 0,368 32,368 32,288 48,288 48,272 -64,272 -64,176 0,176 0,160 -32,160 -32,128 0,128 0,48"/>
+   <polyline points="0,32 32,32 32,128 64,128 64,160 32,160 32,176 96,176 96,272 80,272 80,288 96,288 96,416 0,416 0,528 -32,528 -32,544 16,544 16,448 96,448 96,624 32,624 32,688 80,688 80,784 32,784 32,848 96,848 96,976 -64,976 -64,848 0,848 0,784 -48,784 -48,688 0,688 0,592 64,592 64,528 48,528 48,576 -64,576 -64,496 -32,496 -32,416 -64,416 -64,288 0,288 0,368 32,368 32,288 48,288 48,272 -64,272 -64,176 0,176 0,160 -32,160 -32,128 0,128 0,32"/>
   </object>
  </objectgroup>
  <objectgroup color="#ffffff" name="points" visible="0">
   <object id="2" name="playerSpawn" x="792" y="1184" width="16" height="16"/>
-  <object id="205" name="mapExitPoint" x="768" y="313" width="64" height="32"/>
+  <object id="205" name="mapExitPoint" x="768" y="304" width="64" height="32"/>
  </objectgroup>
  <objectgroup color="#04ff00" name="puzzle" visible="0">
   <object id="232" name="boxPuzzle1" x="800" y="720">
