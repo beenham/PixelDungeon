@@ -1,11 +1,11 @@
 {
-  "version": 0.24,
+  "version": 0.25,
   "skins": {
     "default":true,
-    "musketeerRed":true,
-    "musketeerBlue":true,
-    "musketeerGreen":true,
-    "musketeerDark":true
+    "musketeerRed":false,
+    "musketeerBlue":false,
+    "musketeerGreen":false,
+    "musketeerDark":false
   },
   "currentSkin": 0
 }

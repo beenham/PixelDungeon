@@ -34,7 +34,7 @@ public class MapManager {
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
             if (entry.toString().endsWith(".tmx")) {
-                T11Log.error(TAG,"LOADING FILE: " + entry.toString());
+                T11Log.error(TAG, "LOADING FILE: " + entry.toString());
                 Map map = new Map(entry.toString());
                 maps.put(map.getMapName(), map);
                 mapList.add(map.getMapName());
@@ -42,8 +42,6 @@ public class MapManager {
         }
 
         loadMap(TiledMapNames.LEVEL_TUTORIAL);
-        renderer = new OrthogonalTiledMapRenderer(currentMap.getMap());
-        renderer.setView(PlayScreen.gameCam);
     }
 
     public void renderBackGround() {
@@ -77,6 +75,10 @@ public class MapManager {
             currentMap = maps.get(mapName);
             if (renderer != null) {
                 renderer.setMap(currentMap.getMap());
+                renderer.setView(PlayScreen.gameCam);
+            } else {
+                renderer = new OrthogonalTiledMapRenderer(currentMap.getMap());
+                renderer.setView(PlayScreen.gameCam);
             }
             if (!currentMap.isLoaded() && engine != null) {
                 loadEntities();

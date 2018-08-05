@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.game.DirectedGame;
-import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.crossplatform.AndroidInterface;
 
 public class PixelDungeon extends DirectedGame {
@@ -30,7 +29,6 @@ public class PixelDungeon extends DirectedGame {
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();
 		SCALAR = (V_HEIGHT / 1080f);
-		Util.getInstance();
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.LOADING);
 	}

@@ -15,11 +15,11 @@ public class Assets {
     public static final String TRAPS = "traps";
     public static final String UI_SKIN = "uiskin";
 
-    public static final String PLAYER_DEFAULT = "default";
-    public static final String PLAYER_MUSKETEER_RED = "musketeerRed";
-    public static final String PLAYER_MUSKETEER_BLUE = "musketeerBlue";
-    public static final String PLAYER_MUSKETEER_GREEN = "musketeerGreen";
-    public static final String PLAYER_MUSKETEER_DARK = "musketeerDark";
+    private static final String PLAYER_DEFAULT = "default";
+    private static final String PLAYER_MUSKETEER_RED = "musketeerRed";
+    private static final String PLAYER_MUSKETEER_BLUE = "musketeerBlue";
+    private static final String PLAYER_MUSKETEER_GREEN = "musketeerGreen";
+    private static final String PLAYER_MUSKETEER_DARK = "musketeerDark";
     public static final String PLAYER_DEATH = "deaths";
 
     private static Assets INSTANCE = new Assets();
@@ -29,13 +29,12 @@ public class Assets {
 
     private Assets() {
         textures = new HashMap<>();
+        textures.put(BACKGROUND, new TextureAtlas(Gdx.files.internal("texturepacks/ui/Backgrounds.atlas")));
         playerTextures = new HashMap<>();
         skins = new HashMap<>();
-        loadAssets();
     }
 
     private void loadAssets() {
-        textures.put(BACKGROUND, new TextureAtlas(Gdx.files.internal("texturepacks/ui/Backgrounds.atlas")));
         textures.put(BLOCKS, new TextureAtlas(Gdx.files.internal("texturepacks/entities/Blocks.atlas")));
         textures.put(HUD, new TextureAtlas(Gdx.files.internal("texturepacks/ui/Hud.atlas")));
         textures.put(ITEMS, new TextureAtlas(Gdx.files.internal("texturepacks/items/Items.atlas")));
@@ -78,6 +77,10 @@ public class Assets {
 
     public static Assets getInstance() {
         return INSTANCE;
+    }
+
+    public void init() {
+        loadAssets();
     }
 
     public static void dispose() {

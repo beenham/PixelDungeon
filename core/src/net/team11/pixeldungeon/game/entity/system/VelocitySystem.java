@@ -12,13 +12,12 @@ import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.entitysystem.EntitySystem;
 import net.team11.pixeldungeon.game.map.MapManager;
+import net.team11.pixeldungeon.game.tutorial.TutorialZone;
 import net.team11.pixeldungeon.screens.ScreenEnum;
 import net.team11.pixeldungeon.screens.ScreenManager;
 import net.team11.pixeldungeon.screens.transitions.ScreenTransitionFade;
-import net.team11.pixeldungeon.game.tutorial.TutorialZone;
 import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.Util;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapObjectNames;
 
