@@ -3,6 +3,7 @@ package net.team11.pixeldungeon.utils.stats;
 import net.team11.pixeldungeon.game.entities.blocks.Chest;
 import net.team11.pixeldungeon.game.items.Item;
 import net.team11.pixeldungeon.game.items.keys.Key;
+import net.team11.pixeldungeon.game.map.MapManager;
 import net.team11.pixeldungeon.utils.Util;
 
 import java.util.HashMap;
@@ -48,8 +49,10 @@ public class StatsUtil {
     }
 
     public void saveTimer() {
-        globalStats.addTime(timer-flaggedTimer);
-        flaggedTimer = timer;
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            globalStats.addTime(timer - flaggedTimer);
+            flaggedTimer = timer;
+        }
     }
 
     public int getTimer() {
@@ -69,27 +72,33 @@ public class StatsUtil {
     }
 
     public void updateChests(Chest chest) {
-        currentStats.incrementChests();
-        currentStats.addChest(chest.getName());
-        globalStats.incrementChestsFound();
-        Util.getInstance().saveGame();
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            currentStats.incrementChests();
+            currentStats.addChest(chest.getName());
+            globalStats.incrementChestsFound();
+            Util.getInstance().saveGame();
+        }
     }
 
     //
     public void updateKeys(Key key) {
-        System.out.println("Updating key stats");
-        currentStats.incrementKeys();
-        currentStats.addKey(key.getName());
-        globalStats.incrementKeysFound();
-        Util.getInstance().saveGame();
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            System.out.println("Updating key stats");
+            currentStats.incrementKeys();
+            currentStats.addKey(key.getName());
+            globalStats.incrementKeysFound();
+            Util.getInstance().saveGame();
+        }
     }
 
     //
     public void updateItems(Item item) {
-        currentStats.incrementItems();
-        currentStats.addItem(item.getName());
-        globalStats.incrementItemsFound();
-        Util.getInstance().saveGame();
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            currentStats.incrementItems();
+            currentStats.addItem(item.getName());
+            globalStats.incrementItemsFound();
+            Util.getInstance().saveGame();
+        }
     }
 
     //
@@ -103,19 +112,25 @@ public class StatsUtil {
     }
 
     public void updatePuzzleAttempts() {
-        globalStats.incrementPuzzleAttempted();
-        Util.getInstance().saveGame();
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            globalStats.incrementPuzzleAttempted();
+            Util.getInstance().saveGame();
+        }
     }
 
     public void updatePuzzleCompleted() {
-        this.getGlobalStats().incrementPuzzleCompleted();
-        Util.getInstance().saveGame();
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            this.getGlobalStats().incrementPuzzleCompleted();
+            Util.getInstance().saveGame();
+        }
     }
 
     public void respawn(String mapName) {
-        currentStats.respawn();
-        globalStats.incrementDeaths();
-        updateAttempts(mapName);
-        Util.getInstance().saveGame();
+        if (!levelStats.get(MapManager.getInstance().getCurrentMap().getMapName()).isTutorial()) {
+            currentStats.respawn();
+            globalStats.incrementDeaths();
+            updateAttempts(mapName);
+            Util.getInstance().saveGame();
+        }
     }
 }
