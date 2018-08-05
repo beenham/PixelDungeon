@@ -11,17 +11,17 @@ import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.InteractionComponent;
 import net.team11.pixeldungeon.game.entity.component.InventoryComponent;
 import net.team11.pixeldungeon.game.entity.component.entitycomponent.ChestComponent;
+import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.game.items.Coin;
 import net.team11.pixeldungeon.game.items.Item;
 import net.team11.pixeldungeon.game.items.keys.ChestKey;
 import net.team11.pixeldungeon.game.items.keys.Key;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
-import net.team11.pixeldungeon.utils.Util;
-import net.team11.pixeldungeon.utils.assets.Messages;
-import net.team11.pixeldungeon.utils.assets.AssetName;
-import net.team11.pixeldungeon.game.entitysystem.Entity;
-import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.CollisionUtil;
+import net.team11.pixeldungeon.utils.Util;
+import net.team11.pixeldungeon.utils.assets.AssetName;
+import net.team11.pixeldungeon.utils.assets.Assets;
+import net.team11.pixeldungeon.utils.assets.Messages;
 
 import java.util.Locale;
 

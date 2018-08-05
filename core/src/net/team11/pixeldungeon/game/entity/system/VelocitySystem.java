@@ -75,17 +75,18 @@ public class VelocitySystem extends EntitySystem {
             Polygon collisionBox = CollisionUtil.createRectangle(
                     collision.x+collision.width/2,collision.y+collision.height/2,
                     collision.width,collision.height);
-            if (CollisionUtil.isOverlapping(collisionBox,entityBox)) {
+            if (CollisionUtil.isSubmerged(collisionBox,entityBox)) {
                 engine.finish();
                 if (Util.getInstance().getStatsUtil()
                         .getLevelStats(MapManager.getInstance().getCurrentMap().getMapName())
                         .isTutorial()) {
                     ScreenManager.getInstance().changeScreen(ScreenEnum.MAIN_MENU,
                             ScreenTransitionFade.init(1f));
+                } else {
+                    ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,
+                            ScreenTransitionFade.init(1f),
+                            players.get(0).getComponent(InventoryComponent.class));
                 }
-                ScreenManager.getInstance().changeScreen(ScreenEnum.LEVEL_COMPLETE,
-                        ScreenTransitionFade.init(1f),
-                        players.get(0).getComponent(InventoryComponent.class));
             }
         } catch (Exception e) {
             //e.printStackTrace();
