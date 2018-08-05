@@ -3,7 +3,8 @@ package net.team11.pixeldungeon.utils.assets;
 public class Messages {
     public static final String INVENTORY_FULL = "You can't take this item! Your inventory is full";
 
-    public static final String CHEST_IS_EMPTY = "Huh. The chest was empty. Why leave an empty chest?";
+    public static final String CHEST_IS_EMPTY_1 = "Huh. The chest was empty. Why leave an empty chest?";
+    public static final String CHEST_IS_EMPTY_2 = "Trolololol";
     public static final String CHEST_IS_LOOTED = "Why look in an empty chest again";
     public static final String CHEST_LOOT_LATER = "Come back later to grab your loot";
     public static final String CHEST_NEED_KEY = "You need a Chest Key to open this chest";
