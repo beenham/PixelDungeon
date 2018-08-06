@@ -10,11 +10,10 @@ import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.AnimationComponent;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.TrapComponent;
-import net.team11.pixeldungeon.game.entity.system.RenderSystem;
 import net.team11.pixeldungeon.game.entitysystem.Entity;
+import net.team11.pixeldungeon.utils.CollisionUtil;
 import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
-import net.team11.pixeldungeon.utils.CollisionUtil;
 
 import java.util.List;
 
@@ -92,7 +91,7 @@ public class PressurePlate extends Trap {
                 } else if (overlapping) {
                     setContactingEntity(entity);
                 } else if (super.timer >= 0) {
-                    trigger();
+                    trigger(false);
                 }
             } else if (overlapping) {
                 setContactingEntity(entity);
@@ -106,7 +105,7 @@ public class PressurePlate extends Trap {
     }
 
     @Override
-    public void trigger() {
+    public void trigger(boolean trapRoom) {
         if (contactEntity == null && activated) {
             if (autoClose) {
                 activated = false;
@@ -135,9 +134,9 @@ public class PressurePlate extends Trap {
     public void setContactingEntity(Entity entity) {
         super.setContactingEntity(entity);
         if (contactEntity != null) {
-            trigger();
+            trigger(false);
         } else {
-            trigger();
+            trigger(false);
         }
     }
 }

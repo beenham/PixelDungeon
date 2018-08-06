@@ -45,7 +45,7 @@ public class TrapRoom extends Entity {
             if (!on) {
                 for (Trap trap : traps) {
                     if (trap.isTriggered()) {
-                        trap.trigger();
+                        trap.trigger(true);
                     }
                 }
                 PlayScreen.uiManager.initTextBox(Messages.TRAP_ROOM_DEACTIVATED);

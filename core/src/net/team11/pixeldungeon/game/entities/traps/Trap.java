@@ -32,7 +32,7 @@ public class Trap extends Entity {
         this.contactEntity = entity;
     }
 
-    public void trigger() {
+    public void trigger(boolean trapRoom) {
 
     }
 

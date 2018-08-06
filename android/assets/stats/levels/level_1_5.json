@@ -1,0 +1,30 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "chest_3":false,
+    "chest_4":false,
+    "chest_5":false,
+    "chest_6":false,
+    "dungeonChest":false
+  },
+  "foundItems": {},
+  "foundKeys": {
+    "Dungeon Key":false
+  },
+  "fileName":"level_1_5",
+  "levelName":"portals",
+  "targetTimes": {
+    "Time One": 120,
+    "Time Two": 240,
+    "Time Three": 480
+  },
+  "totalChests":7,
+  "totalItems":0,
+  "totalKeys":1,
+  "tutorial":false,
+  "versionNumber":1
+}

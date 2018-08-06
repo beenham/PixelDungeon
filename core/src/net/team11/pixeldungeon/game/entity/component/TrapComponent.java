@@ -13,7 +13,7 @@ public class TrapComponent implements EntityComponent {
     }
 
     public void trigger() {
-        trap.trigger();
+        trap.trigger(false);
         this.interacting = true;
         this.interactTime = 5;
     }
