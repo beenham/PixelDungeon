@@ -1,0 +1,37 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "chest_3":false,
+    "chest_4":false,
+    "chest_5":false,
+    "puzzleChest1":false,
+    "puzzleChest2":false,
+    "puzzleChest3":false,
+    "puzzleChest4":false,
+    "puzzleChest5":false,
+    "puzzleChest6":false,
+    "dungeonChest":false
+  },
+  "foundItems": {},
+  "foundKeys": {
+    "Dungeon Key":false,
+    "Chest Key":false,
+    "Door Key":false
+  },
+  "fileName":"level_1_6",
+  "levelName":"level 6",
+  "targetTimes": {
+    "Time One": 120,
+    "Time Two": 240,
+    "Time Three": 480
+  },
+  "totalChests":12,
+  "totalItems":0,
+  "totalKeys":3,
+  "tutorial":false,
+  "versionNumber":1
+}
