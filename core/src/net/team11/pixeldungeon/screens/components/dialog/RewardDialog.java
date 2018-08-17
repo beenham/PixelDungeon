@@ -22,8 +22,8 @@ public class RewardDialog extends Dialog {
         this.amount = amount;
         setDebug(debug);
 
-        setupContentTable();
         setupButtonTable();
+        setupContentTable();
         add(contentTable).pad(padding);
         add(buttonTable).pad(padding);
         setSize(PixelDungeon.V_WIDTH,PixelDungeon.V_HEIGHT);
