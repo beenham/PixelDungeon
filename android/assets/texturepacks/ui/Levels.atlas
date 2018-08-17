@@ -1,6 +1,6 @@
 
 Levels.png
-size: 512,206
+size: 614,206
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -63,6 +63,13 @@ level_1_7
 level_1_8
   rotate: false
   xy: 410, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 0
+level_1_9
+  rotate: false
+  xy: 512, 104
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
