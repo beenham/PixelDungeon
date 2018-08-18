@@ -15,7 +15,7 @@
     "Small Chest Key":false,
     "Boss Key":false
   },
-  "fileName":"test_level",
+  "fileName":"level_0_0",
   "levelName":"Testing Zone",
   "targetTimes": {
     "Time One": 180,
@@ -26,5 +26,5 @@
   "totalItems":0,
   "totalKeys":3,
   "tutorial":true,
-  "versionNumber":1
+  "versionNumber":1.1
 }

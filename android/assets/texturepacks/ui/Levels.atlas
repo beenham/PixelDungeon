@@ -4,6 +4,13 @@ size: 614,206
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+level_0_0
+  rotate: false
+  xy: 2, 104
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 0
 level_0_1
   rotate: false
   xy: 2, 2
@@ -14,6 +21,13 @@ level_0_1
 level_1_1
   rotate: false
   xy: 104, 104
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 0
+level_1_10
+  rotate: false
+  xy: 512, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
@@ -74,10 +88,3 @@ level_1_9
   orig: 100, 100
   offset: 0, 0
   index: 0
-test_level
-  rotate: false
-  xy: 2, 104
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
