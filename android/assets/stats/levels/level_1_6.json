@@ -8,6 +8,7 @@
     "chest_3":false,
     "chest_4":false,
     "chest_5":false,
+    "chest_6":false,
     "dungeon_chest":false
   },
   "foundItems": {},
@@ -27,5 +28,5 @@
   "totalItems":0,
   "totalKeys":3,
   "tutorial":false,
-  "versionNumber":0.11
+  "versionNumber":0.15
 }
