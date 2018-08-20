@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class MapManager {
@@ -50,10 +51,16 @@ public class MapManager {
         }
 
         mapList = new ArrayList<>();
+        ArrayList<Integer> mapOrder = new ArrayList<>();
         for (HashMap.Entry<Integer,HashMap<Integer,String>> mEntry : mapIndex.entrySet()) {
             for (HashMap.Entry<Integer,String> mEntry1 : mEntry.getValue().entrySet()) {
-                mapList.add(mEntry1.getValue());
+                mapOrder.add(mEntry1.getKey());
             }
+            Collections.sort(mapOrder);
+            for (int index : mapOrder) {
+                mapList.add(mEntry.getValue().get(index));
+            }
+            mapOrder = new ArrayList<>();
         }
         T11Log.error(TAG,"MapList : " + mapList);
 
