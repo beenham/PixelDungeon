@@ -23,6 +23,8 @@ public class DungeonDoor extends Door {
             if (player.getComponent(InventoryComponent.class).hasItem(doorKey)) {
                 setOpened(true);
                 player.getComponent(InventoryComponent.class).removeItem(doorKey);
+                String message = Messages.DOOR_USED_DUNGEON_KEY;
+                PlayScreen.uiManager.initTextBox(message);
             } else {
                 String message = Messages.DOOR_NEED_DUNGEON_KEY;
                 PlayScreen.uiManager.initTextBox(message);
