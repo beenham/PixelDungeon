@@ -1,0 +1,26 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "dungeon_chest":false
+  },
+  "foundItems": {},
+  "foundKeys": {
+    "Dungeon Key":false
+  },
+  "fileName":"level_1_7",
+  "levelName":"level 7",
+  "targetTimes": {
+    "Time One": 90,
+    "Time Two": 180,
+    "Time Three": 240
+  },
+  "totalChests":3,
+  "totalItems":0,
+  "totalKeys":1,
+  "tutorial":false,
+  "versionNumber":0.17
+}
