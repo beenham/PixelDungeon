@@ -8,23 +8,28 @@
     "chest_3":false,
     "chest_4":false,
     "chest_5":false,
-    "dungeon_chest":false
+    "chest_6":false,
+    "chest_7":false,
+    "chest_8":false,
+    "chest_9":false,
+    "dungeonChest":false
   },
   "foundItems": {},
   "foundKeys": {
-    "Dungeon Key":false,
-    "Door Key":false
+    "Chest Key":false,
+    "Door Key":false,
+    "Dungeon Key":false
   },
-  "fileName":"level_1_3",
-  "levelName":"level 3",
+  "fileName":"level_1_13",
+  "levelName":"level 13",
   "targetTimes": {
     "Time One": 120,
     "Time Two": 240,
     "Time Three": 480
   },
-  "totalChests":6,
+  "totalChests":10,
   "totalItems":0,
-  "totalKeys":2,
+  "totalKeys":3,
   "tutorial":false,
-  "versionNumber":0.4
+  "versionNumber":1
 }

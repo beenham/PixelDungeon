@@ -10,7 +10,6 @@ import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.Util;
 import net.team11.pixeldungeon.utils.assets.Messages;
 import net.team11.pixeldungeon.utils.stats.AchivementStats;
-import net.team11.pixeldungeon.utils.stats.StatsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,14 +194,14 @@ public class Puzzle {
         if (completed) {
             for (Entity entity : onCompleteEntities) {
                 if (entity instanceof Trap) {
-                    ((Trap) entity).trigger();
+                    ((Trap) entity).trigger(false);
                 } else {
                     entity.doInteraction(false);
                 }
             }
             for (Entity entity : onActivateEntities) {
                 if (entity instanceof Trap) {
-                    ((Trap) entity).trigger();
+                    ((Trap) entity).trigger(false);
                 } else {
                     entity.doInteraction(false);
                 }
@@ -210,7 +209,7 @@ public class Puzzle {
         } else if (getRemainingAttempts() > 0) {
             for (Entity entity : onActivateEntities) {
                 if (entity instanceof Trap) {
-                    ((Trap) entity).trigger();
+                    ((Trap) entity).trigger(false);
                 } else {
                     entity.doInteraction(false);
                 }
@@ -218,7 +217,7 @@ public class Puzzle {
         } else {
             for (Entity entity : onFailEntities) {
                 if (entity instanceof Trap) {
-                    ((Trap) entity).trigger();
+                    ((Trap) entity).trigger(false);
                 } else {
                     entity.doInteraction(false);
                 }

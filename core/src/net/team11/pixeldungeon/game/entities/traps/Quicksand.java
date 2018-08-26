@@ -84,14 +84,14 @@ public class Quicksand extends Trap {
                 setContactingEntity(null);
             }
             if (super.timer <= 0f) {
-                trigger();
+                trigger(false);
             }
         }
     }
 
     //Method called when the player enters the quicksand bounds
     @Override
-    public void trigger(){
+    public void trigger(boolean trapRoom){
         triggered = true;
         ((Player)contactEntity).setDepth(Player.PlayerDepth.FOUR_QUART);
         HealthComponent health = contactEntity.getComponent(HealthComponent.class);

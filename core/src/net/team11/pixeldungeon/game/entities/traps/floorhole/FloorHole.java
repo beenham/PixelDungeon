@@ -8,10 +8,7 @@ import net.team11.pixeldungeon.game.entities.player.Player;
 import net.team11.pixeldungeon.game.entities.traps.Trap;
 import net.team11.pixeldungeon.game.entity.component.BodyComponent;
 import net.team11.pixeldungeon.game.entity.component.TrapComponent;
-import net.team11.pixeldungeon.game.entitysystem.Entity;
 import net.team11.pixeldungeon.utils.CollisionUtil;
-
-import java.util.List;
 
 public class FloorHole extends Trap {
     public FloorHole(String name, ChainShape bounds) {
@@ -33,14 +30,14 @@ public class FloorHole extends Trap {
         if (CollisionUtil.getAmountSubmerged(hitBox, entityBox) >= .5f) {
             setContactingEntity(player);
             if (!triggered) {
-                trigger();
+                trigger(false);
             }
         }
     }
 
     //Method called when the player enters the quicksand bounds
     @Override
-    public void trigger(){
+    public void trigger(boolean trapRoom){
         if (!triggered && contactEntity instanceof Player) {
             ((Player) contactEntity).startFalling(this);
         }

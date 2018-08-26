@@ -1,0 +1,35 @@
+{
+  "attempts":0,
+  "bestTime":3599,
+  "completed":0,
+  "foundChests": {
+    "chest_1":false,
+    "chest_2":false,
+    "chest_3":false,
+    "chest_4":false,
+    "chest_5":false,
+    "dungeonChest":false,
+    "puzzleChest_1":false,
+    "puzzleChest_2":false,
+    "puzzleChest_3":false,
+    "puzzleChest_4":false
+  },
+  "foundItems": {},
+  "foundKeys": {
+    "Small Key":false,
+    "Door Key":false,
+    "Dungeon Key":false
+  },
+  "fileName":"level_1_3",
+  "levelName":"level_1_3",
+  "targetTimes": {
+    "Time One": 330,
+    "Time Two": 390,
+    "Time Three": 450
+  },
+  "totalChests":10,
+  "totalItems":0,
+  "totalKeys":3,
+  "tutorial":false,
+  "versionNumber":1
+}

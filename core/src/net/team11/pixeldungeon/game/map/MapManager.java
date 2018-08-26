@@ -14,6 +14,7 @@ import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class MapManager {
@@ -29,17 +30,39 @@ public class MapManager {
     private MapManager() {
         currentMap = null;
         maps = new HashMap<>();
-        mapList = new ArrayList<>();
+        HashMap<Integer, HashMap<Integer,String>> mapIndex = new HashMap<>();
 
         FileHandle mapFolder = Gdx.files.internal("levels");
         for (FileHandle entry : mapFolder.list()) {
             if (entry.toString().endsWith(".tmx")) {
                 T11Log.error(TAG, "LOADING FILE: " + entry.toString());
                 Map map = new Map(entry.toString());
+                String mapName = map.getMapName();
+                int set = Integer.valueOf(mapName.substring(mapName.indexOf("_") + 1,mapName.lastIndexOf("_")));
+                int index = Integer.valueOf(mapName.substring(mapName.lastIndexOf("_") + 1,mapName.length()));
+                if (mapIndex.containsKey(set)) {
+                    mapIndex.get(set).put(index,mapName);
+                } else {
+                    mapIndex.put(set,new HashMap<Integer, String>());
+                    mapIndex.get(set).put(index,mapName);
+                }
                 maps.put(map.getMapName(), map);
-                mapList.add(map.getMapName());
             }
         }
+
+        mapList = new ArrayList<>();
+        ArrayList<Integer> mapOrder = new ArrayList<>();
+        for (HashMap.Entry<Integer,HashMap<Integer,String>> mEntry : mapIndex.entrySet()) {
+            for (HashMap.Entry<Integer,String> mEntry1 : mEntry.getValue().entrySet()) {
+                mapOrder.add(mEntry1.getKey());
+            }
+            Collections.sort(mapOrder);
+            for (int index : mapOrder) {
+                mapList.add(mEntry.getValue().get(index));
+            }
+            mapOrder = new ArrayList<>();
+        }
+        T11Log.error(TAG,"MapList : " + mapList);
 
         loadMap(TiledMapNames.LEVEL_TUTORIAL);
     }

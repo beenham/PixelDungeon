@@ -679,7 +679,7 @@ public class TiledObjectUtil {
         List<Entity> targetEntities = new ArrayList<>();
         for (String target : currEntity.getTargets()) {
             for (Entity entity : engine.getEntities()) {
-                if (entity.getName().equals(target)) {
+                if (entity.getName() != null && entity.getName().equals(target)) {
                     targetEntities.add(entity);
                 }
             }
