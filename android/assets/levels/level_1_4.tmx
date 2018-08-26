@@ -937,7 +937,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff9500" name="blocks">
+ <objectgroup color="#ff9500" name="blocks" visible="0">
   <object id="46" name="pressure" x="728" y="1082" width="16" height="11">
    <properties>
     <property name="activeTime" type="float" value="3"/>
@@ -1379,7 +1379,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff0000" name="traps">
+ <objectgroup color="#ff0000" name="traps" visible="0">
   <properties>
    <property name="entity" value="trapRoom"/>
   </properties>
@@ -2921,76 +2921,76 @@
   </object>
  </objectgroup>
  <objectgroup color="#002eff" name="doors">
-  <object id="206" name="dungeonDoor" x="787" y="368" width="26" height="16">
+  <object id="206" name="dungeonDoor" x="787" y="381" width="26" height="3">
    <properties>
     <property name="doorType" value="DUNGEON"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="207" name="doorPillarRight" x="813" y="368" width="3" height="16">
+  <object id="207" name="doorPillarRight" x="813" y="381" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="208" name="doorPillarLeft" x="784" y="368" width="3" height="16">
+  <object id="208" name="doorPillarLeft" x="784" y="381" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="209" name="doorPillarLeft" x="784" y="880" width="3" height="16">
+  <object id="209" name="doorPillarLeft" x="784" y="893" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="210" name="doorPillarRight" x="813" y="880" width="3" height="16">
+  <object id="210" name="doorPillarRight" x="813" y="893" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="211" name="mechanicDoor_3" x="787" y="880" width="26" height="16">
+  <object id="211" name="mechanicDoor_3" x="787" y="893" width="26" height="3">
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="212" name="doorPillarLeft" x="624" y="1024" width="3" height="16">
+  <object id="212" name="doorPillarLeft" x="624" y="1037" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="213" name="doorPillarRight" x="653" y="1024" width="3" height="16">
+  <object id="213" name="doorPillarRight" x="653" y="1037" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="214" name="mechanicDoor_1" x="627" y="1024" width="26" height="16">
+  <object id="214" name="mechanicDoor_1" x="627" y="1037" width="26" height="3">
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="215" name="doorPillarLeft" x="944" y="1024" width="3" height="16">
+  <object id="215" name="doorPillarLeft" x="944" y="1037" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="216" name="doorPillarRight" x="973" y="1024" width="3" height="16">
+  <object id="216" name="doorPillarRight" x="973" y="1037" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="217" name="mechanicDoor_2" x="947" y="1024" width="26" height="16">
+  <object id="217" name="mechanicDoor_2" x="947" y="1037" width="26" height="3">
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
@@ -2998,7 +2998,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#2ecbbe" name="collision" locked="1">
+ <objectgroup color="#2ecbbe" name="collision" visible="0" locked="1">
   <object id="188" x="784" y="208">
    <polyline points="0,0 0,64 -32,64 -32,144 0,144 0,176 -32,176 -32,336 0,336 0,368 -64,368 -64,400 -128,400 -128,240 -320,240 -320,464 -128,464 -128,432 -64,432 -64,464 0,464 0,496 -96,496 -96,528 -160,528 -160,624 -320,624 -320,816 -256,816 -256,960 -160,960 -160,1120 192,1120 192,960 288,960 288,816 352,816 352,624 192,624 192,528 128,528 128,496 32,496 32,464 96,464 96,432 160,432 160,464 352,464 352,240 160,240 160,400 96,400 96,368 32,368 32,336 64,336 64,176 32,176 32,144 64,144 64,64 32,64 32,0 0,0"/>
   </object>
@@ -3030,7 +3030,7 @@
    <polyline points="0,0 0,32 160,32 160,0 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points">
+ <objectgroup color="#ffffff" name="points" visible="0">
   <object id="1" name="mapExitPoint" x="784" y="208" width="32" height="16">
    <properties>
     <property name="entity" value="trapRoom"/>
@@ -3042,7 +3042,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#04ff00" name="puzzle">
+ <objectgroup color="#04ff00" name="puzzle" visible="0">
   <object id="185" name="boxPuzzle_1" x="720" y="960">
    <properties>
     <property name="onComplete" value="mechanicDoor_3"/>

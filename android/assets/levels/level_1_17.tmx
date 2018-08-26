@@ -1387,7 +1387,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff0000" name="traps">
+ <objectgroup color="#ff0000" name="traps" visible="0">
   <object id="9" name="room3" x="1600" y="1216">
    <properties>
     <property name="entity" value="trapRoom"/>
@@ -3006,7 +3006,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff9500" name="blocks">
+ <objectgroup color="#ff9500" name="blocks" visible="0">
   <object id="22" name="portalExit" x="944" y="896" width="32" height="16">
    <properties>
     <property name="entity" value="portalExit"/>
@@ -3434,84 +3434,84 @@
   </object>
  </objectgroup>
  <objectgroup color="#002eff" name="doors">
-  <object id="172" name="mechanicDoor_1" x="947" y="1696" width="26" height="16">
+  <object id="172" name="mechanicDoor_1" x="947" y="1709" width="26" height="3">
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="173" name="doorPillarRight" x="973" y="1696" width="3" height="16">
+  <object id="173" name="doorPillarRight" x="973" y="1709" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="174" name="doorPillarLeft" x="944" y="1696" width="3" height="16">
+  <object id="174" name="doorPillarLeft" x="944" y="1709" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="175" name="doorPillarLeft" x="752" y="1808" width="3" height="16">
+  <object id="175" name="doorPillarLeft" x="752" y="1821" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="176" name="doorPillarRight" x="781" y="1808" width="3" height="16">
+  <object id="176" name="doorPillarRight" x="781" y="1821" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="177" name="mechanicDoor_2" x="755" y="1808" width="26" height="16">
+  <object id="177" name="mechanicDoor_2" x="755" y="1821" width="26" height="3">
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="203" name="doorPillarLeft" x="944" y="1344" width="3" height="16">
+  <object id="203" name="doorPillarLeft" x="944" y="1357" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
-  <object id="204" name="doorPillarRight" x="973" y="1344" width="3" height="16">
+  <object id="204" name="doorPillarRight" x="973" y="1357" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="205" name="mechanicDoor_3" x="947" y="1344" width="26" height="16">
+  <object id="205" name="mechanicDoor_3" x="947" y="1357" width="26" height="3">
    <properties>
     <property name="doorType" value="MECHANIC"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="217" name="dungeonDoor" x="947" y="736" width="26" height="16">
+  <object id="217" name="dungeonDoor" x="947" y="749" width="26" height="3">
    <properties>
     <property name="doorType" value="DUNGEON"/>
     <property name="entity" value="door"/>
     <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="218" name="doorPillarRight" x="973" y="736" width="3" height="16">
+  <object id="218" name="doorPillarRight" x="973" y="749" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameRight"/>
    </properties>
   </object>
-  <object id="219" name="doorPillarLeft" x="944" y="736" width="3" height="16">
+  <object id="219" name="doorPillarLeft" x="944" y="749" width="3" height="3">
    <properties>
     <property name="entity" value="doorPillar"/>
     <property name="texture" value="doorFrameLeft"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#2ecbbe" name="collision">
+ <objectgroup color="#2ecbbe" name="collision" visible="0">
   <object id="3" x="544" y="1728">
    <polyline points="0,0 -16,0 -16,160 240,160 240,64 336,64 336,96 256,96 256,160 448,160 448,0 432,0 432,-64 496,-64 496,-192 512,-192 512,-112 544,-112 544,-128 560,-128 624,-128 624,-64 784,-64 784,-224 624,-224 624,-160 576,-160 544,-160 544,-192 560,-192 560,-224 544,-224 544,-272 816,-272 816,-256 880,-256 880,-320 864,-320 864,-368 928,-368 928,-320 912,-320 912,-256 976,-256 976,-272 1072,-272 1072,-80 1360,-80 1360,-496 1072,-496 1072,-304 976,-304 976,-320 960,-320 960,-368 976,-368 976,-464 912,-464 912,-512 976,-512 976,-672 816,-672 816,-608 784,-608 784,-736 720,-736 720,-768 816,-768 816,-1024 592,-1024 592,-928 528,-928 512,-928 512,-976 432,-976 432,-1056 400,-1056 400,-976 320,-976 320,-928 272,-928 272,-1024 48,-1024 48,-768 144,-768 144,-640 240,-640 240,-608 336,-608 336,-704 240,-704 240,-672 176,-672 176,-768 272,-768 272,-896 320,-896 320,-848 400,-848 400,-816 432,-816 432,-848 512,-848 512,-896 592,-896 592,-768 688,-768 688,-704 752,-704 752,-672 592,-672 592,-704 496,-704 496,-608 592,-608 592,-640 752,-640 752,-576 816,-576 816,-512 880,-512 880,-480 880,-464 816,-464 816,-368 832,-368 832,-320 816,-320 816,-304 512,-304 512,-224 496,-224 496,-240 464,-240 464,-224 432,-224 432,-288 464,-288 464,-368 448,-368 432,-368 432,-384 656,-384 656,-464 624,-464 624,-512 592,-512 592,-464 560,-464 560,-512 528,-512 528,-464 496,-464 496,-512 464,-512 464,-464 432,-464 432,-512 608,-512 608,-560 592,-560 592,-608 560,-608 560,-560 528,-560 528,-608 496,-608 496,-560 480,-560 480,-608 464,-608 464,-656 432,-656 432,-608 400,-608 400,-656 368,-656 368,-608 352,-608 352,-560 336,-560 336,-608 304,-608 304,-560 272,-560 272,-608 240,-608 240,-560 224,-560 224,-512 400,-512 400,-464 368,-464 368,-512 336,-512 336,-464 304,-464 304,-496 304,-512 272,-512 272,-464 240,-464 240,-512 208,-512 208,-464 176,-464 176,-384 400,-384 400,-368 368,-368 368,-288 400,-288 400,-224 368,-224 368,-240 336,-240 336,-224 320,-224 320,-304 128,-304 128,-96 96,-96 96,-224 0,-224 0,0"/>
   </object>
@@ -3531,7 +3531,7 @@
    <polyline points="0,0 -16,0 -16,16 0,16 0,32 32,32 32,48 320,48 320,32 352,32 352,16 368,16 368,0 352,0 352,-48 320,-48 320,0 288,0 288,-48 272,-48 272,-96 240,-96 240,-48 208,-48 208,-64 192,-64 192,-112 160,-112 160,-64 144,-64 144,-48 112,-48 112,-96 80,-96 80,-48 64,-48 64,0 32,0 32,-48 0,-48 0,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffffff" name="points">
+ <objectgroup color="#ffffff" name="points" visible="0">
   <object id="1" name="mapExitPoint" x="928" y="672" width="64" height="32">
    <properties>
     <property name="entity" value="trapRoom"/>
@@ -3543,7 +3543,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#04ff00" name="puzzle">
+ <objectgroup color="#04ff00" name="puzzle" visible="0">
   <object id="21" name="portals_1" x="768" y="560">
    <properties>
     <property name="maxAttempts" type="int" value="3"/>
