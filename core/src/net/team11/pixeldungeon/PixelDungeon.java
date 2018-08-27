@@ -12,7 +12,7 @@ public class PixelDungeon extends DirectedGame {
     public static int V_WIDTH;
     public static int V_HEIGHT;
     public static float SCALAR;
-    public static final String VERSION = "Beta 0.1";
+    public static final String VERSION = "Beta 0.2";
 	public SpriteBatch batch;
 
 	private static PixelDungeon INSTANCE;
