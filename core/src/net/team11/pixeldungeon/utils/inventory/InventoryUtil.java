@@ -26,7 +26,7 @@ public class InventoryUtil {
             if (file.toString().endsWith(".json")) {
                 Skin skin = json.fromJson(Skin.class,file);
                 list.put(skin.getId(),skin);
-                T11Log.error("InvenUtil","Added " + skin.getDisplayName() + " (" + skin.getName() + "), at " + skin.getId());
+                //T11Log.error("InvenUtil","Added " + skin.getDisplayName() + " (" + skin.getName() + "), at " + skin.getId());
             }
         }
         return list;

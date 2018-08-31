@@ -13,6 +13,7 @@ public class AssetName {
     public static final String PLAYER_ICON = "playerButton";
     public static final String COIN_BUTTON = "freeCoin";
 
+    public static final String ITEM_LOCKED = "itemLock";
     public static final String UI_SLOT = "itemSlot";
     public static final String UI_SCROLLPANE = "scrollPane";
     public static final String DARKEN_0 = "darken0";

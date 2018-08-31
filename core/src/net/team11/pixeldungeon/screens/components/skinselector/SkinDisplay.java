@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 import net.team11.pixeldungeon.inventory.skinselect.Skin;
+import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 import net.team11.pixeldungeon.utils.inventory.InventoryUtil;
 
@@ -20,7 +21,7 @@ public class SkinDisplay extends Table {
 
         add(skinStack = setupSkinSlot()).size(size);
         setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
-                Assets.HUD).createPatch("itemSlot")));
+                Assets.HUD).createPatch(AssetName.UI_SLOT)));
     }
 
     private Stack setupSkinSlot() {
@@ -31,7 +32,7 @@ public class SkinDisplay extends Table {
         Stack skinStack = new Stack();
         skinStack.add(iconTable);
         if (!InventoryUtil.getInstance().getSkinSet().hasSkin(skin.getName())) {
-            Image lock = new Image(Assets.getInstance().getTextureSet(Assets.HUD).findRegion("itemLock"));
+            Image lock = new Image(Assets.getInstance().getTextureSet(Assets.HUD).findRegion(AssetName.ITEM_LOCKED));
             Table lockTable = new Table();
             lockTable.add(lock).size(size/2).expand().fill().bottom().right();
             skinStack.add(lockTable);

@@ -101,17 +101,14 @@ public class Util {
                     }
                     currentSave.setSkinList(skinList);
                 }
-
-                saveGame(currentSave);
-
                 GlobalStats gStats = json.fromJson(GlobalStats.class, Gdx.files.internal(GLOBAL_STATS_PATH));
-
                 if (currentSave.getGlobalStats().getVersion() < gStats.getVersion()) {
                     currentSave.getGlobalStats().updateVersion(gStats.getVersion());
                     if (gStats.shouldClear()) {
                         clearLocal();
                         PixelDungeon.getInstance().getAndroidInterface().deleteSave();
                         createLocalSave(json);
+                        PixelDungeon.getInstance().getAndroidInterface().overwriteSave(currentSave);
                     }
                 }
                 PixelDungeon.getInstance().getAndroidInterface().saveGame();
@@ -124,6 +121,8 @@ public class Util {
         } else {
             createLocalSave(json);
         }
+
+        saveGame(currentSave);
 
         statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
         inventoryUtil = InventoryUtil.getInstance();
@@ -210,7 +209,6 @@ public class Util {
         if (currentSave.getGlobalStats().shouldClear()) {
             currentSave.getGlobalStats().setCleared();
         }
-        saveGame(currentSave);
     }
 
 

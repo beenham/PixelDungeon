@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import net.team11.pixeldungeon.PixelDungeon;
 import net.team11.pixeldungeon.game.items.Item;
+import net.team11.pixeldungeon.utils.assets.AssetName;
 import net.team11.pixeldungeon.utils.assets.Assets;
 
 public class InventorySlot extends Table {
@@ -12,7 +13,7 @@ public class InventorySlot extends Table {
     public InventorySlot() {
         add().size(size);
         setBackground(new NinePatchDrawable(Assets.getInstance().getTextureSet(
-                Assets.HUD).createPatch("itemSlot")));
+                Assets.HUD).createPatch(AssetName.UI_SLOT)));
     }
 
     public void setItem(Item item) {
