@@ -21,8 +21,8 @@ android {
         applicationId "net.team11.pixeldungeon"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6
-        versionName "Pixel Dungeon - Beta-0.2.2"
+        versionCode 7
+        versionName "Pixel Dungeon - Beta-0.2.3"
     }
     buildTypes {
         release {

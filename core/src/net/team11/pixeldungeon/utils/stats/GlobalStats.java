@@ -3,6 +3,9 @@ package net.team11.pixeldungeon.utils.stats;
 import java.util.Locale;
 
 public class GlobalStats {
+    private float versionNumber;
+    private boolean clear;
+
     private int totalAttempts;
     private int totalChestsFound;
     private int totalCoins;
@@ -67,6 +70,18 @@ public class GlobalStats {
         return totalPuzzleCompleted;
     }
 
+    public float getVersion() {
+        return versionNumber;
+    }
+
+    public boolean shouldClear() {
+        return clear;
+    }
+
+    public void setCleared() {
+        clear = false;
+    }
+
     ////////////////////
     //  Incrementers  //
     ////////////////////
@@ -125,6 +140,10 @@ public class GlobalStats {
 
     public void addCurrentCoins(int coins) {
         currentCoins += coins;
+    }
+
+    public void updateVersion(float versionNumber) {
+        this.versionNumber = versionNumber;
     }
 
     @Override
