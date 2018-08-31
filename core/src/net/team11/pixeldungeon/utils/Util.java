@@ -33,7 +33,7 @@ public class Util {
     private static final String LEVEL_STATS_PATH = "stats/levels";
 
     public static final String PLAYER_SAVE_PATH = "saves/player/SaveGame.json";
-    public static final String LOCAL_SAVE_PATH = "saves/local/SaveGame.json";
+    private static final String LOCAL_SAVE_PATH = "saves/local/SaveGame.json";
 
     private StatsUtil statsUtil;
     private InventoryUtil inventoryUtil;
@@ -52,7 +52,6 @@ public class Util {
     }
 
     private Util() {
-        //PixelDungeon.getInstance().getAndroidInterface().deleteSave();
         loadGame();
     }
 
@@ -72,52 +71,58 @@ public class Util {
 
         //  Checking if save directory exists
         if (saveLocation.exists()) {
-            T11Log.error(TAG,"Save file exists, Loading");
-            currentSave = json.fromJson(SaveGame.class, saveLocation);
-            HashMap<String, LevelStats> levelStats = currentSave.getLevelStatsHashMap();
+            try {
+                T11Log.error(TAG, "Save file exists, Loading");
+                currentSave = json.fromJson(SaveGame.class, saveLocation);
+                HashMap<String, LevelStats> levelStats = currentSave.getLevelStatsHashMap();
 
-            //Check to see if any more levels have been added
-            for (FileHandle file : Gdx.files.internal(LEVEL_STATS_PATH).list()) {
-                LevelStats internalStats = json.fromJson(LevelStats.class, file);
-                if (!levelStats.containsKey(file.nameWithoutExtension())) {
-                    levelStats.put(internalStats.getFileName(), internalStats);
-                } else {
-                    LevelStats localStats = levelStats.get(internalStats.getFileName());
-                    if (internalStats.getVersionNumber() > localStats.getVersionNumber()) {
-                        localStats.update(internalStats);
+                //Check to see if any more levels have been added
+                for (FileHandle file : Gdx.files.internal(LEVEL_STATS_PATH).list()) {
+                    LevelStats internalStats = json.fromJson(LevelStats.class, file);
+                    if (!levelStats.containsKey(file.nameWithoutExtension())) {
+                        levelStats.put(internalStats.getFileName(), internalStats);
+                    } else {
+                        LevelStats localStats = levelStats.get(internalStats.getFileName());
+                        if (internalStats.getVersionNumber() > localStats.getVersionNumber()) {
+                            localStats.update(internalStats);
+                        }
                     }
                 }
-            }
 
-            currentSave.setLevelStatsHashMap(levelStats);
+                currentSave.setLevelStatsHashMap(levelStats);
 
-            //Check to see if any more skins have been added
-            SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal(SKIN_LIST_PATH));
-            SkinList savedSkinList = currentSave.getSkinList();
+                //Check to see if any more skins have been added
+                SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal(SKIN_LIST_PATH));
+                SkinList savedSkinList = currentSave.getSkinList();
 
-            if (savedSkinList.getVersion() < skinList.getVersion()) {
-                for (String skin : skinList.getSkinList()) {
-                    skinList.setSkin(skin, savedSkinList.hasSkin(skin));
+                if (savedSkinList.getVersion() < skinList.getVersion()) {
+                    for (String skin : skinList.getSkinList()) {
+                        skinList.setSkin(skin, savedSkinList.hasSkin(skin));
+                    }
+                    currentSave.setSkinList(skinList);
                 }
-                currentSave.setSkinList(skinList);
+
+                saveGame(currentSave);
+
+                GlobalStats gStats = json.fromJson(GlobalStats.class, Gdx.files.internal(GLOBAL_STATS_PATH));
+
+                if (currentSave.getGlobalStats().getVersion() < gStats.getVersion()) {
+                    currentSave.getGlobalStats().updateVersion(gStats.getVersion());
+                    if (gStats.shouldClear()) {
+                        clearLocal();
+                        PixelDungeon.getInstance().getAndroidInterface().deleteSave();
+                        createLocalSave(json);
+                    }
+                }
+                PixelDungeon.getInstance().getAndroidInterface().saveGame();
+            } catch (Exception e) {
+                T11Log.error(TAG,e.getMessage());
+                T11Log.info(TAG,"Creating new save.");
+                createLocalSave(json);
+                PixelDungeon.getInstance().getAndroidInterface().overwriteSave(currentSave);
             }
-
-            saveGame(currentSave);
-            PixelDungeon.getInstance().getAndroidInterface().saveGame();
-        } else {    //  Create new save directory
-            T11Log.error(TAG,"No save file");
-
-            HashMap<String, LevelStats> levelStats = new HashMap<>();
-            for (FileHandle file : Gdx.files.internal(LEVEL_STATS_PATH).list()) {
-                LevelStats stats = json.fromJson(LevelStats.class, file);
-                levelStats.put(stats.getFileName(), stats);
-            }
-
-            GlobalStats globalStats = json.fromJson(GlobalStats.class, Gdx.files.internal(GLOBAL_STATS_PATH));
-            SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal(SKIN_LIST_PATH));
-
-            currentSave = new SaveGame(levelStats, globalStats, skinList, getTimeStamp());
-            saveGame(currentSave);
+        } else {
+            createLocalSave(json);
         }
 
         statsUtil = new StatsUtil(currentSave.getLevelStatsHashMap(), currentSave.getGlobalStats());
@@ -187,6 +192,27 @@ public class Util {
             },1.5f);
         }
     }
+
+    private void createLocalSave(Json json) {    //  Create new save directory
+        T11Log.error(TAG,"No save file");
+
+        HashMap<String, LevelStats> levelStats = new HashMap<>();
+        for (FileHandle file : Gdx.files.internal(LEVEL_STATS_PATH).list()) {
+            LevelStats stats = json.fromJson(LevelStats.class, file);
+            levelStats.put(stats.getFileName(), stats);
+        }
+
+        GlobalStats globalStats = json.fromJson(GlobalStats.class, Gdx.files.internal(GLOBAL_STATS_PATH));
+        SkinList skinList = json.fromJson(SkinList.class, Gdx.files.internal(SKIN_LIST_PATH));
+
+        currentSave = new SaveGame(levelStats, globalStats, skinList, getTimeStamp());
+
+        if (currentSave.getGlobalStats().shouldClear()) {
+            currentSave.getGlobalStats().setCleared();
+        }
+        saveGame(currentSave);
+    }
+
 
     public static void clearLocal() {
         Gdx.files.local("").deleteDirectory();
