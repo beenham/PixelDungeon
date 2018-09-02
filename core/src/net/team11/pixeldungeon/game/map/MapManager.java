@@ -9,6 +9,8 @@ import net.team11.pixeldungeon.game.entitysystem.EntityEngine;
 import net.team11.pixeldungeon.game.puzzles.Puzzle;
 import net.team11.pixeldungeon.screens.screens.PlayScreen;
 import net.team11.pixeldungeon.utils.T11Log;
+import net.team11.pixeldungeon.utils.Util;
+import net.team11.pixeldungeon.utils.stats.LevelStats;
 import net.team11.pixeldungeon.utils.tiled.TiledMapLayers;
 import net.team11.pixeldungeon.utils.tiled.TiledMapNames;
 import net.team11.pixeldungeon.utils.tiled.TiledObjectUtil;
@@ -25,7 +27,7 @@ public class MapManager {
     private HashMap<String, Map> maps;
     private Map currentMap;
     private OrthogonalTiledMapRenderer renderer;
-    private ArrayList<String> mapList;
+    private HashMap<Integer,ArrayList<String>> mapList;
 
     private MapManager() {
         currentMap = null;
@@ -50,16 +52,18 @@ public class MapManager {
             }
         }
 
-        mapList = new ArrayList<>();
+        mapList = new HashMap<>();
         ArrayList<Integer> mapOrder = new ArrayList<>();
         for (HashMap.Entry<Integer,HashMap<Integer,String>> mEntry : mapIndex.entrySet()) {
             for (HashMap.Entry<Integer,String> mEntry1 : mEntry.getValue().entrySet()) {
                 mapOrder.add(mEntry1.getKey());
             }
             Collections.sort(mapOrder);
+            ArrayList<String> list = new ArrayList<>();
             for (int index : mapOrder) {
-                mapList.add(mEntry.getValue().get(index));
+                list.add(mEntry.getValue().get(index));
             }
+            mapList.put(mEntry.getKey(),list);
             mapOrder = new ArrayList<>();
         }
         T11Log.error(TAG,"MapList : " + mapList);
@@ -148,25 +152,67 @@ public class MapManager {
     }
 
     public Map getFirstMap() {
-        return maps.get(mapList.get(0));
+        return maps.get(mapList.get(0).get(0));
     }
 
     public Map getPrevious(String map) {
-        int index = mapList.indexOf(map);
+        int set = 0;
+        for (int i : mapList.keySet()) {
+            if (mapList.get(i).contains(map)) {
+                set = i;
+                break;
+            }
+        }
+
+        HashMap<String,LevelStats> stats = Util.getInstance().getStatsUtil().getLevelStats();
+        int index = mapList.get(set).indexOf(map);
         index--;
         if (index < 0) {
-            index = mapList.size() - 1;
+            set--;
+            if (set < 0) {
+                set = mapList.size()-1;
+            }
+            index = mapList.get(set).size()-1;
+            if (mapList.get(set).size() > 1) {
+                LevelStats lStats = stats.get(mapList.get(set).get(index - 1));
+                while (index > 0 && lStats.getCompleted() == 0) {
+                    index--;
+                    lStats = stats.get(mapList.get(set).get(index - 1));
+                }
+            }
         }
-        return maps.get(mapList.get(index));
+        return maps.get(mapList.get(set).get(index));
     }
 
     public Map getNext(String map) {
-        int index = mapList.indexOf(map);
-        index++;
-        if (index == mapList.size()) {
+        int set = 0;
+        for (int i : mapList.keySet()) {
+            if (mapList.get(i).contains(map)) {
+                set = i;
+                break;
+            }
+        }
+
+        HashMap<String,LevelStats> stats = Util.getInstance().getStatsUtil().getLevelStats();
+        int index = mapList.get(set).indexOf(map);
+        LevelStats lStats = stats.get(mapList.get(set).get(index));
+        if (!lStats.isTutorial()) {
+            if (lStats.getCompleted() > 0) {
+                index++;
+            } else {
+                index = mapList.get(set).size();
+            }
+        } else {
+            index++;
+        }
+        if (index == mapList.get(set).size()) {
+            set++;
+            if (set == mapList.size()) {
+                set = 0;
+            }
             index = 0;
         }
-        return maps.get(mapList.get(index));
+        return maps.get(mapList.get(set).get(index));
     }
 
     public void reset() {
