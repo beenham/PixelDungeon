@@ -18,7 +18,7 @@ This brings a sense of challenge and life to the game when competing for the top
 
 ## Showcase
 ### Video
-[![Alt text](https://img.youtube.com/vi/788FyY4XE7E/0.jpg)](https://www.youtube.com/watch?v=788FyY4XE7E "Pixel Dungeon Showcase Video")
+[![Alt text](https://img.youtube.com/vi/788FyY4XE7E/0.jpg)](https://youtu.be/3GbatIXt_38 "Pixel Dungeon Showcase Video")
 
 ### Screenshots
 ![alt text](https://github.com/DeBattlinBeen/PixelDungeon/blob/master/screenshots/screenshot_1.png)
