@@ -1,7 +1,7 @@
 # Pixel Dungeon
 A dungeon-crawler game in a pixel art style created for android mobile.
 
-Pixel Dungeon was a passion project made by a team of two Irish students, [@Conor Beenham](https://github.com/beenham) and [@JackG049](https://github.com/JackG049), studying Computer Science.
+Pixel Dungeon was a passion project made by a team of two Irish students, [@Conor Beenham](https://github.com/beenham) and [@Jack Geraghty](https://github.com/JackGeraghty), studying Computer Science.
 The app has not yet been fully released due to the return of the semester, but will continued to be worked on in our spare time!
 
 ## What is it?
